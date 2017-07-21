@@ -130,7 +130,7 @@ get_next_line.o
 
 INC = ./includes/
 
-CC = gcc -Werror -Wall -Wextra
+CC = gcc -Werror -Wall -Wextra -fsanitize=address -g
 
 all : $(NAME)
 

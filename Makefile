@@ -1,4 +1,5 @@
-# **************************************************************************** #
+#
+#**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -18,7 +19,7 @@ LIBS = libft/libft.a
 
 NAME = rtv1
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 all: $(NAME)
 
@@ -28,8 +29,8 @@ $(NAME):
 	make -C ./libft
 	make -C ./minilibx_macos
 	gcc $(FLAGS) -c $(SRCS)
-	#gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
-	gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit -I minilibx_macos ./minilibx_macos/libmlx.a
+	gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+	#gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit -I minilibx_macos ./minilibx_macos/libmlx.a
 clean:
 	rm -f $(OBJ)
 	make -C ./libft clean
