@@ -64,3 +64,15 @@ char		**ft_strsplit(char const *s, char c)
 	tab[a] = NULL;
 	return (tab);
 }
+
+char	*ft_strjoin_free(char *s1, char *s2, char mode)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
+	if (mode == FRST || mode == BOTH)
+		free(s1);
+	if (mode == SCND || mode == BOTH)
+		free(s2);
+	return (str);
+}

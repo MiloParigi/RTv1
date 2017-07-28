@@ -1,5 +1,6 @@
 NAME = libft.a
-SRC = ft_atoi.c\
+SRC = ft_split_whitespaces.c\
+ft_atoi.c\
 ft_bzero.c\
 ft_isalpha.c\
 ft_isalnum.c\
@@ -61,9 +62,11 @@ ft_lstmap.c\
 ft_abs.c\
 ft_sqrt.c\
 ft_min.c\
-get_next_line.c
+get_next_line.c\
+ft_putstr_color.c
 
-OBJ = ft_atoi.o\
+OBJ = ft_split_whitespaces.o\
+ft_atoi.o\
 ft_bzero.o\
 ft_isalpha.o\
 ft_isalnum.o\
@@ -90,7 +93,6 @@ ft_strncat.o\
 ft_strncmp.o\
 ft_strncpy.o\
 ft_strnstr.o\
-ft_strequ.o\
 ft_strrchr.o\
 ft_strstr.o\
 ft_tolower.o\
@@ -104,12 +106,12 @@ ft_striter.o\
 ft_striteri.o\
 ft_strmap.o\
 ft_strmapi.o\
+ft_strequ.o\
 ft_strnequ.o\
 ft_strsub.o\
 ft_strjoin.o\
 ft_strtrim.o\
 ft_putendl.o\
-ft_putnbr.o\
 ft_putchar_fd.o\
 ft_putstr_fd.o\
 ft_putendl_fd.o\
@@ -118,19 +120,20 @@ ft_strsplit.o\
 ft_itoa.o\
 ft_lstnew.o\
 ft_lstdelone.o\
-ft_lstdel.o\
 ft_strrev.o\
+ft_lstdel.o\
 ft_lstadd.o\
 ft_lstiter.o\
 ft_lstmap.o\
 ft_abs.o\
 ft_sqrt.o\
 ft_min.o\
-get_next_line.o
+get_next_line.o\
+ft_putstr_color.o
 
 INC = ./includes/
 
-CC = gcc -Werror -Wall -Wextra -fsanitize=address -g
+CC = gcc -Werror -Wall -Wextra
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 16:05:43 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/22 18:25:49 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/07/28 03:14:23 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 
 # define BUFF_SIZE 10
 
+# define FRST 1
+# define SCND 2
+# define BOTH 3
+# define BOLD		100
+# define UNDR		10
+# define BG			1
+# define LIGHT		1
+# define NRML		2
+
+# define RESET		"\x1B[0m"
+
 typedef	struct		s_list
 {
 	void			*content;
@@ -28,6 +39,11 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+char				**ft_split_whitespace(char *str);
+float				ft_atof(const char *str);
+char				*ft_strjoin_free(char *s1, char *s2, char mode);
+void				ft_putstr_color(char const *s, char *color);
+char				*ft_color(char color, char contrast, int deco);
 int					get_next_line(const int fd, char **line);
 int					ft_atoi(const char *str);
 int					ft_isprint(int c);

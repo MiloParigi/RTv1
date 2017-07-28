@@ -12,21 +12,35 @@
 
 #include "libvec.h"
 
-float	ft_sqrt(float number)
+static  int		ft_sqrt(int nb)
 {
-	long 		i;
-	float 		x2;
-	float		y;
-	const float threehalfs = 1.5F;
+	int	i;
 
-	x2 = number * 0.5F;
-	y  = number;
-	i  = * ( long * ) &y;
-	i  = 0x5f3759df - ( i >> 1 );
-	y  = * ( float * ) &i;
-	y  = y * ( threehalfs - ( x2 * y * y ) );
-	return y;
+	i = 1;
+	while ((i * i) <= nb)
+	{
+		if (i * i == nb)
+			return (i);
+		i++;
+	}
+	return (0);
 }
+
+// float	ft_fsqrt(float number)
+// {
+// 	long 		i;
+// 	float 		x2;
+// 	float		y;
+// 	const float threehalfs = 1.5F;
+
+// 	x2 = number * 0.5F;
+// 	y  = number;
+// 	i  = * ( long * ) &y;
+// 	i  = 0x5f3759df - ( i >> 1 );
+// 	y  = * ( float * ) &i;
+// 	y  = y * ( threehalfs - ( x2 * y * y ) );
+// 	return y;
+// }
 
 t_vec3	vec_tsub3(t_vec3 u, t_vec3 v)
 {
@@ -40,7 +54,17 @@ t_vec3	vec_tsub3(t_vec3 u, t_vec3 v)
 
 double	vec_dot3(t_vec3 u, t_vec3 v)
 {
-	return (u.x * v.x + u.y * v.y + u.z * v.z);
+	t_vec3 norme_u;
+	t_vec3 norme_v;
+	float dot;
+
+
+	norme_u = vec_norme3(u);
+	norme_v = vec_norme3(v);
+
+	dot = norme_u.x * norme_v.x + norme_u.y * norme_v.y +norme_u.z * norme_v.z;
+	dot = u.x * v.x + u.y * v.y + u.z * v.z;// / dot;
+	return ((double)dot);
 }
 
 t_vec3	vec_inv3(t_vec3 u)
@@ -62,5 +86,6 @@ t_vec3	vec_norme3(t_vec3 u)
 	pts.x = u.x / magnitude;
 	pts.y = u.y / magnitude;
 	pts.z = u.z / magnitude;
+	pts.m = magnitude;
 	return (pts); 
 }
