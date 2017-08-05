@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/03 05:36:34 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/04 23:49:34 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,15 @@ typedef struct		s_rt
 
 void				display_args(void);
 t_matiere			create_matiere(void);
+int					set_obj(t_scene scene, char **params);
+int					set_light(t_scene scene, char **params);
+int					set_camera(t_scene scene, char **params);
+int					set_last(t_scene scene, char **params);
 int					camera_create(t_scene scene);
 int					create_obj(int type, t_scene scene);
 int					create_light(t_scene scene);
 int					parse_args(char **argv, int argc, t_rt scene);
+int					parse_obj(char *path, t_scene scene);
+void				store_type_or_data(char *line, t_scene scene);
 void				frame(t_rt env);
 #endif

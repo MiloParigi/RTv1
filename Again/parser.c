@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/03 06:21:26 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/05 01:02:09 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		set_last(t_scene scene, char **params)
 	if (!ft_strcmp("SPHERE", scene.last) || !ft_strcmp("PLANE", scene.last))
 		return(set_obj(scene, params));
 	if (!ft_strcmp("LIGHT", scene.last))
-		return(set_light(scene));
+		return(set_light(scene, params));
 	if (!ft_strcmp("CAMERA", scene.last))
-		return(set_create(scene));
+		return(set_camera(scene, params));
 	return (0);
 }
 
@@ -76,7 +76,7 @@ int			parse_obj(char *path, t_scene scene)
 	return (1);
 }
 
-int			parser_args(char **argv, int argc, t_rt env)
+int			parse_args(char **argv, int argc, t_rt env)
 {
 	int i;
 

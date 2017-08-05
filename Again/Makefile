@@ -11,9 +11,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = rt.c mlx_rel.c hook.c init.c parser.c color.c create_sphere.c error.c
+SRCS = main.c create_ocl.c set_ocl.c parser.c
 
-OBJ = rt.o mlx_rel.o hook.o init.o parser.o color.o create_sphere.o error.o
+OBJ =  main.o create_ocl.o set_ocl.o parser.o
 
 LIBS = libft/libft.a libvec/libvec.a
 
