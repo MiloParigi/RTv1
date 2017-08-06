@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/05 09:20:38 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/06 17:39:52 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	display_obj(t_scene scene)
 {
 	int i = 0;
-
-	while (COBJ)
-	{
 	
+	printf("Display OBJ\n");
+	while (i < scene.nbr_obj)
+	{
+		printf("Type: %d\nColor: %d\nPos: {%f; %f; %f}\n", COBJ.type, COBJ.color, COBJ.pos.x, COBJ.pos.y, COBJ.pos.z);
 		i++;
 	}
 }
@@ -27,6 +28,14 @@ void	display_args(void)
 	ft_putstr("MDR\n");
 }
 
+void	init_env(t_rt *env)
+{
+	env->mlx.init = mlx_init();
+	env->mlx.window = mlx_new_window(env->mlx.init, env->file.haut, env->file.larg, "RT Again");
+	env->scene.nbr_obj = 0;
+	env->scene.nbr_light = 0;
+	env->scene.nbr_tot = 0;
+}
 #include "rt.h"
 
 int		main(int argc, char **argv)
@@ -36,10 +45,9 @@ int		main(int argc, char **argv)
 	env = (t_rt *)malloc(sizeof(t_rt));
 	if (argc > 2)
 	{
+		init_env(env);
 		if (!parse_args(argv, argc, *env))
 			return (0);
-		env->mlx.init = mlx_init();
-		env->mlx.window = mlx_new_window(env->mlx.init, env->file.haut, env->file.larg, "RT Again");
 		display_obj(env->scene);
 		//frame(env);
 	}
