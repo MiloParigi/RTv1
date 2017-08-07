@@ -13,47 +13,39 @@
 #include "rt.h"
 
 
-int		set_last(t_scene scene, char **params)
+int		set_last(t_rt *env, char **params)
 {
-	if (!ft_strcmp("SPHERE", scene.last))
-		return(set_obj(scene, params));
-	if (!ft_strcmp("LIGHT", scene.last))
-		return(set_light(scene, params));
-	if (!ft_strcmp("CAMERA", scene.last))
-		return(set_camera(scene, params));
+	if (!ft_strcmp("SPHERE", env->scene.last) || !ft_strcmp("PLANE", env->scene.last))
+		return(set_obj(env, params));
+	if (!ft_strcmp("LIGHT", env->scene.last))
+		return(set_light(env, params));
+	if (!ft_strcmp("CAMERA", env->scene.last))
+		return(set_camera(env, params));
 	return (0);
 }
 
-int		create_type(char *type, t_scene scene)
+int		create_type(char *type, t_rt *env)
 {
 	if (!ft_strcmp("SPHERE", type))
-		return(create_obj(SPHERE, scene));
+		return(create_obj(SPHERE, env));
 	if (!ft_strcmp("PLANE", type))
-		return(create_obj(PLANE, scene));
+		return(create_obj(PLANE, env));
 	if (!ft_strcmp("LIGHT", type))
-		return(create_light(scene));
+		return(create_light(env));
 	if (!ft_strcmp("CAMERA", type))
-		return(camera_create(scene));
+		return(camera_create(env));
 	return (0);
 }
 
-void		store_type_or_data(char *line, t_scene scene)
+void		store_type_or_data(char *line, t_rt *env)
 {
 	char **tab;
 
 	tab = ft_split_whitespace(line);
-	int i = 0;
-	while (tab[i])
-		printf("%s\n", tab[i++]);
-	printf("\n");
-	if (tab && tab[0] && create_type(tab[0], scene))
-	{
-		scene.last = ft_strdup(tab[0]);
-		printf("Last:  %s\n", scene.last);
-		scene.nbr_tot++;
-	}
+	if (tab && tab[0] && create_type(tab[0], env))
+		env->scene.last = ft_strdup(tab[0]);
 	if (tab && tab[0] && tab[1])
-		set_last(scene, tab);
+		set_last(env, tab);
 }
 
 static int			is_bch(char *path)
@@ -67,21 +59,23 @@ static int			is_bch(char *path)
 	return (0);
 }
 
-int			parse_obj(char *path, t_scene scene)
+int			parse_obj(char *path, t_rt *env)
 {
 	int		fd;
 	char	*line;
 	
-	fd = open(path, O_RDONLY);
+	if (!(fd = open(path, O_RDONLY)))
+		return (0);
 	while (get_next_line(fd, &line))
 	{
 		if (line && line[0] != '*')
-			store_type_or_data(line, scene);
+			store_type_or_data(line, env);
 	}
+	env->scene.nbr_tot = env->scene.nbr_obj + env->scene.nbr_light;
 	return (1);
 }
 
-int			parse_args(char **argv, int argc, t_rt env)
+int			parse_args(char **argv, int argc, t_rt *env)
 {
 	int i;
 
@@ -100,7 +94,7 @@ int			parse_args(char **argv, int argc, t_rt env)
 	if (is_bch(SFILE))
 	{
 		ft_putstr("File type ok\n");
-		if (parse_obj(SFILE, env.scene))
+		if (parse_obj(SFILE, env))
 			return (1);
 	}
 	return (0);

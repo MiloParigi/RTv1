@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/04 23:49:34 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/06 22:03:03 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@
 # define CYAN		6
 # define WHITE		7
 
-# define INIT env.mlx.init
-# define WIN env.mlx.window
-# define IMG env.mlx.image
-# define HAUTEUR env.file.haut
-# define LARGEUR env.file.larg
-# define SFILE env.file.path
-# define POS env.scene.cam.ray.pos
-# define DIR env.scene.cam.ray.pos
-# define CAMRAY env.cam.ray
+# define INIT env->mlx.init
+# define WIN env->mlx.window
+# define IMG env->mlx.image
+# define HAUTEUR env->file.haut
+# define LARGEUR env->file.larg
+# define SFILE env->file.path
+# define POS env->scene.cam.ray.pos
+# define DIR env->scene.cam.ray.pos
+# define CAMRAY env->cam.ray
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
 # define ABS(x) (x < 0 ? -x : x)
-
+# define MAXOBJ 21
 
 
 typedef struct 		s_ray
@@ -147,7 +147,7 @@ typedef struct 		s_obj
 {
 	char			is_init;
 	int 			type;
-	int 			color;
+	int				color;
 	t_vec3			pos;
 	t_vec3			rot;
 	float			size;
@@ -180,15 +180,15 @@ typedef struct		s_rt
 
 void				display_args(void);
 t_matiere			create_matiere(void);
-int					set_obj(t_scene scene, char **params);
-int					set_light(t_scene scene, char **params);
-int					set_camera(t_scene scene, char **params);
-int					set_last(t_scene scene, char **params);
-int					camera_create(t_scene scene);
-int					create_obj(int type, t_scene scene);
-int					create_light(t_scene scene);
-int					parse_args(char **argv, int argc, t_rt scene);
-int					parse_obj(char *path, t_scene scene);
-void				store_type_or_data(char *line, t_scene scene);
-void				frame(t_rt env);
+int					set_obj(t_rt *env, char **params);
+int					set_light(t_rt *env, char **params);
+int					set_camera(t_rt *env, char **params);
+int					set_last(t_rt *env, char **params);
+int					camera_create(t_rt *env);
+int					create_obj(int type, t_rt *env);
+int					create_light(t_rt *env);
+int					parse_args(char **argv, int argc, t_rt *env);
+int					parse_obj(char *path, t_rt *env);
+void				store_type_or_data(char *line, t_rt *env);
+void				frame(t_rt *env);
 #endif

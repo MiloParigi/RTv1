@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/03 05:34:56 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/06 22:10:11 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,44 @@ t_matiere	create_matiere(void)
 	return(mat);
 }
 
-int			camera_create(t_scene scene)
+int			camera_create(t_rt *env)
 {
-	scene.cam.ray.pos = vec_new3(0, 0, -2000);
-	scene.cam.ray.dir = vec_new3(0, 0 ,1);
-	scene.cam.focale = 1;
-	scene.cam.reso = 300;
+	env->scene.cam.ray.pos = vec_new3(0, 0, -2000);
+	env->scene.cam.ray.dir = vec_new3(0, 0 ,1);
+	env->scene.cam.focale = 1;
+	env->scene.cam.reso = 300;
 	return (1);
 }
-int			create_obj(int type, t_scene scene)
+int			create_obj(int type, t_rt *env)
 {
 	int i;
 
-	i = scene.nbr_obj;
-	COBJ.is_init = 1;
-	COBJ.type = type;
-	COBJ.color = 0;
-	COBJ.pos = vec_new3(0, 0, 0);
-	COBJ.rot = vec_new3(0, 0, 0);
-	COBJ.size = 0;
-	COBJ.maxp = vec_new3(0, 0, 0);
-	COBJ.minp = vec_new3(0, 0, 0);
-	COBJ.r = 0;
-	COBJ.t = -1;
-	COBJ.mat = create_matiere();
-	scene.obj++;
+	i = env->scene.nbr_obj;
+	env->COBJ.is_init = 1;
+	env->COBJ.type = type;
+	env->COBJ.color = 0;
+	env->COBJ.pos = vec_new3(0, 0, 0);
+	env->COBJ.rot = vec_new3(0, 0, 0);
+	env->COBJ.size = 0;
+	env->COBJ.maxp = vec_new3(0, 0, 0);
+	env->COBJ.minp = vec_new3(0, 0, 0);
+	env->COBJ.r = 0;
+	env->COBJ.t = -1;
+	env->COBJ.mat = create_matiere();
+	env->scene.nbr_obj++;
 	return (1);
 }
 
-int			create_light(t_scene scene)
+int			create_light(t_rt *env)
 {
 	int i;
 
-	i = scene.nbr_light;
-	CLIGHT.is_init = 1;
-	CLIGHT.ray.pos = vec_new3(0, 0, 0);
-	CLIGHT.ray.dir = vec_new3(0, 0, 0);
-	CLIGHT.color = 255;
-	CLIGHT.intensity = 0;
-	scene.nbr_light++;
+	i = env->scene.nbr_light;
+	env->CLIGHT.is_init = 1;
+	env->CLIGHT.ray.pos = vec_new3(0, 0, 0);
+	env->CLIGHT.ray.dir = vec_new3(0, 0, 0);
+	env->CLIGHT.color = 255;
+	env->CLIGHT.intensity = 0;
+	env->scene.nbr_light++;
 	return (1);
 }
