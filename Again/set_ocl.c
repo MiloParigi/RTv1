@@ -6,73 +6,87 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 06:21:43 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/03 07:46:05 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/07 21:47:53 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int			set_obj(t_rt *env, char **params)
+int			set_last(t_rt *env, char **params)
+{
+	if (!ft_strcmp("SPHERE", env->scene.last) ||
+		!ft_strcmp("PLANE", env->scene.last))
+		return (set_obj(env, params));
+	if (!ft_strcmp("LIGHT", env->scene.last))
+		return (set_light(env, params));
+	if (!ft_strcmp("CAMERA", env->scene.last))
+		return (set_camera(env, params));
+	return (0);
+}
+
+int			set_obj(t_rt *env, char **a)
 {
 	int i;
 
 	i = 0;
-	while (params[i])
+	while (a[i])
 		i++;
-	if (i == 4 && !ft_strcmp("pos", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].pos = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("minp", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].minp = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("maxp", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].maxp = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("vector", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].vector = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("normal", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].normal = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("rot", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].rot = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 2 && !ft_strcmp("radius", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].r = ft_atoi(params[1]);
-	else if (i == 4 && !ft_strcmp("color", params[0]))
-		env->scene.obj[env->scene.nbr_obj - 1].color = ft_atoi(params[1]);
+	if (i == 4 && !ft_strcmp("pos", a[0]))
+		SOBJ.pos = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("minp", a[0]))
+		SOBJ.minp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("maxp", a[0]))
+		SOBJ.maxp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("vector", a[0]))
+		SOBJ.vector = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("normal", a[0]))
+		SOBJ.normal = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("rot", a[0]))
+		SOBJ.rot = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 2 && !ft_strcmp("radius", a[0]))
+		SOBJ.r = ft_atoi(a[1]);
+	else if (i == 4 && !ft_strcmp("color", a[0]))
+		SOBJ.color = ft_atoi(a[1]);
 	else
 		return (0);
 	return (1);
 }
 
-int 		set_light(t_rt *env, char **params)
+int			set_light(t_rt *env, char **a)
 {
 	int i;
 
 	i = 0;
-	while (params[i])
+	while (a[i])
 		i++;
-	if (i == 4 && !ft_strcmp("pos", params[0]))
-		env->scene.lights[env->scene.nbr_light - 1].ray.pos = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("dir", params[0]))
-		env->scene.lights[env->scene.nbr_light - 1].ray.dir = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 2 && !ft_strcmp("intensity", params[0]))
-		env->scene.lights[env->scene.nbr_light - 1].intensity = ft_atof(params[1]);
-	else if (i == 4 && !ft_strcmp("color", params[0]))
-		env->scene.lights[env->scene.nbr_light - 1].color = ft_atoi(params[1]);
+	if (i == 4 && !ft_strcmp("pos", a[0]))
+		SLIGHT.ray.pos = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("dir", a[0]))
+		SLIGHT.ray.dir = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 2 && !ft_strcmp("intensity", a[0]))
+		SLIGHT.intensity = ft_atof(a[1]);
+	else if (i == 4 && !ft_strcmp("color", a[0]))
+		SLIGHT.color = ft_atoi(a[1]);
 	else
 		return (0);
 	return (1);
 }
 
-int 		set_camera(t_rt *env, char **params)
+int			set_camera(t_rt *env, char **a)
 {
 	int i;
 
 	i = 0;
-	while (params[i])
+	while (a[i])
 		i++;
-	if (i == 4 && !ft_strcmp("pos", params[0]))
-		env->scene.cam.ray.pos = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 4 && !ft_strcmp("dir", params[0]))
-		env->scene.cam.ray.dir = vec_new3(ft_atof(params[1]), ft_atof(params[2]), ft_atof(params[3]));
-	else if (i == 2 && !ft_strcmp("focale", params[0]))
-		env->scene.cam.focale = ft_atof(params[1]);
+	if (i == 4 && !ft_strcmp("pos", a[0]))
+		env->scene.cam.ray.pos =
+	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 4 && !ft_strcmp("dir", a[0]))
+		env->scene.cam.ray.dir =
+	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	else if (i == 2 && !ft_strcmp("focale", a[0]))
+		env->scene.cam.focale = ft_atof(a[1]);
 	else
 		return (0);
 	return (1);

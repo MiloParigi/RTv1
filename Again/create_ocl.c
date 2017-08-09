@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/06 22:10:11 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/07 22:20:07 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,18 @@ t_matiere	create_matiere(void)
 	mat.reflex = 0;
 	mat.specular = 0;
 	mat.opacite = 1;
-	return(mat);
+	return (mat);
 }
 
 int			camera_create(t_rt *env)
 {
 	env->scene.cam.ray.pos = vec_new3(0, 0, -2000);
-	env->scene.cam.ray.dir = vec_new3(0, 0 ,1);
+	env->scene.cam.ray.dir = vec_new3(0, 0, 1);
 	env->scene.cam.focale = 1;
 	env->scene.cam.reso = 300;
 	return (1);
 }
+
 int			create_obj(int type, t_rt *env)
 {
 	int i;

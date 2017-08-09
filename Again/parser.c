@@ -6,34 +6,22 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/06 17:33:49 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/07 21:53:19 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-
-int		set_last(t_rt *env, char **params)
-{
-	if (!ft_strcmp("SPHERE", env->scene.last) || !ft_strcmp("PLANE", env->scene.last))
-		return(set_obj(env, params));
-	if (!ft_strcmp("LIGHT", env->scene.last))
-		return(set_light(env, params));
-	if (!ft_strcmp("CAMERA", env->scene.last))
-		return(set_camera(env, params));
-	return (0);
-}
-
-int		create_type(char *type, t_rt *env)
+int			create_type(char *type, t_rt *env)
 {
 	if (!ft_strcmp("SPHERE", type))
-		return(create_obj(SPHERE, env));
+		return (create_obj(SPHERE, env));
 	if (!ft_strcmp("PLANE", type))
-		return(create_obj(PLANE, env));
+		return (create_obj(PLANE, env));
 	if (!ft_strcmp("LIGHT", type))
-		return(create_light(env));
+		return (create_light(env));
 	if (!ft_strcmp("CAMERA", type))
-		return(camera_create(env));
+		return (camera_create(env));
 	return (0);
 }
 
@@ -48,13 +36,14 @@ void		store_type_or_data(char *line, t_rt *env)
 		set_last(env, tab);
 }
 
-static int			is_bch(char *path)
+static int	is_bch(char *path)
 {
 	char	*tmp;
 	int		fd;
+
 	tmp = ft_strchr(path, '.');
 	if (tmp && !ft_strcmp(".bch", tmp))
-		if ((fd = open(path, O_RDONLY)) != - 1)
+		if ((fd = open(path, O_RDONLY)) != -1)
 			return (1);
 	return (0);
 }
@@ -63,7 +52,7 @@ int			parse_obj(char *path, t_rt *env)
 {
 	int		fd;
 	char	*line;
-	
+
 	if (!(fd = open(path, O_RDONLY)))
 		return (0);
 	while (get_next_line(fd, &line))
@@ -99,4 +88,3 @@ int			parse_args(char **argv, int argc, t_rt *env)
 	}
 	return (0);
 }
-

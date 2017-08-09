@@ -11,9 +11,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c create_ocl.c set_ocl.c parser.c
+SRCS = main.c create_ocl.c set_ocl.c parser.c intersect_basics.c frame.c
 
-OBJ =  main.o create_ocl.o set_ocl.o parser.o
+OBJ =  main.o create_ocl.o set_ocl.o parser.o intersect_basics.o frame.o
 
 LIBS = libft/libft.a libvec/libvec.a
 
@@ -28,9 +28,9 @@ all: $(NAME)
 $(NAME):
 
 #recompiler les new .c
-	make -C ./libft
-	make -C ./libvec
-	make -C ./minilibx_macos
+	#make -C ./libft
+	#make -C ./libvec
+	#make -C ./minilibx_macos
 	gcc $(FLAGS) -c $(SRCS)
 	gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 	#gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit -I minilibx_macos ./minilibx_macos/libmlx.a
@@ -44,6 +44,6 @@ clean:
 	make -C ./minilibx_macos clean
 fclean: clean
 	rm -f $(NAME)
-	make -C ./libvec fclean
-	make -C ./libft fclean
+	#make -C ./libvec fclean
+	#make -C ./libft fclean
 re: fclean all

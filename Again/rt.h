@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/06 22:03:03 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/07 22:03:22 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
-# include "libvec/libvec.h" 
+# include "libvec/libvec.h"
 # include <math.h>
 # include <stdio.h>
 # include <pthread.h>
@@ -63,36 +63,37 @@
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
+# define SOBJ env->scene.obj[env->scene.nbr_obj - 1]
+# define SLIGHT env->scene.lights[env->scene.nbr_obj - 1]
 # define ABS(x) (x < 0 ? -x : x)
 # define MAXOBJ 21
 
-
-typedef struct 		s_ray
+typedef struct		s_ray
 {
 	t_vec3			pos;
 	t_vec3			dir;
 }					t_ray;
 
-typedef struct 		s_color
+typedef struct		s_color
 {
-	float 			r;
-	float 			g;
-	float 			b;
+	float			r;
+	float			g;
+	float			b;
 }					t_color;
 
-typedef	struct  	s_light
+typedef struct		s_light
 {
-	int 			is_init;
+	int				is_init;
 	t_ray			ray;
 	int				color;
 	float			intensity;
 }					t_light;
 
-typedef struct 		s_camera
+typedef struct		s_camera
 {
-	t_ray 			ray;
-	float 			focale;
-	float 			reso;
+	t_ray			ray;
+	float			focale;
+	float			reso;
 }					t_camera;
 
 typedef struct		s_mlx
@@ -107,8 +108,7 @@ typedef struct		s_mlx
 	float			color;
 }					t_mlx;
 
-
-typedef struct  	s_matiere
+typedef struct		s_matiere
 {
 	float			amb;
 	t_color			diffuse;
@@ -133,20 +133,20 @@ typedef struct		s_calc
 	float			disc;
 	float			eq;
 	t_vec3			len;
-	float 			sqrtdisc;
+	float			sqrtdisc;
 }					t_calc;
 
-typedef struct  	s_file
+typedef struct		s_file
 {
-	char 			*path;
-	int 			haut;
-	int 			larg;
+	char			*path;
+	int				haut;
+	int				larg;
 }					t_file;
 
-typedef struct 		s_obj
+typedef struct		s_obj
 {
 	char			is_init;
-	int 			type;
+	int				type;
 	int				color;
 	t_vec3			pos;
 	t_vec3			rot;
@@ -160,29 +160,29 @@ typedef struct 		s_obj
 	t_matiere		mat;
 }					t_obj;
 
-typedef	struct	s_scene
+typedef struct		s_scene
 {
-	t_light		*lights;
-	t_obj		*obj;
-	char 		*last;
-	int			nbr_light;
-	int			nbr_obj;
-	char		nbr_tot;
-	t_camera	cam;
-}				t_scene;
+	t_light			*lights;
+	t_obj			*obj;
+	char			*last;
+	int				nbr_light;
+	int				nbr_obj;
+	char			nbr_tot;
+	t_camera		cam;
+}					t_scene;
 
 typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_scene			scene;
-	t_file 			file;
+	t_file			file;
 }					t_rt;
 
 void				display_args(void);
 t_matiere			create_matiere(void);
-int					set_obj(t_rt *env, char **params);
-int					set_light(t_rt *env, char **params);
-int					set_camera(t_rt *env, char **params);
+int					set_obj(t_rt *env, char **a);
+int					set_light(t_rt *env, char **a);
+int					set_camera(t_rt *env, char **a);
 int					set_last(t_rt *env, char **params);
 int					camera_create(t_rt *env);
 int					create_obj(int type, t_rt *env);
@@ -191,4 +191,6 @@ int					parse_args(char **argv, int argc, t_rt *env);
 int					parse_obj(char *path, t_rt *env);
 void				store_type_or_data(char *line, t_rt *env);
 void				frame(t_rt *env);
+float				intersect_sphere(t_ray ray, t_obj obj);
+void				raytrace(int x, int y, t_rt *env);
 #endif

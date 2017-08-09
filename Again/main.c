@@ -40,6 +40,8 @@ void	display_args(void)
 void	init_env(t_rt *env)
 {
 	env->mlx.init = mlx_init();
+	env->file.haut = 250;
+	env->file.larg = 250;
 	env->mlx.window = mlx_new_window(env->mlx.init, env->file.haut, env->file.larg, "RT Again");
 	env->scene.nbr_obj = 0;
 	env->scene.nbr_light = 0;
@@ -59,7 +61,8 @@ int		main(int argc, char **argv)
 		if (!parse_args(argv, argc, env))
 			return (0);
 		display_obj(env->scene);
-		//frame(env);
+		frame(env);
+		mlx_loop(INIT);
 	}
 	else
 		display_args();

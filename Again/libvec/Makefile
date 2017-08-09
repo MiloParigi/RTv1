@@ -6,15 +6,15 @@
 #    By: mhalit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 20:57:18 by mhalit            #+#    #+#              #
-#    Updated: 2017/07/28 05:14:23 by mhalit           ###   ########.fr        #
+#    Updated: 2017/08/09 09:04:41 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libvec.a
 
-SRC = ft_vec3.c ft_vec2.c ft_vec_ssp.c
+SRC = ft_vec3.c ft_vec_ssp.c ft_double.c
 
-OBJ = ft_vec3.o ft_vec2.o ft_vec_ssp.o
+OBJ = ft_vec3.o ft_vec_ssp.o ft_double.c
 
 INC = ./includes/
 

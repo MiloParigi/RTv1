@@ -2,7 +2,7 @@
 
 CAMERA
 	pos 0 0 -2000
-
+	dir 0 0 1
 LIGHT
 	intensity 200000
 	color 254 255 255
