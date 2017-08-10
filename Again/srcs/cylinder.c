@@ -12,13 +12,13 @@
 
 #include "../includes/rtv1.h"
 
-double		intensity_cylinder(t_env *e, t_vector poi,
+double		intensity_cylinder(t_env *e, t_vec3d poi,
 				t_object cylinder, t_light light)
 {
-	t_vector	dist_to_light;
+	t_vec3d		dist_to_light;
 	double		intensity;
 
-	dist_to_light = vec_ope_min(light.origin, poi);
+	dist_to_light = vec_sub3d(light.origin, poi);
 	intensity = 0.5 * ft_map(get_length(dist_to_light), 2000 * light.intensity, 500, 200);
 	return (intensity > 0) ? intensity : 0;
 }
@@ -31,15 +31,15 @@ double		intersect_cylinder(t_ray ray, t_object cylinder)
 	double  	    det;
 	double          t0;
 	double          t1;
-	t_vector        x;
+	t_vec3d	        x;
 
-	x = vec_ope_min(cylinder.origin, ray.origin);
-	a = dot(ray.direction, ray.direction) - 
-		dot(ray.direction, cylinder.normal);
-	c = dot(x, x) - pow(dot(x, cylinder.normal), 2) - 
+	x = vec_sub3d(cylinder.origin, ray.origin);
+	a = vec_dot3d(ray.direction, ray.direction) - 
+		vec_dot3d(ray.direction, cylinder.normal);
+	c = vec_dot3d(x, x) - pow(vec_dot3d(x, cylinder.normal), 2) - 
 		pow(cylinder.radius, 2);
-	b = 2 * (dot(ray.direction, x) - 
-	(dot(ray.direction, cylinder.normal) * dot(x, cylinder.normal)));
+	b = 2 * (vec_dot3d(ray.direction, x) - 
+	(vec_dot3d(ray.direction, cylinder.normal) * vec_dot3d(x, cylinder.normal)));
 	det = b * b - 4 * a * c;
 	if (det >= 0)
 	{

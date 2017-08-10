@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rtv1.h"
+#include "rtv1.h"
 
 /*
 ** set first light to the lights struct
@@ -57,15 +57,15 @@ double			get_color_from_str(t_env *e, char *str)
 ** create a vector from "30 0 120"
 */
 
-t_vector		set_vector(t_env *e, char *arg)
+t_vec3d		set_vec3d(t_env *e, char *arg)
 {
     char		**coor;
-    t_vector	vector;
+    t_vec3d	vector;
 
     coor = ft_strsplit(arg, ' ');
     if (len_of_tab(coor) != 3)
         syntax_error(arg, "Vector must have 3 points", e->nbline);
-	vector = c_vector(
+	vector = vec_new3d(
 		ft_atof(coor[0]),
 		ft_atof(coor[1]),
 		ft_atof(coor[2])

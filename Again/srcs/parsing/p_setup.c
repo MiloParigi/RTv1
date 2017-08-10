@@ -23,7 +23,7 @@
 **		{
 **			option = trim_option(e, option, &option_arg);
 **			if (!ft_strcmp("origin", option))
-**				e->camera = set_vector(e, option_arg);
+**				e->camera = set_vec3d(e, option_arg);
 **			else if (!ft_strcmp("fov", option))
 **				e->fov = ft_atoi(option_arg);
 **			free(option);
@@ -62,7 +62,7 @@ void		set_light2(t_env *e)
 	{
 		option = trim_option(e, option, &option_arg);
 		if (!ft_strcmp("origin", option))
-			light->origin = set_vector(e, option_arg);
+			light->origin = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("intensity", option))
 			light->intensity = ft_atof(option_arg);
 		else

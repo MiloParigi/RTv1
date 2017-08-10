@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "rtv1.h"
 
-double		intensity_plane(t_env *e, t_vector poi,
+double		intensity_plane(t_env *e, t_vec3d poi,
 				t_object plane, t_light light)
 {
-	t_vector	dist_to_light;
+	t_vec3d	dist_to_light;
 	double		intensity;
 
-	dist_to_light = vec_ope_min(light.origin, poi);
+	dist_to_light = vec_sub3d(light.origin, poi);
 	intensity = 0.5 * ft_map(get_length(dist_to_light), 2000 * light.intensity, 500, 200);
 	if (obj_in_shadow(e, poi, light))
 		intensity -= AMBIENT_LIGHT;
@@ -34,13 +34,13 @@ double		intersect_plane(t_ray ray, t_object plane)
 {
 	double		d;
 	double		dist;
-	t_vector	vector_distance;
+	t_vec3d	vector_distance;
 
-	d = dot(plane.normal, ray.direction);
+	d = vec_dot3d(plane.normal, ray.direction);
 	if (fabs(d) > 0.0001)
 	{
-		vector_distance = vec_ope_min(plane.origin, ray.origin);
-		dist = dot(vector_distance, plane.normal) / d;
+		vector_distance = vec_sub3d(plane.origin, ray.origin);
+		dist = vec_dot3d(vector_distance, plane.normal) / d;
 		return (dist);
 	}
 	return (DIST_MAX);

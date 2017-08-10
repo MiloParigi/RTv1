@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "rtv1.h"
 
-t_vector	c_vector(double x, double y, double z)
+t_vec3d	c_vector(double x, double y, double z)
 {
-	t_vector vector;
+	t_vec3d vector;
 
 	vector.x = x;
 	vector.y = y;
@@ -28,7 +28,7 @@ t_vector	c_vector(double x, double y, double z)
 ** also known as a normalized vector
 */
 
-double		get_length(t_vector v)
+double		get_length(t_vec3d v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
@@ -38,7 +38,7 @@ double		get_length(t_vector v)
 ** we have to normalize it.
 */
 
-t_vector	normalize(t_vector vector)
+t_vec3d	normalize(t_vec3d vector)
 {
 	double length;
 
@@ -54,7 +54,7 @@ t_vector	normalize(t_vector vector)
 	return (vector);
 }
 
-double		dot(t_vector v, t_vector b)
+double		dot(t_vec3d v, t_vec3d b)
 {
 	return ((v.x * b.x) + (v.y * b.y) + (v.z * b.z));
 }

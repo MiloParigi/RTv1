@@ -109,6 +109,6 @@ t_env	*parse(char *scene)
 	}
 	if (close(e->fd) == -1)
 		err_found("close failed");
-	e->setup.camera = c_vector(0, 0, 0);
+	e->setup.camera = vec_new3d(0, 0, 0);
 	return (e);
 }

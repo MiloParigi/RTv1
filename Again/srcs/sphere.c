@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "rtv1.h"
 
-double		intensity_sphere(t_env *e, t_vector poi,
+double		intensity_sphere(t_env *e, t_vec3d poi,
 				t_object sphere, t_light light)
 {
 	double		dist_to_light;
-	t_vector	vec_to_eyes;
-	t_vector	vec_to_light;
+	t_vec3d		vec_to_eyes;
+	t_vec3d		vec_to_light;
 	double		intensity;
 
-	vec_to_eyes = normalize(vec_ope_min(poi, sphere.origin));
-	vec_to_light = vec_ope_min(light.origin, poi);
+	vec_to_eyes = vec_norme3d(vec_sub3d(poi, sphere.origin));
+	vec_to_light = vec_sub3d(light.origin, poi);
 	dist_to_light = get_length(vec_to_light);
-	intensity = (dot(vec_to_eyes, normalize(vec_to_light)) *
+	intensity = (dot(vec_to_eyes, vec_norme3d(vec_to_light)) *
 		ft_map(dist_to_light, 2000 * light.intensity, 500, 200));
 	if (obj_in_shadow(e, poi, light))
 		intensity -= AMBIENT_LIGHT;
@@ -40,9 +40,9 @@ double		intersect_sphere(t_ray ray, t_object sphere)
 	double		a;
 	double		b;
 	double		c;
-	t_vector	x;
+	t_vec3d		x;
 
-	x = vec_ope_min(ray.origin, sphere.origin);
+	x = vec_sub3d(ray.origin, sphere.origin);
 	a = dot(ray.direction, ray.direction);
 	b = 2 * dot(ray.direction, x);
 	c = dot(x, x) - (sphere.radius * sphere.radius);

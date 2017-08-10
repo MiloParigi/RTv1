@@ -12,9 +12,9 @@
 
 NAME = libvec.a
 
-SRC = ft_vec3.c ft_vec_ssp.c ft_double.c
+SRC = ft_vec3.c ft_vec_ssp.c ft_double.c ft_double_ssp.c
 
-OBJ = ft_vec3.o ft_vec_ssp.o ft_double.o
+OBJ = ft_vec3.o ft_vec_ssp.o ft_double.o ft_double_ssp.o
 
 INC = ./includes/
 

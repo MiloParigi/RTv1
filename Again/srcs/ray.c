@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "rtv1.h"
 
-t_ray	c_ray(t_vector i, t_vector j)
+t_ray	c_ray(t_vec3d i, t_vec3d j)
 {
 	t_ray ray;
 
-	ray.origin = c_vector(i.x, i.y, i.z);
-	ray.direction = c_vector(j.x, j.y, j.z);
+	ray.origin = vec_new3d(i.x, i.y, i.z);
+	ray.direction = vec_new3d(j.x, j.y, j.z);
 	return (ray);
 }
