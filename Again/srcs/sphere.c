@@ -23,7 +23,7 @@ double		intensity_sphere(t_env *e, t_vec3d poi,
 	vec_to_eyes = vec_norme3d(vec_sub3d(poi, sphere.origin));
 	vec_to_light = vec_sub3d(light.origin, poi);
 	dist_to_light = get_length(vec_to_light);
-	intensity = (dot(vec_to_eyes, vec_norme3d(vec_to_light)) *
+	intensity = (vec_dot3d(vec_to_eyes, vec_norme3d(vec_to_light)) *
 		ft_map(dist_to_light, 2000 * light.intensity, 500, 200));
 	if (obj_in_shadow(e, poi, light))
 		intensity -= AMBIENT_LIGHT;
@@ -43,8 +43,8 @@ double		intersect_sphere(t_ray ray, t_object sphere)
 	t_vec3d		x;
 
 	x = vec_sub3d(ray.origin, sphere.origin);
-	a = dot(ray.direction, ray.direction);
-	b = 2 * dot(ray.direction, x);
-	c = dot(x, x) - (sphere.radius * sphere.radius);
+	a = vec_dot3d(ray.dir, ray.dir);
+	b = 2 * vec_dot3d(ray.dir, x);
+	c = vec_dot3d(x, x) - (sphere.r * sphere.r);
 	return (get_res_of_quadratic(a, b, c));
 }

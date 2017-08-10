@@ -86,7 +86,7 @@ t_color			set_color(t_env *e, char *arg)
     rgb = ft_strsplit(arg, ' ');
 	if (len_of_tab(rgb) != 3)
 		syntax_error(arg, "Color must have R G and B", e->nbline);
-	color = c_color(
+	color = c_color2(
 		get_color_from_str(e, rgb[0]),
 		get_color_from_str(e, rgb[1]),
 		get_color_from_str(e, rgb[2])

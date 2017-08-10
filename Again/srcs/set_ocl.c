@@ -15,7 +15,9 @@
 int			set_last(t_rt *env, char **params)
 {
 	if (!ft_strcmp("SPHERE", env->scene.last) ||
-		!ft_strcmp("PLANE", env->scene.last))
+		!ft_strcmp("PLANE", env->scene.last) ||
+		!ft_strcmp("CONE", env->scene.last) ||
+		!ft_strcmp("CYLINDER", env->scene.last))
 		return (set_obj(env, params));
 	if (!ft_strcmp("LIGHT", env->scene.last))
 		return (set_light(env, params));
@@ -46,7 +48,7 @@ int			set_obj(t_rt *env, char **a)
 	else if (i == 2 && !ft_strcmp("radius", a[0]))
 		SOBJ.r = ft_atoi(a[1]);
 	else if (i == 4 && !ft_strcmp("color", a[0]))
-		SOBJ.color = ft_atoi(a[1]);
+		SOBJ.color = c_color(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else
 		return (0);
 	return (1);

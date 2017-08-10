@@ -78,9 +78,9 @@ typedef struct		s_ray
 
 typedef struct		s_color
 {
-	float			r;
-	float			g;
-	float			b;
+	double			r;
+	double			g;
+	double			b;
 }					t_color;
 
 typedef struct		s_light
@@ -107,7 +107,6 @@ typedef struct		s_mlx
 	int				bpp;
 	int				size_l;
 	int				endian;
-	float			color;
 }					t_mlx;
 
 typedef struct		s_matiere
@@ -149,7 +148,7 @@ typedef struct		s_obj
 {
 	char			is_init;
 	int				type;
-	int				color;
+	t_color			color;
 	t_vec3			pos;
 	t_vec3			rot;
 	float			size;
@@ -189,6 +188,7 @@ int					set_last(t_rt *env, char **params);
 int					camera_create(t_rt *env);
 int					create_obj(int type, t_rt *env);
 int					create_light(t_rt *env);
+t_color				c_color(double r, double g, double b);
 int					parse_args(char **argv, int argc, t_rt *env);
 int					parse_obj(char *path, t_rt *env);
 void				store_type_or_data(char *line, t_rt *env);

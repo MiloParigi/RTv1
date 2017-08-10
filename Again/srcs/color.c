@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "rtv1.h"
 
 t_color				*copy_color(t_color color)
 {
@@ -29,7 +29,7 @@ t_color				*copy_color(t_color color)
 ** @todo : explain why
 */
 
-t_color				c_color(double r, double g, double b)
+t_color				c_color2(double r, double g, double b)
 {
 	t_color color;
 

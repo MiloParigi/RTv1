@@ -17,7 +17,7 @@ void		set_sphere(t_env *e)
 		if (!ft_strcmp("origin", option))
 			sphere->origin = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
-			sphere->radius = ft_atoi(option_arg);
+			sphere->r = ft_atoi(option_arg);
 		else if (!ft_strcmp("color", option))
 			sphere->color = set_color(e, option_arg);
 		else
@@ -83,7 +83,7 @@ void		set_cylinder(t_env *e)
 		else if(!ft_strcmp("normal", option))
 			cylinder->normal = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
-			cylinder->radius = ft_atoi(option_arg);
+			cylinder->r = ft_atoi(option_arg);
 		else if (!ft_strcmp("color", option))
 			cylinder->color = set_color(e, option_arg);
 		else
@@ -118,7 +118,7 @@ void		set_cone(t_env *e)
 		else if(!ft_strcmp("origin", option))
 			cone->origin = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
-			cone->radius = ft_atoi(option_arg);
+			cone->r = ft_atoi(option_arg);
 		else if (!ft_strcmp("color", option))
 			cone->color = set_color(e, option_arg);
 		else

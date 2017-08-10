@@ -102,7 +102,7 @@ static t_color	*get_pxl_color(t_env *e, t_ray ray)
 	if ((min_dist = get_min_dist(e, ray, &obj, 0)) == -1)
 		return (NULL);
 	point_of_impact = vec_add3d(ray.origin,
-			vec_scale3d(ray.direction, min_dist));
+			vec_scale3d(ray.dir, min_dist));
 	color = get_color(e, obj, point_of_impact);
 	return (color);
 }

@@ -15,7 +15,7 @@
 # define RTV1_H
 
 # include "libft.h"
-# include "libvec.h" 
+# include "libvec.h"
 # include <math.h>
 # include "mlx.h"
 # include <stdlib.h>
@@ -53,6 +53,13 @@ enum	e_type
 	CONE
 };
 
+typedef struct		s_color
+{
+	double			r;
+	double			g;
+	double			b;
+}					t_color;
+
 typedef struct	s_setup
 {
 	int			supersampling;
@@ -65,15 +72,8 @@ typedef struct	s_setup
 typedef struct	s_ray
 {
 	t_vec3d		origin;
-	t_vec3d		direction;
+	t_vec3d		dir;
 }				t_ray;
-
-typedef struct	s_color
-{
-	double		r;
-	double		g;
-	double		b;
-}				t_color;
 
 typedef struct		s_light
 {
@@ -85,7 +85,7 @@ typedef struct		s_light
 typedef struct	s_object
 {
 	int				type;
-	double			radius;
+	double			r;
 	t_vec3d			normal;
 	t_vec3d			origin;
 	t_vec3d			direction;
@@ -115,12 +115,12 @@ unsigned int	ret_colors(t_color color);
 // t_vec3d		vec_ope_mult(t_vec3d v1, double d);
 // t_vec3d		vec_ope_div(t_vec3d v1, double d);
 t_ray			c_ray(t_vec3d i, t_vec3d j);
-t_color			c_color(double r, double g, double b);
+t_color			c_color2(double r, double g, double b);
 void			set_win_img(t_env *e);
 int				raytrace2(t_env *e);
 void			super_sampler(t_env *e);
 void			anti_supersampler(t_env *e);
-double			dot(t_vec3d v, t_vec3d b);
+// double			dot(t_vec3d v, t_vec3d b);
 double			intersect_sphere(t_ray ray, t_object sphere);
 int				key_hook(int keycode, t_env *e);
 t_color			*color_mult(t_color color, double taux);

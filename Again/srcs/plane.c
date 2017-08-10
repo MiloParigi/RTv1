@@ -36,7 +36,7 @@ double		intersect_plane(t_ray ray, t_object plane)
 	double		dist;
 	t_vec3d	vector_distance;
 
-	d = vec_dot3d(plane.normal, ray.direction);
+	d = vec_dot3d(plane.normal, ray.dir);
 	if (fabs(d) > 0.0001)
 	{
 		vector_distance = vec_sub3d(plane.origin, ray.origin);
