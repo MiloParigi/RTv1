@@ -33,7 +33,7 @@ double		intersect_cylinder(t_ray ray, t_object cylinder)
 	double          t1;
 	t_vec3d	        x;
 
-	x = vec_sub3d(cylinder.origin, ray.origin);
+	x = vec_sub3d(cylinder.pos, ray.origin);
 	a = vec_dot3d(ray.dir, ray.dir) - 
 		vec_dot3d(ray.dir, cylinder.normal);
 	c = vec_dot3d(x, x) - pow(vec_dot3d(x, cylinder.normal), 2) - 

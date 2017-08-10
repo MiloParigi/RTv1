@@ -87,7 +87,7 @@ typedef struct	s_object
 	int				type;
 	double			r;
 	t_vec3d			normal;
-	t_vec3d			origin;
+	t_vec3d			pos;
 	t_vec3d			direction;
 	t_color			color;
 	struct s_object	*next;

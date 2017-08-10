@@ -34,7 +34,7 @@ double      intersect_cone(t_ray ray, t_object cone)
 	double          t1;
 	t_vec3d        x;
 
-	x = vec_sub3d(cone.origin, ray.origin);
+	x = vec_sub3d(cone.pos, ray.origin);
 	a = vec_dot3d(ray.dir, ray.dir) - 
 		vec_dot3d(ray.dir, cone.normal);
 	c = vec_dot3d(x, x) - pow(vec_dot3d(x, cone.normal), 2) - 

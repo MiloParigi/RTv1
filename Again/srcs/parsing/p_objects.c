@@ -15,7 +15,7 @@ void		set_sphere(t_env *e)
 	{
 		option = trim_option(e, option, &option_arg);
 		if (!ft_strcmp("origin", option))
-			sphere->origin = set_vec3d(e, option_arg);
+			sphere->pos = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
 			sphere->r = ft_atoi(option_arg);
 		else if (!ft_strcmp("color", option))
@@ -47,7 +47,7 @@ void		set_plane(t_env *e)
 	{
 		option = trim_option(e, option, &option_arg);
 		if (!ft_strcmp("origin", option))
-			plane->origin = set_vec3d(e, option_arg);
+			plane->pos = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("normal", option))
 			plane->normal = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("color", option))
@@ -79,7 +79,7 @@ void		set_cylinder(t_env *e)
 	{
 		option = trim_option(e, option, &option_arg);
 		if (!ft_strcmp("origin", option))
-			cylinder->origin = set_vec3d(e, option_arg);
+			cylinder->pos = set_vec3d(e, option_arg);
 		else if(!ft_strcmp("normal", option))
 			cylinder->normal = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
@@ -93,7 +93,7 @@ void		set_cylinder(t_env *e)
 	}
 	else
 	{
-		cylinder->normal = vec_norme3d(vec_sub3d(cylinder->origin, cylinder->normal));
+		cylinder->normal = vec_norme3d(vec_sub3d(cylinder->pos, cylinder->normal));
 		set_first_obj(e, cylinder);
 		cylinder = NULL;
 		dispatch(e, option);
@@ -116,7 +116,7 @@ void		set_cone(t_env *e)
 		if (!ft_strcmp("normal", option))
 			cone->normal = set_vec3d(e, option_arg);
 		else if(!ft_strcmp("origin", option))
-			cone->origin = set_vec3d(e, option_arg);
+			cone->pos = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("radius", option))
 			cone->r = ft_atoi(option_arg);
 		else if (!ft_strcmp("color", option))
