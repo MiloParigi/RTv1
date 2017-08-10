@@ -14,43 +14,43 @@
 
 void	mv_left(t_env *e)
 {
-	e->setup.camera.x -= 1000;
+	e->scene.camera.ray.pos.x -= 200;
 	raytrace2(e);
-	if (e->setup.supersampling)
+	if (e->scene.supersampling)
 		super_sampler(e);
 	else
 		anti_supersampler(e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx.init, e->mlx.window, e->mlx.image, 0, 0);
 }
 void	mv_right(t_env *e)
 {
-	e->setup.camera.x += 1000;
+	e->scene.camera.ray.pos.x += 200;
 	raytrace2(e);
-	if (e->setup.supersampling)
+	if (e->scene.supersampling)
 		super_sampler(e);
 	else
 		anti_supersampler(e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx.init, e->mlx.window, e->mlx.image, 0, 0);
 }
 void	mv_up(t_env *e)
 {
-	e->setup.camera.y -= 1000;
+	e->scene.camera.ray.pos.y -= 200;
 	raytrace2(e);
-	if (e->setup.supersampling)
+	if (e->scene.supersampling)
 		super_sampler(e);
 	else
 		anti_supersampler(e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx.init, e->mlx.window, e->mlx.image, 0, 0);
 }
 void	mv_down(t_env *e)
 {
-	e->setup.camera.y += 1000;
+	e->scene.camera.ray.pos.y += 200;
 	raytrace2(e);
-	if (e->setup.supersampling)
+	if (e->scene.supersampling)
 		super_sampler(e);
 	else
 		anti_supersampler(e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx.init, e->mlx.window, e->mlx.image, 0, 0);
 }
 int		key_hook(int keycode, t_env *e)
 {

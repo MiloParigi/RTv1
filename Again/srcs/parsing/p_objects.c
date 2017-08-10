@@ -3,12 +3,12 @@
 
 void		set_sphere(t_env *e)
 {
-	static t_object		*sphere;
+	static t_obj		*sphere;
 	char				*option;
 	char				*option_arg;
 
 	if (!sphere)
-		sphere = (t_object *)semalloc(sizeof(t_object));
+		sphere = (t_obj *)semalloc(sizeof(t_obj));
 	sphere->type = SPHERE;
 	e->nbline++;
 	if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')
@@ -35,12 +35,12 @@ void		set_sphere(t_env *e)
 
 void		set_plane(t_env *e)
 {
-	static t_object		*plane;
+	static t_obj		*plane;
 	char				*option;
 	char				*option_arg;
 
 	if (!plane)
-		plane = (t_object *)semalloc(sizeof(t_object));
+		plane = (t_obj *)semalloc(sizeof(t_obj));
 	plane->type = PLANE;
 	e->nbline++;
 	if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')
@@ -67,12 +67,12 @@ void		set_plane(t_env *e)
 
 void		set_cylinder(t_env *e)
 {
-	static t_object		*cylinder;
+	static t_obj		*cylinder;
 	char				*option;
 	char				*option_arg;
 
 	if (!cylinder)
-		cylinder = (t_object *)semalloc(sizeof(t_object));
+		cylinder = (t_obj *)semalloc(sizeof(t_obj));
 	cylinder->type = CYLINDER;
 	e->nbline++;
 	if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')
@@ -102,12 +102,12 @@ void		set_cylinder(t_env *e)
 
 void		set_cone(t_env *e)
 {
-	static t_object		*cone;
+	static t_obj		*cone;
 	char				*option;
 	char				*option_arg;
 
 	if (!cone)
-		cone = (t_object *)semalloc(sizeof(t_object));
+		cone = (t_obj *)semalloc(sizeof(t_obj));
 	cone->type = CONE;
 	e->nbline++;
 	if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')

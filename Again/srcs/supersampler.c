@@ -21,7 +21,7 @@ void	anti_supersampler(t_env *e)
 	x1 = W * H;
 	while (x < x1)
 	{
-		((unsigned int *)e->data)[x] = e->img_temp[x];
+		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
 		x++;
 	}
 }
@@ -41,7 +41,7 @@ void	super_sampler(t_env *e)
 		x1 = 0;
 		while (x < W / 2)
 		{
-			((unsigned int *)e->data)[x + y * W / 2] = AVERAGE(
+			((unsigned int *)e->mlx.data)[x + y * W / 2] = AVERAGE(
 				AVERAGE(e->img_temp[x1 + y1 * W],
 						e->img_temp[(x1 + 1) + (y1 * W)]),
 				AVERAGE(e->img_temp[x1 + (y1 + 1) * W],

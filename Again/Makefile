@@ -6,12 +6,12 @@
 #    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/10 07:54:15 by mhalit           ###   ########.fr        #
+#    Updated: 2017/08/10 12:34:09 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rtv1
-FLAGS = -Wall -Wextra # @todo : Add -Werror Flag, Uncomment Minilibx clean -Ofast
+FLAGS = -Wall -Wextra -g# @todo : Add -Werror Flag, Uncomment Minilibx clean -Ofast
 MLX = ./minilibX/
 MLX_LIB = $(addprefix $(MLX),mlx.a)
 MLX_INC	= -I ./minilibx_macos

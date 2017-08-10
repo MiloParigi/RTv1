@@ -14,12 +14,12 @@
 
 void		set_win_img(t_env *e)
 {
-	e->mlx = mlx_init();
-	e->img = mlx_new_image(e->mlx, W / SS, H / SS);
-	e->data = mlx_get_data_addr(
-		e->img,
-		&e->setup.bpp, 
-		&e->setup.sl,
-		&e->setup.endian
+	e->mlx.init = mlx_init();
+	e->mlx.image = mlx_new_image(e->mlx.init, W / SS, H / SS);
+	e->mlx.data = mlx_get_data_addr(
+		e->mlx.image,
+		&e->mlx.bpp, 
+		&e->mlx.size_l,
+		&e->mlx.endian
 	);
 }

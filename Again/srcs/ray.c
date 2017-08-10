@@ -16,7 +16,7 @@ t_ray	c_ray(t_vec3d i, t_vec3d j)
 {
 	t_ray ray;
 
-	ray.origin = vec_new3d(i.x, i.y, i.z);
+	ray.pos = vec_new3d(i.x, i.y, i.z);
 	ray.dir = vec_new3d(j.x, j.y, j.z);
 	return (ray);
 }

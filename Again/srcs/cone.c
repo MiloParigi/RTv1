@@ -14,9 +14,9 @@
 #include "rtv1.h"
 
 double     intensity_cone(t_env *e, t_vec3d poi,
-				t_object cone, t_light light)
+				t_obj cone, t_light light)
 {
-	t_vec3d	dist_to_light;
+	t_vec3d		dist_to_light;
 	double		intensity;
 
 	dist_to_light = vec_sub3d(light.origin, poi);
@@ -24,7 +24,7 @@ double     intensity_cone(t_env *e, t_vec3d poi,
 	return (intensity > 0) ? intensity : 0;
 }
 
-double      intersect_cone(t_ray ray, t_object cone)
+double      intersect_cone(t_ray ray, t_obj cone)
 {
 	double          a;
 	double          b;
@@ -32,9 +32,9 @@ double      intersect_cone(t_ray ray, t_object cone)
 	double		    det;
 	double          t0;
 	double          t1;
-	t_vec3d        x;
+	t_vec3d    	    x;
 
-	x = vec_sub3d(cone.pos, ray.origin);
+	x = vec_sub3d(cone.pos, ray.pos);
 	a = vec_dot3d(ray.dir, ray.dir) - 
 		vec_dot3d(ray.dir, cone.normal);
 	c = vec_dot3d(x, x) - pow(vec_dot3d(x, cone.normal), 2) - 

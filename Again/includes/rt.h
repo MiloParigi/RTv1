@@ -150,7 +150,7 @@ typedef struct		s_obj
 	int				type;
 	t_color			color;
 	t_vec3			pos;
-	t_vec3			rot;
+	t_vec3			dir;
 	float			size;
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
 	t_vec3			maxp; //For Cylinder and Cone

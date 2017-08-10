@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 double		intensity_plane(t_env *e, t_vec3d poi,
-				t_object plane, t_light light)
+				t_obj plane, t_light light)
 {
 	t_vec3d	dist_to_light;
 	double		intensity;
@@ -30,7 +30,7 @@ double		intensity_plane(t_env *e, t_vec3d poi,
 ** http://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
 */
 
-double		intersect_plane(t_ray ray, t_object plane)
+double		intersect_plane(t_ray ray, t_obj plane)
 {
 	double		d;
 	double		dist;
@@ -39,7 +39,7 @@ double		intersect_plane(t_ray ray, t_object plane)
 	d = vec_dot3d(plane.normal, ray.dir);
 	if (fabs(d) > 0.0001)
 	{
-		vector_distance = vec_sub3d(plane.pos, ray.origin);
+		vector_distance = vec_sub3d(plane.pos, ray.pos);
 		dist = vec_dot3d(vector_distance, plane.normal) / d;
 		return (dist);
 	}

@@ -15,7 +15,7 @@
 int				obj_in_shadow(t_env *e, t_vec3d poi, t_light light)
 {
 	t_ray		ray;
-	t_object	*dummyobj;
+	t_obj	*dummyobj;
 	double		dist_to_light;
 	double		dist;
 
@@ -31,7 +31,7 @@ int				obj_in_shadow(t_env *e, t_vec3d poi, t_light light)
 		return (0);
 }
 
-static t_color	*get_color(t_env *e, t_object *obj, t_vec3d poi)
+static t_color	*get_color(t_env *e, t_obj *obj, t_vec3d poi)
 {
 	double		intensity;
 	t_light		*tmp;
@@ -60,9 +60,9 @@ static t_color	*get_color(t_env *e, t_object *obj, t_vec3d poi)
  */
 
 double			get_min_dist(t_env *e, t_ray ray,
-					t_object **closest, int cangoneg)
+					t_obj **closest, int cangoneg)
 {
-	t_object	*tmp;
+	t_obj	*tmp;
 	double		min_dist;
 	double		dist;
 
@@ -93,7 +93,7 @@ double			get_min_dist(t_env *e, t_ray ray,
 static t_color	*get_pxl_color(t_env *e, t_ray ray)
 {
 	double		min_dist;
-	t_object	*obj;
+	t_obj	*obj;
 	t_vec3d		point_of_impact;
 	t_color		*color;
 
@@ -101,7 +101,7 @@ static t_color	*get_pxl_color(t_env *e, t_ray ray)
 	obj = NULL;
 	if ((min_dist = get_min_dist(e, ray, &obj, 0)) == -1)
 		return (NULL);
-	point_of_impact = vec_add3d(ray.origin,
+	point_of_impact = vec_add3d(ray.pos,
 			vec_scale3d(ray.dir, min_dist));
 	color = get_color(e, obj, point_of_impact);
 	return (color);
@@ -128,8 +128,8 @@ int				raytrace2(t_env *e)
 		x = 0;
 		while (x < W)
 		{
-			pov = vec_new3d((double)(x + e->setup.camera.x) / SS, 
-			(double)(y + e->setup.camera.y) / SS, 1);
+			pov = vec_new3d((double)(x + e->scene.camera.ray.pos.x) / SS, 
+			(double)(y + e->scene.camera.ray.pos.y) / SS, 1);
 			ray = c_ray(pov, vec_new3d(0, 0, 1));
 			color = get_pxl_color(e, ray);
 			if (color != NULL)

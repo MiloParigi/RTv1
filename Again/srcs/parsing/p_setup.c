@@ -12,27 +12,27 @@
 
 #include "rtv1.h"
 
-/*
-**	void		set_camera(t_env *e)
-**	{
-**		char	*option;
-**		char	*option_arg;
-**	
-**		e->nbline++;
-**		if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')
-**		{
-**			option = trim_option(e, option, &option_arg);
-**			if (!ft_strcmp("origin", option))
-**				e->camera = set_vec3d(e, option_arg);
-**			else if (!ft_strcmp("fov", option))
-**				e->fov = ft_atoi(option_arg);
-**			free(option);
-**			set_camera(e);
-**		}
-**		else
-**			dispatch(e, option);
-**	}
-*/
+
+// void		set_camera2(t_env *e)
+// {
+// 	char	*option;
+// 	char	*option_arg;
+
+// 	e->nbline++;
+// 	if (get_next_line(e->fd, &option) == 1 && option[0] == ' ')
+// 	{
+// 		option = trim_option(e, option, &option_arg);
+// 		if (!ft_strcmp("origin", option))
+// 			e->scene.camera.ray.pos = set_vec3d(e, option_arg);
+// 		else if (!ft_strcmp("fov", option))
+// 			e->scene.cam.focale = ft_atoi(option_arg);
+// 		free(option);
+// 		set_camera(e);
+// 	}
+// 	else
+// 		dispatch(e, option);
+// }
+
 
 void		set_supersampling(t_env *e, char *line)
 {
@@ -44,7 +44,7 @@ void		set_supersampling(t_env *e, char *line)
 	if (tmp != 0 && tmp != 1)
 		syntax_error(line, "Supersampling has to be set to 0 or 1", e->nbline);
 	else
-		e->setup.supersampling = tmp;
+		e->scene.supersampling = tmp;
 	free_splited_str(line_splited);
 	return ;
 }

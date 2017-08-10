@@ -29,9 +29,9 @@ void			set_first_light(t_env *e, t_light *light)
 ** set first obj to the objects struct
 */
 
-void			set_first_obj(t_env *e, t_object *obj)
+void			set_first_obj(t_env *e, t_obj *obj)
 {
-	t_object	*tmp;
+	t_obj	*tmp;
 
 	tmp = obj;
 	tmp->next = e->obj;

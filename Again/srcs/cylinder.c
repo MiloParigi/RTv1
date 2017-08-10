@@ -13,7 +13,7 @@
 #include "../includes/rtv1.h"
 
 double		intensity_cylinder(t_env *e, t_vec3d poi,
-				t_object cylinder, t_light light)
+				t_obj cylinder, t_light light)
 {
 	t_vec3d		dist_to_light;
 	double		intensity;
@@ -23,7 +23,7 @@ double		intensity_cylinder(t_env *e, t_vec3d poi,
 	return (intensity > 0) ? intensity : 0;
 }
 
-double		intersect_cylinder(t_ray ray, t_object cylinder)
+double		intersect_cylinder(t_ray ray, t_obj cylinder)
 {
 	double          a;
 	double          b;
@@ -33,7 +33,7 @@ double		intersect_cylinder(t_ray ray, t_object cylinder)
 	double          t1;
 	t_vec3d	        x;
 
-	x = vec_sub3d(cylinder.pos, ray.origin);
+	x = vec_sub3d(cylinder.pos, ray.pos);
 	a = vec_dot3d(ray.dir, ray.dir) - 
 		vec_dot3d(ray.dir, cylinder.normal);
 	c = vec_dot3d(x, x) - pow(vec_dot3d(x, cylinder.normal), 2) - 

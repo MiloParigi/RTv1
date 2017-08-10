@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 double		intensity_sphere(t_env *e, t_vec3d poi,
-				t_object sphere, t_light light)
+				t_obj sphere, t_light light)
 {
 	double		dist_to_light;
 	t_vec3d		vec_to_eyes;
@@ -35,14 +35,14 @@ double		intensity_sphere(t_env *e, t_vec3d poi,
 ** http://hugi.scene.org/online/hugi24/index%20coding%20&%20maths.htm
 */
 
-double		intersect_sphere(t_ray ray, t_object sphere)
+double		intersect_sphere(t_ray ray, t_obj sphere)
 {
 	double		a;
 	double		b;
 	double		c;
 	t_vec3d		x;
 
-	x = vec_sub3d(ray.origin, sphere.pos);
+	x = vec_sub3d(ray.pos, sphere.pos);
 	a = vec_dot3d(ray.dir, ray.dir);
 	b = 2 * vec_dot3d(ray.dir, x);
 	c = vec_dot3d(x, x) - (sphere.r * sphere.r);

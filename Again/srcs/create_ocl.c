@@ -51,7 +51,7 @@ int				create_obj(int type, t_rt *env)
 	env->COBJ.type = type;
 	env->COBJ.color = c_color(0, 0, 0);
 	env->COBJ.pos = vec_new3(0, 0, 0);
-	env->COBJ.rot = vec_new3(0, 0, 0);
+	env->COBJ.dir = vec_new3(0, 0, 0);
 	env->COBJ.size = 0;
 	env->COBJ.maxp = vec_new3(0, 0, 0);
 	env->COBJ.minp = vec_new3(0, 0, 0);
