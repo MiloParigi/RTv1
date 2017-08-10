@@ -21,7 +21,7 @@ double		intensity_sphere(t_env *e, t_vec3d poi,
 	double		intensity;
 
 	vec_to_eyes = vec_norme3d(vec_sub3d(poi, sphere.pos));
-	vec_to_light = vec_sub3d(light.origin, poi);
+	vec_to_light = vec_sub3d(light.ray.pos, poi);
 	dist_to_light = get_length(vec_to_light);
 	intensity = (vec_dot3d(vec_to_eyes, vec_norme3d(vec_to_light)) *
 		ft_map(dist_to_light, 2000 * light.intensity, 500, 200));

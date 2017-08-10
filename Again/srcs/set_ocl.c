@@ -68,7 +68,7 @@ int			set_light(t_rt *env, char **a)
 	else if (i == 2 && !ft_strcmp("intensity", a[0]))
 		SLIGHT.intensity = ft_atof(a[1]);
 	else if (i == 4 && !ft_strcmp("color", a[0]))
-		SLIGHT.color = ft_atoi(a[1]);
+		SLIGHT.color = c_color(ft_atoi(a[1]), ft_atoi(a[2]), ft_atoi(a[3]));
 	else
 		return (0);
 	return (1);

@@ -87,7 +87,7 @@ typedef struct		s_light
 {
 	int				is_init;
 	t_ray			ray;
-	int				color;
+	t_color			color;
 	float			intensity;
 }					t_light;
 

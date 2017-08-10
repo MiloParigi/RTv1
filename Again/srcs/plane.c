@@ -18,7 +18,7 @@ double		intensity_plane(t_env *e, t_vec3d poi,
 	t_vec3d	dist_to_light;
 	double		intensity;
 
-	dist_to_light = vec_sub3d(light.origin, poi);
+	dist_to_light = vec_sub3d(light.ray.pos, poi);
 	intensity = 0.5 * ft_map(get_length(dist_to_light), 2000 * light.intensity, 500, 200);
 	if (obj_in_shadow(e, poi, light))
 		intensity -= AMBIENT_LIGHT;

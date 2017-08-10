@@ -19,9 +19,9 @@ int				obj_in_shadow(t_env *e, t_vec3d poi, t_light light)
 	double		dist_to_light;
 	double		dist;
 
-	dist_to_light = get_length(vec_sub3d(light.origin, poi));
-	ray = c_ray(vec_add3d(poi, vec_norme3d(vec_sub3d(light.origin, poi))),
-	vec_norme3d(vec_sub3d(light.origin, poi)));
+	dist_to_light = get_length(vec_sub3d(light.ray.pos, poi));
+	ray = c_ray(vec_add3d(poi, vec_norme3d(vec_sub3d(light.ray.pos, poi))),
+	vec_norme3d(vec_sub3d(light.ray.pos, poi)));
 	dist = get_min_dist(e, ray, &dummyobj, 1);
 	if (dist > 0 && dist < dist_to_light)
 	{

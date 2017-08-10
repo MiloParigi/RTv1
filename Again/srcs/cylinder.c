@@ -18,7 +18,7 @@ double		intensity_cylinder(t_env *e, t_vec3d poi,
 	t_vec3d		dist_to_light;
 	double		intensity;
 
-	dist_to_light = vec_sub3d(light.origin, poi);
+	dist_to_light = vec_sub3d(light.ray.pos, poi);
 	intensity = 0.5 * ft_map(get_length(dist_to_light), 2000 * light.intensity, 500, 200);
 	return (intensity > 0) ? intensity : 0;
 }

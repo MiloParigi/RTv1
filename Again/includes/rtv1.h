@@ -83,11 +83,20 @@ typedef struct	s_ray
 	t_vec3d		dir;
 }				t_ray;
 
+// typedef struct		s_light
+// {
+// 	double			intensity;
+// 	t_vec3d			origin;
+// 	struct s_light	*next;
+// }					t_light;
+
 typedef struct		s_light
 {
+	int				is_init;
+	t_ray			ray;
+	t_color			color;
 	double			intensity;
-	t_vec3d			origin;
-	struct s_light	*next;
+	struct s_light 	*next;
 }					t_light;
 
 typedef struct	s_obj
@@ -125,7 +134,6 @@ typedef struct		s_env
 {
 	t_mlx 			mlx;
 	t_scene			scene;
-	char			*data;
 	t_light			*light;
 	unsigned int	*img_temp;
 	t_obj			*obj;

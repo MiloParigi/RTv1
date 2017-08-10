@@ -70,7 +70,7 @@ int				create_light(t_rt *env)
 	env->CLIGHT.is_init = 1;
 	env->CLIGHT.ray.pos = vec_new3(0, 0, 0);
 	env->CLIGHT.ray.dir = vec_new3(0, 0, 0);
-	env->CLIGHT.color = 255;
+	env->CLIGHT.color = c_color(0, 0, 0);
 	env->CLIGHT.intensity = 0;
 	env->scene.nbr_light++;
 	return (1);

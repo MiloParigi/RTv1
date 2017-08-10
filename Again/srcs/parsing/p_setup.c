@@ -62,7 +62,7 @@ void		set_light2(t_env *e)
 	{
 		option = trim_option(e, option, &option_arg);
 		if (!ft_strcmp("origin", option))
-			light->origin = set_vec3d(e, option_arg);
+			light->ray.pos = set_vec3d(e, option_arg);
 		else if (!ft_strcmp("intensity", option))
 			light->intensity = ft_atof(option_arg);
 		else
