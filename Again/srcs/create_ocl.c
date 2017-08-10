@@ -6,11 +6,11 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/07 22:20:07 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/10 05:25:04 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../includes/rt.h"
 
 t_matiere	create_matiere(void)
 {

@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/07 21:53:19 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/10 06:41:03 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			parse_args(char **argv, int argc, t_rt *env)
 	while (i++ < argc)
 	{
 		if (!ft_strcmp("--help", argv[i]))
-			display_args();
+			return (0);//display_args();
 		else if (!ft_strcmp("-w", argv[i]))
 			i + 1 < argc ? LARGEUR = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))

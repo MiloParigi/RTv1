@@ -6,13 +6,13 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 06:26:11 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/07 22:18:42 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/10 06:57:14 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float		intersect_sphere(t_ray ray, t_obj obj)
+float		intersect_sphere2(t_ray ray, t_obj obj)
 {
 	int		retval;
 	t_calc	op;

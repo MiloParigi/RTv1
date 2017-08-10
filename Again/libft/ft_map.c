@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/22 02:30:39 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/22 02:32:30 by mhalit           ###   ########.fr       */
+/*   Created: 2017/04/04 20:41:01 by bbeldame          #+#    #+#             */
+/*   Updated: 2017/04/09 20:14:18 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_abs(int nb)
+float	ft_map(float x, float length, float min, float max)
 {
-	return (nb < 0 ? -nb : nb);
+	return ((x / length) * (max - min) + min);
 }

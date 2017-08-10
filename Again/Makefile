@@ -1,49 +1,79 @@
-#
-#**************************************************************************** #
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mhalit <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/01/27 22:03:25 by mhalit            #+#    #+#              #
-#    Updated: 2017/02/25 19:16:46 by mhalit           ###   ########.fr        #
+#    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
+#    Updated: 2017/08/10 07:54:15 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c create_ocl.c set_ocl.c parser.c intersect_basics.c frame.c
-
-OBJ =  main.o create_ocl.o set_ocl.o parser.o intersect_basics.o frame.o
-
-LIBS = libft/libft.a libvec/libvec.a
-
 NAME = rtv1
+FLAGS = -Wall -Wextra # @todo : Add -Werror Flag, Uncomment Minilibx clean -Ofast
+MLX = ./minilibX/
+MLX_LIB = $(addprefix $(MLX),mlx.a)
+MLX_INC	= -I ./minilibx_macos
+LINKS = -L ./minilibX -lm -lmlx -framework OpenGL -framework AppKit
+LIBFTA = libft.a
+LIBVECA = libvec.a
+LIBFTDIR = ./libft
+LIBVECDIR = ./libvec
+MLXA = ./miniLibX/libmlx.a
+OBJDIR = ./objs/
+INCDIR = ./includes
+SRCDIR = ./srcs/
+SRCS_NAME = color.c cone.c create_img.c main.c operation.c \
+	ray.c raytrace.c sphere.c vector.c hooks.c plane.c \
+	parsing/parse.c cylinder.c parsing/p_errors.c \
+	parsing/p_objects.c parsing/p_setup.c parsing/p_utils.c \
+	supersampler.c create_ocl.c set_ocl.c parser.c \
+	intersect_basics.c frame.c
+OBJS = $(SRCS_NAME:.c=.o)
+OBJS := $(notdir $(OBJS))
+	OBJS := $(addprefix $(OBJDIR), $(OBJS))
+LIBFT2 = $(addprefix $(LIBFTDIR)/,$(LIBFTA))
+LIBFTO = $(addprefix $(LIBFTO)/,$(LIBFTOA))
+LIBVEC = $(addprefix $(LIBVECDIR)/,$(LIBVECA))
+VPATH = $(SRCDIR):$(SRCDIR)parsing
 
-FLAGS = -Wextra -Werror -Wall -g
+GREEN = \033[0;32m
+RED = \033[0;31m
+NC = \033[0m
 
-SAN = $(FLAGS) -fsanitize=address
+SRCS = $(addprefix $(SRCDIR),$(SRCS_NAME))
 
 all: $(NAME)
 
-$(NAME):
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
 
-#recompiler les new .c
-	#make -C ./libft
-	#make -C ./libvec
-	#make -C ./minilibx_macos
-	gcc $(FLAGS) -c $(SRCS)
-	gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
-	#gcc $(FLAGS) $(OBJ) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit -I minilibx_macos ./minilibx_macos/libmlx.a
-sanitize:
-	gcc $(SAN) -c $(SRCS)
-	gcc $(SAN) $(OBJ) $(LIBS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+$(OBJDIR)%.o:%.c
+	gcc $(FLAGS) -I $(INCDIR) -I $(LIBFTDIR) -I $(LIBVECDIR) -I $(MLX) -o $@ -c $<
+
+$(LIBFT):
+$(MLXA):
+	@make -sC $(MLX)
+
+$(NAME): $(LIBFT) $(MLXA) $(OBJDIR) $(OBJS)
+	make -C $(LIBFTDIR)
+	make -C $(LIBVECDIR)
+	gcc $(OBJS) $(LINKS) $(LIBFT2) $(LIBVEC) -lm -o $(NAME)
+	@echo "$(GREEN)----------RTv1 compiled-----------$(NC)"
+
 clean:
-	rm -f $(OBJ)
-	make -C ./libft clean
-	make -C ./libvec clean
-	make -C ./minilibx_macos clean
-fclean: clean
+	rm -rf $(OBJDIR)
+	make clean -C $(LIBFTDIR)
+	make clean -C $(LIBVECDIR)
+#	@make --silent clean -C $(MLX)
+
+fclean:	clean
 	rm -f $(NAME)
-	#make -C ./libvec fclean
-	#make -C ./libft fclean
+	make fclean -C $(LIBFTDIR)
+	make fclean -C $(LIBVECDIR)
+	echo "$(GREEN)-----RTv1 removed completely------$(NC)"
+
 re: fclean all
+
+.PHONY: all clean fclean re

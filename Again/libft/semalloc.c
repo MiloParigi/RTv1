@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalphanum.c                                    :+:      :+:    :+:   */
+/*   semalloc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 15:55:20 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/22 02:50:13 by mhalit           ###   ########.fr       */
+/*   Created: 2017/04/09 16:31:59 by bbeldame          #+#    #+#             */
+/*   Updated: 2017/04/09 20:14:42 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalphanum(int c)
+void		*semalloc(size_t size)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	void *new;
+
+	if (!(new = malloc(size)))
+		err_found("malloc failed");
+	return (new);
 }

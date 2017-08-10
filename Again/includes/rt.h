@@ -6,19 +6,21 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/07 22:03:22 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/10 07:38:28 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_H
 # define RT_H
 
-# include "libft/libft.h"
-# include "minilibx_macos/mlx.h"
-# include "libvec/libvec.h"
+# include "libft.h"
+# include "mlx.h"
+# include "libvec.h"
 # include <math.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 # define AP 81
 # define AM 75
@@ -191,6 +193,6 @@ int					parse_args(char **argv, int argc, t_rt *env);
 int					parse_obj(char *path, t_rt *env);
 void				store_type_or_data(char *line, t_rt *env);
 void				frame(t_rt *env);
-float				intersect_sphere(t_ray ray, t_obj obj);
+float				intersect_sphere2(t_ray ray, t_obj obj);
 void				raytrace(int x, int y, t_rt *env);
 #endif

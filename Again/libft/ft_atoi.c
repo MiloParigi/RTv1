@@ -3,62 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 15:49:35 by mhalit            #+#    #+#             */
-/*   Updated: 2017/07/26 16:31:48 by mhalit           ###   ########.fr       */
+/*   Created: 2016/11/05 19:29:18 by tfaure            #+#    #+#             */
+/*   Updated: 2017/04/23 20:58:13 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+intmax_t		ft_atoi(const char *str)
 {
-	int out;
-	int signe;
+	int			i;
+	intmax_t	nbr;
+	int			negative;
 
-	signe = 1;
-	out = 0;
-	while (*nptr == ' ' || *nptr == '\t' || *nptr == '\n' || *nptr == '\v' ||
-*nptr == '\f' || *nptr == '\r')
-		nptr++;
-	if (*nptr == '-')
-		signe = -1;
-	if (*nptr == '-' || *nptr == '+')
-		nptr++;
-	while (*nptr >= '0' && *nptr <= '9' && *nptr)
-	{
-		out = (out * 10) + (*nptr - 48);
-		nptr++;
-	}
-	return (out * signe);
-}
-
-float		ft_atof(const char *str)
-{
-	float	n;
-	int		i;
-	int		k;
-	int		signe;
-
+	nbr = 0;
+	negative = 0;
 	i = 0;
-	n = 0;
-	k = 0;
-	signe = 1;
-	if (!str)
-		return (0);
-	while (str[i] == ' ' || str[i] == '\v' || str[i] == '\t' || str[i] == '\r'
-			|| str[i] == '\f' || str[i] == '\n')
+	while ((str[i] == '\n') || (str[i] == '\t') || (str[i] == '\v') ||
+			(str[i] == ' ') || (str[i] == '\f') || (str[i] == '\r'))
 		i++;
-	signe = (str[i] == '-') ? -signe : signe;
-	i = (str[i] == '-' || str[i] == '+') ? i + 1 : i;
-	while (str[i] > 47 && str[i] < 58)
+	if (str[i] == '-')
+		negative = 1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
 	{
-		n = n * 10 + (str[i++] - 48);
-		if (str[i] == '.')
-			k = i++;
+		nbr *= 10;
+		nbr += (int)str[i] - '0';
+		i++;
 	}
-	while (k != 0 && str[++k])
-		signe = signe * 10;
-	return (n / signe);
+	if (negative == 1)
+		return (-nbr);
+	else
+		return (nbr);
 }

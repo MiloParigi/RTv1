@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 17:24:07 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/20 22:52:22 by mhalit           ###   ########.fr       */
+/*   Created: 2016/11/05 21:52:23 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:20:59 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,16 @@
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	unsigned int i;
-	unsigned int a;
+	size_t	len2;
 
-	i = 0;
-	a = 0;
-	if (!little[i])
+	if (*little == '\0')
 		return ((char *)big);
-	while (big[i] && i < len)
+	len2 = ft_strlen(little);
+	while (*big != '\0' && len-- >= len2)
 	{
-		while (big[i + a] == little[a] && (i + a < len))
-		{
-			a++;
-			if (little[a] == '\0')
-				return ((char *)big + i);
-		}
-		a = 0;
-		i++;
+		if (*big == *little && ft_memcmp(big, little, len2) == 0)
+			return ((char *)big);
+		big++;
 	}
-	return (0);
+	return (NULL);
 }

@@ -3,76 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 14:55:36 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/18 17:57:20 by mhalit           ###   ########.fr       */
+/*   Created: 2016/11/11 14:45:11 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/17 13:03:30 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strlen_du_futur(char *str, char c, int i)
+static int	wordsnbr(const char *s, char c)
 {
-	int	st;
+	int		i;
+	int		j;
 
-	st = i;
-	while (str[i] && str[i] != c)
-		i++;
-	return (i - st);
+	j = 0;
+	i = 0;
+	while (*s != '\0')
+	{
+		if (j == 1 && *s == c)
+			j = 0;
+		if (j == 0 && *s != c)
+		{
+			j = 1;
+			i++;
+		}
+		s++;
+	}
+	return (i);
 }
 
-static int	ft_scpy(char *dest, char *src, char c, int i)
+static int	wordslen(const char *s, char c)
 {
-	int k;
+	int		len;
 
-	k = 0;
-	while (src[i] && src[i] != c)
+	len = 0;
+	while (*s != c && *s != '\0')
 	{
-		dest[k] = src[i];
-		k++;
-		i++;
+		len++;
+		s++;
 	}
-	dest[k] = '\0';
-	return (i);
+	return (len);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**tab;
+	char	**str;
+	int		words;
 	int		i;
-	int		a;
 
-	i = 0;
-	a = 0;
-	if (!s ||
-			!(tab = malloc(sizeof(char *) * (ft_strlen((char *)s) + 1))))
+	if (!c || !s)
 		return (NULL);
-	while (s[i])
+	i = 0;
+	words = wordsnbr((const char*)s, c);
+	str = (char **)malloc(sizeof(*str) * (wordsnbr((const char *)s, c) + 1));
+	if (!str)
+		return (NULL);
+	while (words--)
 	{
-		if (s[i] == c)
-			i++;
-		else
-		{
-			if (!(tab[a] = malloc(sizeof(char)
-							* (ft_strlen_du_futur((char *)s, c, i) + 1))))
-				return (NULL);
-			i = ft_scpy(tab[a], (char *)s, c, i);
-			a++;
-		}
+		while (*s == c && *s != '\0')
+			s++;
+		str[i] = ft_strsub((const char*)s, 0, wordslen((const char *)s, c));
+		if (str[i] == NULL)
+			return (NULL);
+		s = s + wordslen((const char *)s, c);
+		i++;
 	}
-	tab[a] = NULL;
-	return (tab);
-}
-
-char	*ft_strjoin_free(char *s1, char *s2, char mode)
-{
-	char	*str;
-
-	str = ft_strjoin(s1, s2);
-	if (mode == FRST || mode == BOTH)
-		free(s1);
-	if (mode == SCND || mode == BOTH)
-		free(s2);
+	str[i] = NULL;
 	return (str);
 }

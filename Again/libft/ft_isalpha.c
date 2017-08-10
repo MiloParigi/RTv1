@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isaplha.c                                       :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 15:56:06 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/22 02:50:04 by mhalit           ###   ########.fr       */
+/*   Created: 2016/11/05 20:41:50 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:39:45 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+int		ft_isalpha(int c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	int	mincl;
+	int maxcl;
+	int	min;
+	int max;
+
+	min = 'a';
+	max = 'z';
+	mincl = 'A';
+	maxcl = 'Z';
+	if ((c >= min && c <= max) || (c >= mincl && c <= maxcl))
 		return (1);
-	return (0);
+	else
+		return (0);
 }

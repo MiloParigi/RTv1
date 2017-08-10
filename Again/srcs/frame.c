@@ -6,11 +6,11 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/07 05:21:37 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/10 06:57:45 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../includes/rt.h"
 
 void	mlx_pixel(int x, int y, t_rt *env, int color)
 {
@@ -35,7 +35,7 @@ int 	find_obj(t_ray ray, t_rt *env)
 	while (i < env->scene.nbr_obj)
 	{
 		if (env->COBJ.type == SPHERE) {
-			env->COBJ.t = intersect_sphere(ray, env->COBJ);
+			env->COBJ.t = intersect_sphere2(ray, env->COBJ);
 		}
 		if (env->COBJ.t < env->scene.obj[last].t)
 			last = i;

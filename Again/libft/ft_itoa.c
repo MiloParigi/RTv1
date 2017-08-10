@@ -3,48 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 17:26:30 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/20 22:35:18 by mhalit           ###   ########.fr       */
+/*   Created: 2016/11/08 16:48:30 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 22:13:49 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_exceptions(int nb)
+static void	itoa_isnegative(int *n, int *negative)
 {
-	if (nb == -2147483648)
-		return (ft_strdup("-2147483648"));
-	if (nb == 0)
-		return (ft_strdup("0"));
-	return (NULL);
+	if (*n < 0)
+	{
+		*n *= -1;
+		*negative = 1;
+	}
 }
 
-char			*ft_itoa(int nb)
+char		*ft_itoa(int n)
 {
-	char	*r;
-	int		tot;
-	int		ret;
-	int		a;
+	int		tmpn;
+	int		len;
+	int		negative;
+	char	*str;
 
-	a = 0;
-	ret = 0;
-	tot = nb;
-	if (!(r = malloc(sizeof(char) * 15)))
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	tmpn = n;
+	len = 2;
+	negative = 0;
+	itoa_isnegative(&n, &negative);
+	while (tmpn /= 10)
+		len++;
+	len += negative;
+	if ((str = (char*)malloc(sizeof(char) * len)) == NULL)
 		return (NULL);
-	if (ft_exceptions(nb))
-		return (ft_exceptions(nb));
-	if (nb < 0)
-		tot = -tot;
-	while (tot)
+	str[--len] = '\0';
+	while (len--)
 	{
-		ret = tot % 10;
-		tot /= 10;
-		r[a++] = ret + '0';
+		str[len] = n % 10 + '0';
+		n = n / 10;
 	}
-	if (nb < 0)
-		r[a++] = '-';
-	r[a] = '\0';
-	return (ft_strrev(r));
+	if (negative)
+		str[0] = '-';
+	return (str);
 }

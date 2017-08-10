@@ -6,7 +6,7 @@
 #    By: mhalit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 20:57:18 by mhalit            #+#    #+#              #
-#    Updated: 2017/08/10 02:42:10 by mhalit           ###   ########.fr        #
+#    Updated: 2017/08/10 06:10:24 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ CC = gcc -Werror -Wall -Wextra
 all : $(NAME)
 
 $(NAME):
-	@$(CC) -I$(INC) $(SRC) -c
-	@ar -rc $(NAME) $(OBJ)
+	$(CC) -I$(INC) $(SRC) -c
+	ar -rc $(NAME) $(OBJ)
 	@echo "Compiling libvec..."
 clean :
 	@rm -f $(OBJ)

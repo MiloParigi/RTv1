@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/22 02:33:05 by mhalit            #+#    #+#             */
-/*   Updated: 2016/11/22 02:48:34 by mhalit           ###   ########.fr       */
+/*   Created: 2017/03/24 14:55:55 by tfaure            #+#    #+#             */
+/*   Updated: 2017/04/09 19:48:04 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/rtv1.h"
 
-int		ft_sqrt(int nb)
+t_ray	c_ray(t_vector i, t_vector j)
 {
-	int	i;
+	t_ray ray;
 
-	i = 1;
-	while ((i * i) <= nb)
-	{
-		if (i * i == nb)
-			return (i);
-		i++;
-	}
-	return (0);
+	ray.origin = c_vector(i.x, i.y, i.z);
+	ray.direction = c_vector(j.x, j.y, j.z);
+	return (ray);
 }
