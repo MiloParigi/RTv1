@@ -69,7 +69,7 @@
 # define SOBJ env->scene.obj[env->scene.nbr_obj - 1]
 # define SLIGHT env->scene.lights[env->scene.nbr_light - 1]
 # define ABS(x) (x < 0 ? -x : x)
-# define MAXOBJ 21
+# define MAXOBJ 50
 # define MAXLIGHT 21
 
 # define DEFAULT_SUPERSAMPLING 0

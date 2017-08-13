@@ -6,7 +6,7 @@
 #    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/10 12:34:09 by mhalit           ###   ########.fr        #
+#    Updated: 2017/08/13 18:02:01 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MLXA = ./miniLibX/libmlx.a
 OBJDIR = ./objs/
 INCDIR = ./includes
 SRCDIR = ./srcs/
-SRCS_NAME = color.c cone.c main2.c\
+SRCS_NAME = color.c cone.c main.c\
 	ray.c raytrace.c sphere.c hooks.c plane.c \
 	supersampler.c create_ocl.c set_ocl.c parser.c \
 	frame.c cylinder.c

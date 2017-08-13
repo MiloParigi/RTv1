@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 07:48:37 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/13 18:04:40 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		display_args(void)
 {
 	ft_putstr("\nusage: rtv1 [-s source] [-w width] [-h height]\n");
-	ft_putstr("-w : Set the specified source file\n");
+	ft_putstr("-s : Set the specified source file\n");
 	ft_putstr("-w : Width of the window, default 500px\n");
 	ft_putstr("-h : Height of the window, default 500px\n");
 	ft_putstr("--help : Show help\n");
@@ -25,8 +25,8 @@ void		display_args(void)
 void	init_rt(t_rt *env)
 {
 	env->mlx.init = mlx_init();
-	env->file.haut = 0;
-	env->file.larg = 0;
+	env->file.larg = 1024;
+	env->file.haut = 768;
 	env->scene.nbr_obj = 0;
 	env->scene.nbr_light = 0;
 	env->scene.nbr_tot = 0;
@@ -45,6 +45,8 @@ int		main(int argc, char **argv)
 	{
 		init_rt(env);
 		if (!parse_args(argv, argc, env))
+			return (0);
+		if (!HAUTEUR || !LARGEUR)
 			return (0);
 		env->mlx.window = mlx_new_window(env->mlx.init, env->file.larg, env->file.haut, "RT Again");
 		
