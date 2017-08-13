@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
-void	anti_supersampler(t_env *e)
+void	anti_supersampler(t_rt *env)
 {
 	int x;
 	int x1;
 
 	x = 0;
-	x1 = W * H;
+	x1 = LARGEUR * HAUTEUR;
 	while (x < x1)
 	{
-		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
+		((unsigned int *)env->mlx.data)[x] = env->img_temp[x];
 		x++;
 	}
 }
 
-void	super_sampler(t_env *e)
+void	super_sampler(t_rt *env)
 {
 	int x;
 	int y;
@@ -35,17 +35,17 @@ void	super_sampler(t_env *e)
 
 	y = 0;
 	y1 = 0;
-	while (y < H / 2)
+	while (y < HAUTEUR / 2)
 	{
 		x = 0;
 		x1 = 0;
-		while (x < W / 2)
+		while (x < LARGEUR / 2)
 		{
-			((unsigned int *)e->mlx.data)[x + y * W / 2] = AVERAGE(
-				AVERAGE(e->img_temp[x1 + y1 * W],
-						e->img_temp[(x1 + 1) + (y1 * W)]),
-				AVERAGE(e->img_temp[x1 + (y1 + 1) * W],
-						e->img_temp[(x1 + 1) + (y1 + 1) * W]));
+			((unsigned int *)env->mlx.data)[x + y * LARGEUR / 2] = AVERAGE(
+				AVERAGE(env->img_temp[x1 + y1 * LARGEUR],
+						env->img_temp[(x1 + 1) + (y1 * LARGEUR)]),
+				AVERAGE(env->img_temp[x1 + (y1 + 1) * LARGEUR],
+						env->img_temp[(x1 + 1) + (y1 + 1) * LARGEUR]));
 			x1 += 2;
 			x++;
 		}

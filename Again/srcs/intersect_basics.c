@@ -16,12 +16,12 @@ float		intersect_sphere2(t_ray ray, t_obj obj)
 {
 	int		retval;
 	t_calc	op;
-	t_vec3	dist;
+	t_vec3d	dist;
 
-	op.a = vec_dot3(ray.dir, ray.dir);
-	dist = vec_sub3(ray.pos, obj.pos);
-	op.b = 2 * vec_dot3(ray.dir, dist);
-	op.c = vec_dot3(dist, dist) - (obj.r * obj.r);
+	op.a = vec_dot3d(ray.dir, ray.dir);
+	dist = vec_sub3d(ray.pos, obj.pos);
+	op.b = 2 * vec_dot3d(ray.dir, dist);
+	op.c = vec_dot3d(dist, dist) - (obj.r * obj.r);
 	op.disc = op.b * op.b - 4 * op.a * op.c;
 	if (op.disc < 0)
 		retval = -1;

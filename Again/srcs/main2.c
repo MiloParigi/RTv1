@@ -12,55 +12,41 @@
 
 #include "rt.h"
 
-void	display_obj(t_scene scene)
+void		display_args(void)
 {
-	int i = 0;
-	
-	printf("Display OBJ\n");
-	printf("OBJ: %d, LIGHT: %d, TOT: %d\n", scene.nbr_obj, scene.nbr_light, scene.nbr_tot);
-	while (i < scene.nbr_obj)
-	{
-		printf("\nObj -->\nType: %d\nColor: %d\nPos: {%f; %f; %f}\n", COBJ.type, COBJ.color, COBJ.pos.x, COBJ.pos.y, COBJ.pos.z);
-		i++;
-	}
-	i = 0;
-	while (i < scene.nbr_light)
-	{
-		printf("\nLight -->\nColor: %d\nIntensity: %f\nPos: {%f; %f; %f}\n", CLIGHT.color, CLIGHT.intensity, CLIGHT.ray.pos.x, CLIGHT.ray.pos.y, CLIGHT.ray.pos.z);
-		i++;
-	}
-	//printf("\nCamera: %d\nIntensity: %f\nPos: {%f; %f; %f}", CLIGHT.color, CLIGHT.intensity, CLIGHT.ray.pos.x, CLIGHT.ray.pos.y, CLIGHT.ray.pos.z);
+	ft_putstr("\nusage: rtv1 [-s source] [-w width] [-h height]\n");
+	ft_putstr("-w : Set the specified source file\n");
+	ft_putstr("-w : Width of the window, default 500px\n");
+	ft_putstr("-h : Height of the window, default 500px\n");
+	ft_putstr("--help : Show help\n");
+	exit(42);
 }
 
-void	display_args(void)
-{
-	ft_putstr("MDR\n");
-}
-
-void	init_env(t_rt *env)
+void	init_rt(t_rt *env)
 {
 	env->mlx.init = mlx_init();
-	env->file.haut = 250;
-	env->file.larg = 250;
+	env->file.haut = 1400;
+	env->file.larg = 1400;
 	env->mlx.window = mlx_new_window(env->mlx.init, env->file.haut, env->file.larg, "RT Again");
 	env->scene.nbr_obj = 0;
 	env->scene.nbr_light = 0;
 	env->scene.nbr_tot = 0;
 	env->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
-	env->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXOBJ);
+	env->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
+	env->scene.supersampling = 0;
 }
 
 int		main(int argc, char **argv)
 {
 	t_rt *env;
 
+	env = NULL;
 	env = (t_rt *)malloc(sizeof(t_rt));
 	if (argc > 2)
 	{
-		init_env(env);
+		init_rt(env);
 		if (!parse_args(argv, argc, env))
 			return (0);
-		display_obj(env->scene);
 		frame(env);
 		mlx_loop(INIT);
 	}

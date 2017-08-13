@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
-int				obj_in_shadow(t_env *e, t_vec3d poi, t_light light)
+int				obj_in_shadow(t_rt *e, t_vec3d poi, t_light light)
 {
 	t_ray		ray;
-	t_obj	*dummyobj;
 	double		dist_to_light;
 	double		dist;
 
 	dist_to_light = get_length(vec_sub3d(light.ray.pos, poi));
 	ray = c_ray(vec_add3d(poi, vec_norme3d(vec_sub3d(light.ray.pos, poi))),
 	vec_norme3d(vec_sub3d(light.ray.pos, poi)));
-	dist = get_min_dist(e, ray, &dummyobj, 1);
+	dist = get_min_dist(e, ray, 1);
 	if (dist > 0 && dist < dist_to_light)
 	{
 		return (1);
@@ -31,56 +30,54 @@ int				obj_in_shadow(t_env *e, t_vec3d poi, t_light light)
 		return (0);
 }
 
-static t_color	*get_color(t_env *e, t_obj *obj, t_vec3d poi)
+t_color			*get_color(t_rt *e, t_obj obj, t_vec3d poi)
 {
 	double		intensity;
-	t_light		*tmp;
+	int 		i;
 
 	intensity = 0;
-	tmp = e->light;
-	while (tmp)
+	i = 0;
+	while (i < e->scene.nbr_light)
 	{
-		if (obj && obj->type == SPHERE)
-			intensity += intensity_sphere(e, poi, *obj, *tmp);
-		if (obj && obj->type == PLANE)
-			intensity += intensity_plane(e, poi, *obj, *tmp);
-		if (obj && obj->type == CYLINDER)
-			intensity += intensity_cylinder(e, poi, *obj, *tmp);
-		if (obj && obj->type == CONE)
-			intensity += intensity_cone(e, poi, *obj, *tmp);
-		tmp = tmp->next;
+		if (obj.type == SPHERE)
+			intensity += intensity_sphere(e, poi, obj, e->CLIGHT);
+		if (obj.type == PLANE)
+			intensity += intensity_plane(e, poi, obj, e->CLIGHT);
+		if (obj.type == CYLINDER)
+			intensity += intensity_cylinder(e, poi, obj, e->CLIGHT);
+		if (obj.type == CONE)
+			intensity += intensity_cone(e, poi, obj, e->CLIGHT);
+		i++;
 	}
-	return (obj && intensity >= 0) ? color_mult(obj->color, intensity) : NULL;
+	return (i <= e->scene.nbr_obj && intensity >= 0) ? color_mult(obj.color, intensity) : NULL;
 }
-
 /*
  ** We test all the object to get the minimal z coordinate of point_of_impact
  ** We save the first hitten object in the closest variable
  ** cangoneg is here to know if we compute the object in the negative distance or not
  */
 
-double			get_min_dist(t_env *e, t_ray ray,
-					t_obj **closest, int cangoneg)
+double			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 {
-	t_obj	*tmp;
 	double		min_dist;
 	double		dist;
+	int 		i;
 
-	tmp = e->obj;
+	i = 0;
 	min_dist = DIST_MAX;
 	dist = DIST_MAX;
-	while (tmp)
+	while (i < e->scene.nbr_obj)
 	{
-		dist = (tmp->type == SPHERE) ? intersect_sphere(ray, *tmp) : dist;
-		dist = (tmp->type == PLANE) ? intersect_plane(ray, *tmp) : dist;
-		dist = (tmp->type == CYLINDER) ? intersect_cylinder(ray, *tmp) : dist;
-		dist = (tmp->type == CONE) ? intersect_cone(ray, *tmp) : dist;
+		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CONE) ? intersect_cone(ray, e->COBJ) : dist;
 		if (dist < min_dist)
 		{
 			min_dist = (cangoneg && dist < 0) ? min_dist : dist;
-			*closest = tmp;
+			e->scene.id = i;
 		}
-		tmp = tmp->next;
+		i++;
 	}
 	return (min_dist < DIST_MAX) ? min_dist : -1;
 }
@@ -90,20 +87,20 @@ double			get_min_dist(t_env *e, t_ray ray,
  ** and send it to the compute method to return a color
  */
 
-static t_color	*get_pxl_color(t_env *e, t_ray ray)
+static t_color	*get_pxl_color(t_rt *e, t_ray ray)
 {
 	double		min_dist;
-	t_obj	*obj;
 	t_vec3d		point_of_impact;
 	t_color		*color;
 
+	e->scene.id = -1;
 	color = NULL;
-	obj = NULL;
-	if ((min_dist = get_min_dist(e, ray, &obj, 0)) == -1)
+	if ((min_dist = get_min_dist(e, ray, 0)) == -1)
 		return (NULL);
 	point_of_impact = vec_add3d(ray.pos,
 			vec_scale3d(ray.dir, min_dist));
-	color = get_color(e, obj, point_of_impact);
+	if (e->scene.id != -1)
+		color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 	return (color);
 }
 
@@ -112,34 +109,31 @@ static t_color	*get_pxl_color(t_env *e, t_ray ray)
 ** The camera is set to x y 0 for simplicity
 */
 
-int				raytrace2(t_env *e)
+int				raytrace2(t_rt *env)
 {
 	int			x;
 	int			y;
 	t_ray		ray;
 	t_vec3d		pov;
 	t_color		*color;
-	unsigned int *img_temp;
+	//unsigned int *img_temp;
 
-	img_temp = (unsigned int *)semalloc(sizeof(unsigned int) * (W * H));
+	//img_temp = (unsigned int *)semalloc(sizeof(unsigned int) * (LARGEUR * HAUTEUR));
 	y = 0;
-	while (y < H)
+	while (y < HAUTEUR)
 	{
 		x = 0;
-		while (x < W)
-		{
-			pov = vec_new3d((double)(x + e->scene.camera.ray.pos.x) / SS, 
-			(double)(y + e->scene.camera.ray.pos.y) / SS, 1);
+		while (x < LARGEUR)
+		{ 
+			pov = vec_new3d((double)(x + env->scene.cam.ray.pos.x) / SS, 
+			(double)(y + env->scene.cam.ray.pos.y) / SS, 1);
 			ray = c_ray(pov, vec_new3d(0, 0, 1));
-			color = get_pxl_color(e, ray);
+			color = get_pxl_color(env, ray);
 			if (color != NULL)
-				img_temp[x + y * W] = ret_colors(*color);
-			else 
-				img_temp[x + y * W] = 0;
+				mlx_pixel(x, y, env, ret_colors(*color));
 			x++;
 		}
 		y++;
 	}
-	e->img_temp = img_temp;
 	return (1);
 }

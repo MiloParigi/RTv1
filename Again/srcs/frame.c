@@ -53,7 +53,7 @@ void	raytrace(int x, int y, t_rt *env)
 	t_ray origin;
 
 	i = 0;
-	origin.pos = vec_new3(x, y, POS.z);
+	origin.pos = vec_new3d(x, y, POS.z);
 	if ((i = find_obj(origin, env)) > 0)
 	{
 		//color = set_light(origin, t, env);
@@ -65,19 +65,22 @@ void	raytrace(int x, int y, t_rt *env)
 
 void	frame(t_rt *env)
 {
-	int x;
-	int y;
+	// int x;
+	// int y;
 
-	y = 0;
-	while (y < HAUTEUR)
-	{
-		x = 0;
-		while (x < LARGEUR)
-		{
-			raytrace(x, y, env);
-			x++;
-		}
-		y++;
-	}
+	// y = 0;
+	// while (y < HAUTEUR)
+	// {
+	// 	x = 0;
+	// 	while (x < LARGEUR)
+	// 	{
+	// 		raytrace2(x, y, env);
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	IMG = mlx_new_image(INIT, env->file.haut, LARGEUR);
+	env->mlx.data = mlx_get_data_addr(IMG, &env->mlx.bpp, &env->mlx.size_l, &env->mlx.endian);
+	raytrace2(env);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 }

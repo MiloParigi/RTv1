@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 
-#include "rtv1.h"
+#include "rt.h"
 
-double     intensity_cone(t_env *e, t_vec3d poi,
+double     intensity_cone(t_rt *e, t_vec3d poi,
 				t_obj cone, t_light light)
 {
 	t_vec3d		dist_to_light;

@@ -14,13 +14,13 @@
 
 int			create_type(char *type, t_rt *env)
 {
-	if (!ft_strcmp("SPHERE", type))
+	if (!ft_strcmp("sphere:", type))
 		return (create_obj(SPHERE, env));
-	if (!ft_strcmp("PLANE", type))
+	if (!ft_strcmp("plane:", type))
 		return (create_obj(PLANE, env));
-	if (!ft_strcmp("LIGHT", type))
+	if (!ft_strcmp("light:", type))
 		return (create_light(env));
-	if (!ft_strcmp("CAMERA", type))
+	if (!ft_strcmp("camera:", type))
 		return (camera_create(env));
 	return (0);
 }
@@ -36,13 +36,13 @@ void		store_type_or_data(char *line, t_rt *env)
 		set_last(env, tab);
 }
 
-static int	is_bch(char *path)
+static int	is_file(char *path)
 {
 	char	*tmp;
 	int		fd;
 
 	tmp = ft_strchr(path, '.');
-	if (tmp && !ft_strcmp(".bch", tmp))
+	if (tmp && !ft_strcmp(EXTENSION, tmp))
 		if ((fd = open(path, O_RDONLY)) != -1)
 			return (1);
 	return (0);
@@ -68,19 +68,20 @@ int			parse_args(char **argv, int argc, t_rt *env)
 {
 	int i;
 
-	i = -1;
-	while (i++ < argc)
+	i = 0;
+	while (i < argc)
 	{
 		if (!ft_strcmp("--help", argv[i]))
 			return (0);//display_args();
 		else if (!ft_strcmp("-w", argv[i]))
 			i + 1 < argc ? LARGEUR = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))
-			i + 1 < argc ? HAUTEUR = ft_atoi(argv[i + 1]) : 0;
+			i + 1 < argc ? env->file.haut = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-s", argv[i]))
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
+		i++;
 	}
-	if (is_bch(SFILE))
+	if (is_file(SFILE))
 	{
 		ft_putstr("File type ok\n");
 		if (parse_obj(SFILE, env))

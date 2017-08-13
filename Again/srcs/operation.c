@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
 double		get_res_of_quadratic(double a, double b, double c)
 {

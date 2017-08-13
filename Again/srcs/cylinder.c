@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
-double		intensity_cylinder(t_env *e, t_vec3d poi,
+double		intensity_cylinder(t_rt *e, t_vec3d poi,
 				t_obj cylinder, t_light light)
 {
 	t_vec3d		dist_to_light;

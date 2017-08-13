@@ -34,7 +34,7 @@
 # define PLUS 69
 # define MINUS 78
 # define EPSILON 1e-9
-
+# define EXTENSION ".rt"
 # define ERR -1
 # define END 0
 # define OK 1
@@ -56,7 +56,8 @@
 # define INIT env->mlx.init
 # define WIN env->mlx.window
 # define IMG env->mlx.image
-# define HAUTEUR env->file.haut
+# define SS (env->scene.supersampling + 1)
+# define HAUTEUR env->file.haut * SS
 # define LARGEUR env->file.larg
 # define SFILE env->file.path
 # define POS env->scene.cam.ray.pos
@@ -66,21 +67,32 @@
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
 # define SOBJ env->scene.obj[env->scene.nbr_obj - 1]
-# define SLIGHT env->scene.lights[env->scene.nbr_obj - 1]
+# define SLIGHT env->scene.lights[env->scene.nbr_light - 1]
 # define ABS(x) (x < 0 ? -x : x)
 # define MAXOBJ 21
+# define MAXLIGHT 21
+
+# define DEFAULT_SUPERSAMPLING 0
+# define FOV 30
+# define KEY_ESC 53
+# define DIST_MAX 20000
+# define DIST_MIN -80000
+# define AMBIENT_LIGHT 50
+
+# define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 
 typedef struct		s_ray
 {
-	t_vec3			pos;
-	t_vec3			dir;
+	t_vec3d			pos;
+	t_vec3d			dir;
 }					t_ray;
 
 typedef struct		s_color
 {
-	double			r;
-	double			g;
-	double			b;
+	float			b;
+	float			g;
+	float			r;
+	float 			a;
 }					t_color;
 
 typedef struct		s_light
@@ -133,7 +145,7 @@ typedef struct		s_calc
 	float			t1;
 	float			disc;
 	float			eq;
-	t_vec3			len;
+	t_vec3d			len;
 	float			sqrtdisc;
 }					t_calc;
 
@@ -149,15 +161,15 @@ typedef struct		s_obj
 	char			is_init;
 	int				type;
 	t_color			color;
-	t_vec3			pos;
-	t_vec3			dir;
+	t_vec3d			pos;
+	t_vec3d			dir;
 	float			size;
-	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
-	t_vec3			maxp; //For Cylinder and Cone
-	t_vec3			minp; //For Cone
+	t_vec3d			vector; //For Plane, Cylinder, Cone and Sphere
+	t_vec3d			maxp; //For Cylinder and Cone
+	t_vec3d			minp; //For Cone
 	int				r;
 	float			t;
-	t_vec3			normal;
+	t_vec3d			normal;
 	t_matiere		mat;
 }					t_obj;
 
@@ -169,6 +181,8 @@ typedef struct		s_scene
 	int				nbr_light;
 	int				nbr_obj;
 	char			nbr_tot;
+	int 			id;
+	int				supersampling;
 	t_camera		cam;
 }					t_scene;
 
@@ -177,6 +191,7 @@ typedef struct		s_rt
 	t_mlx			mlx;
 	t_scene			scene;
 	t_file			file;
+	unsigned int 	*img_temp;
 }					t_rt;
 
 void				display_args(void);
@@ -188,11 +203,44 @@ int					set_last(t_rt *env, char **params);
 int					camera_create(t_rt *env);
 int					create_obj(int type, t_rt *env);
 int					create_light(t_rt *env);
-t_color				c_color(double r, double g, double b);
+t_color				c_color(float r, float g, float b);
 int					parse_args(char **argv, int argc, t_rt *env);
 int					parse_obj(char *path, t_rt *env);
 void				store_type_or_data(char *line, t_rt *env);
 void				frame(t_rt *env);
 float				intersect_sphere2(t_ray ray, t_obj obj);
 void				raytrace(int x, int y, t_rt *env);
+void				mlx_pixel(int x, int y, t_rt *env, int color);
+
+
+//OLD
+
+unsigned int	ret_colors(t_color color);
+t_ray			c_ray(t_vec3d i, t_vec3d j);
+t_color			c_color2(double r, double g, double b);
+void			set_win_img(t_rt *env);
+int				raytrace2(t_rt *e);
+void			super_sampler(t_rt *env);
+void			anti_supersampler(t_rt *env);
+double			intersect_sphere(t_ray ray, t_obj sphere);
+int				key_hook(int keycode, t_rt *e);
+t_color			*color_mult(t_color color, double taux);
+double			get_length(t_vec3d v);
+double			intersect_plane(t_ray ray, t_obj sphere);
+double			intersect_cylinder(t_ray ray, t_obj cylinder);
+t_color			*copy_color(t_color color);
+double			intersect_cone(t_ray ray, t_obj cone);
+double			intensity_cone(t_rt *e, t_vec3d poi,
+					t_obj cone, t_light light);
+double			intensity_sphere(t_rt *e, t_vec3d poi,
+					t_obj sphere, t_light light);
+double			intensity_plane(t_rt *e, t_vec3d poi,
+					t_obj plane, t_light light);
+double			intensity_cylinder(t_rt *e, t_vec3d poi,
+					t_obj cylinder, t_light light);
+t_color			*get_color(t_rt *e, t_obj obj, t_vec3d poi);
+double			get_min_dist(t_rt *e, t_ray ray, int cangoneg);
+int				obj_in_shadow(t_rt *e, t_vec3d poi, t_light light);
+double			get_res_of_quadratic(double a, double b, double c);
+
 #endif

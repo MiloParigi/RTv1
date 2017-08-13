@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include <time.h>
 
 int		main(int ac, char **av)
 {
-	t_env		*e;
+	t_rt		*e;
 	clock_t		tic;
 
 	if (ac != 2 || ft_strncmp(ft_strrev(av[1]), "1vtr.", 5) != 0)

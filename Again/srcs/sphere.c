@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
-double		intensity_sphere(t_env *e, t_vec3d poi,
+double		intensity_sphere(t_rt *e, t_vec3d poi,
 				t_obj sphere, t_light light)
 {
 	double		dist_to_light;
