@@ -29,17 +29,7 @@ t_color				*copy_color(t_color color)
 ** @todo : explain why
 */
 
-t_color				c_color2(double r, double g, double b)
-{
-	t_color color;
-
-	color.r = ft_map(r, 255, 0, 0.5);
-	color.g = ft_map(g, 255, 0, 0.5);
-	color.b = ft_map(b, 255, 0, 0.5);
-	return (color);
-}
-
-t_color				*color_mult(t_color color, double taux)
+t_color				*color_mult(t_color color, float taux)
 {
 	t_color		*new_color;
 

@@ -83,8 +83,8 @@
 
 typedef struct		s_ray
 {
-	t_vec3d			pos;
-	t_vec3d			dir;
+	t_vec3			pos;
+	t_vec3			dir;
 }					t_ray;
 
 typedef struct		s_color
@@ -145,7 +145,7 @@ typedef struct		s_calc
 	float			t1;
 	float			disc;
 	float			eq;
-	t_vec3d			len;
+	t_vec3			len;
 	float			sqrtdisc;
 }					t_calc;
 
@@ -161,15 +161,15 @@ typedef struct		s_obj
 	char			is_init;
 	int				type;
 	t_color			color;
-	t_vec3d			pos;
-	t_vec3d			dir;
+	t_vec3			pos;
+	t_vec3			dir;
 	float			size;
-	t_vec3d			vector; //For Plane, Cylinder, Cone and Sphere
-	t_vec3d			maxp; //For Cylinder and Cone
-	t_vec3d			minp; //For Cone
+	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
+	t_vec3			maxp; //For Cylinder and Cone
+	t_vec3			minp; //For Cone
 	int				r;
 	float			t;
-	t_vec3d			normal;
+	t_vec3			normal;
 	t_matiere		mat;
 }					t_obj;
 
@@ -208,39 +208,35 @@ int					parse_args(char **argv, int argc, t_rt *env);
 int					parse_obj(char *path, t_rt *env);
 void				store_type_or_data(char *line, t_rt *env);
 void				frame(t_rt *env);
-float				intersect_sphere2(t_ray ray, t_obj obj);
-void				raytrace(int x, int y, t_rt *env);
 void				mlx_pixel(int x, int y, t_rt *env, int color);
 
 
 //OLD
 
 unsigned int	ret_colors(t_color color);
-t_ray			c_ray(t_vec3d i, t_vec3d j);
-t_color			c_color2(double r, double g, double b);
-void			set_win_img(t_rt *env);
-int				raytrace2(t_rt *e);
+t_ray			c_ray(t_vec3 i, t_vec3 j);
+int				raytrace(int x, int y, t_rt *e);
 void			super_sampler(t_rt *env);
 void			anti_supersampler(t_rt *env);
-double			intersect_sphere(t_ray ray, t_obj sphere);
+float			intersect_sphere(t_ray ray, t_obj sphere);
 int				key_hook(int keycode, t_rt *e);
-t_color			*color_mult(t_color color, double taux);
-double			get_length(t_vec3d v);
-double			intersect_plane(t_ray ray, t_obj sphere);
-double			intersect_cylinder(t_ray ray, t_obj cylinder);
+t_color			*color_mult(t_color color, float taux);
+float			get_length(t_vec3 v);
+float			intersect_plane(t_ray ray, t_obj sphere);
+float			intersect_cylinder(t_ray ray, t_obj cylinder);
 t_color			*copy_color(t_color color);
-double			intersect_cone(t_ray ray, t_obj cone);
-double			intensity_cone(t_rt *e, t_vec3d poi,
+float			intersect_cone(t_ray ray, t_obj cone);
+float			intensity_cone(t_rt *e, t_vec3 poi,
 					t_obj cone, t_light light);
-double			intensity_sphere(t_rt *e, t_vec3d poi,
+float			intensity_sphere(t_rt *e, t_vec3 poi,
 					t_obj sphere, t_light light);
-double			intensity_plane(t_rt *e, t_vec3d poi,
+float			intensity_plane(t_rt *e, t_vec3 poi,
 					t_obj plane, t_light light);
-double			intensity_cylinder(t_rt *e, t_vec3d poi,
+float			intensity_cylinder(t_rt *e, t_vec3 poi,
 					t_obj cylinder, t_light light);
-t_color			*get_color(t_rt *e, t_obj obj, t_vec3d poi);
-double			get_min_dist(t_rt *e, t_ray ray, int cangoneg);
-int				obj_in_shadow(t_rt *e, t_vec3d poi, t_light light);
-double			get_res_of_quadratic(double a, double b, double c);
+t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi);
+float			get_min_dist(t_rt *e, t_ray ray, int cangoneg);
+int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
+float			get_res_of_quadratic(float a, float b, float c);
 
 #endif

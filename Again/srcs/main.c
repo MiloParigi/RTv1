@@ -22,17 +22,17 @@ int		main(int ac, char **av)
 		err_found("usage: rtv1 input_map.rtv1");
 	tic = clock();
 	e = parse(ft_strrev(av[1]));
-	printf("Parsing over in %f seconds \n", (double)(clock() - tic) / CLOCKS_PER_SEC);
+	printf("Parsing over in %f seconds \n", (float)(clock() - tic) / CLOCKS_PER_SEC);
 	set_win_img(e);
 	tic = clock();
-	raytrace2(e);
-	printf("Rendering over in %f seconds \n", (double)(clock() - tic) / CLOCKS_PER_SEC);
+	raytrace(e);
+	printf("Rendering over in %f seconds \n", (float)(clock() - tic) / CLOCKS_PER_SEC);
 	tic = clock();
 	if (e->scene.supersampling)
 		super_sampler(e);
 	else
 		anti_supersampler(e);
-	printf("Super Sampler over in %f seconds \n", (double)(clock() - tic) / CLOCKS_PER_SEC);
+	printf("Super Sampler over in %f seconds \n", (float)(clock() - tic) / CLOCKS_PER_SEC);
 	e->mlx.window = mlx_new_window(e->mlx.init, W / SS, H / SS, "RTv1");
 	mlx_key_hook(e->mlx.window, key_hook, e);
 	mlx_put_image_to_window(e->mlx.init, e->mlx.window, e->mlx.image, 0, 0);

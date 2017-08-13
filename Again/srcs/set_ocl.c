@@ -34,17 +34,17 @@ int			set_obj(t_rt *env, char **a)
 	while (a[i])
 		i++;
 	if (i == 4 && !ft_strcmp("pos:", a[0]))
-		SOBJ.pos = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.pos = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("minp:", a[0]))
-		SOBJ.minp = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.minp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("maxp:", a[0]))
-		SOBJ.maxp = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.maxp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("vector:", a[0]))
-		SOBJ.vector = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.vector = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("normal:", a[0]))
-		SOBJ.normal = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.normal = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("rot:", a[0]))
-		SOBJ.dir = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.dir = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("radius:", a[0]))
 		SOBJ.r = ft_atof(a[1]);
 	else if (i == 4 && !ft_strcmp("color:", a[0]))
@@ -62,9 +62,9 @@ int			set_light(t_rt *env, char **a)
 	while (a[i])
 		i++;
 	if (i == 4 && !ft_strcmp("pos:", a[0]))
-		SLIGHT.ray.pos = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SLIGHT.ray.pos = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("dir:", a[0]))
-		SLIGHT.ray.dir = vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SLIGHT.ray.dir = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("intensity:", a[0]))
 		SLIGHT.intensity = ft_atof(a[1]);
 	else if (i == 4 && !ft_strcmp("color:", a[0]))
@@ -83,10 +83,10 @@ int			set_camera(t_rt *env, char **a)
 		i++;
 	if (i == 4 && !ft_strcmp("pos:", a[0]))
 		env->scene.cam.ray.pos =
-	vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("dir:", a[0]))
 		env->scene.cam.ray.dir =
-	vec_new3d(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("focale:", a[0]))
 		env->scene.cam.focale = ft_atof(a[1]);
 	else

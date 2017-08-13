@@ -35,8 +35,8 @@ t_matiere		create_matiere(void)
 
 int				camera_create(t_rt *env)
 {
-	env->scene.cam.ray.pos = vec_new3d(0, 0, -2000);
-	env->scene.cam.ray.dir = vec_new3d(0, 0, 1);
+	env->scene.cam.ray.pos = vec_new3(0, 0, -2000);
+	env->scene.cam.ray.dir = vec_new3(0, 0, 1);
 	env->scene.cam.focale = 1;
 	env->scene.cam.reso = 300;
 	return (1);
@@ -50,11 +50,11 @@ int				create_obj(int type, t_rt *env)
 	env->COBJ.is_init = 1;
 	env->COBJ.type = type;
 	env->COBJ.color = c_color(255, 255, 255);
-	env->COBJ.pos = vec_new3d(0, 0, 0);
-	env->COBJ.dir = vec_new3d(0, 0, 0);
+	env->COBJ.pos = vec_new3(0, 0, 0);
+	env->COBJ.dir = vec_new3(0, 0, 0);
 	env->COBJ.size = 0;
-	env->COBJ.maxp = vec_new3d(0, 0, 0);
-	env->COBJ.minp = vec_new3d(0, 0, 0);
+	env->COBJ.maxp = vec_new3(0, 0, 0);
+	env->COBJ.minp = vec_new3(0, 0, 0);
 	env->COBJ.r = 0;
 	env->COBJ.t = -1;
 	env->COBJ.mat = create_matiere();
@@ -68,8 +68,8 @@ int				create_light(t_rt *env)
 
 	i = env->scene.nbr_light;
 	env->CLIGHT.is_init = 1;
-	env->CLIGHT.ray.pos = vec_new3d(0, 0, 0);
-	env->CLIGHT.ray.dir = vec_new3d(0, 0, 0);
+	env->CLIGHT.ray.pos = vec_new3(0, 0, 0);
+	env->CLIGHT.ray.dir = vec_new3(0, 0, 0);
 	env->CLIGHT.color = c_color(255, 255, 255);
 	env->CLIGHT.intensity = 0;
 	env->scene.nbr_light++;

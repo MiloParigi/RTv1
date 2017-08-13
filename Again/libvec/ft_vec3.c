@@ -16,7 +16,7 @@ t_vec3	vec_new3(float x, float y, float z)
 {
 	t_vec3 pts;
 
-	pts.m = sqrt(x * x + y * y + z + z);
+	//pts.m = sqrt(x * x + y * y + z * z);
 	pts.x = x;
 	pts.y = y;
 	pts.z = z;

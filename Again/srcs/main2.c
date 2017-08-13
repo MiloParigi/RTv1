@@ -25,9 +25,8 @@ void		display_args(void)
 void	init_rt(t_rt *env)
 {
 	env->mlx.init = mlx_init();
-	env->file.haut = 1400;
-	env->file.larg = 1400;
-	env->mlx.window = mlx_new_window(env->mlx.init, env->file.haut, env->file.larg, "RT Again");
+	env->file.haut = 0;
+	env->file.larg = 0;
 	env->scene.nbr_obj = 0;
 	env->scene.nbr_light = 0;
 	env->scene.nbr_tot = 0;
@@ -47,7 +46,14 @@ int		main(int argc, char **argv)
 		init_rt(env);
 		if (!parse_args(argv, argc, env))
 			return (0);
+		env->mlx.window = mlx_new_window(env->mlx.init, env->file.larg, env->file.haut, "RT Again");
+		
 		frame(env);
+		// if (env->scene.supersampling)
+		// 	super_sampler(env);
+		// else
+		// 	anti_supersampler(env);
+		mlx_key_hook(env->mlx.window, key_hook, env);
 		mlx_loop(INIT);
 	}
 	else

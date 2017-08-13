@@ -24,10 +24,10 @@ MLXA = ./miniLibX/libmlx.a
 OBJDIR = ./objs/
 INCDIR = ./includes
 SRCDIR = ./srcs/
-SRCS_NAME = color.c cone.c main2.c operation.c \
-	ray.c raytrace.c sphere.c vector.c hooks.c plane.c \
+SRCS_NAME = color.c cone.c main2.c\
+	ray.c raytrace.c sphere.c hooks.c plane.c \
 	supersampler.c create_ocl.c set_ocl.c parser.c \
-	intersect_basics.c frame.c cylinder.c
+	frame.c cylinder.c
 OBJS = $(SRCS_NAME:.c=.o)
 OBJS := $(notdir $(OBJS))
 	OBJS := $(addprefix $(OBJDIR), $(OBJS))

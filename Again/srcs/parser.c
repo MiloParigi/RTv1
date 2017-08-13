@@ -74,7 +74,7 @@ int			parse_args(char **argv, int argc, t_rt *env)
 		if (!ft_strcmp("--help", argv[i]))
 			return (0);//display_args();
 		else if (!ft_strcmp("-w", argv[i]))
-			i + 1 < argc ? LARGEUR = ft_atoi(argv[i + 1]) : 0;
+			i + 1 < argc ? env->file.larg = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))
 			i + 1 < argc ? env->file.haut = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-s", argv[i]))

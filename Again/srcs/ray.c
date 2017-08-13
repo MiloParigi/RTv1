@@ -12,11 +12,16 @@
 
 #include "rt.h"
 
-t_ray	c_ray(t_vec3d i, t_vec3d j)
+float		get_length(t_vec3 v)
+{
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+}
+
+t_ray	c_ray(t_vec3 i, t_vec3 j)
 {
 	t_ray ray;
 
-	ray.pos = vec_new3d(i.x, i.y, i.z);
-	ray.dir = vec_new3d(j.x, j.y, j.z);
+	ray.pos = vec_new3(i.x, i.y, i.z);
+	ray.dir = vec_new3(j.x, j.y, j.z);
 	return (ray);
 }

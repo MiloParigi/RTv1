@@ -24,13 +24,13 @@ t_vec3		vec_tsub3(t_vec3 u, t_vec3 v)
 
 double		vec_dot3(t_vec3 u, t_vec3 v)
 {
-	t_vec3	norme_u;
-	t_vec3	norme_v;
+	//t_vec3	norme_u;
+	//t_vec3	norme_v;
 	float	dot;
 
-	norme_u = vec_norme3(u);
-	norme_v = vec_norme3(v);
-	dot = norme_u.x * norme_v.x + norme_u.y * norme_v.y + norme_u.z * norme_v.z;
+	//norme_u = vec_norme3(u);
+	//norme_v = vec_norme3(v);
+	//dot = norme_u.x * norme_v.x + norme_u.y * norme_v.y + norme_u.z * norme_v.z;
 	dot = u.x * v.x + u.y * v.y + u.z * v.z;
 	return ((double)dot);
 }
@@ -50,7 +50,7 @@ t_vec3		vec_norme3(t_vec3 u)
 	t_vec3	pts;
 	float	magnitude;
 
-	magnitude = sqrt(u.x * u.x + u.y * u.y + u.z + u.z);
+	magnitude = sqrt(u.x * u.x + u.y * u.y + u.z * u.z);
 	pts.x = u.x / magnitude;
 	pts.y = u.y / magnitude;
 	pts.z = u.z / magnitude;
