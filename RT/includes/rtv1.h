@@ -6,7 +6,7 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 14:37:39 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/10 06:55:32 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 22:10:42 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@
 
 //# define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) + (b)) ) //effect bizarre
 
-enum	e_type
+enum				e_type
 {
 	PLANE = 2,
 	SPHERE,
 	CYLINDER,
 	CONE
-};
+}					;
 
 typedef struct		s_mlx
 {
@@ -72,16 +72,15 @@ typedef struct		s_color
 	double			b;
 }					t_color;
 
-typedef struct	s_setup
+typedef struct		s_setup
 {
+}					t_setup;
 
-}				t_setup;
-
-typedef struct	s_ray
+typedef struct		s_ray
 {
-	t_vec3d		pos;
-	t_vec3d		dir;
-}				t_ray;
+	t_vec3d			pos;
+	t_vec3d			dir;
+}					t_ray;
 
 // typedef struct		s_light
 // {
@@ -99,7 +98,7 @@ typedef struct		s_light
 	struct s_light 	*next;
 }					t_light;
 
-typedef struct	s_obj
+typedef struct		s_obj
 {
 	int				type;
 	double			r;
@@ -108,7 +107,7 @@ typedef struct	s_obj
 	t_vec3d			dir;
 	t_color			color;
 	struct s_object	*next;
-}				t_obj;
+}					t_obj;
 
 typedef struct		s_camera
 {
@@ -141,55 +140,55 @@ typedef struct		s_env
 	int				fd;
 }					t_rt;
 
-unsigned int	ret_colors(t_color color);
-t_ray			c_ray(t_vec3d i, t_vec3d j);
-t_color			c_color2(double r, double g, double b);
-void			set_win_img(t_rt *e);
-int				raytrace2(t_rt *e);
-void			super_sampler(t_rt *e);
-void			anti_supersampler(t_rt *e);
-double			intersect_sphere(t_ray ray, t_obj sphere);
-int				key_hook(int keycode, t_rt *e);
-t_color			*color_mult(t_color color, double taux);
-double			get_length(t_vec3d v);
-double			intersect_plane(t_ray ray, t_obj sphere);
-double			intersect_cylinder(t_ray ray, t_obj cylinder);
-t_color			*copy_color(t_color color);
-double			intersect_cone(t_ray ray, t_obj cone);
-double			intensity_cone(t_rt *e, t_vec3d poi,
-					t_obj cone, t_light light);
-double			intensity_sphere(t_rt *e, t_vec3d poi,
-					t_obj sphere, t_light light);
-double			intensity_plane(t_rt *e, t_vec3d poi,
-					t_obj plane, t_light light);
-double			intensity_cylinder(t_rt *e, t_vec3d poi,
-					t_obj cylinder, t_light light);
-double			get_min_dist(t_rt *e, t_ray ray, t_obj **closest, int cangoneg);
-int				obj_in_shadow(t_rt *e, t_vec3d poi, t_light light);
-double			get_res_of_quadratic(double a, double b, double c);
+unsigned int		ret_colors(t_color color);
+t_ray				c_ray(t_vec3d i, t_vec3d j);
+t_color				c_color2(double r, double g, double b);
+void				set_win_img(t_rt *e);
+int					raytrace2(t_rt *e);
+void				super_sampler(t_rt *e);
+void				anti_supersampler(t_rt *e);
+double				intersect_sphere(t_ray ray, t_obj sphere);
+int					key_hook(int keycode, t_rt *e);
+t_color				*color_mult(t_color color, double taux);
+double				get_length(t_vec3d v);
+double				intersect_plane(t_ray ray, t_obj sphere);
+double				intersect_cylinder(t_ray ray, t_obj cylinder);
+t_color				*copy_color(t_color color);
+double				intersect_cone(t_ray ray, t_obj cone);
+double				intensity_cone(t_rt *e, t_vec3d poi,
+						t_obj cone, t_light light);
+double				intensity_sphere(t_rt *e, t_vec3d poi,
+						t_obj sphere, t_light light);
+double				intensity_plane(t_rt *e, t_vec3d poi,
+						t_obj plane, t_light light);
+double				intensity_cylinder(t_rt *e, t_vec3d poi,
+						t_obj cylinder, t_light light);
+double				get_min_dist(t_rt *e, t_ray ray, t_obj **closest, int cangoneg);
+int					obj_in_shadow(t_rt *e, t_vec3d poi, t_light light);
+double				get_res_of_quadratic(double a, double b, double c);
 
 /*
 ** Parser
 */
 
-t_rt			*parse(char *scene);
-void			syntax_error(char *line, char *explain, int nbline);
-void			unknown_setting(char *line, int nbline);
-char			*trim_setting(t_rt *e, char *setting);
-char			*trim_option(t_rt *e, char *option, char **arg);
-void			dispatch(t_rt *e, char *line);
-void			set_sphere(t_rt *e);
-void			set_plane(t_rt *e);
-void			set_plane_data(t_obj *plane);
-void			set_cylinder(t_rt *e);
-void			set_cone(t_rt *e);
-void			set_camera2(t_rt *e);
-void			set_light2(t_rt *e);
-void			set_supersampling(t_rt *e, char *line);
-t_vec3d			set_vec3d(t_rt *e, char *arg);
-t_color			set_color(t_rt *e, char *arg);
-void			unknown_option(char *line, int nbline, char *caller);
-void			set_first_obj(t_rt *e, t_obj *obj);
-void			set_first_light(t_rt *e, t_light *light);
+t_rt				*parse(char *scene);
+void				syntax_error(char *line, char *explain, int nbline);
+void				unknown_setting(char *line, int nbline);
+char				*trim_setting(t_rt *e, char *setting);
+char				*trim_option(t_rt *e, char *option, char **arg);
+void				dispatch(t_rt *e, char *line);
+void				set_sphere(t_rt *e);
+void				set_plane(t_rt *e);
+void				set_plane_data(t_obj *plane);
+void				set_cylinder(t_rt *e);
+void				set_cone(t_rt *e);
+void				set_camera2(t_rt *e);
+void				set_light2(t_rt *e);
+void				set_supersampling(t_rt *e, char *line);
+t_vec3d				set_vec3d(t_rt *e, char *arg);
+t_color				set_color(t_rt *e, char *arg);
+void				unknown_option(char *line, int nbline, char *caller);
+void				set_first_obj(t_rt *e, t_obj *obj);
+void				set_first_light(t_rt *e, t_light *light);
 
 #endif

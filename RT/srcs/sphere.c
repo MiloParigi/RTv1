@@ -6,17 +6,17 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:04:18 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/08 16:55:57 by tfaure           ###   ########.fr       */
+/*   Updated: 2017/08/14 21:57:59 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
-float		get_res_of_quadratic(float a, float b, float c)
+float	get_res_of_quadratic(float a, float b, float c)
 {
-	float		determinant;
-	float		t0;
-	float		t1;
+	float	t0;
+	float	t1;
+	float	determinant;
 
 	determinant = b * b - 4 * a * c;
 	if (determinant < 0)
@@ -25,11 +25,10 @@ float		get_res_of_quadratic(float a, float b, float c)
 		return (-b / (2 * a));
 	t0 = (-b + sqrt(determinant)) / (2 * a);
 	t1 = (-b - sqrt(determinant)) / (2 * a);
-	return (t0 > t1) ? t1 : t0;
+	return ((t0 > t1) ? t1 : t0);
 }
 
-float		intensity_sphere(t_rt *e, t_vec3 poi,
-				t_obj sphere, t_light light)
+float	intensity_sphere(t_rt *e, t_vec3 poi, t_obj sphere, t_light light)
 {
 	float		dist_to_light;
 	t_vec3		vec_to_eyes;
@@ -43,7 +42,7 @@ float		intensity_sphere(t_rt *e, t_vec3 poi,
 		ft_map(dist_to_light, 2000 * light.intensity, 500, 200));
 	if (obj_in_shadow(e, poi, light))
 		intensity -= AMBIENT_LIGHT;
-	return (intensity > AMBIENT_LIGHT) ? intensity : AMBIENT_LIGHT;
+	return ((intensity > AMBIENT_LIGHT) ? intensity : AMBIENT_LIGHT);
 }
 
 /*
@@ -51,7 +50,7 @@ float		intensity_sphere(t_rt *e, t_vec3 poi,
 ** http://hugi.scene.org/online/hugi24/index%20coding%20&%20maths.htm
 */
 
-float		intersect_sphere(t_ray ray, t_obj sphere)
+float	intersect_sphere(t_ray ray, t_obj sphere)
 {
 	float		a;
 	float		b;

@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 03:10:21 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 06:43:53 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 22:11:43 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,58 +75,3 @@ char			**ft_split_whitespace(char *str)
 	tab[wrd] = NULL;
 	return (tab);
 }
-
-// static int			is_space(char c)
-// {
-// 	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v')
-// 		return (1);
-// 	else
-// 		return (0);
-// }
-
-// static int			count_words(char *str)
-// {
-// 	int			k;
-// 	int			word;
-
-// 	k = 0;
-// 	word = 0;
-// 	while (str[k] && is_space(str[k]))
-// 		k++;
-// 	while (str[k])
-// 	{
-// 		while (str[k] && !is_space(str[k]))
-// 			k++;
-// 		word++;
-// 		while (str[k] && is_space(str[k]))
-// 			k++;
-// 	}
-// 	return (word + 1);
-// }
-
-// char			**ft_split_whitespace(char *str)
-// {
-// 	int			i;
-// 	int			k;
-// 	int			w;
-// 	char		**tab;
-
-// 	i = 0;
-// 	w = 0;
-// 	k = 0;
-// 	if (!(tab = (char **)malloc(sizeof(char *) * count_words(str) + 1)))
-// 		return (NULL);
-// 	while (str[k])
-// 	{  //light
-// 		while (is_space(str[k]) && str[k])
-// 			k++;
-// 		i = k;
-// 		while (!is_space(str[i]) && str[i])
-// 			i++;
-// 		if (str[k] && str[i - k - 1] && (i - k - 1))
-// 			tab[w++] = ft_strsub(str, k, (size_t)(i - k ));
-// 		k = i;
-// 	}
-// 	tab[w] = NULL;
-// 	return (tab);
-// }

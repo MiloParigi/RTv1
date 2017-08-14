@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/10 02:42:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 09:40:07 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 22:13:37 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vec3d		vec_new3d(double x, double y, double z)
 {
-	t_vec3d pts;
+	t_vec3d		pts;
 
 	pts.x = x;
 	pts.y = y;
@@ -24,7 +24,7 @@ t_vec3d		vec_new3d(double x, double y, double z)
 
 t_vec3d		vec_tsub3d(t_vec3d u, t_vec3d v)
 {
-	t_vec3d	pts;
+	t_vec3d		pts;
 
 	pts.x = (u.y * v.z) - (v.y * u.z);
 	pts.y = (v.x * u.z) - (u.x * v.z);
@@ -42,7 +42,7 @@ double		vec_dot3d(t_vec3d u, t_vec3d v)
 
 t_vec3d		vec_inv3d(t_vec3d u)
 {
-	t_vec3d	pts;
+	t_vec3d		pts;
 
 	pts.x = -u.x;
 	pts.y = -u.y;
@@ -52,8 +52,8 @@ t_vec3d		vec_inv3d(t_vec3d u)
 
 t_vec3d		vec_norme3d(t_vec3d u)
 {
-	t_vec3d	pts;
-	double	magnitude;
+	t_vec3d		pts;
+	double		magnitude;
 
 	magnitude = sqrt(u.x * u.x + u.y * u.y + u.z * u.z);
 	if (magnitude > 0)

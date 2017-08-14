@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/17 13:14:14 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/09 09:09:23 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 22:12:26 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_vec3	vec_new3(float x, float y, float z)
 {
 	t_vec3 pts;
 
-	//pts.m = sqrt(x * x + y * y + z * z);
 	pts.x = x;
 	pts.y = y;
 	pts.z = z;

@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/17 15:22:24 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/09 09:12:19 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 22:15:47 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ t_vec3		vec_tsub3(t_vec3 u, t_vec3 v)
 
 double		vec_dot3(t_vec3 u, t_vec3 v)
 {
-	//t_vec3	norme_u;
-	//t_vec3	norme_v;
 	float	dot;
 
-	//norme_u = vec_norme3(u);
-	//norme_v = vec_norme3(v);
-	//dot = norme_u.x * norme_v.x + norme_u.y * norme_v.y + norme_u.z * norme_v.z;
 	dot = u.x * v.x + u.y * v.y + u.z * v.z;
 	return ((double)dot);
 }
@@ -47,10 +42,10 @@ t_vec3		vec_inv3(t_vec3 u)
 
 t_vec3		vec_norme3(t_vec3 u)
 {
-	t_vec3	pts;
 	float	magnitude;
+	t_vec3	pts;
 
-	magnitude = sqrt(u.x * u.x + u.y * u.y + u.z * u.z);
+	magnitude = sqrtf(u.x * u.x + u.y * u.y + u.z * u.z);
 	pts.x = u.x / magnitude;
 	pts.y = u.y / magnitude;
 	pts.z = u.z / magnitude;

@@ -6,13 +6,13 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 06:21:43 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 06:37:02 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 21:57:06 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
-int			set_last(t_rt *env, char **params)
+int		set_last(t_rt *env, char **params)
 {
 	if (!ft_strcmp("sphere:", env->scene.last) ||
 		!ft_strcmp("plane:", env->scene.last) ||
@@ -26,9 +26,9 @@ int			set_last(t_rt *env, char **params)
 	return (0);
 }
 
-int			set_obj(t_rt *env, char **a)
+int		set_obj(t_rt *env, char **a)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (a[i])
@@ -54,9 +54,9 @@ int			set_obj(t_rt *env, char **a)
 	return (1);
 }
 
-int			set_light(t_rt *env, char **a)
+int		set_light(t_rt *env, char **a)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (a[i])
@@ -74,19 +74,19 @@ int			set_light(t_rt *env, char **a)
 	return (1);
 }
 
-int			set_camera(t_rt *env, char **a)
+int		set_camera(t_rt *env, char **a)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (a[i])
 		i++;
 	if (i == 4 && !ft_strcmp("pos:", a[0]))
 		env->scene.cam.ray.pos =
-	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+			vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("dir:", a[0]))
 		env->scene.cam.ray.dir =
-	vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+			vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("focale:", a[0]))
 		env->scene.cam.focale = ft_atof(a[1]);
 	else

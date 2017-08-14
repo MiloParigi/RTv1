@@ -6,13 +6,13 @@
 /*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 20:14:59 by bbeldame          #+#    #+#             */
-/*   Updated: 2017/05/01 17:11:37 by bbeldame         ###   ########.fr       */
+/*   Updated: 2017/08/14 21:46:40 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
-t_color				*copy_color(t_color color)
+t_color			*copy_color(t_color color)
 {
 	t_color		*newcolor;
 
@@ -29,7 +29,7 @@ t_color				*copy_color(t_color color)
 ** @todo : explain why
 */
 
-t_color				*color_mult(t_color color, float taux)
+t_color			*color_mult(t_color color, float taux)
 {
 	t_color		*new_color;
 
@@ -46,10 +46,10 @@ t_color				*color_mult(t_color color, float taux)
 	return (new_color);
 }
 
-unsigned int		ret_colors(t_color colo)
+unsigned int	ret_colors(t_color colo)
 {
-	unsigned int total;
-	unsigned int temp;
+	unsigned int	total;
+	unsigned int	temp;
 
 	total = 0;
 	if (colo.r > 0)

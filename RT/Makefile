@@ -6,71 +6,91 @@
 #    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/13 18:02:01 by mhalit           ###   ########.fr        #
+#    Updated: 2017/08/14 22:04:16 by rlecart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = rtv1
-FLAGS = -Wall -Wextra -g# @todo : Add -Werror Flag, Uncomment Minilibx clean -Ofast
-MLX = ./minilibX/
-MLX_LIB = $(addprefix $(MLX),mlx.a)
-MLX_INC	= -I ./minilibx_macos
-LINKS = -L ./minilibX -lm -lmlx -framework OpenGL -framework AppKit
-LIBFTA = libft.a
-LIBVECA = libvec.a
-LIBFTDIR = ./libft
-LIBVECDIR = ./libvec
-MLXA = ./miniLibX/libmlx.a
-OBJDIR = ./objs/
-INCDIR = ./includes
-SRCDIR = ./srcs/
-SRCS_NAME = color.c cone.c main.c\
-	ray.c raytrace.c sphere.c hooks.c plane.c \
-	supersampler.c create_ocl.c set_ocl.c parser.c \
-	frame.c cylinder.c
-OBJS = $(SRCS_NAME:.c=.o)
-OBJS := $(notdir $(OBJS))
-	OBJS := $(addprefix $(OBJDIR), $(OBJS))
-LIBFT2 = $(addprefix $(LIBFTDIR)/,$(LIBFTA))
-LIBFTO = $(addprefix $(LIBFTO)/,$(LIBFTOA))
-LIBVEC = $(addprefix $(LIBVECDIR)/,$(LIBVECA))
-VPATH = $(SRCDIR):$(SRCDIR)parsing
+PROJECT		=	RT
+NAME		=	rt
+OBJDIR		=	objs/
+SRCDIR		=	srcs/
+SRC			=	color.c \
+				cone.c \
+				create_ocl.c \
+				cylinder.c \
+				frame.c \
+				hooks.c \
+				main.c \
+				parser.c \
+				plane.c \
+				ray.c \
+				raytrace.c \
+				set_ocl.c \
+				sphere.c \
+				supersampler.c
+MINILIBX	=	minilibx_macos/libmlx.a
+LIBFT		=	libft/libft.a
+LIBVEC		=	libvec/libvec.a
+OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
+CC			=	gcc
+CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/
+OPTI		=	-O3
+DEBUG		=	-g
+MLXF		=	-framework OpenGL -framework AppKit
 
-GREEN = \033[0;32m
-RED = \033[0;31m
-NC = \033[0m
+WHITE		=	\033[7;49;39m
+BLUE		=	\033[7;49;34m
+RED			=	\x1B[31m
+YELLOW		=	\x1B[33m
+GREEN		=	\033[0;49;32m
+GREEN_BG	=	\033[1;49;32m
+GRAY		=	\033[7;49;90m
+NO_COLOR	=	\033[m
 
-SRCS = $(addprefix $(SRCDIR),$(SRCS_NAME))
+all: mlx lib vec $(NAME)
 
-all: $(NAME)
+$(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
+	@printf "\r$(GREEN)[$(PROJECT)] Obj compilation done.                                                        \n"
+	@printf "$(YELLOW)[$(PROJECT)] Compiling $(NAME)..."
+	@$(CC) $(CFLAGS) $(MLXF) -o $(NAME) $(OBJ) $(MINILIBX) $(LIBFT) $(LIBVEC)
+	@printf "\r$(GREEN)[$(PROJECT)] Compilation done.                          \n$(NO_COLOR)"
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	@printf "$(YELLOW)\r[$(PROJECT)] Compiling $< to $@                                                          \r"
+	@$(CC) $(CFLAGS) -o $@ -c $<
+
+mlx:
+	@printf "$(YELLOW)[MINILIBX] Compiling obj...                                                     \r$(NO_COLOR)"
+	@make -s -C minilibx_macos 2> /dev/null > /dev/null
+
+lib:
+	@make -s -C libft 2> /dev/null > /dev/null
+
+vec:
+	@make -s -C libvec 2> /dev/null > /dev/null
 
 $(OBJDIR):
-	@mkdir -p $(OBJDIR)
-
-$(OBJDIR)%.o:%.c
-	gcc $(FLAGS) -I $(INCDIR) -I $(LIBFTDIR) -I $(LIBVECDIR) -I $(MLX) -o $@ -c $<
-
-$(LIBFT):
-$(MLXA):
-	@make -sC $(MLX)
-
-$(NAME): $(LIBFT) $(MLXA) $(OBJDIR) $(OBJS)
-	make -C $(LIBFTDIR)
-	make -C $(LIBVECDIR)
-	gcc $(OBJS) $(LINKS) $(LIBFT2) $(LIBVEC) -lm -o $(NAME)
-	@echo "$(GREEN)----------RTv1 compiled-----------$(NC)"
+	@mkdir $(OBJDIR)
 
 clean:
-	rm -rf $(OBJDIR)
-	make clean -C $(LIBFTDIR)
-	make clean -C $(LIBVECDIR)
-#	@make --silent clean -C $(MLX)
+	@make -s -C libft clean
+	@make -s -C libvec clean
+	@printf "$(YELLOW)[$(PROJECT)] Removing obj..."
+	@rm -rf $(OBJ)
+	@rm -rf $(OBJDIR)
+	@printf "\r$(GREEN)[$(PROJECT)] Obj removed.                                                   \n$(NO_COLOR)"
 
-fclean:	clean
-	rm -f $(NAME)
-	make fclean -C $(LIBFTDIR)
-	make fclean -C $(LIBVECDIR)
-	echo "$(GREEN)-----RTv1 removed completely------$(NC)"
+fclean:
+	@make -s -C minilibx_macos clean
+	@make -s -C libft fclean
+	@make -s -C libvec fclean
+	@printf "$(YELLOW)[$(PROJECT)] Removing obj..."
+	@rm -rf $(OBJ)
+	@rm -rf $(OBJDIR)
+	@printf "\r$(GREEN)[$(PROJECT)] Obj removed.                                                   \n$(NO_COLOR)"
+	@printf "$(YELLOW)[$(PROJECT)] Removing $(NAME)..."
+	@rm -rf $(NAME)
+	@printf "\r$(GREEN)[$(PROJECT)] $(NAME) removed.                                               \n$(NO_COLOR)"
 
 re: fclean all
 

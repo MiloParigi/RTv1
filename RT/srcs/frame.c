@@ -6,15 +6,15 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 06:57:45 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 21:50:01 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include <rt.h>
 
 void	mlx_pixel(int x, int y, t_rt *env, int color)
 {
-	int pos;
+	int		pos;
 
 	if (x && y && x < LARGEUR && y < HAUTEUR)
 	{
@@ -27,12 +27,13 @@ void	mlx_pixel(int x, int y, t_rt *env, int color)
 
 void	frame(t_rt *env)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	y = 0;
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
-	env->mlx.data = mlx_get_data_addr(IMG, &env->mlx.bpp, &env->mlx.size_l, &env->mlx.endian);
+	env->mlx.data = mlx_get_data_addr(IMG,
+			&env->mlx.bpp, &env->mlx.size_l, &env->mlx.endian);
 	while (y < HAUTEUR)
 	{
 		x = 0;

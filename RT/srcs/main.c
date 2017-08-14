@@ -6,13 +6,13 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/13 18:04:40 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/14 21:50:36 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
-void		display_args(void)
+void	display_args(void)
 {
 	ft_putstr("\nusage: rtv1 [-s source] [-w width] [-h height]\n");
 	ft_putstr("-s : Set the specified source file\n");
@@ -37,7 +37,7 @@ void	init_rt(t_rt *env)
 
 int		main(int argc, char **argv)
 {
-	t_rt *env;
+	t_rt	*env;
 
 	env = NULL;
 	env = (t_rt *)malloc(sizeof(t_rt));
@@ -49,7 +49,6 @@ int		main(int argc, char **argv)
 		if (!HAUTEUR || !LARGEUR)
 			return (0);
 		env->mlx.window = mlx_new_window(env->mlx.init, env->file.larg, env->file.haut, "RT Again");
-		
 		frame(env);
 		// if (env->scene.supersampling)
 		// 	super_sampler(env);
