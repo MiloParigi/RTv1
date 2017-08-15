@@ -6,7 +6,7 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/15 12:07:36 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 20:23:18 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,31 @@ static t_color	*get_pxl_color(t_rt *e, t_ray ray)
 	return (color);
 }
 
-int				raytrace(int x, int y, t_rt *env)
+t_vec3			get_vec(int x, int y, t_vec3 dir)
+{
+	t_vec3	ret;
+
+	ret.x = WIDTH / 2 - x + dir.x;
+	ret.y = HEIGHT / 2 - y + dir.y;
+	ret.z = 250 + dir.z;
+	return (ret);
+}
+
+int				raytrace(int x, int y, t_rt *e)
 {
 	t_ray		ray;
 	t_vec3		pov;
 	t_color		*color;
 
-	pov = vec_new3((float)(x + env->scene.cam.ray.pos.x) / SS,
-	(float)(y + env->scene.cam.ray.pos.y) / SS, 1);
-	ray = c_ray(pov, vec_new3(0, 0, 1));
-	color = get_pxl_color(env, ray);
+//	pov = vec_new3((float)(x + e->scene.cam.ray.pos.x) / SS,
+//	(float)(y + e->scene.cam.ray.pos.y) / SS, 1);
+	pov = get_vec(x, y, e->scene.cam.ray.dir);
+	ray = c_ray(vec_new3(
+				e->scene.cam.ray.pos.x,
+				e->scene.cam.ray.pos.y,
+				e->scene.cam.ray.pos.z), pov);
+	color = get_pxl_color(e, ray);
 	if (color != NULL)
-		mlx_pixel(x, y, env, ret_colors(*color));
+		mlx_pixel(x, y, e, ret_colors(*color));
 	return (1);
 }

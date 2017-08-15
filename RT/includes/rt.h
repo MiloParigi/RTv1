@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/14 22:11:07 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/08/15 19:21:12 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,8 @@
 
 # define AP 81
 # define AM 75
-# define ESC 53
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
-# define HEIGHT 250
-# define WIDTH 250
-# define PLUS 69
-# define MINUS 78
+# define HEIGHT 500
+# define WIDTH 500
 # define EPSILON 1e-9
 # define EXTENSION ".rt"
 # define ERR -1
@@ -53,10 +46,32 @@
 # define CYAN		6
 # define WHITE		7
 
+# define ESC		53
+# define BACKSPACE	51
+# define SPACE		49
+# define LSHIFT		257
+# define ENTER		36
+# define KEY_1		18
+# define KEY_2		19
+# define KEY_3		20
+# define KEY_4		21
+# define PLUS		69
+# define MINUS		78
+# define UP			126
+# define DOWN		125
+# define LEFT		123
+# define RIGHT		124
+# define PAGE_UP	116
+# define PAGE_DOWN	121
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+
 # define INIT env->mlx.init
 # define WIN env->mlx.window
 # define IMG env->mlx.image
-# define SS (env->scene.supersampling + 1)
+# define SS (e->scene.supersampling + 1)
 # define HAUTEUR env->file.haut * SS
 # define LARGEUR env->file.larg
 # define SFILE env->file.path
