@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 06:41:03 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 11:52:42 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ int			parse_args(char **argv, int argc, t_rt *env)
 	while (i < argc)
 	{
 		if (!ft_strcmp("--help", argv[i]))
-			return (0);//display_args();
+		{
+			display_args();
+			return (0);
+		}
 		else if (!ft_strcmp("-w", argv[i]))
 			i + 1 < argc ? env->file.larg = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))
@@ -82,10 +85,7 @@ int			parse_args(char **argv, int argc, t_rt *env)
 		i++;
 	}
 	if (is_file(SFILE))
-	{
-		ft_putstr("File type ok\n");
 		if (parse_obj(SFILE, env))
 			return (1);
-	}
 	return (0);
 }

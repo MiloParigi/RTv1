@@ -6,7 +6,7 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/10 06:55:12 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 12:07:36 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
-	int 		i;
+	int			i;
 
 	intensity = 0;
 	i = 0;
@@ -49,19 +49,15 @@ t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi)
 			intensity += intensity_cone(e, poi, obj, e->CLIGHT);
 		i++;
 	}
-	return (i <= e->scene.nbr_obj && intensity >= 0) ? color_mult(obj.color, intensity) : NULL;
+	return ((i <= e->scene.nbr_light && intensity >= 0)
+			? color_mult(obj.color, intensity) : NULL);
 }
-/*
- ** We test all the object to get the minimal z coordinate of point_of_impact
- ** We save the first hitten object in the closest variable
- ** cangoneg is here to know if we compute the object in the negative distance or not
- */
 
 float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 {
 	float		min_dist;
 	float		dist;
-	int 		i;
+	int			i;
 
 	i = 0;
 	min_dist = DIST_MAX;
@@ -70,7 +66,8 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	{
 		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
 		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CYLINDER) ?
+			intersect_cylinder(ray, e->COBJ) : dist;
 		dist = (e->COBJ.type == CONE) ? intersect_cone(ray, e->COBJ) : dist;
 		if (dist < min_dist)
 		{
@@ -81,11 +78,6 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	}
 	return (min_dist < DIST_MAX) ? min_dist : -1;
 }
-
-/*
- ** From the minimal z, we calculate the point_of_impact
- ** and send it to the compute method to return a color
- */
 
 static t_color	*get_pxl_color(t_rt *e, t_ray ray)
 {
@@ -104,24 +96,17 @@ static t_color	*get_pxl_color(t_rt *e, t_ray ray)
 	return (color);
 }
 
-/*
-** The camera is always pointing towards z only
-** The camera is set to x y 0 for simplicity
-*/
-
 int				raytrace(int x, int y, t_rt *env)
 {
 	t_ray		ray;
 	t_vec3		pov;
 	t_color		*color;
-	//unsigned int *img_temp;
 
-	//img_temp = (unsigned int *)semalloc(sizeof(unsigned int) * (LARGEUR * HAUTEUR));
-			pov = vec_new3((float)(x + env->scene.cam.ray.pos.x) / SS, 
-			(float)(y + env->scene.cam.ray.pos.y) / SS, 1);
-			ray = c_ray(pov, vec_new3(0, 0, 1));
-			color = get_pxl_color(env, ray);
-			if (color != NULL)
-				mlx_pixel(x, y, env, ret_colors(*color));
+	pov = vec_new3((float)(x + env->scene.cam.ray.pos.x) / SS,
+	(float)(y + env->scene.cam.ray.pos.y) / SS, 1);
+	ray = c_ray(pov, vec_new3(0, 0, 1));
+	color = get_pxl_color(env, ray);
+	if (color != NULL)
+		mlx_pixel(x, y, env, ret_colors(*color));
 	return (1);
 }

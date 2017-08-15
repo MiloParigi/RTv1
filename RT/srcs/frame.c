@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 06:57:45 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 11:34:33 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	frame(t_rt *env)
 
 	y = 0;
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
-	env->mlx.data = mlx_get_data_addr(IMG, &env->mlx.bpp, &env->mlx.size_l, &env->mlx.endian);
+	env->mlx.data = mlx_get_data_addr(IMG, &env->mlx.bpp, &env->mlx.size_l,
+		&env->mlx.endian);
 	while (y < HAUTEUR)
 	{
 		x = 0;

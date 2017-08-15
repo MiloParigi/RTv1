@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/rtv1",
             "args": [
-            "-s","res/scenes/surprise_box.rt"
+            "-s","res/scenes/easy.rt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

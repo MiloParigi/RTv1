@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/13 18:04:40 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 11:50:01 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		display_args(void)
 	exit(42);
 }
 
-void	init_rt(t_rt *env)
+void		init_rt(t_rt *env)
 {
 	env->mlx.init = mlx_init();
 	env->file.larg = 1024;
@@ -35,7 +35,7 @@ void	init_rt(t_rt *env)
 	env->scene.supersampling = 0;
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_rt *env;
 

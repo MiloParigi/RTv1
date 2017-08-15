@@ -6,13 +6,13 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/10 05:25:04 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 11:45:11 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_color	c_color(float r, float g, float b)
+t_color			c_color(float r, float g, float b)
 {
 	t_color color;
 
