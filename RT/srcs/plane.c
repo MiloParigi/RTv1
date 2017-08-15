@@ -16,7 +16,6 @@ float			intensity_plane(t_rt *e, t_vec3 poi, t_obj plane, t_light light)
 {
 	t_vec3		dist_to_light;
 	float		intensity;
-	t_vec3		dist_to_light;
 
 	(void)e;
 	(void)plane;

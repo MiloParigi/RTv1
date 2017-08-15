@@ -42,7 +42,7 @@ float			intersect_cone(t_ray ray, t_obj cone)
 	{
 		op.disc = sqrt(op.disc);
 		op.t0 = (-op.b - op.disc) / (2 * op.a);
-		op.t1 = (-op.b + dop.et) / (2 * op.a);
+		op.t1 = (-op.b + op.disc) / (2 * op.a);
 		if (op.t0 > op.t1)
 			return (op.t1);
 		else

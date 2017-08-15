@@ -39,9 +39,9 @@ float			intersect_cylinder(t_ray ray, t_obj cylinder)
 	op.b = 2 * (vec_dot3(ray.dir, x) -
 	(vec_dot3(ray.dir, cylinder.normal) * vec_dot3(x, cylinder.normal)));
 	op.disc = op.b * op.b - 4 * op.a * op.c;
-	if (det >= 0)
+	if (op.disc >= 0)
 	{
-		det = sqrt(det);
+		op.disc = sqrt(op.disc);
 		op.t0 = (-op.b - op.disc) / (2 * op.a);
 		op.t1 = (-op.b + op.disc) / (2 * op.a);
 		if (op.t0 > op.t1)
