@@ -18,6 +18,8 @@ float			intensity_cylinder(t_rt *e, t_vec3 poi,
 	t_vec3		dist_to_light;
 	float		intensity;
 
+	(void)e;
+	(void)cylinder;
 	dist_to_light = vec_sub3(light.ray.pos, poi);
 	intensity = 0.5 * ft_map(get_length(dist_to_light),
 			2000 * light.intensity, 500, 200);

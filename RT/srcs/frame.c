@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include <rt.h>
 
 void	mlx_pixel(int x, int y, t_rt *env, int color)
 {
-	int pos;
+	int		pos;
 
 	if (x && y && x < LARGEUR && y < HAUTEUR)
 	{
@@ -27,8 +27,8 @@ void	mlx_pixel(int x, int y, t_rt *env, int color)
 
 void	frame(t_rt *env)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	y = 0;
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);

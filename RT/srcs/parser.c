@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
 int			create_type(char *type, t_rt *env)
 {
@@ -27,7 +27,7 @@ int			create_type(char *type, t_rt *env)
 
 void		store_type_or_data(char *line, t_rt *env)
 {
-	char **tab;
+	char	**tab;
 
 	tab = ft_split_whitespace(line);
 	if (tab && tab[0] && create_type(tab[0], env))
@@ -66,7 +66,7 @@ int			parse_obj(char *path, t_rt *env)
 
 int			parse_args(char **argv, int argc, t_rt *env)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < argc)

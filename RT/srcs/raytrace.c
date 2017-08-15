@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <rt.h>
 
 int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 {
-	t_ray		ray;
-	float		dist_to_light;
-	float		dist;
+	t_ray	ray;
+	float	dist;
+	float	dist_to_light;
 
 	dist_to_light = get_length(vec_sub3(light.ray.pos, poi));
 	ray = c_ray(vec_add3(poi, vec_norme3(vec_sub3(light.ray.pos, poi))),
 	vec_norme3(vec_sub3(light.ray.pos, poi)));
 	dist = get_min_dist(e, ray, 1);
 	if (dist > 0 && dist < dist_to_light)
-	{
 		return (1);
-	}
 	else
 		return (0);
 }
@@ -35,8 +33,8 @@ t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	float		intensity;
 	int			i;
 
-	intensity = 0;
 	i = 0;
+	intensity = 0;
 	while (i < e->scene.nbr_light)
 	{
 		if (obj.type == SPHERE)
@@ -60,8 +58,8 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	int			i;
 
 	i = 0;
-	min_dist = DIST_MAX;
 	dist = DIST_MAX;
+	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
 		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
@@ -76,7 +74,7 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 		}
 		i++;
 	}
-	return (min_dist < DIST_MAX) ? min_dist : -1;
+	return ((min_dist < DIST_MAX) ? min_dist : -1);
 }
 
 static t_color	*get_pxl_color(t_rt *e, t_ray ray)
@@ -89,8 +87,7 @@ static t_color	*get_pxl_color(t_rt *e, t_ray ray)
 	color = NULL;
 	if ((min_dist = get_min_dist(e, ray, 0)) == -1)
 		return (NULL);
-	point_of_impact = vec_add3(ray.pos,
-			vec_scale3(ray.dir, min_dist));
+	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 		color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 	return (color);
