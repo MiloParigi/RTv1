@@ -5,9 +5,9 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/rtv1",
+            "program": "${workspaceRoot}/rt",
             "args": [
-            "-s","res/scenes/easy.rt"
+            "-s","scenes/easy.rt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

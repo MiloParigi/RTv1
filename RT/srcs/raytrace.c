@@ -28,7 +28,7 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 		return (0);
 }
 
-t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi)
+t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
@@ -48,7 +48,7 @@ t_color			*get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		i++;
 	}
 	return ((i <= e->scene.nbr_light && intensity >= 0)
-			? color_mult(obj.color, intensity) : NULL);
+			? color_mult(obj.color, intensity) : (t_color){0, 0, 0, 0});
 }
 
 float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
@@ -77,16 +77,16 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	return ((min_dist < DIST_MAX) ? min_dist : -1);
 }
 
-static t_color	*get_pxl_color(t_rt *e, t_ray ray)
+static t_color	get_pxl_color(t_rt *e, t_ray ray)
 {
 	float		min_dist;
 	t_vec3		point_of_impact;
-	t_color		*color;
+	t_color		color;
 
+	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
-	color = NULL;
 	if ((min_dist = get_min_dist(e, ray, 0)) == -1)
-		return (NULL);
+		return ((t_color){0, 0, 0, 0});
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 		color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
@@ -97,13 +97,12 @@ int				raytrace(int x, int y, t_rt *env)
 {
 	t_ray		ray;
 	t_vec3		pov;
-	t_color		*color;
+	t_color		color;
 
 	pov = vec_new3((float)(x + env->scene.cam.ray.pos.x) / SS,
 	(float)(y + env->scene.cam.ray.pos.y) / SS, 1);
 	ray = c_ray(pov, vec_new3(0, 0, 1));
 	color = get_pxl_color(env, ray);
-	if (color != NULL)
-		mlx_pixel(x, y, env, ret_colors(*color));
+	mlx_pixel(x, y, env, ret_colors(color));
 	return (1);
 }

@@ -219,11 +219,11 @@ void				super_sampler(t_rt *env);
 void				anti_supersampler(t_rt *env);
 float				intersect_sphere(t_ray ray, t_obj sphere);
 int					key_hook(int keycode, t_rt *e);
-t_color				*color_mult(t_color color, float taux);
+t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
 float				intersect_plane(t_ray ray, t_obj sphere);
 float				intersect_cylinder(t_ray ray, t_obj cylinder);
-t_color				*copy_color(t_color color);
+t_color				copy_color(t_color color);
 float				intersect_cone(t_ray ray, t_obj cone);
 float				intensity_cone(t_rt *e, t_vec3 poi,
 						t_obj cone, t_light light);
@@ -233,7 +233,7 @@ float				intensity_plane(t_rt *e, t_vec3 poi,
 						t_obj plane, t_light light);
 float				intensity_cylinder(t_rt *e, t_vec3 poi,
 						t_obj cylinder, t_light light);
-t_color				*get_color(t_rt *e, t_obj obj, t_vec3 poi);
+t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
