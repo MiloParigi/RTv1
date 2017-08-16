@@ -6,7 +6,7 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/15 12:07:36 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/15 20:23:18 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	if (e->scene.id != -1)
 		color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 	return (color);
+}
+
+t_vec3			get_vec(int x, int y, t_vec3 dir)
+{
+	t_vec3	ret;
+
+	ret.x = WIDTH / 2 - x + dir.x;
+	ret.y = HEIGHT / 2 - y + dir.y;
+	ret.z = 250 + dir.z;
+	return (ret);
 }
 
 int				raytrace(int x, int y, t_rt *env)
