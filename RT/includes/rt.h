@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/18 00:30:28 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/08/18 00:54:14 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ typedef struct		s_ray
 
 typedef struct		s_color
 {
-	unsigned char	b;
-	unsigned char	g;
-	unsigned char	r;
-	unsigned char	a;
+	float			b;
+	float			g;
+	float			r;
+	float 			a;
 }					t_color;
 
 typedef struct		s_light
