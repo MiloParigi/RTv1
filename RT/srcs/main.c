@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/15 11:50:01 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,39 @@ void	display_args(void)
 	exit(42);
 }
 
-void		init_rt(t_rt *env)
+void		init_rt(t_rt *e)
 {
-	env->mlx.init = mlx_init();
-	env->file.larg = 1024;
-	env->file.haut = 768;
-	env->scene.nbr_obj = 0;
-	env->scene.nbr_light = 0;
-	env->scene.nbr_tot = 0;
-	env->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
-	env->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
-	env->scene.supersampling = 0;
+	e->mlx.init = mlx_init();
+	e->file.larg = 1024;
+	e->file.haut = 768;
+	e->scene.nbr_obj = 0;
+	e->scene.nbr_light = 0;
+	e->scene.nbr_tot = 0;
+	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
+	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
+	e->scene.supersampling = 0;
 }
 
 int			main(int argc, char **argv)
 {
-	t_rt	*env;
+	t_rt	*e;
 
-	env = NULL;
-	env = (t_rt *)malloc(sizeof(t_rt));
+	e = NULL;
+	e = (t_rt *)malloc(sizeof(t_rt));
 	if (argc > 2)
 	{
-		init_rt(env);
-		if (!parse_args(argv, argc, env))
+		init_rt(e);
+		if (!parse_args(argv, argc, e))
 			return (0);
 		if (!HAUTEUR || !LARGEUR)
 			return (0);
-		env->mlx.window = mlx_new_window(env->mlx.init, env->file.larg, env->file.haut, "RT Again");
-		frame(env);
-		// if (env->scene.supersampling)
-		// 	super_sampler(env);
+		e->mlx.window = mlx_new_window(e->mlx.init, e->file.larg, e->file.haut, "RT Again");
+		frame(e);
+		// if (e->scene.supersampling)
+		// 	super_sampler(e);
 		// else
-		// 	anti_supersampler(env);
-		mlx_key_hook(env->mlx.window, key_hook, env);
+		// 	anti_supersampler(e);
+		mlx_key_hook(e->mlx.window, key_hook, e);
 		mlx_loop(INIT);
 	}
 	else

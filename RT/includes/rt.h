@@ -6,7 +6,7 @@
 /*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/15 19:21:12 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/08/18 00:30:28 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,21 @@
 # define KEY_S		1
 # define KEY_D		2
 
-# define INIT env->mlx.init
-# define WIN env->mlx.window
-# define IMG env->mlx.image
-# define SS (env->scene.supersampling + 1)
-# define HAUTEUR env->file.haut * SS
-# define LARGEUR env->file.larg
-# define SFILE env->file.path
-# define POS env->scene.cam.ray.pos
-# define DIR env->scene.cam.ray.pos
-# define CAMRAY env->cam.ray
+# define INIT e->mlx.init
+# define WIN e->mlx.window
+# define IMG e->mlx.image
+# define SS (e->scene.supersampling + 1)
+# define HAUTEUR e->file.haut * SS
+# define LARGEUR e->file.larg
+# define SFILE e->file.path
+# define CPOS e->scene.cam.ray.pos
+# define CDIR e->scene.cam.ray.dir
+# define CAMRAY e->cam.ray
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
-# define SOBJ env->scene.obj[env->scene.nbr_obj - 1]
-# define SLIGHT env->scene.lights[env->scene.nbr_light - 1]
+# define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
+# define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
 # define ABS(x) (x < 0 ? -x : x)
 # define MAXOBJ 50
 # define MAXLIGHT 21
@@ -104,10 +104,10 @@ typedef struct		s_ray
 
 typedef struct		s_color
 {
-	float			b;
-	float			g;
-	float			r;
-	float 			a;
+	unsigned char	b;
+	unsigned char	g;
+	unsigned char	r;
+	unsigned char	a;
 }					t_color;
 
 typedef struct		s_light
@@ -211,27 +211,28 @@ typedef struct		s_rt
 
 void				display_args(void);
 t_matiere			create_matiere(void);
-int					set_obj(t_rt *env, char **a);
-int					set_light(t_rt *env, char **a);
-int					set_camera(t_rt *env, char **a);
-int					set_last(t_rt *env, char **params);
-int					camera_create(t_rt *env);
-int					create_obj(int type, t_rt *env);
-int					create_light(t_rt *env);
+int					set_obj(t_rt *e, char **a);
+int					set_light(t_rt *e, char **a);
+int					set_camera(t_rt *e, char **a);
+int					set_last(t_rt *e, char **params);
+int					camera_create(t_rt *e);
+int					create_obj(int type, t_rt *e);
+int					create_light(t_rt *e);
 t_color				c_color(float r, float g, float b);
-int					parse_args(char **argv, int argc, t_rt *env);
-int					parse_obj(char *path, t_rt *env);
-void				store_type_or_data(char *line, t_rt *env);
-void				frame(t_rt *env);
-void				mlx_pixel(int x, int y, t_rt *env, int color);
+int					parse_args(char **argv, int argc, t_rt *e);
+int					parse_obj(char *path, t_rt *e);
+void				store_type_or_data(char *line, t_rt *e);
+void				frame(t_rt *e);
+void				mlx_pixel(int x, int y, t_rt *e, int color);
 
 //OLD
 
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
+t_vec3				get_vec(int x, int y, t_vec3 dir);
 int					raytrace(int x, int y, t_rt *e);
-void				super_sampler(t_rt *env);
-void				anti_supersampler(t_rt *env);
+void				super_sampler(t_rt *e);
+void				anti_supersampler(t_rt *e);
 float				intersect_sphere(t_ray ray, t_obj sphere);
 int					key_hook(int keycode, t_rt *e);
 t_color				color_mult(t_color color, float taux);

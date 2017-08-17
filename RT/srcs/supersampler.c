@@ -6,13 +6,13 @@
 /*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 09:45:23 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/08/14 21:59:08 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/08/17 21:21:51 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	anti_supersampler(t_rt *env)
+void	anti_supersampler(t_rt *e)
 {
 	int		x;
 	int		x1;
@@ -21,12 +21,12 @@ void	anti_supersampler(t_rt *env)
 	x1 = LARGEUR * HAUTEUR;
 	while (x < x1)
 	{
-		((unsigned int *)env->mlx.data)[x] = env->img_temp[x];
+		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
 		x++;
 	}
 }
 
-void	super_sampler(t_rt *env)
+void	super_sampler(t_rt *e)
 {
 	int		x;
 	int		y;
@@ -41,11 +41,11 @@ void	super_sampler(t_rt *env)
 		x1 = 0;
 		while (x < LARGEUR / 2)
 		{
-			((unsigned int *)env->mlx.data)[x + y * LARGEUR / 2] = AVERAGE(
-				AVERAGE(env->img_temp[x1 + y1 * LARGEUR],
-					env->img_temp[(x1 + 1) + (y1 * LARGEUR)]),
-				AVERAGE(env->img_temp[x1 + (y1 + 1) * LARGEUR],
-					env->img_temp[(x1 + 1) + (y1 + 1) * LARGEUR]));
+			((unsigned int *)e->mlx.data)[x + y * LARGEUR / 2] = AVERAGE(
+				AVERAGE(e->img_temp[x1 + y1 * LARGEUR],
+					e->img_temp[(x1 + 1) + (y1 * LARGEUR)]),
+				AVERAGE(e->img_temp[x1 + (y1 + 1) * LARGEUR],
+					e->img_temp[(x1 + 1) + (y1 + 1) * LARGEUR]));
 			x1 += 2;
 			x++;
 		}
