@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/08/19 17:41:09 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,20 @@ void		store_type_or_data(char *line, t_rt *e)
 
 static int	is_file(char *path)
 {
-	char	*tmp;
 	int		fd;
+	int		size;
 
-	tmp = ft_strchr(path, '.');
-	if (tmp && !ft_strcmp(EXTENSION, tmp))
+	size = ft_strlen(path) - ft_strlen(EXTENSION);
+	if (!ft_strcmp(EXTENSION, path + size))
 		if ((fd = open(path, O_RDONLY)) != -1)
-			return (1);
-	return (0);
+			return (fd);
+	return (-1);
 }
 
-int			parse_obj(char *path, t_rt *e)
+int			parse_obj(t_rt *e, int fd)
 {
-	int		fd;
 	char	*line;
 
-	if (!(fd = open(path, O_RDONLY)))
-		return (0);
 	while (get_next_line(fd, &line))
 	{
 		if (line && line[0] != '*')
@@ -67,6 +64,7 @@ int			parse_obj(char *path, t_rt *e)
 int			parse_args(char **argv, int argc, t_rt *e)
 {
 	int		i;
+	int		fd;
 
 	i = 0;
 	while (i < argc)
@@ -84,8 +82,8 @@ int			parse_args(char **argv, int argc, t_rt *e)
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
 		i++;
 	}
-	if (is_file(SFILE))
-		if (parse_obj(SFILE, e))
+	if ((fd = is_file(SFILE)) > -1)
+		if (parse_obj(e, fd))
 			return (1);
 	return (0);
 }
