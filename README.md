@@ -17,8 +17,8 @@ usage: rtv1 [-s source] [-w width] [-h height]
 
 Filters:
 
-0 = Disabled
+1 = Disabled
 
-1 = Sepia
+2 = Sepia
 
-2 = Black and White
+3 = Black and White

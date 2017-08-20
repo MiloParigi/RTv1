@@ -24,9 +24,9 @@ void	anti_aliasing_off(t_rt *e)
 		while (x < LARGEUR)
 		{
 			mlx_pixel(x, y, e, ret_colors(raytrace(x, y, e)));
-			x++;
+			x += 2;
 		}
-		y++;
+		y += 2;
 	}
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 }
