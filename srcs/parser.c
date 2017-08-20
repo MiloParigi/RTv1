@@ -58,6 +58,8 @@ int			parse_obj(t_rt *e, int fd)
 			store_type_or_data(line, e);
 	}
 	e->scene.nbr_tot = e->scene.nbr_obj + e->scene.nbr_light;
+	if (e->scene.nb.obj >= MAXOBJ || e->scene.nbr.light >= MAXLIGHT)
+		return (0);
 	return (1);
 }
 
