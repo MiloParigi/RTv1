@@ -71,6 +71,7 @@
 # define INIT e->mlx.init
 # define WIN e->mlx.window
 # define IMG e->mlx.image
+# define DATA e->mlx.data
 # define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut * SS
 # define LARGEUR e->file.larg
@@ -97,7 +98,8 @@
 # define DIST_MIN -80000
 # define AMBIENT_LIGHT 50
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
-
+# define FT_MIN(x, y) ((x < y) ? x : y)
+# define FT_MAX(x, y) ((x > y) ? x : y)
 typedef struct		s_ray
 {
 	t_vec3			pos;
@@ -200,6 +202,7 @@ typedef struct		s_scene
 	char			nbr_tot;
 	int 			id;
 	int				supersampling;
+	int 			filters;
 	t_camera		cam;
 }					t_scene;
 
@@ -226,7 +229,15 @@ int					parse_obj(t_rt *e, int fd);
 void				store_type_or_data(char *line, t_rt *e);
 void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
+void      			fl_sepia_apply(t_rt *e);
+void       			fl_black_and_white(t_rt *e);
 
+//hook
+
+void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
+void				udlr_(int keycode, t_rt *e);
+int					key_hook(int keycode, t_rt *e);
+void 				wasd_(int keycode, t_rt *e);
 //OLD
 
 unsigned int		ret_colors(t_color color);
@@ -238,7 +249,6 @@ void				anti_supersampler(t_rt *e);
 void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
 void				anti_aliasing_off(t_rt *e);
 float				intersect_sphere(t_ray ray, t_obj sphere);
-int					key_hook(int keycode, t_rt *e);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
 float				intersect_plane(t_ray ray, t_obj sphere);

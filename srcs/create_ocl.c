@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 t_color			c_color(float r, float g, float b)
 {

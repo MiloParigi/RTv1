@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 {

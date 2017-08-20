@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 float	get_res_of_quadratic(float a, float b, float c)
 {

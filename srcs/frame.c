@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 void	mlx_pixel(int x, int y, t_rt *e, int color)
 {
@@ -25,6 +25,13 @@ void	mlx_pixel(int x, int y, t_rt *e, int color)
 	}
 }
 
+void	filters(t_rt *e)
+{
+	if (e->scene.filters == 1)
+		fl_sepia_apply(e);
+	if (e->scene.filters == 2)
+		fl_black_and_white(e);
+}
 void	frame(t_rt *e)
 {
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
@@ -34,5 +41,6 @@ void	frame(t_rt *e)
 		anti_aliasing_off(e);
 	else
 		anti_aliasing_on(e, NULL);
+	filters(e);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 }

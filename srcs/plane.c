@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 float			intensity_plane(t_rt *e, t_vec3 poi, t_obj plane, t_light light)
 {

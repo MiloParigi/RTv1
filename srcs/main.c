@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include "rt.h"
 
 void	display_args(void)
 {
@@ -34,6 +34,7 @@ void		init_rt(t_rt *e)
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
 	e->scene.supersampling = 1;
+	e->scene.filters = 0;
 }
 
 int			main(int argc, char **argv)
