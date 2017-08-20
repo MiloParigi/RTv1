@@ -27,22 +27,12 @@ void	mlx_pixel(int x, int y, t_rt *e, int color)
 
 void	frame(t_rt *e)
 {
-	int		x;
-	int		y;
-
-	y = 0;
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
 		&e->mlx.endian);
-	while (y < HAUTEUR)
-	{
-		x = 0;
-		while (x < LARGEUR)
-		{
-			raytrace(x, y, e);
-			x++;
-		}
-		y++;
-	}
+	if (SS == 1)
+		anti_aliasing_off(e);
+	else
+		anti_aliasing_on(e, NULL);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 }

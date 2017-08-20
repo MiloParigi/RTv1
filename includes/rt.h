@@ -71,7 +71,7 @@
 # define INIT e->mlx.init
 # define WIN e->mlx.window
 # define IMG e->mlx.image
-# define SS (e->scene.supersampling + 1)
+# define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut * SS
 # define LARGEUR e->file.larg
 # define SFILE e->file.path
@@ -87,13 +87,15 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 
+# define WSS LARGEUR * SS
+# define HSS HAUTEUR * SS
+
 # define DEFAULT_SUPERSAMPLING 0
 # define FOV 30
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
 # define AMBIENT_LIGHT 50
-
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 
 typedef struct		s_ray
@@ -230,9 +232,11 @@ void				mlx_pixel(int x, int y, t_rt *e, int color);
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_vec3				get_vec(int x, int y, t_vec3 dir);
-int					raytrace(int x, int y, t_rt *e);
+t_color				raytrace(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
+void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
+void				anti_aliasing_off(t_rt *e);
 float				intersect_sphere(t_ray ray, t_obj sphere);
 int					key_hook(int keycode, t_rt *e);
 t_color				color_mult(t_color color, float taux);

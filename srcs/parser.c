@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/19 17:41:09 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/08/20 09:06:15 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int			parse_obj(t_rt *e, int fd)
 			store_type_or_data(line, e);
 	}
 	e->scene.nbr_tot = e->scene.nbr_obj + e->scene.nbr_light;
+	if (e->scene.nbr_obj >= MAXOBJ || e->scene.nbr_light >= MAXLIGHT)
+		return (0);
 	return (1);
 }
 

@@ -19,6 +19,7 @@ void	display_args(void)
 	ft_putstr("-w : Width of the window, default 500px\n");
 	ft_putstr("-h : Height of the window, default 500px\n");
 	ft_putstr("--help : Show help\n");
+	ft_putstr("-a : Set the antialiasing technique to the image\n");
 	exit(42);
 }
 
@@ -32,7 +33,7 @@ void		init_rt(t_rt *e)
 	e->scene.nbr_tot = 0;
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
-	e->scene.supersampling = 0;
+	e->scene.supersampling = 1;
 }
 
 int			main(int argc, char **argv)
@@ -50,10 +51,6 @@ int			main(int argc, char **argv)
 			return (0);
 		e->mlx.window = mlx_new_window(e->mlx.init, e->file.larg, e->file.haut, "RT Again");
 		frame(e);
-		// if (e->scene.supersampling)
-		// 	super_sampler(e);
-		// else
-		// 	anti_supersampler(e);
 		mlx_key_hook(e->mlx.window, key_hook, e);
 		mlx_loop(INIT);
 	}

@@ -93,17 +93,23 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	return (color);
 }
 
-int				raytrace(int x, int y, t_rt *e)
+t_color				raytrace(int x, int y, t_rt *e)
 {
 	t_ray		ray;
-	t_vec3		dir;
-	t_vec3		pos;
+	t_vec3		pov;
 	t_color		color;
 
-	pos = vec_new3(CPOS.x, CPOS.y, CPOS.z);
-	dir = get_vec(x, y, CDIR);
-	ray = c_ray(pos, dir);
+	color = c_color(0,0,0);
+	pov = vec_new3((float)(x + e->scene.cam.ray.pos.x) / SS, 
+		(float)(y + e->scene.cam.ray.pos.y) / SS, 1);
+	ray = c_ray(pov, vec_new3(0, 0, 1));
 	color = get_pxl_color(e, ray);
-	mlx_pixel(x, y, e, ret_colors(color));
-	return (1);
+
+	//Romain ray methods, plane have issues
+	// pos = vec_new3(CPOS.x, CPOS.y, CPOS.z);
+	// dir = get_vec(x, y, CDIR);
+	// ray = c_ray(pos, dir);
+	// mlx_pixel(x, y, e, get_pxl_color(e, ray));
+
+	return (color);
 }
