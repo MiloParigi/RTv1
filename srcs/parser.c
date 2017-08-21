@@ -82,6 +82,8 @@ int			parse_args(char **argv, int argc, t_rt *e)
 			i + 1 < argc ? e->file.haut = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-s", argv[i]))
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
+		else if (!ft_strcmp("-a", argv[i]))
+			i + 1 < argc ? e->scene.supersampling = 1 : 0;
 		i++;
 	}
 	if ((fd = is_file(SFILE)) > -1)
