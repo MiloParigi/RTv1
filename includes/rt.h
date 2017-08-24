@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/19 17:41:14 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/08/24 22:58:46 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 # define IMG e->mlx.image
 # define DATA e->mlx.data
 # define SS (e->scene.supersampling)
-# define HAUTEUR e->file.haut * SS
+# define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
 # define SFILE e->file.path
 # define CPOS e->scene.cam.ray.pos

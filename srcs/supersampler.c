@@ -18,10 +18,10 @@ void	anti_aliasing_off(t_rt *e)
 	int y;
 
 	y = 0;
-	while (y < HAUTEUR)
+	while (y < HSS)
 	{
 		x = 0;
-		while (x < LARGEUR)
+		while (x < WSS)
 		{
 			mlx_pixel(x, y, e, ret_colors(raytrace(x, y, e)));
 			x += 1;
@@ -88,7 +88,7 @@ void	anti_supersampler(t_rt *e)
 	int		x1;
 
 	x = 0;
-	x1 = LARGEUR * HAUTEUR;
+	x1 = WSS * HSS;
 	while (x < x1)
 	{
 		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
@@ -105,17 +105,17 @@ void	super_sampler(t_rt *e)
 
 	y = 0;
 	y1 = 0;
-	while (y < HAUTEUR / 2)
+	while (y < HSS / 2)
 	{
 		x = 0;
 		x1 = 0;
-		while (x < LARGEUR / 2)
+		while (x < WSS / 2)
 		{
-			((unsigned int *)e->mlx.data)[x + y * LARGEUR / 2] = AVERAGE(
-				AVERAGE(e->img_temp[x1 + y1 * LARGEUR],
-					e->img_temp[(x1 + 1) + (y1 * LARGEUR)]),
-				AVERAGE(e->img_temp[x1 + (y1 + 1) * LARGEUR],
-					e->img_temp[(x1 + 1) + (y1 + 1) * LARGEUR]));
+			((unsigned int *)e->mlx.data)[x + y * WSS / 2] = AVERAGE(
+				AVERAGE(e->img_temp[x1 + y1 * WSS],
+					e->img_temp[(x1 + 1) + (y1 * WSS)]),
+				AVERAGE(e->img_temp[x1 + (y1 + 1) * WSS],
+					e->img_temp[(x1 + 1) + (y1 + 1) * WSS]));
 			x1 += 1;
 		}
 		y1 += 1;
