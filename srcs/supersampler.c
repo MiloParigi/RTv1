@@ -45,9 +45,9 @@ unsigned int *anti_aliasing_img_creator(t_rt *e, unsigned int *img_temp)
 		while (x < WSS)
 		{
 			img_temp[x + y * WSS] = ret_colors(raytrace(x, y, e));
-			x++;
+			x += 1;
 		}
-		y++;
+		y += 1;
 	}
 	return (img_temp);
 }
@@ -74,11 +74,9 @@ void	anti_aliasing_on(t_rt *e, unsigned int *img_temp)
 				img_temp[(x1 + 1) + (y1 * WSS)]),
 				AVERAGE(img_temp[x1 + (y1 + 1) * WSS],
 				img_temp[(x1 + 1) + (y1 + 1) * WSS])));
-				x1 += 2;
-				x++;
+				x1 += 1;
 			}
-			y++;
-			y1 += 2;
+			y1 += 1;
 		}
 		free(img_temp);
 	}
@@ -94,7 +92,7 @@ void	anti_supersampler(t_rt *e)
 	while (x < x1)
 	{
 		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
-		x++;
+		x += 1;
 	}
 }
 
@@ -118,10 +116,8 @@ void	super_sampler(t_rt *e)
 					e->img_temp[(x1 + 1) + (y1 * LARGEUR)]),
 				AVERAGE(e->img_temp[x1 + (y1 + 1) * LARGEUR],
 					e->img_temp[(x1 + 1) + (y1 + 1) * LARGEUR]));
-			x1 += 2;
-			x++;
+			x1 += 1;
 		}
-		y++;
-		y1 += 2;
+		y1 += 1;
 	}
 }
