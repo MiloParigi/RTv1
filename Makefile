@@ -1,98 +1,64 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/14 22:04:16 by rlecart          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = rtv1
 
-PROJECT		=	RT
-NAME		=	rt
-OBJDIR		=	objs/
-SRCDIR		=	srcs/
-SRC			=	color.c \
-				cone.c \
-				create_ocl.c \
-				cylinder.c \
-				frame.c \
-				hooks.c \
-				main.c \
-				parser.c \
-				plane.c \
-				ray.c \
-				raytrace.c \
-				set_ocl.c \
-				sphere.c \
-				supersampler.c \
-				filters.c
-MINILIBX	=	minilibx_macos/libmlx.a
-LIBFT		=	libft/libft.a
-LIBVEC		=	libvec/libvec.a
-OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
-CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/
-OPTI		=	-O3
-DEBUG		=	-g
-MLXF		=	-framework OpenGL -framework AppKit
+FLAGS = -Wall -Wextra -Werror -g3
 
-WHITE		=	\033[7;49;39m
-BLUE		=	\033[7;49;34m
-RED			=	\x1B[31m
-YELLOW		=	\x1B[33m
-GREEN		=	\033[0;49;32m
-GREEN_BG	=	\033[1;49;32m
-GRAY		=	\033[7;49;90m
-NO_COLOR	=	\033[m
+SRC_PATH = src
+ 
+OBJ_PATH = src 
 
-all: mlx lib vec $(NAME)
+CC = clang
 
-$(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
-	@printf "\r$(GREEN)[$(PROJECT)] Obj compilation done.                                                        \n"
-	@printf "$(YELLOW)[$(PROJECT)] Compiling $(NAME)..."
-	@$(CC) $(CFLAGS) $(MLXF) -o $(NAME) $(OBJ) $(MINILIBX) $(LIBFT) $(LIBVEC)
-	@printf "\r$(GREEN)[$(PROJECT)] Compilation done.                          \n$(NO_COLOR)"
+MLX =   -framework OpenGL -framework AppKit mlxe2/libmlx.a
 
-$(OBJDIR)%.o: $(SRCDIR)%.c
-	@printf "$(YELLOW)\r[$(PROJECT)] Compiling $< to $@                                                          \r"
-	@$(CC) $(CFLAGS) -o $@ -c $<
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
-mlx:
-	@printf "$(YELLOW)[MINILIBX] Compiling obj...                                                     \r$(NO_COLOR)"
-	@make -s -C minilibx_macos 2> /dev/null > /dev/null
+SRC_NAME =	main.c \
+			aux.c \
+			aux2.c \
+			creator.c\
+			initcam.c \
+			sphere.c \
+			light.c \
+			light2.c \
+			calc.c \
+			calc2.c \
+			plane.c \
+			cone.c \
+			cylin.c \
+			fofree.c \
+			creator2.c \
+			hook.c \
+			scene.c \
+			init.c
 
-lib:
-	@make -s -C libft 2> /dev/null > /dev/null
 
-vec:
-	@make -s -C libvec 2> /dev/null > /dev/null
+LIB = -L. ./libft/libft.a
 
-$(OBJDIR):
-	@mkdir $(OBJDIR)
+OBJ = $(SRC:.c=.o)
+
+HEADER = -I ./Include
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@make -C libft/
+	
+	gcc  $(FLAGS) $(HEADER) -o $(NAME) $(OBJ)  $(LIB) $(MLX) -fsanitize=address -g -o3
+	@echo "Compiling \t\
+	\033[4m\033[95md\033[93mo\033[32mn\033[96me \033[91m!\033[0m"
+	@echo "$(NAME) was created for you \t\
+		\033[4m\033[95md\033[93mo\033[32mn\033[96me \033[91m!\033[0m"
 
 clean:
-	@make -s -C libft clean
-	@make -s -C libvec clean
-	@printf "$(YELLOW)[$(PROJECT)] Removing obj..."
-	@rm -rf $(OBJ)
-	@rm -rf $(OBJDIR)
-	@printf "\r$(GREEN)[$(PROJECT)] Obj removed.                                                   \n$(NO_COLOR)"
+	@rm -f $(OBJ)
+	@echo "Cleaning $(NAME) \t\
+		\033[4m\033[95md\033[93mo\033[32mn\033[96me \033[91m!\033[0m"
 
-fclean:
-	@make -s -C minilibx_macos clean
-	@make -s -C libft fclean
-	@make -s -C libvec fclean
-	@printf "$(YELLOW)[$(PROJECT)] Removing obj..."
-	@rm -rf $(OBJ)
-	@rm -rf $(OBJDIR)
-	@printf "\r$(GREEN)[$(PROJECT)] Obj removed.                                                   \n$(NO_COLOR)"
-	@printf "$(YELLOW)[$(PROJECT)] Removing $(NAME)..."
-	@rm -rf $(NAME)
-	@printf "\r$(GREEN)[$(PROJECT)] $(NAME) removed.                                               \n$(NO_COLOR)"
+fclean: clean
+	@rm -f $(NAME)
+	@echo "Fcleaning $(NAME) \t\
+		\033[4m\033[95md\033[93mo\033[32mn\033[96me \033[91m!\033[0m"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: clean fclean
