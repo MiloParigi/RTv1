@@ -28,7 +28,8 @@ SRC			=	color.c \
 				set_ocl.c \
 				sphere.c \
 				supersampler.c \
-				filters.c
+				filters.c \
+				cone2.c
 MINILIBX	=	minilibx_macos/libmlx.a
 LIBFT		=	libft/libft.a
 LIBVEC		=	libvec/libvec.a

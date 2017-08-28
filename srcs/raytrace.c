@@ -42,8 +42,8 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 			tmp = intensity_sphere(poi, obj, e->CLIGHT);
 		if (obj.type == PLANE)
 			tmp = intensity_plane(e, poi, obj, e->CLIGHT);
-		if (obj.type == CYLINDER)
-			tmp = intensity_cylinder(e, poi, obj, e->CLIGHT);
+		// if (obj.type == CYLINDER)
+		// 	tmp = intensity_cylinder(e, poi, obj, e->CLIGHT);
 		if (obj.type == CONE)
 			tmp = intensity_cone(e, poi, obj, e->CLIGHT);
 		if (obj_in_shadow(e, poi, e->CLIGHT))
@@ -68,9 +68,8 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	{
 		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
 		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CYLINDER) ?
-			intersect_cylinder(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CONE) ? intersect_cone(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CONE) ? intersect_cone2(ray, e->COBJ) : dist;
 		if (dist < min_dist)
 		{
 			min_dist = (cangoneg && dist < 0) ? min_dist : dist;
@@ -101,6 +100,8 @@ t_color				raytrace(int x, int y, t_rt *e)
 {
 	t_ray		ray;
 	t_vec3		pov;
+	// t_vec3		pos;
+	// t_vec3		dir;
 	t_color		color;
 
 	color = c_color(0,0,0);
@@ -113,7 +114,7 @@ t_color				raytrace(int x, int y, t_rt *e)
 	// pos = vec_new3(CPOS.x, CPOS.y, CPOS.z);
 	// dir = get_vec(x, y, CDIR);
 	// ray = c_ray(pos, dir);
-	// mlx_pixel(x, y, e, get_pxl_color(e, ray));
+	//color = get_pxl_color(e, ray);
 
 	return (color);
 }

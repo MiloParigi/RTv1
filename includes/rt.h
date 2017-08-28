@@ -14,7 +14,7 @@
 # define RT_H
 
 # include "libft.h"
-# include "mlx.h"
+# include "../minilibx_macos/mlx.h"
 # include "libvec.h"
 # include <math.h>
 # include <stdio.h>
@@ -183,7 +183,7 @@ typedef struct		s_obj
 	t_color			color;
 	t_vec3			pos;
 	t_vec3			dir;
-	float			size;
+	float			angle;
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
 	t_vec3			maxp; //For Cylinder and Cone
 	t_vec3			minp; //For Cone
@@ -232,7 +232,9 @@ void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
 void      			fl_sepia_apply(t_rt *e);
 void       			fl_black_and_white(t_rt *e);
-
+void				fl_border_limits(t_rt *e);
+void				fl_border(t_rt *e);
+void				fl_revers(t_rt *e);
 //hook
 
 void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
@@ -256,6 +258,7 @@ float				intersect_plane(t_ray ray, t_obj sphere);
 float				intersect_cylinder(t_ray ray, t_obj cylinder);
 t_color				copy_color(t_color color);
 float				intersect_cone(t_ray ray, t_obj cone);
+float				intersect_cone2(t_ray ray, t_obj obj);
 float				intensity_cone(t_rt *e, t_vec3 poi,
 						t_obj cone, t_light light);
 float				intensity_sphere(t_vec3 poi,
