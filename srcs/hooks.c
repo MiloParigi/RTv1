@@ -32,11 +32,11 @@ void	resolution(int keycode, t_rt *e)
 {
 	if (keycode == PLUS || keycode == MINUS)
 	{
-		RES += (keycode == PLUS) ? 10 : -10;
-		if (RES <= 1)
-			RES = 1;
-		if (RES >= 50)
-			RES = 50;
+		RES += (keycode == PLUS) ? 2 : -2;
+		if (RES < 1)
+			RES = 2;
+		if (RES > 200)
+			RES = 200;
 		frame(e);
 	}
 }
@@ -65,7 +65,6 @@ void	wasd_(int keycode, t_rt *e)
 	}
 }
 
-
 int				key_hook(int keycode, t_rt *e)
 {
 	if (keycode == ESC)
@@ -74,6 +73,7 @@ int				key_hook(int keycode, t_rt *e)
 	wasd_(keycode, e);
 	resolution(keycode, e);
 	//Add CPOS.z + CDIR.z
+	ft_putnbr(keycode);
 	choose_filters(keycode, e);
 	return (0);
 }

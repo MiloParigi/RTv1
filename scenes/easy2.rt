@@ -8,9 +8,6 @@ light:
 light:
   pos: 100 700 -400
   intensity: 0.7
-light:
-  pos: 500 500 1500
-  intensity: 0.0001
 * BOX
 sphere:
   pos: 750 400 300

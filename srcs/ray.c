@@ -20,9 +20,9 @@ float	get_length(t_vec3 v)
 t_ray		c_ray(t_vec3 i, t_vec3 j)
 {
 	t_ray	ray;
-
+	
 	ray.pos = vec_new3(i.x, i.y, i.z);
-	ray.dir = vec_new3(j.x, j.y, j.z);
+	ray.dir = vec_norme3(vec_new3(j.x, j.y, j.z));
 	return (ray);
 }
 
@@ -34,5 +34,20 @@ t_vec3			get_vec(int x, int y, t_vec3 dir)
 	ret.y = HEIGHT / 2 - y + dir.y;
 	ret.z = 250 + dir.z;
 
+	// t_ray	ray;
+	// float	coeff;
+	// float 	w;
+	// float 	h;
+
+	// coeff = (LARGEUR < HAUTEUR ? LARGEUR : HAUTEUR);
+	// w = LARGEUR / coeff;
+	// h = HAUTEUR / coeff;
+	
+	// ray.pos = vec_new3(i.x, i.y, i.z);
+	// ray.dir = vec_norme3(vec_new3(j.x, j.y, j.z));
+	// ray.dir = vec_add3(ray.dir, vec_sub3(vec_scale3((t_vec3){ 1, 0, 0, 0}, w / LARGEUR * i.x), vec_scale3((t_vec3){0, 1, 0, 0}, h / HAUTEUR * i.y)));
+	// ray.dir = vec_norme3(ray.dir);
+
 	return (ret);
 }
+
