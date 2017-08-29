@@ -48,7 +48,7 @@ void	udlr_(int keycode, t_rt *e)
 		if (keycode <= RIGHT)
 			CPOS.x += ((keycode == LEFT) ? -20 : 20);
 		else
-			CPOS.z += ((keycode == UP) ? -20 : 20);
+			CPOS.y += ((keycode == UP) ? -20 : 20);
 		frame(e);
 	}
 }
@@ -73,6 +73,7 @@ int				key_hook(int keycode, t_rt *e)
 	udlr_(keycode, e);
 	wasd_(keycode, e);
 	resolution(keycode, e);
+	//Add CPOS.z + CDIR.z
 	choose_filters(keycode, e);
 	return (0);
 }

@@ -33,5 +33,6 @@ t_vec3			get_vec(int x, int y, t_vec3 dir)
 	ret.x = WIDTH / 2 - x + dir.x;
 	ret.y = HEIGHT / 2 - y + dir.y;
 	ret.z = 250 + dir.z;
+
 	return (ret);
 }
