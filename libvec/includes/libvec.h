@@ -40,7 +40,6 @@ t_vec3			vec_sub3(t_vec3 u, t_vec3 v);
 t_vec3			vec_tsub3(t_vec3 u, t_vec3 v);
 t_vec3			vec_inv3(t_vec3 u);
 t_vec3			vec_norme3(t_vec3 u);
-double			vec_dot3d(t_vec3d u, t_vec3d v);
 t_vec3d			vec_scale3d(t_vec3d u, double r);
 t_vec3d			vec_new3d(double x, double y, double z);
 t_vec3d			vec_mul3d(t_vec3d u, t_vec3d v);

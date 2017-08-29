@@ -48,7 +48,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 			tmp = intensity_cone(e, poi, obj, e->CLIGHT);
 		if (obj_in_shadow(e, poi, e->CLIGHT))
 			tmp -= 100 - AMBIENT_LIGHT;
-		intensity += ((tmp > 2*AMBIENT_LIGHT) ? tmp : 2*AMBIENT_LIGHT);
+		intensity += ((tmp > 2 * AMBIENT_LIGHT) ? tmp : 2 * AMBIENT_LIGHT);
 		i++;
 	}
 	return ((i <= e->scene.nbr_light && intensity >= 0)
@@ -105,16 +105,17 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color		color;
 
 	color = c_color(0,0,0);
-	pov = vec_new3((float)(x + e->scene.cam.ray.pos.x) / SS, 
-		(float)(y + e->scene.cam.ray.pos.y) / SS, 1);
-	ray = c_ray(pov, vec_new3(0, 0, 1));
+	pov = vec_new3((float)(x + e->scene.cam.ray.pos.x) * RES, 
+		(float)(y + e->scene.cam.ray.pos.y) * RES, CPOS.z);
+	ray = c_ray(pov, CDIR);
+
 	color = get_pxl_color(e, ray);
 
-	//Romain ray methods, plane have issues
+	// Romain ray methods, plane have issues
 	// pos = vec_new3(CPOS.x, CPOS.y, CPOS.z);
 	// dir = get_vec(x, y, CDIR);
 	// ray = c_ray(pos, dir);
-	//color = get_pxl_color(e, ray);
+	// color = get_pxl_color(e, ray);
 
 	return (color);
 }

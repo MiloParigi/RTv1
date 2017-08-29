@@ -72,6 +72,7 @@
 # define WIN e->mlx.window
 # define IMG e->mlx.image
 # define DATA e->mlx.data
+# define RES e->file.reso
 # define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
@@ -90,6 +91,8 @@
 
 # define WSS LARGEUR * SS
 # define HSS HAUTEUR * SS
+# define RES_H (HAUTEUR / RES)
+# define RES_W (LARGEUR / RES)
 
 # define DEFAULT_SUPERSAMPLING 0
 # define FOV 30
@@ -100,6 +103,8 @@
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
+
+# define NB_THREADS 8	
 
 typedef struct		s_ray
 {
@@ -174,6 +179,7 @@ typedef struct		s_file
 	char			*path;
 	int				haut;
 	int				larg;
+	int 			reso;
 }					t_file;
 
 typedef struct		s_obj
@@ -207,11 +213,18 @@ typedef struct		s_scene
 	t_camera		cam;
 }					t_scene;
 
+typedef struct		s_mthread
+{
+	int 			y;
+	t_color			*colors;
+}					t_mthread;
+
 typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_scene			scene;
 	t_file			file;
+	t_mthread		thread;
 	unsigned int 	*img_temp;
 }					t_rt;
 
@@ -241,7 +254,22 @@ void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
 void				udlr_(int keycode, t_rt *e);
 int					key_hook(int keycode, t_rt *e);
 void 				wasd_(int keycode, t_rt *e);
+void				resolution(int keycode, t_rt *e);
+
+//Multithreading
+
+t_light				copy_light(t_light light);
+t_obj				copy_objs(t_obj obj);
+t_scene				copy_scene(t_scene scene);
+t_rt				*copy_rt(t_rt *e);
+void				*drawline(void *arg);
+t_rt            	**launch_thread(t_rt *env);
 //OLD
+
+
+//Beta option
+
+void  				pixel_to_image(int x, int y, t_rt *e, int color);
 
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);

@@ -28,6 +28,7 @@ void		init_rt(t_rt *e)
 	e->mlx.init = mlx_init();
 	e->file.larg = 1024;
 	e->file.haut = 768;
+	e->file.reso = 2;
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;

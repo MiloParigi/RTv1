@@ -32,14 +32,6 @@ t_vec3d		vec_tsub3d(t_vec3d u, t_vec3d v)
 	return (pts);
 }
 
-double		vec_dot3d(t_vec3d u, t_vec3d v)
-{
-	double	dot;
-
-	dot = u.x * v.x + u.y * v.y + u.z * v.z;
-	return (dot);
-}
-
 t_vec3d		vec_inv3d(t_vec3d u)
 {
 	t_vec3d		pts;
