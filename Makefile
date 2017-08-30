@@ -31,13 +31,18 @@ SRC			=	color.c \
 				filters.c \
 				cone2.c \
 				copyrt.c \
-				thread.c
+				thread.c \
+				xml_parser.c \
+				xml_errors.c \
+				xml_checks.c \
+
 MINILIBX	=	minilibx_macos/libmlx.a
 LIBFT		=	libft/libft.a
 LIBVEC		=	libvec/libvec.a
+LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/
+CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/ -I /usr/include/libxml2
 OPTI		=	-O3
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit
@@ -56,7 +61,7 @@ all: mlx lib vec $(NAME)
 $(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
 	@printf "\r$(GREEN)[$(PROJECT)] Obj compilation done.                                                        \n"
 	@printf "$(YELLOW)[$(PROJECT)] Compiling $(NAME)..."
-	@$(CC) $(CFLAGS) $(DEBUG) $(MLXF) -o $(NAME) $(OBJ) $(MINILIBX) $(LIBFT) $(LIBVEC)
+	@$(CC) $(CFLAGS) $(DEBUG) $(MLXF) -o $(NAME) $(OBJ) $(MINILIBX) $(LIBFT) $(LIBVEC) $(LIBXML)
 	@printf "\r$(GREEN)[$(PROJECT)] Compilation done.                          \n$(NO_COLOR)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
