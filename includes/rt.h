@@ -21,14 +21,14 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <libxml/parser.h>
-# include <libxml/tree.h>
-# include <libxml/xmlIO.h>
-# include <libxml/xinclude.h>
-# include <libxml/valid.h>
-# include <libxml/xmlschemas.h>
-# include <libxml/xmlstring.h>
-# include <libxml/xmlreader.h>
+// # include <libxml/parser.h>
+// # include <libxml/tree.h>
+// # include <libxml/xmlIO.h>
+// # include <libxml/xinclude.h>
+// # include <libxml/valid.h>
+// # include <libxml/xmlschemas.h>
+// # include <libxml/xmlstring.h>
+// # include <libxml/xmlreader.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -151,7 +151,6 @@ typedef struct		s_camera
 	float			focale;
 	float			reso;
 }					t_camera;
-
 typedef struct		s_mlx
 {
 	void			*init;
@@ -162,6 +161,17 @@ typedef struct		s_mlx
 	int				size_l;
 	int				endian;
 }					t_mlx;
+
+typedef struct	s_texture
+{
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			size_l;
+	int			endian;
+	int			width;
+	int			height;
+}				t_texture;
 
 typedef struct		s_matiere
 {
@@ -175,6 +185,7 @@ typedef struct		s_matiere
 	float			absorbtion;
 	char			*coeff;
 	char			opacite;
+	t_texture		texture;
 }					t_matiere;
 
 typedef struct		s_calc
@@ -321,9 +332,9 @@ float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
 
-int					xsd_read_error();
-int					doChecks(xmlDocPtr doc);
-void				xml_read_error();
-xmlDocPtr			getdoc(char *docname);
+// int					xsd_read_error();
+// int					doChecks(xmlDocPtr doc);
+// void				xml_read_error();
+// xmlDocPtr			getdoc(char *docname);
 
 #endif

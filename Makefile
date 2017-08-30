@@ -32,17 +32,17 @@ SRC			=	color.c \
 				cone2.c \
 				copyrt.c \
 				thread.c \
-				xml_parser.c \
-				xml_errors.c \
-				xml_checks.c \
+				# xml_parser.c \
+				# xml_errors.c \
+				# xml_checks.c \
 
 MINILIBX	=	minilibx_macos/libmlx.a
 LIBFT		=	libft/libft.a
 LIBVEC		=	libvec/libvec.a
-LIBXML		=	-lxml2
+# LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/ -I /usr/include/libxml2
+CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/ #-I /usr/include/libxml2
 OPTI		=	-O3
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit
