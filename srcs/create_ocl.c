@@ -38,7 +38,6 @@ int			camera_create(t_rt *e)
 	e->scene.cam.ray.pos = vec_new3(0, 0, -2000);
 	e->scene.cam.ray.dir = vec_new3(0, 0, 1);
 	e->scene.cam.focale = 1;
-	e->scene.cam.reso = 300;
 	return (1);
 }
 

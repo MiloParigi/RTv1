@@ -37,7 +37,7 @@ LIBFT		=	libft/libft.a
 LIBVEC		=	libvec/libvec.a
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libft/includes/ -I libvec/includes/
+CFLAGS		=	-Wall -Werror -Wextra -g -I includes/ -I libft/includes/ -I libvec/includes/
 OPTI		=	-O3
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit
