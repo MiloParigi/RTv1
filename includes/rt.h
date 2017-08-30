@@ -136,6 +136,7 @@ typedef struct		s_camera
 {
 	t_ray			ray;
 	float			focale;
+	float			reso;
 }					t_camera;
 
 typedef struct		s_mlx
