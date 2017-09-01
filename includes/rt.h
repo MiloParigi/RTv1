@@ -21,14 +21,14 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <unistd.h>
-// # include <libxml/parser.h>
-// # include <libxml/tree.h>
-// # include <libxml/xmlIO.h>
-// # include <libxml/xinclude.h>
-// # include <libxml/valid.h>
-// # include <libxml/xmlschemas.h>
-// # include <libxml/xmlstring.h>
-// # include <libxml/xmlreader.h>
+# include "../libxml/parser.h"
+# include "../libxml/tree.h"
+# include "../libxml/xmlIO.h"
+# include "../libxml/xinclude.h"
+# include "../libxml/valid.h"
+# include "../libxml/xmlschemas.h"
+# include "../libxml/xmlstring.h"
+# include "../libxml/xmlreader.h"
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -332,9 +332,9 @@ float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
 
-// int					xsd_read_error();
-// int					doChecks(xmlDocPtr doc);
-// void				xml_read_error();
-// xmlDocPtr			getdoc(char *docname);
+int					xsd_read_error();
+int					doChecks(xmlDocPtr doc);
+void				xml_read_error();
+xmlDocPtr			getdoc(char *docname);
 
 #endif
