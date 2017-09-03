@@ -11,6 +11,16 @@
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void			ambient(int keycode, t_rt *e)
+{
+	if (keycode == LSHIFT || keycode == SPACE)
+	{
+		AMBIENT_LIGHT += (keycode == LSHIFT) ? 10 : -10;
+		frame(e);
+	}
+}
+
 void			choose_filters(int keycode, t_rt *e)
 {
 	if (keycode >= 18 && keycode <= 21)
@@ -68,14 +78,13 @@ void	wasd_(int keycode, t_rt *e)
 	}
 }
 
-
 void			exportimg(int keycode, t_rt *e)
 {
 	t_file 		export;
 	int			pos;
 
 	if (keycode == 50)
-	{	
+	{
 		if (!(export.fdp = open("first.ppm", O_WRONLY | O_CREAT, 00755)))
 			return ;
 		ft_putstr_fd("P6\n", export.fdp);
@@ -94,7 +103,7 @@ void			exportimg(int keycode, t_rt *e)
 				write(export.fdp, &DATA[pos + 1], 1);
 				write(export.fdp, &DATA[pos], 1);
 			}
-		}	
+		}
 		close(export.fdp);
 	}
 }
@@ -117,6 +126,7 @@ int				key_hook(int keycode, t_rt *e)
 	numeric_(keycode, e);
 	resolution(keycode, e);
 	exportimg(keycode, e);
+	ambient(keycode, e);
 	//Add CPOS.z + CDIR.z
 	ft_putnbr(keycode);
 	choose_filters(keycode, e);

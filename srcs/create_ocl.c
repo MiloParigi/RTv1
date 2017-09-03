@@ -26,7 +26,6 @@ t_matiere	create_matiere(void)
 {
 	t_matiere	mat;
 
-	mat.amb = 0;
 	mat.reflex = 0;
 	mat.specular = 0;
 	mat.opacite = 1;

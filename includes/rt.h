@@ -51,16 +51,11 @@
 # define PLANE 2
 # define SPHERE 3
 # define CYLINDER 4
+# define MICKEY 5
+# define DICK 6
+
 # define LIGHT 1
 # define OBJ 2
-# define BLACK		0
-# define RED		1
-# define GREEN		2
-# define YELLOW		3
-# define BLUE		4
-# define MAGENTA	5
-# define CYAN		6
-# define WHITE		7
 
 # define ESC		53
 # define BACKSPACE	51
@@ -85,7 +80,6 @@
 # define KEY_D		2
 # define KEY_N8		91
 # define KEY_N2		84
-
 # define INIT e->mlx.init
 # define WIN e->mlx.window
 # define IMG e->mlx.image
@@ -103,6 +97,7 @@
 # define CLIGHT scene.lights[i]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
+# define AMBIENT_LIGHT e->scene.ambient
 # define MAXOBJ 50
 # define MAXLIGHT 21
 
@@ -118,7 +113,6 @@
 # define DIST_MAX 20000
 # define DIST_MIN -80000
 # define EPSILON 1e-9
-# define AMBIENT_LIGHT 50
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
@@ -180,7 +174,6 @@ typedef struct	s_texture
 
 typedef struct		s_matiere
 {
-	float			amb;
 	t_color			diffuse;
 	float			reflex;
 	float			specular;
@@ -238,6 +231,7 @@ typedef struct		s_scene
 	t_light			*lights;
 	t_obj			*obj;
 	char			*last;
+	float			ambient;
 	int				nbr_light;
 	int				nbr_obj;
 	char			nbr_tot;
@@ -301,6 +295,7 @@ int					set_last(t_rt *e, char **params);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
+void 				create_complex(t_rt *e);
 t_color				c_color(float r, float g, float b);
 int					parse_args(char **argv, int argc, t_rt *e);
 int					parse_obj(t_rt *e, int fd);

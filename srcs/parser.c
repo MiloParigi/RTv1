@@ -20,6 +20,10 @@ int			create_type(char *type, t_rt *e)
 		return (create_obj(PLANE, e));
 	if (!ft_strcmp("light:", type))
 		return (create_light(e));
+	if (!ft_strcmp("mickey:", type))
+		return (create_obj(MICKEY, e));
+	if (!ft_strcmp("dick:", type))
+		return (create_obj(DICK, e));
 	if (!ft_strcmp("camera:", type))
 		return (camera_create(e));
 	return (0);
@@ -71,7 +75,10 @@ int			parse_filename(t_rt *e, char *filename)
 	SFILE = ft_strdup(filename);
 	if ((fd = is_file(SFILE)) > -1)
 		if ((tmp = parse_obj(e, fd)))
+		{
+			create_complex(e);
 			return (1);
+		}
 	return (0);
 }
 

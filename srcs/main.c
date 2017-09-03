@@ -32,6 +32,7 @@ void		init_rt(t_rt *e)
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
+	e->scene.ambient = 0;
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
 	e->scene.supersampling = 1;
