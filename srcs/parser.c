@@ -109,6 +109,9 @@ int			parse_args(char **argv, int argc, t_rt *e)
 	}
 	if ((fd = is_file(SFILE)) > -1)
 		if (parse_obj(e, fd))
+		{
+			create_complex(e);
 			return (1);
+		}
 	return (0);
 }
