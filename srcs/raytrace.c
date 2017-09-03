@@ -17,10 +17,11 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 	t_ray	ray;
 	float	dist;
 	float	dist_to_light;
+	t_vec3	n;
 
-	dist_to_light = get_length(vec_sub3(light.ray.pos, poi));
-	ray = c_ray(vec_add3(poi, vec_norme3(vec_sub3(light.ray.pos, poi))),
-	vec_norme3(vec_sub3(light.ray.pos, poi)));
+	n = vec_norme3(vec_sub3(light.ray.pos, poi));
+	dist_to_light = get_length(n);
+	ray = c_ray(vec_add3(poi, n), n);
 	dist = get_min_dist(e, ray, 1);
 	if (dist > 0 && dist < dist_to_light)
 		return (1);
@@ -85,7 +86,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	float		min_dist;
 	t_vec3		point_of_impact;
 	t_color		color;
-
+ 
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray, 0)) == -1)
@@ -106,9 +107,8 @@ t_color				raytrace(int x, int y, t_rt *e)
 
 	color = c_color(0,0,0);
 	pov = vec_new3((float)(x + CPOS.x) * RES, 
-		(float)(y + CPOS.y) * RES, 0);
-	ray = c_ray(pov, CDIR);
-
+		(float)(y + CPOS.y) * RES, CPOS.z);
+	ray = c_ray(pov, CDIR); 
 	//ray = vec_dir(x, y, e);
 	color = get_pxl_color(e, ray);
 

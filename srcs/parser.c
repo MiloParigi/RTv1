@@ -63,6 +63,18 @@ int			parse_obj(t_rt *e, int fd)
 	return (1);
 }
 
+int			parse_filename(t_rt *e, char *filename)
+{
+	int		fd;
+	int 	tmp;
+	
+	SFILE = ft_strdup(filename);
+	if ((fd = is_file(SFILE)) > -1)
+		if ((tmp = parse_obj(e, fd)))
+			return (1);
+	return (0);
+}
+
 int			parse_args(char **argv, int argc, t_rt *e)
 {
 	int		i;

@@ -14,21 +14,24 @@
 # define RT_H
 
 # include "libft.h"
-# include "../minilibx_macos/mlx.h"
+# include "../libs/minilibx/mlx.h"
 # include "libvec.h"
 # include <math.h>
 # include <stdio.h>
 # include <pthread.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "../libxml/parser.h"
-# include "../libxml/tree.h"
-# include "../libxml/xmlIO.h"
-# include "../libxml/xinclude.h"
-# include "../libxml/valid.h"
-# include "../libxml/xmlschemas.h"
-# include "../libxml/xmlstring.h"
-# include "../libxml/xmlreader.h"
+
+# include "parser.h"
+# include "tree.h"
+# include "xmlIO.h"
+# include "xinclude.h"
+# include "valid.h"
+# include "xmlschemas.h"
+# include "xmlstring.h"
+# include "xmlreader.h"
+
+// # include "../gtk.h"
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -100,7 +103,6 @@
 # define CLIGHT scene.lights[i]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
-# define ABS(x) (x < 0 ? -x : x)
 # define MAXOBJ 50
 # define MAXLIGHT 21
 
@@ -121,7 +123,9 @@
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 
-# define NB_THREADS 8	
+# define NB_THREADS 8
+# define GTK_W 300
+# define GTK_H 200	
 
 typedef struct		s_ray
 {
@@ -151,6 +155,7 @@ typedef struct		s_camera
 	float			focale;
 	float			reso;
 }					t_camera;
+
 typedef struct		s_mlx
 {
 	void			*init;
@@ -242,19 +247,49 @@ typedef struct		s_scene
 	t_camera		cam;
 }					t_scene;
 
+typedef struct		s_screen
+{
+	float			pos;
+	float			pitch;
+	float			yaw;
+}					t_screen;
+
 typedef struct		s_mthread
 {
 	int 			y;
 	t_color			*colors;
 }					t_mthread;
 
+// typedef struct		s_gtk_input
+// {
+// 	gint			pos_x;
+// 	gint			pos_y;
+// 	gint			max_size;
+// 	gint			max_char;
+// 	gchar			*placeholder;
+// 	gchar  			*deflaut_value;
+// }					t_gtk_input;
+
+// typedef struct		s_gtk_win
+// {
+// 	GtkWidget 			*window;
+// 	GtkWidget			*layout;
+// }					t_gtk_win;
+
+// typedef struct		s_gtk
+// {
+// 	t_gtk_win			menu;
+// 	t_gtk_win			set;
+// }					t_gtk;
+
 typedef struct		s_rt
 {
 	t_mlx			mlx;
+	// t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
-	unsigned int 	*img_temp;
+	unsigned int	*img_temp;
 }					t_rt;
 
 void				display_args(void);
@@ -277,6 +312,7 @@ void       			fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
+
 //hook
 
 void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
@@ -307,6 +343,7 @@ unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_vec3				get_vec(int x, int y, t_vec3 dir, t_rt *e);
 t_color				raytrace(int x, int y, t_rt *e);
+t_color				raytrace2(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
 void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
@@ -336,5 +373,24 @@ int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
 xmlDocPtr			getdoc(char *docname);
+
+// GTK
+// int					parse_filename(t_rt *e, char *filename);
+// void 				ft_start_rt(t_rt	*e);
+// void 				ft_gtk_start(t_rt *e, int argc, char **argv);
+
+// GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
+// GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
+
+// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+// void 				ft_gtk_init_window(t_rt *e);
+// void 				ft_gtk_add_menu(t_rt *e);
+// void 				ft_gtk_add_logo(t_rt *e);
+// void 				ft_gtk_add_radio_filters(t_rt *e);
+// void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
+// void 				print_text(GtkEntry *entry, void *optional_data);
+// // void ft_gtk_add_input_width(t_rt *e);
+// void 				ft_gtk_add_input_height(t_rt *e);
+// void 				ft_gtk_add_btn(t_rt *e);
 
 #endif
