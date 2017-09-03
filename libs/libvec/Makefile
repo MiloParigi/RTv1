@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pbernier <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pbernier <pbernier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/21 03:19:16 by pbernier          #+#    #+#              #
-#    Updated: 2017/08/14 22:04:38 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/03 20:49:13 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCDIR		=	srcs/
 SRC			=	ft_double.c \
 				ft_double_ssp.c \
 				ft_vec3.c \
-				ft_vec_ssp.c
+				ft_vec_ssp.c \
+				mtrx4_tools.c \
+				mtrx4_move.c
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -I includes/
