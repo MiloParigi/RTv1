@@ -91,8 +91,8 @@ int		set_camera(t_rt *e, char **a)
 	else if (i == 4 && !ft_strcmp("dir:", a[0]))
 		e->scene.cam.ray.dir =
 			vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
-	else if (i == 2 && !ft_strcmp("focale:", a[0]))
-		e->scene.cam.focale = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("fov:", a[0]))
+		e->scene.cam.fov = ft_atof(a[1]);
 	else
 		return (0);
 	return (1);

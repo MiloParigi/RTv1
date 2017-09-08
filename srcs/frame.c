@@ -39,8 +39,6 @@ void    pixel_to_image(int x, int y, t_rt *e, int color)
         y = start_y;
         x++;
     }
-    if (color)
-    {}
 }
 
 void	mlx_pixel(int x, int y, t_rt *e, int color)
@@ -74,15 +72,16 @@ void	frame(t_rt *e)
 	int			x;
 	int			y;
 
+	//matrix_init(e);
 	th_e = launch_thread(e);
 	i = 0;
 	while (i < NB_THREADS)
 	{
 		y = i;
-		while (y < HAUTEUR /RES)
+		while (y < HAUTEUR / RES)
 		{
 			x = 0;
-			while (x < LARGEUR/ RES)
+			while (x < LARGEUR / RES)
 			{
 				pixel_to_image(x, y, e,
 				ret_colors(th_e[i]->thread.colors[x + ((y / NB_THREADS) * RES_W)]));
@@ -93,8 +92,9 @@ void	frame(t_rt *e)
 		++i;
 	}
 	filters(e);
-	// free(th_e);
+	free(th_e);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
+	disp_cam(e);
 }
 
 // void	frame(t_rt *e)

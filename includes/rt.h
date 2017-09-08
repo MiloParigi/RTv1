@@ -31,7 +31,7 @@
 # include "xmlstring.h"
 # include "xmlreader.h"
 
-// # include "../gtk.h"
+# include <gtk/gtk.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -116,6 +116,7 @@
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
+# define PX_WHI 0x00FFFFFF
 
 # define NB_THREADS 8
 # define GTK_W 300
@@ -146,8 +147,15 @@ typedef struct		s_light
 typedef struct		s_camera
 {
 	t_ray			ray;
-	float			focale;
-	float			reso;
+	t_vec3		px;
+	t_mtrx4		ctw;
+	float		fov;
+	t_vec3		transl;
+	float		rotx;
+	float		roty;
+	float		rotz;
+	float		ratio_x;
+	float		ratio_y;
 }					t_camera;
 
 typedef struct		s_mlx
@@ -254,32 +262,32 @@ typedef struct		s_mthread
 	t_color			*colors;
 }					t_mthread;
 
-// typedef struct		s_gtk_input
-// {
-// 	gint			pos_x;
-// 	gint			pos_y;
-// 	gint			max_size;
-// 	gint			max_char;
-// 	gchar			*placeholder;
-// 	gchar  			*deflaut_value;
-// }					t_gtk_input;
+typedef struct		s_gtk_input
+{
+	gint			pos_x;
+	gint			pos_y;
+	gint			max_size;
+	gint			max_char;
+	gchar			*placeholder;
+	gchar  			*deflaut_value;
+}					t_gtk_input;
 
-// typedef struct		s_gtk_win
-// {
-// 	GtkWidget 			*window;
-// 	GtkWidget			*layout;
-// }					t_gtk_win;
+typedef struct		s_gtk_win
+{
+	GtkWidget 			*window;
+	GtkWidget			*layout;
+}					t_gtk_win;
 
-// typedef struct		s_gtk
-// {
-// 	t_gtk_win			menu;
-// 	t_gtk_win			set;
-// }					t_gtk;
+typedef struct		s_gtk
+{
+	t_gtk_win			menu;
+	t_gtk_win			set;
+}					t_gtk;
 
 typedef struct		s_rt
 {
 	t_mlx			mlx;
-	// t_gtk			gtk;
+	t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
@@ -307,6 +315,7 @@ void       			fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
+void				disp_cam(t_rt *e);
 
 //hook
 
@@ -336,9 +345,8 @@ void  				pixel_to_image(int x, int y, t_rt *e, int color);
 
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
-t_vec3				get_vec(int x, int y, t_vec3 dir, t_rt *e);
+t_ray				ray_init(t_rt *e, float x, float y);
 t_color				raytrace(int x, int y, t_rt *e);
-t_color				raytrace2(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
 void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
@@ -347,7 +355,7 @@ float				intersect_sphere(t_ray ray, t_obj sphere);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
 float				intersect_plane(t_ray ray, t_obj sphere);
-float				intersect_cylinder(t_ray ray, t_obj cylinder);
+float				intersect_cylinder(t_ray ray, t_obj obj);
 t_color				copy_color(t_color color);
 float				intersect_cone(t_ray ray, t_obj cone);
 float				intersect_cone2(t_ray ray, t_obj obj);
@@ -369,23 +377,27 @@ int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
 xmlDocPtr			getdoc(char *docname);
 
+
+//Matrix
+
+void				matrix_init(t_rt *e);
 // GTK
-// int					parse_filename(t_rt *e, char *filename);
-// void 				ft_start_rt(t_rt	*e);
-// void 				ft_gtk_start(t_rt *e, int argc, char **argv);
+int					parse_filename(t_rt *e, char *filename);
+void 				ft_start_rt(t_rt	*e);
+void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-// GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
-// GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
+GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
+GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
 
-// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
-// void 				ft_gtk_init_window(t_rt *e);
-// void 				ft_gtk_add_menu(t_rt *e);
-// void 				ft_gtk_add_logo(t_rt *e);
-// void 				ft_gtk_add_radio_filters(t_rt *e);
-// void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
-// void 				print_text(GtkEntry *entry, void *optional_data);
-// // void ft_gtk_add_input_width(t_rt *e);
-// void 				ft_gtk_add_input_height(t_rt *e);
-// void 				ft_gtk_add_btn(t_rt *e);
+void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+void 				ft_gtk_init_window(t_rt *e);
+void 				ft_gtk_add_menu(t_rt *e);
+void 				ft_gtk_add_logo(t_rt *e);
+void 				ft_gtk_add_radio_filters(t_rt *e);
+void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
+void 				print_text(GtkEntry *entry, void *optional_data);
+void ft_gtk_add_input_width(t_rt *e);
+void 				ft_gtk_add_input_height(t_rt *e);
+void 				ft_gtk_add_btn(t_rt *e);
 
 #endif

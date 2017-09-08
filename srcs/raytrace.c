@@ -43,8 +43,8 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 			tmp = intensity_sphere(poi, obj, e->CLIGHT);
 		if (obj.type == PLANE)
 			tmp = intensity_plane(e, poi, obj, e->CLIGHT);
-		// if (obj.type == CYLINDER)
-		// 	tmp = intensity_cylinder(e, poi, obj, e->CLIGHT);
+		if (obj.type == CYLINDER)
+		 	tmp = intensity_cylinder(e, poi, obj, e->CLIGHT);
 		if (obj.type == CONE)
 			tmp = intensity_cone(e, poi, obj, e->CLIGHT);
 		if (obj_in_shadow(e, poi, e->CLIGHT))
@@ -99,6 +99,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 
 t_color				raytrace(int x, int y, t_rt *e)
 {
+
 	t_ray		ray;
 	t_vec3		pov;
 	// t_vec3		pos;
@@ -112,18 +113,10 @@ t_color				raytrace(int x, int y, t_rt *e)
 	//ray = vec_dir(x, y, e);
 	color = get_pxl_color(e, ray);
 
-	// Romain ray methods, plane have issues
-	// pos = vec_new3(CPOS.x, CPOS.y, CPOS.z);
-	// pos = vec_new3((float)(x + CPOS.x) * RES, (float)(y + CPOS.y) * RES, CPOS.z);
-	
-	// float widthscreen = (2 * x - LARGEUR) / LARGEUR * tan(M_PI / 4);
-	// float heightscreen = ;
-	// float screendist = 1
+	// t_color color;
+	// t_ray	ray;
 
-	// dir.x = vec_sub(pos, )
-	//dir = get_vec(x, y, CDIR, e);
-	// ray = c_ray(pos, CDIR);
+	// ray = ray_init(e, x, y);
 	// color = get_pxl_color(e, ray);
-
 	return (color);
 }

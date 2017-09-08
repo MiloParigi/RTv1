@@ -22,6 +22,8 @@ int			create_type(char *type, t_rt *e)
 		return (create_light(e));
 	if (!ft_strcmp("mickey:", type))
 		return (create_obj(MICKEY, e));
+	if (!ft_strcmp("cylinder:", type))
+		return (create_obj(CYLINDER, e));
 	if (!ft_strcmp("dick:", type))
 		return (create_obj(DICK, e));
 	if (!ft_strcmp("camera:", type))

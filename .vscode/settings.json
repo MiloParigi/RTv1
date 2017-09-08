@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "__tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
+    }
+}

@@ -55,11 +55,11 @@ void	udlr_(int keycode, t_rt *e)
 	if (keycode == LEFT || keycode == RIGHT || keycode == UP || keycode == DOWN)
 	{
 		if (keycode <= RIGHT)
-			CPOS.x += ((keycode == LEFT) ? -60 : 60);
+			CPOS.x += ((keycode == LEFT) ? -20.5 : 20.5);
 		else
-			CPOS.y += ((keycode == UP) ? -60 : 60);
-		printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
+			CPOS.y += ((keycode == UP) ? -20.5 : 20.5);
+		//printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
+		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);
 	}
 }
@@ -69,11 +69,11 @@ void	wasd_(int keycode, t_rt *e)
 	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
 	{
 		if (keycode == KEY_W || keycode == KEY_S)
-			CDIR.y += ((keycode == KEY_S) ? -0.03 : 0.03);
+			CDIR.z += ((keycode == KEY_S) ? -0.03 : 0.03);
 		else
 			CDIR.x += ((keycode == KEY_D) ? -0.03 : 0.03);
-		printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
+	//	printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
+		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);
 	}
 }
