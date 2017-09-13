@@ -54,8 +54,8 @@
 # define MICKEY 5
 # define DICK 6
 
-# define LIGHT 1
-# define OBJ 2
+# define LIGHT 21
+# define CAMERA 22
 
 # define ESC		53
 # define BACKSPACE	51
@@ -122,6 +122,12 @@
 # define GTK_W 300
 # define GTK_H 200	
 
+typedef struct		s_vec2
+{
+	float			x;
+	float			y;
+}					t_vec2;
+
 typedef struct		s_ray
 {
 	t_vec3			pos;
@@ -156,6 +162,9 @@ typedef struct		s_camera
 	float		rotz;
 	float		ratio_x;
 	float		ratio_y;
+	float			focale;
+	float			reso;
+	float			aspect;
 }					t_camera;
 
 typedef struct		s_mlx
@@ -238,7 +247,7 @@ typedef struct		s_scene
 {
 	t_light			*lights;
 	t_obj			*obj;
-	char			*last;
+	int				last;
 	float			ambient;
 	int				nbr_light;
 	int				nbr_obj;
@@ -399,5 +408,9 @@ void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 // void ft_gtk_add_input_width(t_rt *e);
 // void 				ft_gtk_add_input_height(t_rt *e);
 // void 				ft_gtk_add_btn(t_rt *e);
+
+//Texture 
+
+float Get2DPerlinNoiseValue(float x, float y, float res);
 
 #endif

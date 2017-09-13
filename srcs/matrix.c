@@ -40,8 +40,6 @@ t_ray		ray_init(t_rt *e, float x, float y)
 	y = (1 - 2 * (((y * RES) + 0.5) / HAUTEUR)) * zoom * e->scene.cam.ratio_y;
 	ray.pos = prod_vec3_matrx4(vec_new3(0, 0, 0), e->scene.cam.ctw);
 	new_pixel = prod_vec3_matrx4(vec_new3(x, y, 1), e->scene.cam.ctw);
-	//if (((x - LARGEUR / 2) < EPSILON && (y - HAUTEUR / 2) < EPSILON))
-		//printf("Rot: {%f, %f, %f}\nPos: {%f, %f, %f}\n\n", new_pixel.x, new_pixel.y, new_pixel.z, ray.pos.x, ray.pos.y, ray.pos.z);
 	ray.dir = vec_sub3(new_pixel, ray.pos);
 	ray.dir = vec_norme3(ray.dir);
     return (ray);

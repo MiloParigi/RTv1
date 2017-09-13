@@ -86,6 +86,7 @@ void	frame(t_rt *e)
 				pixel_to_image(x, y, e,
 				ret_colors(th_e[i]->thread.colors[x + ((y / NB_THREADS) * RES_W)]));
 				++x;
+
 			}
 			y += NB_THREADS;
 		}
