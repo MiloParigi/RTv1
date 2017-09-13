@@ -69,9 +69,9 @@ void	wasd_(int keycode, t_rt *e)
 	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
 	{
 		if (keycode == KEY_W || keycode == KEY_S)
-			CDIR.z += ((keycode == KEY_S) ? -0.03 : 0.03);
+			e->scene.cam.rotx += ((keycode == KEY_S) ? 5 : -5);
 		else
-			CDIR.x += ((keycode == KEY_D) ? -0.03 : 0.03);
+			e->scene.cam.roty += ((keycode == KEY_D) ? 5 : -5);
 	//	printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
 		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);
