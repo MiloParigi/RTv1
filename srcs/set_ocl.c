@@ -14,16 +14,16 @@
 
 int		set_last(t_rt *e, char **params)
 {
-	if (!ft_strcmp("sphere:", e->scene.last) ||
-		!ft_strcmp("plane:", e->scene.last) ||
-		!ft_strcmp("cone:", e->scene.last) ||
-		!ft_strcmp("mickey:", e->scene.last) ||
- 		!ft_strcmp("dick:", e->scene.last) ||
-		!ft_strcmp("cylinder:", e->scene.last))
+	if (SPHERE == e->scene.last ||
+		PLANE == e->scene.last ||
+		CONE == e->scene.last ||
+		MICKEY == e->scene.last ||
+ 		DICK == e->scene.last ||
+		CYLINDER == e->scene.last)
 		return (set_obj(e, params));
-	if (!ft_strcmp("light:", e->scene.last))
+	if (LIGHT == e->scene.last)
 		return (set_light(e, params));
-	if (!ft_strcmp("camera:", e->scene.last))
+	if (CAMERA == e->scene.last)
 		return (set_camera(e, params));
 	return (0);
 }

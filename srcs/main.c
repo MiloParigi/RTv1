@@ -37,6 +37,7 @@ void		init_rt(t_rt *e)
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
+	e->scene.cam.aspect = (float)LARGEUR / (float)HAUTEUR;
 }
 
 void ft_start_rt(t_rt *e)
@@ -50,6 +51,7 @@ void ft_start_rt(t_rt *e)
 	frame(e);
 	mlx_key_hook(e->mlx.window, key_hook, e);
 	//mlx_mouse_hook(WIN, mouse_hook, e);
+	
 	mlx_loop(INIT);
 }
 

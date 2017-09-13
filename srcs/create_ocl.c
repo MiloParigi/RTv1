@@ -38,7 +38,7 @@ int			camera_create(t_rt *e)
 	e->scene.cam.ray.dir = vec_new3(0, 0, 1);
 	e->scene.cam.focale = 1;
 	e->scene.cam.reso = 300;
-	return (1);
+	return (CAMERA);
 }
 
 int			create_obj(int type, t_rt *e)
@@ -58,7 +58,7 @@ int			create_obj(int type, t_rt *e)
 	e->COBJ.t = -1;
 	e->COBJ.mat = create_matiere();
 	e->scene.nbr_obj++;
-	return (1);
+	return (type);
 }
 
 int			create_light(t_rt *e)
@@ -72,5 +72,5 @@ int			create_light(t_rt *e)
 	e->CLIGHT.color = c_color(255, 255, 255);
 	e->CLIGHT.intensity = 0;
 	e->scene.nbr_light++;
-	return (1);
+	return (LIGHT);
 }

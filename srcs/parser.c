@@ -29,15 +29,27 @@ int			create_type(char *type, t_rt *e)
 	return (0);
 }
 
+static void free_word(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
+
 void		store_type_or_data(char *line, t_rt *e)
 {
 	char	**tab;
+	int		last;
 
 	tab = ft_split_whitespace(line);
-	if (tab && tab[0] && create_type(tab[0], e))
-		e->scene.last = ft_strdup(tab[0]);
+	if (tab && tab[0] && (last = create_type(tab[0], e)))
+		e->scene.last = last;
 	if (tab && tab[0] && tab[1])
 		set_last(e, tab);
+	free_word(tab);
 }
 
 static int	is_file(char *path)
@@ -60,6 +72,7 @@ int			parse_obj(t_rt *e, int fd)
 	{
 		if (line && line[0] != '*')
 			store_type_or_data(line, e);
+		free(line);
 	}
 	e->scene.nbr_tot = e->scene.nbr_obj + e->scene.nbr_light;
 	if (e->scene.nbr_obj >= MAXOBJ || e->scene.nbr_light >= MAXLIGHT)
