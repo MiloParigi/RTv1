@@ -31,7 +31,7 @@
 # include "xmlstring.h"
 # include "xmlreader.h"
 
-# include <gtk/gtk.h>
+// # include <gtk/gtk.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -262,32 +262,32 @@ typedef struct		s_mthread
 	t_color			*colors;
 }					t_mthread;
 
-typedef struct		s_gtk_input
-{
-	gint			pos_x;
-	gint			pos_y;
-	gint			max_size;
-	gint			max_char;
-	gchar			*placeholder;
-	gchar  			*deflaut_value;
-}					t_gtk_input;
+// typedef struct		s_gtk_input
+// {
+// 	gint			pos_x;
+// 	gint			pos_y;
+// 	gint			max_size;
+// 	gint			max_char;
+// 	gchar			*placeholder;
+// 	gchar  			*deflaut_value;
+// }					t_gtk_input;
 
-typedef struct		s_gtk_win
-{
-	GtkWidget 			*window;
-	GtkWidget			*layout;
-}					t_gtk_win;
+// typedef struct		s_gtk_win
+// {
+// 	GtkWidget 			*window;
+// 	GtkWidget			*layout;
+// }					t_gtk_win;
 
-typedef struct		s_gtk
-{
-	t_gtk_win			menu;
-	t_gtk_win			set;
-}					t_gtk;
+// typedef struct		s_gtk
+// {
+// 	t_gtk_win			menu;
+// 	t_gtk_win			set;
+// }					t_gtk;
 
 typedef struct		s_rt
 {
 	t_mlx			mlx;
-	t_gtk			gtk;
+	//t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
@@ -386,18 +386,18 @@ int					parse_filename(t_rt *e, char *filename);
 void 				ft_start_rt(t_rt	*e);
 void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
-GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
+// GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
+// GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
 
-void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
-void 				ft_gtk_init_window(t_rt *e);
-void 				ft_gtk_add_menu(t_rt *e);
-void 				ft_gtk_add_logo(t_rt *e);
-void 				ft_gtk_add_radio_filters(t_rt *e);
-void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
-void 				print_text(GtkEntry *entry, void *optional_data);
-void ft_gtk_add_input_width(t_rt *e);
-void 				ft_gtk_add_input_height(t_rt *e);
-void 				ft_gtk_add_btn(t_rt *e);
+// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+// void 				ft_gtk_init_window(t_rt *e);
+// void 				ft_gtk_add_menu(t_rt *e);
+// void 				ft_gtk_add_logo(t_rt *e);
+// void 				ft_gtk_add_radio_filters(t_rt *e);
+// void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
+// void 				print_text(GtkEntry *entry, void *optional_data);
+// void ft_gtk_add_input_width(t_rt *e);
+// void 				ft_gtk_add_input_height(t_rt *e);
+// void 				ft_gtk_add_btn(t_rt *e);
 
 #endif

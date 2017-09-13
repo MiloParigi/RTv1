@@ -37,11 +37,11 @@ SRC			=	color.c \
 				xml_checks.c \
 				create_complex.c \
 				matrix.c \
-				gtk_btn.c 			\
-				gtk_init.c 			\
-				gtk_input.c 		\
-				gtk_new.c	\
 				debug.c
+				# gtk_btn.c 			\
+				# gtk_init.c 			\
+				# gtk_input.c 		\
+				# gtk_new.c	
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
 LIBVEC		=	libs/libvec/libvec.a
