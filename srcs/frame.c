@@ -45,7 +45,7 @@ void	mlx_pixel(int x, int y, t_rt *e, int color)
 {
 	int		pos;
 
-	if (x && y && x < LARGEUR && y < HAUTEUR)
+	if (x < LARGEUR && y < HAUTEUR)
 	{
 		pos = x * 4 + y * e->mlx.size_l;
 		e->mlx.data[pos] = color;
@@ -66,30 +66,35 @@ void	filters(t_rt *e)
 
 void	frame(t_rt *e)
 {
-
 	t_rt		**th_e;
 	int			i;
+	int			i2;
 	int			x;
 	int			y;
 
 	matrix_init(e);
 	th_e = launch_thread(e);
 	i = 0;
+	i2 = 0;
+
 	while (i < NB_THREADS)
 	{
-		y = i;
-		while (y < HAUTEUR / RES)
+		y = th_e[i]->thread.y / ALIASING;
+		// printf("%f\n", th_e[i]->thread.y/ ALIASING);
+		// printf("%f \n\n", th_e[i]->thread.max_y/ ALIASING);
+		while (y < th_e[i]->thread.max_y / ALIASING)
 		{
 			x = 0;
-			while (x < LARGEUR / RES)
+			while (x < th_e[i]->thread.w / ALIASING)
 			{
-				pixel_to_image(x, y, e,
-				ret_colors(th_e[i]->thread.colors[x + ((y / NB_THREADS) * RES_W)]));
+				pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// mlx_pixel(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
 				++x;
-
+				++i2;
 			}
-			y += NB_THREADS;
+			++y;
 		}
+		i2 = 0;
 		++i;
 	}
 	filters(e);
@@ -97,16 +102,3 @@ void	frame(t_rt *e)
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 	disp_cam(e);
 }
-
-// void	frame(t_rt *e)
-// {
-// 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
-// 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
-// 		&e->mlx.endian);
-// 	if (SS == 1)
-// 		anti_aliasing_off(e);
-// 	else
-// 		anti_aliasing_on(e, NULL);
-// 	filters(e);
-// 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
-// }

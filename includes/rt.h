@@ -137,6 +137,7 @@
 # define IMG e->mlx.image
 # define DATA e->mlx.data
 # define RES e->file.reso
+# define ALIASING e->file.aliasing
 # define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
@@ -296,6 +297,7 @@ typedef struct		s_file
 	int				larg;
 	int 			fdp;
 	int 			reso;
+	int				aliasing;
 }					t_file;
 
 typedef struct		s_obj
@@ -340,31 +342,34 @@ typedef struct		s_screen
 
 typedef struct		s_mthread
 {
-	int 			y;
+	float 			y;
+	float			max_y;
+	float			h;
+	float			w;
 	t_color			*colors;
 }					t_mthread;
 
 // typedef struct		s_gtk_input
 // {
-// 	gint			pos_x;
-// 	gint			pos_y;
 // 	gint			max_size;
 // 	gint			max_char;
 // 	gchar			*placeholder;
-// 	gchar  			*deflaut_value;
+// 	gchar   		*deflaut_value;
 // }					t_gtk_input;
 
 // typedef struct		s_gtk_win
 // {
-// 	GtkWidget 			*window;
-// 	GtkWidget			*layout;
+// 	GtkWidget 		*window;
+// 	GtkWidget		*layout;
 // }					t_gtk_win;
 
-// typedef struct		s_gtk
+// typedef struct		s_gtk_settings
 // {
-// 	t_gtk_win			menu;
-// 	t_gtk_win			set;
-// }					t_gtk;
+// 	int 			width;
+// 	int 			height;
+// 	int 			res;
+// 	GtkWidget 		*anti_aliasing;
+// }					t_gtk_settings;
 
 typedef struct		s_rt
 {
@@ -477,24 +482,23 @@ xmlDocPtr			getdoc(char *docname);
 //Matrix
 
 void				matrix_init(t_rt *e);
-// GTK
-int					parse_filename(t_rt *e, char *filename);
-void 				ft_start_rt(t_rt	*e);
-void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-// GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
-// GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
+//GTK
+// int					parse_filename(t_rt *e, char *filename);
+// void 				ft_start_rt(t_rt *e);
+// void				init_rt(t_rt *e);
 
+// void 				ft_gtk_start_launcher(t_rt *e);
+// void 				ft_gtk_start_settings(t_rt *e);
+// void 				ft_settings(t_rt *e);
+// void 				ft_gtk_launcher(t_rt *e);
+
+// GtkWidget 			*new_window(gint w, gint h, gchar *name);
+// GtkWidget			*new_input(t_gtk_input *data);
+// GtkWidget			*new_txt(gchar *str);
+// GtkWidget			*new_btn(int x, int y, char *name);
 // void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
-// void 				ft_gtk_init_window(t_rt *e);
-// void 				ft_gtk_add_menu(t_rt *e);
-// void 				ft_gtk_add_logo(t_rt *e);
-// void 				ft_gtk_add_radio_filters(t_rt *e);
-// void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
-// void 				print_text(GtkEntry *entry, void *optional_data);
-// void ft_gtk_add_input_width(t_rt *e);
-// void 				ft_gtk_add_input_height(t_rt *e);
-// void 				ft_gtk_add_btn(t_rt *e);
+
 
 //Texture 
 

@@ -50,9 +50,10 @@ static void		key_init(t_rt *e)
 void		init_rt(t_rt *e)
 {
 	e->mlx.init = mlx_init();
-	e->file.larg = 1024;
-	e->file.haut = 768;
-	e->file.reso = 2;
+	LARGEUR = 1024;
+	HAUTEUR = 768;
+	RES = 5;
+	ALIASING = 1;
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
@@ -84,7 +85,7 @@ void ft_start_rt(t_rt *e)
 	
 	mlx_loop(INIT);
 }
-
+          
 int			main(int argc, char **argv)
 {
 	t_rt	*e;
