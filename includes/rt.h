@@ -57,6 +57,58 @@
 # define LIGHT 21
 # define CAMERA 22
 
+
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_F 3
+# define KEY_H 4
+# define KEY_G 5
+# define KEY_Z 6
+# define KEY_X 7
+# define KEY_C 8
+# define KEY_V 9
+# define KEY_B 11
+# define KEY_Q 12
+# define KEY_W 13
+# define KEY_E 14
+# define KEY_R 15
+# define KEY_Y 16
+# define KEY_T 17
+# define KEY_ONE 18
+# define KEY_TWO 19
+# define KEY_THREE 20
+# define KEY_FOUR 21
+# define KEY_SIX 22
+# define KEY_FIVE 23
+# define KEY_NINE 25
+# define KEY_SEVEN 26
+# define KEY_EIGHT 28
+# define KEY_ZERO 29
+# define KEY_BRACE_R 30
+# define KEY_O 31
+# define KEY_U 32
+# define KEY_BRACE_L 33
+# define KEY_I 34
+# define KEY_P 35
+# define KEY_L 37
+# define KEY_J 38
+# define KEY_K 40
+# define KEY_SEMI 41
+# define KEY_N 45
+# define KEY_M 46
+# define KEY_TAB 48
+# define KEY_PLUS 69
+# define KEY_MINUS 78
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_DOWN 125
+# define KEY_UP 126
+# define KEY_ESC 53
+
+# define SCROLLUP 4
+# define SCROLLDOWN 5
+
 # define ESC		53
 # define BACKSPACE	51
 # define SPACE		49
@@ -203,6 +255,26 @@ typedef struct		s_matiere
 	t_texture		texture;
 }					t_matiere;
 
+typedef struct	s_keys
+{
+	char		key_up;
+	char		key_down;
+	char		key_left;
+	char		key_right;
+	char		key_pagup;
+	char		key_pagdwn;
+	char		key_w;
+	char		key_a;
+	char		key_s;
+	char		key_d;
+	char		key_plus;
+	char		key_minus;
+	char		key_rotx_left;
+	char		key_rotx_right;
+	char		key_roty_left;
+	char		key_roty_right;
+}				t_keys;
+
 typedef struct		s_calc
 {
 	float			a;
@@ -255,6 +327,7 @@ typedef struct		s_scene
 	int 			id;
 	int				supersampling;
 	int 			filters;
+	float			selected;
 	t_camera		cam;
 }					t_scene;
 
@@ -296,6 +369,7 @@ typedef struct		s_mthread
 typedef struct		s_rt
 {
 	t_mlx			mlx;
+	t_keys			keys;
 	//t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
@@ -335,6 +409,19 @@ void 				wasd_(int keycode, t_rt *e);
 void				resolution(int keycode, t_rt *e);
 void				exportimg(int keycode, t_rt *e);
 void				numeric_(int keycode, t_rt *e);
+
+//Hook
+int				no_event(void *param);
+int				keypress(int keycode, void *param);
+int				keyrelease(int keycode, void *param);
+int				ft_close(void *param);
+
+//Move
+void			move_cam(t_rt *e, int speed);
+void			move_obj(t_rt *e, int speed);
+int				select_obj(int button, int x, int y, t_rt *e);
+
+
 
 
 //Multithreading
