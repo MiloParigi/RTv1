@@ -54,6 +54,8 @@ void	mlx_pixel(int x, int y, t_rt *e, int color)
 	}
 }
 
+
+
 void	filters(t_rt *e)
 {
 	if (e->scene.filters == 1)
@@ -87,7 +89,10 @@ void	frame(t_rt *e)
 			x = 0;
 			while (x < th_e[i]->thread.w / ALIASING)
 			{
-				pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// if (e->scene.filters == 5)
+					pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// else
+				// 	pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));				
 				// mlx_pixel(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
 				++x;
 				++i2;

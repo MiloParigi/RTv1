@@ -70,6 +70,7 @@ t_scene				copy_scene(t_scene scene)
 	copy.id = scene.id;
 	copy.supersampling = scene.supersampling;
 	copy.cam = scene.cam;
+	copy.filters = scene.filters;
 	return (copy);
 }
 

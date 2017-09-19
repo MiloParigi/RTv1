@@ -23,16 +23,18 @@ void			ambient(int keycode, t_rt *e)
 
 void			choose_filters(int keycode, t_rt *e)
 {
-	if (keycode >= 18 && keycode <= 21)
+	if (keycode >= 18 && keycode <= 23)
 	{
 		if (keycode == KEY_1)
 			e->scene.filters = 0;
-		if (keycode == KEY_2)
+		else if (keycode == KEY_2)
 			e->scene.filters = 1;
-		if (keycode == KEY_3)
+		else if (keycode == KEY_3)
 			e->scene.filters = 2;
-		if (keycode == KEY_4)
+		else if (keycode == KEY_4)
 			e->scene.filters = 3;
+		else if (keycode == KEY_5)
+			e->scene.filters = 5;
 		frame(e);
 	}
 }

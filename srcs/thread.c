@@ -23,6 +23,29 @@ t_color		ft_average(t_color c1, t_color c2, t_color c3, t_color c4)
 	return (final);
 }
 
+float	cartoon_color(float color)
+{
+	if (color < 50)
+		color = 0;
+	else if (color < 100)
+		color = 50;
+	else if (color < 150)
+		color = 100;
+	else if (color < 200)
+		color = 175;
+	else if (color < 255)
+		color = 255;
+	return (color);
+}
+
+t_color	fl_cartoon(t_color color)
+{
+	color.r = cartoon_color(color.r);
+	color.g = cartoon_color(color.g);
+	color.b = cartoon_color(color.b);
+	return (color);
+}
+
 void	        *drawlinex2(void *arg)
 {
 	t_rt		*e;
@@ -44,6 +67,8 @@ void	        *drawlinex2(void *arg)
 												raytrace(x + 1, y, e),
 												raytrace(x, y + 1, e),
 												raytrace(x + 1, y + 1, e));
+			if (e->scene.filters == 5)
+				e->thread.colors[i] = fl_cartoon(e->thread.colors[i]);
 			x += 2;
 			++i;
 		}
@@ -70,6 +95,8 @@ void	        *drawline(void *arg)
 		while (x < e->thread.w)
 		{
 			e->thread.colors[i] = raytrace(x, y, e);
+			if (e->scene.filters == 5)
+				e->thread.colors[i] = fl_cartoon(e->thread.colors[i]);
 			++x;
 			++i;
 		}
