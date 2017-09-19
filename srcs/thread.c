@@ -25,14 +25,14 @@ t_color		ft_average(t_color c1, t_color c2, t_color c3, t_color c4)
 
 float	cartoon_color(float color)
 {
-	if (color < 50)
-		color = 0;
-	else if (color < 100)
-		color = 50;
-	else if (color < 150)
-		color = 100;
-	else if (color < 200)
-		color = 175;
+	if (color < 15)
+		color = 30;
+	else if (color < 75)
+		color = 75;
+	else if (color < 120)
+		color = 120;
+	else if (color < 220)
+		color = 220;
 	else if (color < 255)
 		color = 255;
 	return (color);
