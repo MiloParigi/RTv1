@@ -97,45 +97,13 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	return (color);
 }
 
-// static t_ray	get_ray(t_rt *e, float s, float t)
-// {	
-// 	float xf;
-// 	float yf;
-
-// 	xf = (2 * s - 1) * e->scene.cam.aspect * 0.39;
-// 	yf = (1 - 2 * t) * 0.39;
-// 	return ((t_ray){CPOS, vec_norme3(
-// 		(t_vec3){-cos((float)CDIR.x) * sin((float)CDIR.y)
-// 		+ xf * cos((float)CDIR.y)
-// 		+ yf * sin((float)CDIR.x) * sin((float)CDIR.y),
-// 		sin((float)CDIR.x)
-// 		+ yf * cos((float)CDIR.x),
-// 		cos((float)CDIR.x) * cos((float)CDIR.y)
-// 		+ xf * sin((float)CDIR.y)
-// 		- yf * sin((float)CDIR.x) * cos((float)CDIR.y), 0}
-// 		)});
-// }
 
 t_color				raytrace(int x, int y, t_rt *e)
 {
+	t_color color;
+	t_ray	ray;
 
-	t_ray		ray;
-	t_vec3		pov;
-	// t_vec3		pos;
-	// t_vec3		dir;
-	t_color		color;
-
-	color = c_color(0,0,0);
-	pov = vec_new3((float)(x + CPOS.x) * RES, 
-		(float)(y + CPOS.y) * RES, CPOS.z);
-	ray = c_ray(pov, CDIR); 
-	//ray = vec_dir(x, y, e);
+	ray = ray_init(e, x, y);
 	color = get_pxl_color(e, ray);
-
-	// t_color color;
-	// t_ray	ray;
-
-	// ray = ray_init(e, x, y);
-	// color = get_pxl_color(e, ray);
-	return (color);
+	 return (color);
 }

@@ -1,5 +1,5 @@
 camera:
-  pos: 700 1 -9750
+  pos: 700 1 -3000
   dir: 0 0 1
   fov: 8
 light:
@@ -10,7 +10,7 @@ light:
   intensity: 0.7
 * BOX
 sphere:
-  pos: 800 200 -5000
+  pos: 800 200 -2000
   radius: 50
   color: 0 250 0
 sphere:

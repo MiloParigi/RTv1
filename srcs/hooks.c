@@ -41,7 +41,7 @@ void	resolution(int keycode, t_rt *e)
 {
 	if (keycode == PLUS || keycode == MINUS)
 	{
-		RES += (keycode == PLUS) ? 2 : -2;
+		e->scene.cam.fov += (keycode == PLUS) ? 2 : -2;
 		if (RES < 1)
 			RES = 2;
 		if (RES > 200)
@@ -55,9 +55,9 @@ void	udlr_(int keycode, t_rt *e)
 	if (keycode == LEFT || keycode == RIGHT || keycode == UP || keycode == DOWN)
 	{
 		if (keycode <= RIGHT)
-			CPOS.x += ((keycode == LEFT) ? -20.5 : 20.5);
+			CPOS.x += ((keycode == LEFT) ? -200.5 : 200.5);
 		else
-			CPOS.y += ((keycode == UP) ? -20.5 : 20.5);
+			CPOS.y += ((keycode == UP) ? -200.5 : 200.5);
 		//printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
 		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);

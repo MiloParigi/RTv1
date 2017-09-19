@@ -34,7 +34,6 @@ t_ray		ray_init(t_rt *e, float x, float y)
     t_vec3 new_pixel;
     float zoom;
 
-	matrix_init(e);
     zoom = tan(e->scene.cam.fov / 2 * M_PI / 180);
 	x = (2 * (((x * RES) + 0.5) / LARGEUR) - 1) * zoom * e->scene.cam.ratio_x;
 	y = (1 - 2 * (((y * RES) + 0.5) / HAUTEUR)) * zoom * e->scene.cam.ratio_y;

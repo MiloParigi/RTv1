@@ -1,8 +1,7 @@
-
 camera:
-  pos: 100 0 -750
+  pos: 100 0 5000
   dir: 0 0 1
-  focale: 50
+  fov: 45
 light:
   pos: 800 0 -400
   intensity: 1

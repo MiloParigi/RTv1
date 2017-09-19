@@ -72,7 +72,7 @@ void	frame(t_rt *e)
 	int			x;
 	int			y;
 
-	//matrix_init(e);
+	matrix_init(e);
 	th_e = launch_thread(e);
 	i = 0;
 	while (i < NB_THREADS)

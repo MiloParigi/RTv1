@@ -1,31 +1,30 @@
+camera:
+	pos: 0 0 -1500
+	fov: 50
 light:
-	intensity: 200000
+	intensity: 1
 	color: 255 255 255
 	pos: 5 5 5
-sphere: RED
+sphere:
 	color: 255 0 0
 	pos: 50 0 -100
 	radius: 25
-sphere: BLUE
+sphere:
 	color: 0 0 255
 	pos: 0 0 -100
 	radius: 50
-cylinder: X
+cylinder:
 	color: 255 0 0
 	pos:  0 0 -150
 	radius: 5
-	axis 1 0 0
-cylinder Y
+	normal 1 0 0
+cylinder:
 	color: 0 255 0
 	pos:  0 0 -150
 	radius :5
-	axis: 0 1 0
-cylinder Z
+	normal: 0 1 0
+cylinder:
 	color: 0 0 255
 	pos:  0 0 -150
 	radius: 5
-	axis: 0 0 1
-plane Z
-	color: 255 255 255
-	pos:  -200 -200 -200
-	axis: 0 0 1
+	normal: 0 0 1
