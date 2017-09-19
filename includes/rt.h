@@ -6,7 +6,7 @@
 /*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/24 22:58:46 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/19 17:28:54 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,11 +393,12 @@ int					parse_obj(t_rt *e, int fd);
 void				store_type_or_data(char *line, t_rt *e);
 void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
-void      			fl_sepia_apply(t_rt *e);
-void       			fl_black_and_white(t_rt *e);
+void				fl_sepia_apply(t_rt *e);
+void				fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
+void				fl_anaglyph(t_rt *e);
 void				disp_cam(t_rt *e);
 
 //hook
@@ -431,13 +432,13 @@ t_obj				copy_objs(t_obj obj);
 t_scene				copy_scene(t_scene scene);
 t_rt				*copy_rt(t_rt *e);
 void				*drawline(void *arg);
-t_rt            	**launch_thread(t_rt *env);
+t_rt				**launch_thread(t_rt *env);
 //OLD
 
 
 //Beta option
 
-void  				pixel_to_image(int x, int y, t_rt *e, int color);
+void 				pixel_to_image(int x, int y, t_rt *e, int color);
 
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);

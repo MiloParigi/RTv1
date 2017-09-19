@@ -6,7 +6,7 @@
 #    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/14 22:04:16 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/19 17:29:46 by rlecart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC			=	color.c \
 				matrix.c \
 				debug.c \
 				hook2.c \
-				move.c
+				move.c \
+				filters_anaglyph.c
 				# gtk_btn.c 			\
 				# gtk_init.c 			\
 				# gtk_input.c 		\
