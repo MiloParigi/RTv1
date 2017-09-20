@@ -69,9 +69,9 @@ float	intersect_cylinder(t_ray ray, t_obj obj)
 	t_vec3		x;
 
 	x = vec_sub3(ray.pos, obj.pos);
-	obj.vector = vec_norme3(obj.vector);
-	a = vec_dot2(ray.dir, ray.dir, obj.vector);
-	b = 2 * vec_dot2(ray.dir, x, obj.vector);
-	c = vec_dot2(x, x, obj.vector) - obj.r * obj.r;
+	obj.normal = vec_norme3(obj.normal);
+	a = vec_dot2(ray.dir, ray.dir, obj.normal);
+	b = 2 * vec_dot2(ray.dir, x, obj.normal);
+	c = vec_dot2(x, x, obj.normal) - obj.r * obj.r;
 	return (get_res_of_quadratic(a, b, c));
 }

@@ -381,7 +381,6 @@ typedef struct		s_rt
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
-	unsigned int	*img_temp;
 }					t_rt;
 
 void				display_args(void);
