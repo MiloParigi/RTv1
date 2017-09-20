@@ -12,60 +12,77 @@
 
 #include <rt.h>
 
-t_color		get_cyan(t_rt *e, int i)
+t_color		get_blue(t_rt *e, int i)
 {
 	t_color		pix;
 
-	pix = ((t_color*)e->data)[i];
+	pix = ((t_color*)DATA)[i];
 	pix.r = 0;
 	return (pix);
 }
 
-t_color		get_red(t_rt *e, int i)
-{
-	t_color		pix;
 
-	pix = ((t_color*)e->data)[i];
-	pix.b = 0;
-	pix.g = 0;
-	return (pix);
-}
 
-void		concat_ana(t_rt *e, char *red, char *cyan)
+void		concat_ana(t_rt *e, char *red, char *blue)
 {
 	int		i;
 
-	i = -1;
-	while (++i < WIN_W * WIN_H)
+	i = 0;
+	while (i < LARGEUR * HAUTEUR * 4)
 	{
-		e->data[i] = red[i];
-		e->data[i] += cyan[i];
+		DATA[i] = red[i];
+		if (blue){}
+		// DATA[i] += blue[i];
+		i++;
 	}
 }
+
+
+
 
 void		fl_anaglyph(t_rt *e)
 {
-	int		i[2];
-	char	*red;
-	char	*cyan;
-	void	*ired;
-	void	*icyan;
+	int		i;
 
-	ired = mlx_new_image(WIN, WIN_H, WIN_W);
-	icyan = mlx_new_image(WIN, WIN_H, WIN_W);
-	red = mlx_get_data_addr(ired, &i[0], &i[0], &i[0]);
-	cyan = mlx_get_data_addr(icyan, &i[0], &i[0], &i[0]);
 	fl_black_and_white(e);
-	i[0] = -1;
-	i[1] = 10;
-	while (++i[0] < WIN_W * WIN_H)
+
+
+	i = 0;
+	while (i < (LARGEUR * HAUTEUR * 4))
 	{
-		if (i[0] - i[1] >= 0)
-			((t_color*)cyan)[i[0] - i[1]] = get_cyan(e, i[0]);
-		if (i[0] + i[1] <= WIN_W * WIN_H)
-			((t_color*)red)[i[0] + i[1]] = get_red(e, i[0]);
+		DATA[i + 1 - 40 - (LARGEUR * 4) * 10] = DATA[i + 1];
+		DATA[i + 1] = 0;
+		DATA[i - 40 - (LARGEUR * 4) * 10] = DATA[i];
+		DATA[i] = 0;
+		i += 4;
 	}
-	concat_ana(e, red, cyan);
-	mlx_destroy_image(MLX, ired);
-	mlx_destroy_image(MLX, icyan);
 }
+
+// void		fl_anaglyph(t_rt *e)
+// {
+// 	int		i;
+// 	int		decal;
+// 	char	*red;
+// 	char	*blue;
+// 	void	*ired;
+// 	void	*iblue;
+
+// 	ired = mlx_new_image(WIN, LARGEUR, HAUTEUR);
+// 	iblue = mlx_new_image(WIN, LARGEUR, HAUTEUR);
+// 	red = mlx_get_data_addr(ired, &i, &i, &i);
+// 	blue = mlx_get_data_addr(iblue, &i, &i, &i);
+// 	fl_black_and_white(e);
+// 	i = 0;
+// 	decal = 10;
+// 	while (i < LARGEUR * HAUTEUR)
+// 	{
+// 		if (i - decal >= 0)
+// 			((t_color*)blue)[i - decal] = get_blue(e, i);
+// 		if (i + decal <= LARGEUR * HAUTEUR)
+// 			((t_color*)red)[i + decal] = get_red(e, i);
+// 		i++;
+// 	}
+// 	concat_ana(e, red, blue);
+// 	mlx_destroy_image(INIT, ired);
+// 	mlx_destroy_image(INIT, iblue);
+// }

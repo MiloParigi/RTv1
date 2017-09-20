@@ -121,14 +121,11 @@ t_rt            **launch_thread(t_rt *e)
 		th_e[i] = copy_rt(e);
 		th_e[i]->thread.h = HAUTEUR * ALIASING;
 		th_e[i]->thread.w = LARGEUR * ALIASING;
-
 		th_e[i]->thread.h /= RES;
 		th_e[i]->thread.w /= RES;
-
-
 		th_e[i]->thread.y = ((th_e[i]->thread.h) / NB_THREADS) * i;
 		th_e[i]->thread.max_y = th_e[i]->thread.y + ((th_e[i]->thread.h) / NB_THREADS);
-		
+
 		// printf("(%.1f - %.1f)\n", th_e[i]->thread.y, th_e[i]->thread.max_y);
 		if (ALIASING == 1)
 			pthread_create(&th[i], NULL, drawline, (void *)th_e[i]);
