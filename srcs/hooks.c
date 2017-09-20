@@ -12,123 +12,89 @@
 
 #include "rt.h"
 
-void			ambient(int keycode, t_rt *e)
+static	void	key(t_rt *e)
 {
-	if (keycode == LSHIFT || keycode == SPACE)
-	{
-		AMBIENT_LIGHT += (keycode == LSHIFT) ? 10 : -10;
-		frame(e);
-	}
+	if (e->scene.selected == -1)
+		move_cam(e, 10);
+	else
+		move_obj(e, 10);
+	frame(e);
 }
 
-void			choose_filters(int keycode, t_rt *e)
+int				ft_close(void *param)
 {
-	if (keycode >= 18 && keycode <= 21)
-	{
-		if (keycode == KEY_1)
-			e->scene.filters = 0;
-		if (keycode == KEY_2)
-			e->scene.filters = 1;
-		if (keycode == KEY_3)
-			e->scene.filters = 2;
-		if (keycode == KEY_4)
-			e->scene.filters = 3;
-		frame(e);
-	}
-}
-
-void	resolution(int keycode, t_rt *e)
-{
-	if (keycode == PLUS || keycode == MINUS)
-	{
-		e->scene.cam.fov += (keycode == PLUS) ? 2 : -2;
-		if (RES < 1)
-			RES = 2;
-		if (RES > 200)
-			RES = 200;
-		frame(e);
-	}
-}
-
-void	udlr_(int keycode, t_rt *e)
-{
-	if (keycode == LEFT || keycode == RIGHT || keycode == UP || keycode == DOWN)
-	{
-		if (keycode <= RIGHT)
-			CPOS.x += ((keycode == LEFT) ? -200.5 : 200.5);
-		else
-			CPOS.y += ((keycode == UP) ? -200.5 : 200.5);
-		//printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
-		frame(e);
-	}
-}
-
-void	wasd_(int keycode, t_rt *e)
-{
-	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
-	{
-		if (keycode == KEY_W || keycode == KEY_S)
-			e->scene.cam.rotx += ((keycode == KEY_S) ? 5 : -5);
-		else
-			e->scene.cam.roty += ((keycode == KEY_D) ? 5 : -5);
-	//	printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
-		frame(e);
-	}
-}
-
-void			exportimg(int keycode, t_rt *e)
-{
-	t_file 		export;
-	int			pos;
-
-	if (keycode == 50)
-	{
-		if (!(export.fdp = open("first.ppm", O_WRONLY | O_CREAT, 00755)))
-			return ;
-		ft_putstr_fd("P6\n", export.fdp);
-		ft_putnbr_fd(LARGEUR, export.fdp); 
-		ft_putstr_fd(" ", export.fdp);
-		ft_putnbr_fd(HAUTEUR, export.fdp);
-		ft_putstr_fd("\n255\n", export.fdp);
-		export.haut = -1;
-		while (++export.haut < HAUTEUR)
-		{
-			export.larg = -1;
-			while (++export.larg < LARGEUR)
-			{
-				pos = (export.larg * e->mlx.bpp / 8 + export.haut * e->mlx.size_l);
-				write(export.fdp, &DATA[pos + 2], 1);
-				write(export.fdp, &DATA[pos + 1], 1);
-				write(export.fdp, &DATA[pos], 1);
-			}
-		}
-		close(export.fdp);
-	}
-}
-
-void			numeric_(int keycode, t_rt *e)
-{
-	if (keycode == 91 || keycode == 84)
-	{
-		CPOS.z += (keycode == 91) ? 100 : -100;
-		frame(e);
-	}
-}
-
-int				key_hook(int keycode, t_rt *e)
-{
-	if (keycode == ESC)
-		exit(42);
-	udlr_(keycode, e);
-	wasd_(keycode, e);
-	numeric_(keycode, e);
-	resolution(keycode, e);
-	exportimg(keycode, e);
-	ambient(keycode, e);
-	//Add CPOS.z + CDIR.z
-	ft_putnbr(keycode);
-	choose_filters(keycode, e);
+	param = NULL;
+	exit(42);
 	return (0);
+}
+
+int				keypress(int keycode, void *param)
+{
+	t_rt	*e;
+
+	e = (t_rt *)param;
+	if (keycode == KEY_ESC)
+		exit(42);
+	e->keys.key_w = (keycode == KEY_W) ? 1 : e->keys.key_w;
+	e->keys.key_a = (keycode == KEY_A) ? 1 : e->keys.key_a;
+	e->keys.key_s = (keycode == KEY_S) ? 1 : e->keys.key_s;
+	e->keys.key_d = (keycode == KEY_D) ? 1 : e->keys.key_d;
+	e->keys.key_up = (keycode == KEY_UP) ? 1 : e->keys.key_up;
+	e->keys.key_left = (keycode == KEY_LEFT) ? 1 : e->keys.key_left;
+	e->keys.key_down = (keycode == KEY_DOWN) ? 1 : e->keys.key_down;
+	e->keys.key_right = (keycode == KEY_RIGHT) ? 1 : e->keys.key_right;
+	e->keys.key_rotx_right = (keycode == KEY_E) ? 1 : e->keys.key_rotx_right;
+	e->keys.key_rotx_left = (keycode == KEY_Q) ? 1 : e->keys.key_rotx_left;
+	e->keys.key_roty_right = (keycode == KEY_C) ? 1 : e->keys.key_roty_right;
+	e->keys.key_roty_left = (keycode == KEY_Z) ? 1 : e->keys.key_roty_left;
+	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ?
+		1 : e->keys.key_plus;
+	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ?
+		1 : e->keys.key_minus;
+	onepress(keycode, e);
+	key(e);
+	return (keycode);
+}
+
+int				keyrelease(int keycode, void *param)
+{
+	t_rt	*e;
+
+	e = (t_rt *)param;
+	e->keys.key_w = (keycode == KEY_W) ? 0 : e->keys.key_w;
+	e->keys.key_a = (keycode == KEY_A) ? 0 : e->keys.key_a;
+	e->keys.key_s = (keycode == KEY_S) ? 0 : e->keys.key_s;
+	e->keys.key_d = (keycode == KEY_D) ? 0 : e->keys.key_d;
+	e->keys.key_up = (keycode == KEY_UP) ? 0 : e->keys.key_up;
+	e->keys.key_left = (keycode == KEY_LEFT) ? 0 : e->keys.key_left;
+	e->keys.key_down = (keycode == KEY_DOWN) ? 0 : e->keys.key_down;
+	e->keys.key_right = (keycode == KEY_RIGHT) ? 0 : e->keys.key_right;
+	e->keys.key_rotx_right = (keycode == KEY_E) ? 0 : e->keys.key_rotx_right;
+	e->keys.key_rotx_left = (keycode == KEY_Q) ? 0 : e->keys.key_rotx_left;
+	e->keys.key_roty_right = (keycode == KEY_C) ? 0 : e->keys.key_roty_right;
+	e->keys.key_roty_left = (keycode == KEY_Z) ? 0 : e->keys.key_roty_left;
+	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ?
+		0 : e->keys.key_plus;
+	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ?
+		0 : e->keys.key_minus;
+	return (keycode);
+}
+
+int				select_obj(int button, int x, int y, void *param)
+{
+	t_rt	*e;
+	t_ray	ray;
+
+	e = (t_rt *)param;
+	if (button == 1)
+	{
+		ray = ray_init(e, x, y);
+		get_min_dist(e, ray);
+		e->scene.selected = e->scene.id;
+	}
+	e->scene.selected = (button == 2) ? -1 : e->scene.selected;
+	e->scene.cam.fov -= (button == SCROLLUP) ? 2 : 0;
+	e->scene.cam.fov += (button == SCROLLDOWN) ? 2 : 0;
+	frame(e);
+	return (button);
 }

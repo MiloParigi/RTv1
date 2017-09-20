@@ -6,7 +6,7 @@
 /*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 20:14:59 by bbeldame          #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/20 05:13:42 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ unsigned int	ret_colors(t_color colo)
 	total = 0;
 	if (colo.r > 0)
 	{
-		temp = (int)colo.r * 65536;
+		temp = (int)colo.r * 256 * 256;
 		total += temp;
 	}
 	if (colo.g > 0)

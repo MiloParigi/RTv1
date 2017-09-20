@@ -95,7 +95,7 @@ void	frame(t_rt *e)
 	filters(e);
 	free(th_e);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
-	disp_cam(e);
+	disp_cam(e, 0x00FFFFFF);
 }
 
 // void	frame(t_rt *e)

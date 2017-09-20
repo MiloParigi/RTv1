@@ -296,8 +296,8 @@ acronym,abbr
 
 /* code listings */
 
-.listing_code .programlisting .normal,
-.listing_code .programlisting .normal a,
+.listing_code .programlisting .vector,
+.listing_code .programlisting .vector a,
 .listing_code .programlisting .number,
 .listing_code .programlisting .cbracket,
 .listing_code .programlisting .symbol     { color: #555753; }

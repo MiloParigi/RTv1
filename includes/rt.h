@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/24 22:58:46 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/20 05:33:10 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define AM 75
 # define HEIGHT 500
 # define WIDTH 500
-# define EPSILON 1e-9
+# define EPSILON 1e-7
 # define EXTENSION ".rt"
 # define ERR -1
 # define END 0
@@ -141,8 +141,6 @@
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
 # define SFILE e->file.path
-# define CPOS e->scene.cam.ray.pos
-# define CDIR e->scene.cam.ray.dir
 # define CAMRAY e->cam.ray
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
@@ -164,7 +162,6 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define EPSILON 1e-9
 # define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
@@ -172,7 +169,7 @@
 
 # define NB_THREADS 8
 # define GTK_W 300
-# define GTK_H 200	
+# define GTK_H 200
 
 typedef struct		s_vec2
 {
@@ -204,17 +201,12 @@ typedef struct		s_light
 
 typedef struct		s_camera
 {
-	t_ray			ray;
-	t_vec3		px;
-	t_mtrx4		ctw;
-	float		fov;
-	t_vec3		transl;
-	float		rotx;
-	float		roty;
-	float		rotz;
-	float		ratio_x;
-	float		ratio_y;
-	float			focale;
+	int				fov;
+	t_vec3			pos;
+	t_vec3			dir;
+	float			ratio_x;
+	float			ratio_y;
+	t_mtrx4			ctw;
 	float			reso;
 	float			aspect;
 }					t_camera;
@@ -257,22 +249,22 @@ typedef struct		s_matiere
 
 typedef struct	s_keys
 {
-	char		key_up;
-	char		key_down;
-	char		key_left;
-	char		key_right;
-	char		key_pagup;
-	char		key_pagdwn;
-	char		key_w;
-	char		key_a;
-	char		key_s;
-	char		key_d;
-	char		key_plus;
-	char		key_minus;
-	char		key_rotx_left;
-	char		key_rotx_right;
-	char		key_roty_left;
-	char		key_roty_right;
+	char			key_up;
+	char			key_down;
+	char			key_left;
+	char			key_right;
+	char			key_pagup;
+	char			key_pagdwn;
+	char			key_w;
+	char			key_a;
+	char			key_s;
+	char			key_d;
+	char			key_plus;
+	char			key_minus;
+	char			key_rotx_left;
+	char			key_rotx_right;
+	char			key_roty_left;
+	char			key_roty_right;
 }				t_keys;
 
 typedef struct		s_calc
@@ -304,12 +296,12 @@ typedef struct		s_obj
 	int				type;
 	t_color			color;
 	t_vec3			pos;
-	t_vec3			dir;
-	float			angle;
+	t_vec3			dir; //For Cylinder and Cone
+	float			k; //For Cone (tan of half the angle)
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
 	t_vec3			maxp; //For Cylinder and Cone
-	t_vec3			minp; //For Cone
-	int				r;
+	t_vec3			minp; //For Cylinder and Cone
+	int				r; //For Cylinder, Sphere and Cone (?)
 	float			t;
 	t_vec3			normal;
 	t_matiere		mat;
@@ -327,7 +319,7 @@ typedef struct		s_scene
 	int 			id;
 	int				supersampling;
 	int 			filters;
-	float			selected;
+	int				selected;
 	t_camera		cam;
 }					t_scene;
 
@@ -398,30 +390,29 @@ void       			fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
-void				disp_cam(t_rt *e);
 
-//hook
+//Debug
+void				disp_cam(t_rt *e, int color);
+void				disp_mtrx4(t_mtrx4 matrix, char *name);
+void				disp_vec(t_vec3 vec, char *name);
 
-void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
-void				udlr_(int keycode, t_rt *e);
-int					key_hook(int keycode, t_rt *e);
-void 				wasd_(int keycode, t_rt *e);
-void				resolution(int keycode, t_rt *e);
-void				exportimg(int keycode, t_rt *e);
-void				numeric_(int keycode, t_rt *e);
+//Matrix
+void				matrix_init(t_rt *e);
+
+//Maths
+float				p(float x);
 
 //Hook
-int				no_event(void *param);
-int				keypress(int keycode, void *param);
-int				keyrelease(int keycode, void *param);
-int				ft_close(void *param);
+int					no_event(void *param);
+int					ft_close(void *param);
+int					keypress(int keycode, void *param);
+int					keyrelease(int keycode, void *param);
+int					select_obj(int button, int x, int y, void *param);
+void				onepress(int keycode, t_rt *e);
 
 //Move
-void			move_cam(t_rt *e, int speed);
-void			move_obj(t_rt *e, int speed);
-int				select_obj(int button, int x, int y, t_rt *e);
-
-
+void				move_cam(t_rt *e, int speed);
+void				move_obj(t_rt *e, int speed);
 
 
 //Multithreading
@@ -441,7 +432,7 @@ void  				pixel_to_image(int x, int y, t_rt *e, int color);
 
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
-t_ray				ray_init(t_rt *e, float x, float y);
+t_ray				ray_init(t_rt *e, int x, int y);
 t_color				raytrace(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
@@ -464,7 +455,7 @@ float				intensity_plane(t_rt *e, t_vec3 poi,
 float				intensity_cylinder(t_rt *e, t_vec3 poi,
 						t_obj cylinder, t_light light);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
-float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
+float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
 
@@ -473,10 +464,6 @@ int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
 xmlDocPtr			getdoc(char *docname);
 
-
-//Matrix
-
-void				matrix_init(t_rt *e);
 // GTK
 int					parse_filename(t_rt *e, char *filename);
 void 				ft_start_rt(t_rt	*e);
@@ -496,7 +483,7 @@ void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 // void 				ft_gtk_add_input_height(t_rt *e);
 // void 				ft_gtk_add_btn(t_rt *e);
 
-//Texture 
+//Texture
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
 

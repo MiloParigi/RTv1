@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
+#    By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/14 22:04:16 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/20 05:37:57 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC			=	color.c \
 				cylinder.c \
 				frame.c \
 				hooks.c \
+				hooks2.c \
 				main.c \
 				parser.c \
 				plane.c \
@@ -29,7 +30,6 @@ SRC			=	color.c \
 				sphere.c \
 				supersampler.c \
 				filters.c \
-				cone2.c \
 				copyrt.c \
 				thread.c \
 				xml_parser.c \
@@ -38,12 +38,11 @@ SRC			=	color.c \
 				create_complex.c \
 				matrix.c \
 				debug.c \
-				hook2.c \
-				move.c
+				intersect.c \
 				# gtk_btn.c 			\
 				# gtk_init.c 			\
 				# gtk_input.c 		\
-				# gtk_new.c	
+				# gtk_new.c
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
 LIBVEC		=	libs/libvec/libvec.a
