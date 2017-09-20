@@ -6,7 +6,7 @@
 /*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/19 18:24:12 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/09/20 23:12:13 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,22 @@ t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color
 	int a = 0;
 	(void)base_color;
 
-	//if(e->scene.id == PLANE)
-	//{	
-		ray.pos = poi;
-		ray.dir = vec_sub3(poi, ray.dir);
-	//}
+	//ft_putnbr(e->scene.obj[e->scene.id].type);
+	//e->scene.obj[e->scene.id].type = 3;
+	//e->scene.id= SPHERE;
+//	if(e->scene.obj[e->scene.id].type == 3)
+//	{
+	/*
+	*	le calcul suivant est uniqument valable pour la normal de une sphere!!!!!
+	*/	
+	ray.pos = e->scene.obj[e->scene.id].pos;
+	ray.dir = vec_norme3(vec_sub3(poi, e->scene.obj[e->scene.id].pos));
+//	}
+//	else
+//	return base_color;
 	i = 0;
-	//dist = DIST_MAX;
-	//min_dist = DIST_MAX;
+	dist = 0;
+	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
 		if (i != e->scene.id)
@@ -108,13 +116,15 @@ t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color
 			dist = (e->COBJ.type == CONE) ? intersect_cone2(ray, e->COBJ) : dist;
 			if (dist < min_dist)
 			{
-				min_dist = (dist < 0) ? min_dist : dist;
+				min_dist = dist;
 				a = i;
-				//e->scene.id = i;
+				//e->scene.id = a;
 			}
 		}
 		i++;
 	}
+	//if(min_dist <= 0)
+	//	ft_putchar('@');
 	t_vec3 point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	return get_color(e, e->scene.obj[a], point_of_impact);
 	// je laisse base_color pour le utiliser apres avec une moyenne entre la couleur de base 
@@ -134,7 +144,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 	{
-		if (e->scene.obj[e->scene.id].mat.reflex)
+		if (e->scene.obj[e->scene.id].mat.reflex && e->scene.obj[e->scene.id].type == SPHERE)
 			return (get_reflected_color(e, ray, point_of_impact, get_color(e, e->scene.obj[e->scene.id], point_of_impact)));
 		else
 			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
@@ -148,7 +158,7 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	ray = ray_init(e, x, y);
+	ray = ray_init(e, x * RES, y * RES);
 	color = get_pxl_color(e, ray);
 	 return (color);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:04:18 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/21 13:26:34 by tfaure           ###   ########.fr       */
+/*   Updated: 2017/09/20 12:37:13 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ float	intensity_sphere(t_vec3 poi, t_obj sphere, t_light light)
 	vec_to_light = vec_sub3(light.ray.pos, poi);
 	dist_to_light = get_length(vec_to_light);
 	intensity = (vec_dot3(vec_to_eyes, vec_norme3(vec_to_light)) *
-		ft_map(dist_to_light, 1200 * light.intensity, 470, 350));
+		ft_map(dist_to_light, 1200 * light.intensity, 1000, 0));
 	return (intensity);
 }
 
@@ -61,5 +61,6 @@ float	intersect_sphere(t_ray ray, t_obj sphere)
 	a = vec_dot3(ray.dir, ray.dir);
 	b = 2 * vec_dot3(ray.dir, x);
 	c = vec_dot3(x, x) - (sphere.r * sphere.r);
+	
 	return (get_res_of_quadratic(a, b, c));
 }
