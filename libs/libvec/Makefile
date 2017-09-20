@@ -6,7 +6,7 @@
 #    By: pbernier <pbernier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/21 03:19:16 by pbernier          #+#    #+#              #
-#    Updated: 2017/09/03 20:49:13 by mparigi          ###   ########.fr        #
+#    Updated: 2017/09/20 18:17:16 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,10 @@ SRC			=	ft_double.c \
 				ft_double_ssp.c \
 				ft_vec3.c \
 				ft_vec_ssp.c \
-<<<<<<< HEAD
 				mtrx4_move.c \
-				mtrx4_tools.c
-=======
+				mtrx4_tools.c \
 				mtrx4_tools.c \
 				mtrx4_move.c
->>>>>>> 2141a8190b883563e5e338bb014c5ca7954033c1
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -I includes/
