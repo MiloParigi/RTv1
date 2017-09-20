@@ -58,9 +58,9 @@ void	udlr_(int keycode, t_rt *e)
 	if (keycode == LEFT || keycode == RIGHT || keycode == UP || keycode == DOWN)
 	{
 		if (keycode <= RIGHT)
-			CPOS.x += ((keycode == LEFT) ? -60 / RES: 60 / RES);
+			CPOS.x += ((keycode == LEFT) ? -60: 60);
 		else
-			CPOS.y += ((keycode == UP) ? -60 / RES : 60 / RES);
+			CPOS.y += ((keycode == UP) ? -60 : 60);
 		//printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
 		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);
