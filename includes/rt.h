@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 05:33:10 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/20 23:30:21 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,24 +369,26 @@ typedef struct		s_rt
 	unsigned int	*img_temp;
 }					t_rt;
 
-void				display_args(void);
 t_matiere			create_matiere(void);
-int					set_obj(t_rt *e, char **a);
-int					set_light(t_rt *e, char **a);
-int					set_camera(t_rt *e, char **a);
-int					set_last(t_rt *e, char **params);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
+
+int					set_obj(t_rt *e, char **a);
+int					set_light(t_rt *e, char **a);
+int					set_camera(t_rt *e, char **a);
+int					set_last(t_rt *e, char **params);
+
 t_color				c_color(float r, float g, float b);
 int					parse_args(char **argv, int argc, t_rt *e);
 int					parse_obj(t_rt *e, int fd);
 void				store_type_or_data(char *line, t_rt *e);
 void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
-void      			fl_sepia_apply(t_rt *e);
-void       			fl_black_and_white(t_rt *e);
+
+void				fl_sepia_apply(t_rt *e);
+void				fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
@@ -395,6 +397,7 @@ void				fl_revers(t_rt *e);
 void				disp_cam(t_rt *e, int color);
 void				disp_mtrx4(t_mtrx4 matrix, char *name);
 void				disp_vec(t_vec3 vec, char *name);
+void				display_args(void);
 
 //Matrix
 void				matrix_init(t_rt *e);
@@ -414,9 +417,14 @@ void				onepress(int keycode, t_rt *e);
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
+//Light
+t_vec3			cone_norm(t_obj *obj, t_ray ray);
+t_vec3			object_norm(t_obj *obj, t_ray ray);
+t_vec3			plane_norm(t_obj *obj);
+t_vec3			sphere_norm(t_obj *obj, t_ray ray);
+t_vec3			cylinder_norm(t_obj *obj, t_ray ray);
 
 //Multithreading
-
 t_light				copy_light(t_light light);
 t_obj				copy_objs(t_obj obj);
 t_scene				copy_scene(t_scene scene);
@@ -430,22 +438,25 @@ t_rt            	**launch_thread(t_rt *env);
 
 void  				pixel_to_image(int x, int y, t_rt *e, int color);
 
-unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
+
 t_color				raytrace(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
 void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
 void				anti_aliasing_off(t_rt *e);
-float				intersect_sphere(t_ray ray, t_obj sphere);
+
+t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
-float				intersect_plane(t_ray ray, t_obj sphere);
-float				intersect_cylinder(t_ray ray, t_obj obj);
-t_color				copy_color(t_color color);
+unsigned int		ret_colors(t_color color);
+
+float				intersect_sphere(t_ray ray, t_obj sphere);
+float				intersect_plane(t_ray ray, t_obj plane);
+float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
-float				intersect_cone2(t_ray ray, t_obj obj);
+
 float				intensity_cone(t_rt *e, t_vec3 poi,
 						t_obj cone, t_light light);
 float				intensity_sphere(t_vec3 poi,
@@ -453,7 +464,8 @@ float				intensity_sphere(t_vec3 poi,
 float				intensity_plane(t_rt *e, t_vec3 poi,
 						t_obj plane, t_light light);
 float				intensity_cylinder(t_rt *e, t_vec3 poi,
-						t_obj cylinder, t_light light);
+						t_obj cyl, t_light light);
+
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);

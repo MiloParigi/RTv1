@@ -6,7 +6,7 @@
 #    By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/09/20 05:37:57 by mparigi          ###   ########.fr        #
+#    Updated: 2017/09/20 23:09:42 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,41 +15,41 @@ NAME		=	rt
 OBJDIR		=	objs/
 SRCDIR		=	srcs/
 SRC			=	color.c \
-				cone.c \
-				create_ocl.c \
-				cylinder.c \
+				init/create_ocl.c \
+				init/create_complex.c \
 				frame.c \
-				hooks.c \
-				hooks2.c \
 				main.c \
 				parser.c \
-				plane.c \
 				ray.c \
 				raytrace.c \
 				set_ocl.c \
-				sphere.c \
 				supersampler.c \
 				filters.c \
 				copyrt.c \
 				thread.c \
-				xml_parser.c \
-				xml_errors.c \
-				xml_checks.c \
-				create_complex.c \
 				matrix.c \
 				debug.c \
-				intersect.c \
-				# gtk_btn.c 			\
-				# gtk_init.c 			\
-				# gtk_input.c 		\
-				# gtk_new.c
+				hooks.c \
+				hooks2.c \
+				intersect/plane.c \
+				intersect/cylinder.c \
+				intersect/sphere.c \
+				intersect/cone.c \
+				intersect/intersect.c \
+				xml/xml_parser.c \
+				xml/xml_errors.c \
+				xml/xml_checks.c \
+				# gtk/gtk_btn.c	\
+				# gtk/gtk_init.c \
+				# gtk/gtk_input.c \
+				# gtk/gtk_new.c
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
 LIBVEC		=	libs/libvec/libvec.a
 LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ -I libs/gtk+3/ `pkg-config --cflags gtk+-3.0`
+CFLAGS		=	-Wall -Werror -Wextra -g -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ -I libs/gtk+3/ `pkg-config --cflags gtk+-3.0`
 OPTI		=	-O3
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit `pkg-config --libs gtk+-3.0`
@@ -87,6 +87,10 @@ vec:
 
 $(OBJDIR):
 	@mkdir $(OBJDIR)
+	@mkdir $(OBJDIR)gtk
+	@mkdir $(OBJDIR)intersect
+	@mkdir $(OBJDIR)xml
+	@mkdir $(OBJDIR)init
 
 clean:
 	@make -s -C libs/libft clean

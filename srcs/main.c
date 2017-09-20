@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/20 20:02:47 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	display_args(void)
+void			display_args(void)
 {
 	ft_putstr("\nusage: rtv1 [-s source] [-w width] [-h height]\n");
 	ft_putstr("-s : Set the specified source file\n");
@@ -44,7 +44,7 @@ static void		key_init(t_rt *e)
 	e->keys.key_minus = 0;
 }
 
-void		init_rt(t_rt *e)
+void			init_rt(t_rt *e)
 {
 	e->mlx.init = mlx_init();
 	e->file.larg = 1024;
@@ -62,7 +62,7 @@ void		init_rt(t_rt *e)
 	key_init(e);
 }
 
-void ft_start_rt(t_rt *e)
+void			ft_start_rt(t_rt *e)
 {
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
@@ -75,10 +75,11 @@ void ft_start_rt(t_rt *e)
 	mlx_hook(WIN, 3, 0, keyrelease, e);
 	mlx_hook(WIN, 17, 0, ft_close, NULL);
 	mlx_mouse_hook(WIN, select_obj, e);
+	mlx_loop_hook(INIT, no_event, e);
 	mlx_loop(INIT);
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_rt	*e;
 

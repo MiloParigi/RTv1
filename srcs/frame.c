@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 18:36:11 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/20 22:29:22 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	frame(t_rt *e)
 				pixel_to_image(x, y, e,
 				ret_colors(th_e[i]->thread.colors[x + ((y / NB_THREADS) * RES_W)]));
 				++x;
-
 			}
 			y += NB_THREADS;
 		}
@@ -97,16 +96,3 @@ void	frame(t_rt *e)
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 	disp_cam(e, 0x00FFFFFF);
 }
-
-// void	frame(t_rt *e)
-// {
-// 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
-// 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
-// 		&e->mlx.endian);
-// 	if (SS == 1)
-// 		anti_aliasing_off(e);
-// 	else
-// 		anti_aliasing_on(e, NULL);
-// 	filters(e);
-// 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
-// }

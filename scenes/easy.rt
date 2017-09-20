@@ -1,40 +1,40 @@
 camera:
-  pos: 0 0 -1000
-  dir: 0 0 0
-  fov: 45
+	pos: 0 0 -1000
+	dir: 0 0 0
+	fov: 45
 light:
-  pos: 800 0 -400
-  intensity: 1
+	pos: 800 0 -400
+	intensity: 1
 light:
-  pos: 100 700 -400
-  intensity: 0.7
+	pos: 100 700 -400
+	intensity: 0.7
 
 * BOX
 
 plane:
-  pos: 800 0 0
-  normal: 1 0 0
-  color: 0 255 0
+	pos: 800 0 0
+	normal: 1 0 0
+	color: 0 255 0
 plane:
-  pos: -800 0 0
-  normal: 1 0 0
-  color: 255 0 0
+	pos: -800 0 0
+	normal: 1 0 0
+	color: 255 0 0
 
 sphere:
-  pos: 75 40 300
-  radius: 200
-  color: 255 0 0
+	pos: 75 40 300
+	radius: 200
+	color: 255 0 0
 sphere:
-  pos: 100 40 100
-  radius: 100
-  color: 0 250 0
+	pos: 100 40 100
+	radius: 100
+	color: 0 250 0
 sphere:
-  pos: 75 20 100
-  radius: 50
-  color: 0 250 0
+	pos: 75 20 100
+	radius: 50
+	color: 0 250 0
 
-cylinder:
-  pos: 100 200 0
-  normal: 0 1 0
-  radius: 10
-  color: 100 100 100
+cone:
+	pos: 100 200 0
+	normal: 0 1 0
+	radius: 10
+	color: 100 100 100

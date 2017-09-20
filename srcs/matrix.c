@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/04 16:35:01 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 05:16:27 by mparigi          ###   ########.fr       */
+/*   Created: 2017/09/20 23:16:57 by mparigi           #+#    #+#             */
+/*   Updated: 2017/09/20 23:24:47 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_ray		ray_init(t_rt *e, int x, int y)
 
 	fov = tan(e->scene.cam.fov / 2 * DEG2RAD);
 	px = vec_new3((2 * ((x + 0.5) / LARGEUR) - 1) * fov * e->scene.cam.ratio_x,
-				(1 - 2 * ((y + 0.5) / HAUTEUR)) * fov * e->scene.cam.ratio_y, 1);
+		(1 - 2 * ((y + 0.5) / HAUTEUR)) * fov * e->scene.cam.ratio_y, 1);
 	ray.pos = prod_vec3_matrx4(vec_new3(0, 0, 0), e->scene.cam.ctw);
 	px = prod_vec3_matrx4(px, e->scene.cam.ctw);
 	ray.dir = vec_norme3(vec_sub3(px, ray.pos));

@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/20 09:06:15 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/20 22:16:34 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int			create_type(char *type, t_rt *e)
 {
 	if (!ft_strcmp("sphere:", type))
 		return (create_obj(SPHERE, e));
+	if (!ft_strcmp("cone:", type))
+		return (create_obj(CONE, e));
 	if (!ft_strcmp("plane:", type))
 		return (create_obj(PLANE, e));
 	if (!ft_strcmp("light:", type))
@@ -86,7 +88,7 @@ int			parse_filename(t_rt *e, char *filename)
 {
 	int		fd;
 	int 	tmp;
-	
+
 	SFILE = ft_strdup(filename);
 	if ((fd = is_file(SFILE)) > -1)
 		if ((tmp = parse_obj(e, fd)))
@@ -114,11 +116,11 @@ int			parse_args(char **argv, int argc, t_rt *e)
 			i + 1 < argc ? e->file.larg = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))
 			i + 1 < argc ? e->file.haut = ft_atoi(argv[i + 1]) : 0;
-		else if (!ft_strcmp("-s", argv[i])) 
+		else if (!ft_strcmp("-s", argv[i]))
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-a", argv[i]))
 		 	e->scene.supersampling = 2;
-		else 
+		else
 			return (0);
 		i += 2;
 	}

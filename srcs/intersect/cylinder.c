@@ -6,13 +6,13 @@
 /*   By: myernaux <myernaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by myernaux          #+#    #+#             */
-/*   Updated: 2017/09/20 05:39:57 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/20 22:16:47 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float			intensity_cylinder(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
+float	intensity_cylinder(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
 {
 	t_vec3		dist_to_light;
 	float		intensity;
@@ -24,6 +24,14 @@ float			intensity_cylinder(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
 		2000 * light.intensity, 500, 200);
 	return (intensity > 0) ? intensity : 0;
 }
+
+/*t_vec3	cylinder_norm(t_object obj, t_ray ray)
+{
+	float	m;
+
+	m = vec_dot3(ray.dir, vec_scale3(obj.vector, obj.t)) + vec_dot3(vec_sub3(ray.o, obj.pos), obj.vector);
+	return (vec_norme3(vec_sub3(vec_scale3(obj.pos, obj.cap1), vec_scale3(obj.vector, obj.t))));
+}*/
 
 float	intersect_cylinder(t_ray ray, t_obj cyl)
 {

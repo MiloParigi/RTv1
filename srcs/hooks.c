@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 17:18:21 by bbeldame          #+#    #+#             */
-/*   Updated: 2017/08/17 21:26:22 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/20 20:01:21 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ int				ft_close(void *param)
 	param = NULL;
 	exit(42);
 	return (0);
+}
+
+int				no_event(void *param)
+{
+	t_rt	*e;
+
+	e = (t_rt *)param;
+	key(e);
+	return (OK);
 }
 
 int				keypress(int keycode, void *param)

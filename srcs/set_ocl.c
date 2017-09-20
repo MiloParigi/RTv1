@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 06:21:43 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 05:34:39 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/20 19:53:28 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int		set_obj(t_rt *e, char **a)
 	else if (i == 4 && !ft_strcmp("maxp:", a[0]))
 		SOBJ.maxp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("vector:", a[0]))
-		SOBJ.vector = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.vector = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 4 && !ft_strcmp("normal:", a[0]))
-		SOBJ.vector = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
+		SOBJ.vector = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 4 && !ft_strcmp("rot:", a[0]))
 		SOBJ.dir = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 2 && !ft_strcmp("radius:", a[0]))
