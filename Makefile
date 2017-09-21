@@ -24,7 +24,6 @@ SRC			=	color.c \
 				ray.c \
 				raytrace.c \
 				set_ocl.c \
-				supersampler.c \
 				filters.c \
 				copyrt.c \
 				thread.c \

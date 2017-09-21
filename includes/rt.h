@@ -168,7 +168,6 @@
 # define DIST_MAX 20000
 # define DIST_MIN -80000
 # define EPSILON 1e-9
-# define AVERAGE(a, b)   ( ((((a) ^ (b)) & 0xfffefefeL) >> 1) + ((a) & (b)) )
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define PX_WHI 0x00FFFFFF

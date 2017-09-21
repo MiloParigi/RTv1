@@ -82,7 +82,6 @@ t_rt				*copy_rt(t_rt *e)
 	if ((copy = (t_rt *)malloc(sizeof(t_rt))) == NULL)
 		exit(42);
 	copy->scene = copy_scene(e->scene);
-	copy->img_temp = NULL;
 	copy->file.larg = e->file.larg;
 	copy->file.haut = e->file.haut;
 	copy->file.reso = e->file.reso;
