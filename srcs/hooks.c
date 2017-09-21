@@ -34,6 +34,8 @@ void			choose_filters(int keycode, t_rt *e)
 		else if (keycode == KEY_4)
 			e->scene.filters = 3;
 		else if (keycode == KEY_5)
+			e->scene.filters = 4;
+		else if (keycode == KEY_6)
 			e->scene.filters = 5;
 		frame(e);
 	}
@@ -43,7 +45,6 @@ void	resolution(int keycode, t_rt *e)
 {
 	if (keycode == PLUS || keycode == MINUS)
 	{
-		// e->scene.cam.fov += (keycode == PLUS) ? 2 : -2;
 		RES += (keycode == PLUS) ? 2 : -2;
 		if (RES < 1)
 			RES = 1;
@@ -58,11 +59,9 @@ void	udlr_(int keycode, t_rt *e)
 	if (keycode == LEFT || keycode == RIGHT || keycode == UP || keycode == DOWN)
 	{
 		if (keycode <= RIGHT)
-			CPOS.x += ((keycode == LEFT) ? -60 / RES: 60 / RES);
+			CPOS.x += ((keycode == LEFT) ? -60: 60);
 		else
-			CPOS.y += ((keycode == UP) ? -60 / RES : 60 / RES);
-		//printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
+			CPOS.y += ((keycode == UP) ? -60 : 60);
 		frame(e);
 	}
 }
@@ -75,8 +74,6 @@ void	wasd_(int keycode, t_rt *e)
 			e->scene.cam.rotx += ((keycode == KEY_S) ? 5 : -5);
 		else
 			e->scene.cam.roty += ((keycode == KEY_D) ? 5 : -5);
-	//	printf("Dir {%f %f %f}\n", CDIR.x, CDIR.y, CDIR.z);
-		//printf("POS {%f %f %f}\n\n", CPOS.x, CPOS.y, CPOS.z);
 		frame(e);
 	}
 }

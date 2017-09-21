@@ -82,7 +82,6 @@ void ft_start_rt(t_rt *e)
 	// mlx_hook(WIN, 17, 0, ft_close, NULL);
 	// mlx_mouse_hook(WIN, select_obj, e);
 	//mlx_mouse_hook(WIN, mouse_hook, e);
-	
 	mlx_loop(INIT);
 }
           
