@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 20:43:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/03 21:47:26 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/10 23:18:49 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_mtrx4		rotx_matrx4(float theta)
 	matrix.mtrx[6] = -sin(theta * DEG2RAD);
 	matrix.mtrx[9] = sin(theta * DEG2RAD);
 	matrix.mtrx[10] = cos(theta * DEG2RAD);
+	round_matrx4(&matrix);
 	return (matrix);
 }
 
@@ -72,6 +73,7 @@ t_mtrx4		roty_matrx4(float theta)
 	matrix.mtrx[5] = 1;
 	matrix.mtrx[8] = -sin(theta * DEG2RAD);
 	matrix.mtrx[10] = cos(theta * DEG2RAD);
+	round_matrx4(&matrix);
 	return (matrix);
 }
 
@@ -92,5 +94,6 @@ t_mtrx4		rotz_matrx4(float theta)
 	matrix.mtrx[4] = sin(theta * DEG2RAD);
 	matrix.mtrx[5] = cos(theta * DEG2RAD);
 	matrix.mtrx[10] = 1;
+	round_matrx4(&matrix);
 	return (matrix);
 }

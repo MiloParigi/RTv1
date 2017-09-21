@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/21 13:26:58 by tfaure           ###   ########.fr       */
+/*   Updated: 2017/09/21 19:57:33 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
 	n = vec_norme3(vec_sub3(light.ray.pos, poi));
 	dist_to_light = get_length(n);
 	ray = c_ray(vec_add3(poi, n), n);
-	dist = get_min_dist(e, ray, 1);
+	dist = get_min_dist(e, ray);
 	if (dist > 0 && dist < dist_to_light)
 		return (1);
 	else
@@ -56,7 +56,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 			? color_mult(obj.color, intensity) : (t_color){0, 0, 0, 0});
 }
 
-float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
+float			get_min_dist(t_rt *e, t_ray ray)
 {
 	float		min_dist;
 	float		dist;
@@ -67,13 +67,10 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
-		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CONE) ? intersect_cone2(ray, e->COBJ) : dist;
+		dist = intersect_obj(ray, e->COBJ);
 		if (dist < min_dist)
 		{
-			min_dist = (cangoneg && dist < 0) ? min_dist : dist;
+			min_dist = (dist < 0) ? min_dist : dist;
 			e->scene.id = i;
 		}
 		i++;
@@ -86,10 +83,10 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	float		min_dist;
 	t_vec3		point_of_impact;
 	t_color		color;
- 
+
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
-	if ((min_dist = get_min_dist(e, ray, 0)) == -1)
+	if ((min_dist = get_min_dist(e, ray)) == -1)
 		return ((t_color){0, 0, 0, 0});
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
@@ -103,7 +100,7 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	ray = ray_init(e, x, y);
+	ray = ray_init(e, x * RES, y * RES);
 	color = get_pxl_color(e, ray);
 	 return (color);
 }

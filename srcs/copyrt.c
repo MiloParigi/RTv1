@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copyrt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jribeiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jribeiro <jribeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 23:14:17 by jribeiro          #+#    #+#             */
-/*   Updated: 2017/08/27 21:09:28 by jribeiro         ###   ########.fr       */
+/*   Updated: 2017/09/20 05:36:21 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ t_obj				copy_objs(t_obj obj)
 	copy.color = obj.color;
 	copy.pos = obj.pos;
 	copy.dir = obj.dir;
-	copy.angle = obj.angle;
+	copy.k = obj.k;
 	copy.vector = obj.vector;
 	copy.maxp = obj.maxp;
 	copy.minp = obj.minp;
 	copy.r = obj.r;
 	copy.t = obj.t;
-	copy.normal = obj.normal;
+	copy.vector = obj.vector;
 	copy.mat = obj.mat;
 	return (copy);
 }

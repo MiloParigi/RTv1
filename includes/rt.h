@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
 /*   Updated: 2017/09/19 17:28:54 by rlecart          ###   ########.fr       */
@@ -42,7 +42,7 @@
 # define AM 75
 # define HEIGHT 500
 # define WIDTH 500
-# define EPSILON 1e-9
+# define EPSILON 1e-7
 # define EXTENSION ".rt"
 # define ERR -1
 # define END 0
@@ -146,8 +146,6 @@
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
 # define SFILE e->file.path
-# define CPOS e->scene.cam.ray.pos
-# define CDIR e->scene.cam.ray.dir
 # define CAMRAY e->cam.ray
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
@@ -155,6 +153,8 @@
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
 # define AMBIENT_LIGHT e->scene.ambient
+# define DIFF_LIGHT e->scene.ambient
+# define SPEC_LIGHT e->scene.ambient
 # define MAXOBJ 50
 # define MAXLIGHT 21
 
@@ -169,14 +169,13 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define EPSILON 1e-9
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define PX_WHI 0x00FFFFFF
 
 # define NB_THREADS 8
 # define GTK_W 300
-# define GTK_H 200	
+# define GTK_H 200
 
 typedef struct		s_vec2
 {
@@ -208,17 +207,12 @@ typedef struct		s_light
 
 typedef struct		s_camera
 {
-	t_ray			ray;
-	t_vec3		px;
-	t_mtrx4		ctw;
-	float		fov;
-	t_vec3		transl;
-	float		rotx;
-	float		roty;
-	float		rotz;
-	float		ratio_x;
-	float		ratio_y;
-	float			focale;
+	int				fov;
+	t_vec3			pos;
+	t_vec3			dir;
+	float			ratio_x;
+	float			ratio_y;
+	t_mtrx4			ctw;
 	float			reso;
 	float			aspect;
 }					t_camera;
@@ -234,16 +228,16 @@ typedef struct		s_mlx
 	int				endian;
 }					t_mlx;
 
-typedef struct	s_texture
+typedef struct		s_texture
 {
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			size_l;
-	int			endian;
-	int			width;
-	int			height;
-}				t_texture;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				size_l;
+	int				endian;
+	int				width;
+	int				height;
+}					t_texture;
 
 typedef struct		s_matiere
 {
@@ -261,23 +255,23 @@ typedef struct		s_matiere
 
 typedef struct	s_keys
 {
-	char		key_up;
-	char		key_down;
-	char		key_left;
-	char		key_right;
-	char		key_pagup;
-	char		key_pagdwn;
-	char		key_w;
-	char		key_a;
-	char		key_s;
-	char		key_d;
-	char		key_plus;
-	char		key_minus;
-	char		key_rotx_left;
-	char		key_rotx_right;
-	char		key_roty_left;
-	char		key_roty_right;
-}				t_keys;
+	char			key_up;
+	char			key_down;
+	char			key_left;
+	char			key_right;
+	char			key_pagup;
+	char			key_pagdwn;
+	char			key_w;
+	char			key_a;
+	char			key_s;
+	char			key_d;
+	char			key_plus;
+	char			key_minus;
+	char			key_rotx_left;
+	char			key_rotx_right;
+	char			key_roty_left;
+	char			key_roty_right;
+}					t_keys;
 
 typedef struct		s_calc
 {
@@ -309,12 +303,12 @@ typedef struct		s_obj
 	int				type;
 	t_color			color;
 	t_vec3			pos;
-	t_vec3			dir;
-	float			angle;
+	t_vec3			dir; //For Cylinder and Cone
+	float			k; //For Cone (tan of half the angle)
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
 	t_vec3			maxp; //For Cylinder and Cone
-	t_vec3			minp; //For Cone
-	int				r;
+	t_vec3			minp; //For Cylinder and Cone
+	int				r; //For Cylinder, Sphere and Cone (?)
 	float			t;
 	t_vec3			normal;
 	t_matiere		mat;
@@ -332,7 +326,7 @@ typedef struct		s_scene
 	int 			id;
 	int				supersampling;
 	int 			filters;
-	float			selected;
+	int				selected;
 	t_camera		cam;
 }					t_scene;
 
@@ -384,16 +378,17 @@ typedef struct		s_rt
 	t_mthread		thread;
 }					t_rt;
 
-void				display_args(void);
 t_matiere			create_matiere(void);
-int					set_obj(t_rt *e, char **a);
-int					set_light(t_rt *e, char **a);
-int					set_camera(t_rt *e, char **a);
-int					set_last(t_rt *e, char **params);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
+
+int					set_obj(t_rt *e, char **a);
+int					set_light(t_rt *e, char **a);
+int					set_camera(t_rt *e, char **a);
+int					set_last(t_rt *e, char **params);
+
 t_color				c_color(float r, float g, float b);
 int					parse_args(char **argv, int argc, t_rt *e);
 int					parse_obj(t_rt *e, int fd);
@@ -406,34 +401,38 @@ void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
 void				fl_anaglyph(t_rt *e);
-void				disp_cam(t_rt *e);
+//Debug
+void				disp_cam(t_rt *e, int color);
+void				disp_mtrx4(t_mtrx4 matrix, char *name);
+void				disp_vec(t_vec3 vec, char *name);
+void				display_args(void);
 
-//hook
+//Matrix
+void				matrix_init(t_rt *e);
 
-void				mv_plus_minus(t_rt *e, float *a, float value, int bol);
-void				udlr_(int keycode, t_rt *e);
-int					key_hook(int keycode, t_rt *e);
-void 				wasd_(int keycode, t_rt *e);
-void				resolution(int keycode, t_rt *e);
-void				exportimg(int keycode, t_rt *e);
-void				numeric_(int keycode, t_rt *e);
+//Maths
+float				p(float x);
 
 //Hook
-int				no_event(void *param);
-int				keypress(int keycode, void *param);
-int				keyrelease(int keycode, void *param);
-int				ft_close(void *param);
+int					no_event(void *param);
+int					ft_close(void *param);
+int					keypress(int keycode, void *param);
+int					keyrelease(int keycode, void *param);
+int					select_obj(int button, int x, int y, void *param);
+void				onepress(int keycode, t_rt *e);
 
 //Move
-void			move_cam(t_rt *e, int speed);
-void			move_obj(t_rt *e, int speed);
-int				select_obj(int button, int x, int y, t_rt *e);
+void				move_cam(t_rt *e, int speed);
+void				move_obj(t_rt *e, int speed);
 
-
-
+//Light
+t_vec3				cone_norm(t_obj obj, t_ray ray);
+t_vec3				object_norm(t_obj obj, t_ray ray);
+t_vec3				plane_norm(t_obj obj);
+t_vec3				sphere_norm(t_obj obj, t_ray ray);
+t_vec3				cylinder_norm(t_obj obj, t_ray ray);
 
 //Multithreading
-
 t_light				copy_light(t_light light);
 t_obj				copy_objs(t_obj obj);
 t_scene				copy_scene(t_scene scene);
@@ -447,22 +446,26 @@ t_rt				**launch_thread(t_rt *env);
 
 void 				pixel_to_image(int x, int y, t_rt *e, int color);
 
-unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
-t_ray				ray_init(t_rt *e, float x, float y);
+t_ray				ray_init(t_rt *e, int x, int y);
+
 t_color				raytrace(int x, int y, t_rt *e);
 void				super_sampler(t_rt *e);
 void				anti_supersampler(t_rt *e);
 void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
 void				anti_aliasing_off(t_rt *e);
-float				intersect_sphere(t_ray ray, t_obj sphere);
+
+t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
-float				intersect_plane(t_ray ray, t_obj sphere);
-float				intersect_cylinder(t_ray ray, t_obj obj);
-t_color				copy_color(t_color color);
+unsigned int		ret_colors(t_color color);
+
+float				intersect_obj(t_ray ray, t_obj obj);
+float				intersect_sphere(t_ray ray, t_obj sphere);
+float				intersect_plane(t_ray ray, t_obj plane);
+float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
-float				intersect_cone2(t_ray ray, t_obj obj);
+
 float				intensity_cone(t_rt *e, t_vec3 poi,
 						t_obj cone, t_light light);
 float				intensity_sphere(t_vec3 poi,
@@ -470,9 +473,13 @@ float				intensity_sphere(t_vec3 poi,
 float				intensity_plane(t_rt *e, t_vec3 poi,
 						t_obj plane, t_light light);
 float				intensity_cylinder(t_rt *e, t_vec3 poi,
-						t_obj cylinder, t_light light);
+						t_obj cyl, t_light light);
+
+t_color				amb_color(t_scene *scene, t_obj obj);
+t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
+
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
-float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
+float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
 
@@ -481,10 +488,13 @@ int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
 xmlDocPtr			getdoc(char *docname);
 
-
 //Matrix
 
 void				matrix_init(t_rt *e);
+// GTK
+// int					parse_filename(t_rt *e, char *filename);
+// void 				ft_start_rt(t_rt	*e);
+// void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
 void				fl_anaglyph(t_rt *e);
 
@@ -505,7 +515,7 @@ void				fl_anaglyph(t_rt *e);
 // void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
 
 
-//Texture 
+//Texture
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
 
