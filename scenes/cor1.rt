@@ -1,6 +1,6 @@
 camera:
-	pos: 0 200 -500
-	dir: 10 0 0
+	pos: 0 150 -550
+	dir: 0 0 0
 	fov: 45
 
 light:

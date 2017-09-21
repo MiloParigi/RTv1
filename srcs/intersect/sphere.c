@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:04:18 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/20 05:25:32 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:48:56 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+t_vec3	sphere_norm(t_obj obj, t_ray ray)
+{
+	return (vec_norme3(vec_sub3(obj.pos, ray.pos)));
+}
 
 float	intensity_sphere(t_vec3 poi, t_obj sphere, t_light light)
 {

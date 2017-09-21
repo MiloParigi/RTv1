@@ -6,11 +6,16 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 20:08:17 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/09/20 23:37:37 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:45:52 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+t_vec3	plane_norm(t_obj obj)
+{
+	return (vec_norme3(vec_sub3(obj.pos, obj.vector)));
+}
 
 float			intensity_plane(t_rt *e, t_vec3 poi, t_obj plane, t_light light)
 {

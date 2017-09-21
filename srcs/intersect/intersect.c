@@ -6,26 +6,26 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/20 23:34:10 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:57:11 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-/*makfloat			object_intersect(t_ray ray, t_object obj)
+float			intersect_obj(t_ray ray, t_obj obj)
 {
 	if (obj.type == CYLINDER)
-		return (cylinder_intersect(ray, obj));
+		return (intersect_cylinder(ray, obj));
 	else if (obj.type == SPHERE)
-		return (sphere_intersect(ray, obj));
+		return (intersect_sphere(ray, obj));
 	else if (obj.type == PLANE)
-		return (plane_intersect(ray, obj));
+		return (intersect_plane(ray, obj));
 	else if (obj.type == CONE)
-		return (cone_intersect(ray, obj));
+		return (intersect_cone(ray, obj));
 	return (DIST_MAX);
 }
 
-t_vec3			object_norm(t_ray ray, t_object obj)
+t_vec3			object_norm(t_obj obj, t_ray ray)
 {
 	if (obj.type == CYLINDER)
 		return (vec_norme3(cylinder_norm(obj, ray)));
@@ -38,17 +38,20 @@ t_vec3			object_norm(t_ray ray, t_object obj)
 	return (vec_new3(0, 0, 0));
 }
 
-float			intensity_object(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
+float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
 {
-	t_ray	l_ray;
+	float	intensity;
 	t_vec3	norm;
 
-	l_ray = vec_norme3(vec_new3(poi, light.pos));
-	norm = object_norm(ray, obj);
+	(void)e;
+	intensity = 0;
+	light.ray.dir = vec_norme3(vec_sub3(light.ray.pos, poi));
+	norm = object_norm(obj, light.ray);
 	//Ambiant light
 	//Diffuse light
 	//Spec light
-}*/
+	return (intensity);
+}
 
 float	get_res_of_quadratic(float a, float b, float c)
 {

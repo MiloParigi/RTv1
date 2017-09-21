@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 23:30:21 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/21 23:38:43 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
 # define AMBIENT_LIGHT e->scene.ambient
+# define DIFF_LIGHT e->scene.ambient
+# define SPEC_LIGHT e->scene.ambient
 # define MAXOBJ 50
 # define MAXLIGHT 21
 
@@ -222,16 +224,16 @@ typedef struct		s_mlx
 	int				endian;
 }					t_mlx;
 
-typedef struct	s_texture
+typedef struct		s_texture
 {
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			size_l;
-	int			endian;
-	int			width;
-	int			height;
-}				t_texture;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				size_l;
+	int				endian;
+	int				width;
+	int				height;
+}					t_texture;
 
 typedef struct		s_matiere
 {
@@ -265,7 +267,7 @@ typedef struct	s_keys
 	char			key_rotx_right;
 	char			key_roty_left;
 	char			key_roty_right;
-}				t_keys;
+}					t_keys;
 
 typedef struct		s_calc
 {
@@ -418,11 +420,11 @@ void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
 //Light
-t_vec3			cone_norm(t_obj *obj, t_ray ray);
-t_vec3			object_norm(t_obj *obj, t_ray ray);
-t_vec3			plane_norm(t_obj *obj);
-t_vec3			sphere_norm(t_obj *obj, t_ray ray);
-t_vec3			cylinder_norm(t_obj *obj, t_ray ray);
+t_vec3				cone_norm(t_obj obj, t_ray ray);
+t_vec3				object_norm(t_obj obj, t_ray ray);
+t_vec3				plane_norm(t_obj obj);
+t_vec3				sphere_norm(t_obj obj, t_ray ray);
+t_vec3				cylinder_norm(t_obj obj, t_ray ray);
 
 //Multithreading
 t_light				copy_light(t_light light);
@@ -452,6 +454,7 @@ t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
 unsigned int		ret_colors(t_color color);
 
+float				intersect_obj(t_ray ray, t_obj obj);
 float				intersect_sphere(t_ray ray, t_obj sphere);
 float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
@@ -465,6 +468,9 @@ float				intensity_plane(t_rt *e, t_vec3 poi,
 						t_obj plane, t_light light);
 float				intensity_cylinder(t_rt *e, t_vec3 poi,
 						t_obj cyl, t_light light);
+
+t_color				amb_color(t_scene *scene, t_object obj);
+t_color				diff_color(t_scene *scene, t_object obj, t_ray ray, t_vec3 norm);
 
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);

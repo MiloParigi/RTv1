@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/20 05:27:32 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:57:33 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
-		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
-		dist = (e->COBJ.type == CONE) ? intersect_cone(ray, e->COBJ) : dist;
+		dist = intersect_obj(ray, e->COBJ);
 		if (dist < min_dist)
 		{
 			min_dist = (dist < 0) ? min_dist : dist;
