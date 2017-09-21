@@ -39,7 +39,8 @@ SRC			=	color.c \
 				/intersect/cylinder.c \
 				/intersect/sphere.c \
 				/intersect/cone.c \
-				/intersect/cone2.c 
+				/intersect/cone2.c \
+				filters_anaglyph.c
 				# gtk/gtk_btn.c	\
 				# gtk/gtk_init.c \
 				# gtk/gtk_input.c \

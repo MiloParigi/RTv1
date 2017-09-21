@@ -134,10 +134,12 @@
 # define KEY_D		2
 # define KEY_N8		91
 # define KEY_N2		84
+
 # define INIT e->mlx.init
 # define WIN e->mlx.window
 # define IMG e->mlx.image
 # define DATA e->mlx.data
+
 # define RES e->file.reso
 # define ALIASING e->file.aliasing
 # define SS (e->scene.supersampling)
@@ -483,6 +485,8 @@ xmlDocPtr			getdoc(char *docname);
 //Matrix
 
 void				matrix_init(t_rt *e);
+
+void				fl_anaglyph(t_rt *e);
 
 //GTK
 // int					parse_filename(t_rt *e, char *filename);
