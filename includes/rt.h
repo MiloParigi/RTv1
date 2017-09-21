@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/24 22:58:46 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/21 15:12:28 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,58 @@
 # define LIGHT 21
 # define CAMERA 22
 
+
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_F 3
+# define KEY_H 4
+# define KEY_G 5
+# define KEY_Z 6
+# define KEY_X 7
+# define KEY_C 8
+# define KEY_V 9
+# define KEY_B 11
+# define KEY_Q 12
+# define KEY_W 13
+# define KEY_E 14
+# define KEY_R 15
+# define KEY_Y 16
+# define KEY_T 17
+# define KEY_ONE 18
+# define KEY_TWO 19
+# define KEY_THREE 20
+# define KEY_FOUR 21
+# define KEY_SIX 22
+# define KEY_FIVE 23
+# define KEY_NINE 25
+# define KEY_SEVEN 26
+# define KEY_EIGHT 28
+# define KEY_ZERO 29
+# define KEY_BRACE_R 30
+# define KEY_O 31
+# define KEY_U 32
+# define KEY_BRACE_L 33
+# define KEY_I 34
+# define KEY_P 35
+# define KEY_L 37
+# define KEY_J 38
+# define KEY_K 40
+# define KEY_SEMI 41
+# define KEY_N 45
+# define KEY_M 46
+# define KEY_TAB 48
+# define KEY_PLUS 69
+# define KEY_MINUS 78
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_DOWN 125
+# define KEY_UP 126
+# define KEY_ESC 53
+
+# define SCROLLUP 4
+# define SCROLLDOWN 5
+
 # define ESC		53
 # define BACKSPACE	51
 # define SPACE		49
@@ -66,6 +118,8 @@
 # define KEY_2		19
 # define KEY_3		20
 # define KEY_4		21
+# define KEY_5		23
+# define KEY_6		22
 # define PLUS		69
 # define MINUS		78
 # define UP			126
@@ -80,11 +134,14 @@
 # define KEY_D		2
 # define KEY_N8		91
 # define KEY_N2		84
+
 # define INIT e->mlx.init
 # define WIN e->mlx.window
 # define IMG e->mlx.image
 # define DATA e->mlx.data
+
 # define RES e->file.reso
+# define ALIASING e->file.aliasing
 # define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
@@ -203,6 +260,26 @@ typedef struct		s_matiere
 	t_texture		texture;
 }					t_matiere;
 
+typedef struct	s_keys
+{
+	char		key_up;
+	char		key_down;
+	char		key_left;
+	char		key_right;
+	char		key_pagup;
+	char		key_pagdwn;
+	char		key_w;
+	char		key_a;
+	char		key_s;
+	char		key_d;
+	char		key_plus;
+	char		key_minus;
+	char		key_rotx_left;
+	char		key_rotx_right;
+	char		key_roty_left;
+	char		key_roty_right;
+}				t_keys;
+
 typedef struct		s_calc
 {
 	float			a;
@@ -224,6 +301,7 @@ typedef struct		s_file
 	int				larg;
 	int 			fdp;
 	int 			reso;
+	int				aliasing;
 }					t_file;
 
 typedef struct		s_obj
@@ -255,6 +333,7 @@ typedef struct		s_scene
 	int 			id;
 	int				supersampling;
 	int 			filters;
+	float			selected;
 	t_camera		cam;
 }					t_scene;
 
@@ -267,40 +346,43 @@ typedef struct		s_screen
 
 typedef struct		s_mthread
 {
-	int 			y;
+	float 			y;
+	float			max_y;
+	float			h;
+	float			w;
 	t_color			*colors;
 }					t_mthread;
 
 // typedef struct		s_gtk_input
 // {
-// 	gint			pos_x;
-// 	gint			pos_y;
 // 	gint			max_size;
 // 	gint			max_char;
 // 	gchar			*placeholder;
-// 	gchar  			*deflaut_value;
+// 	gchar   		*deflaut_value;
 // }					t_gtk_input;
 
 // typedef struct		s_gtk_win
 // {
-// 	GtkWidget 			*window;
-// 	GtkWidget			*layout;
+// 	GtkWidget 		*window;
+// 	GtkWidget		*layout;
 // }					t_gtk_win;
 
-// typedef struct		s_gtk
+// typedef struct		s_gtk_settings
 // {
-// 	t_gtk_win			menu;
-// 	t_gtk_win			set;
-// }					t_gtk;
+// 	int 			width;
+// 	int 			height;
+// 	int 			res;
+// 	GtkWidget 		*anti_aliasing;
+// }					t_gtk_settings;
 
 typedef struct		s_rt
 {
 	t_mlx			mlx;
+	t_keys			keys;
 	//t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
-	unsigned int	*img_temp;
 }					t_rt;
 
 void				display_args(void);
@@ -319,11 +401,12 @@ int					parse_obj(t_rt *e, int fd);
 void				store_type_or_data(char *line, t_rt *e);
 void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
-void      			fl_sepia_apply(t_rt *e);
-void       			fl_black_and_white(t_rt *e);
+void				fl_sepia_apply(t_rt *e);
+void				fl_black_and_white(t_rt *e);
 void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
+void				fl_anaglyph(t_rt *e);
 void				disp_cam(t_rt *e);
 
 //hook
@@ -336,6 +419,19 @@ void				resolution(int keycode, t_rt *e);
 void				exportimg(int keycode, t_rt *e);
 void				numeric_(int keycode, t_rt *e);
 
+//Hook
+int				no_event(void *param);
+int				keypress(int keycode, void *param);
+int				keyrelease(int keycode, void *param);
+int				ft_close(void *param);
+
+//Move
+void			move_cam(t_rt *e, int speed);
+void			move_obj(t_rt *e, int speed);
+int				select_obj(int button, int x, int y, t_rt *e);
+
+
+
 
 //Multithreading
 
@@ -344,14 +440,15 @@ t_obj				copy_objs(t_obj obj);
 t_scene				copy_scene(t_scene scene);
 t_rt				*copy_rt(t_rt *e);
 void				*drawline(void *arg);
-t_rt            	**launch_thread(t_rt *env);
+t_rt				**launch_thread(t_rt *env);
 //OLD
 
 
 //Beta option
 
-void  				pixel_to_image(int x, int y, t_rt *e, int color);
+void 				pixel_to_image(int x, int y, t_rt *e, int color);
 
+t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
 unsigned int		ret_colors(t_color color);
 t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, float x, float y);
@@ -380,7 +477,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray, int cangoneg);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
 float				get_res_of_quadratic(float a, float b, float c);
-
+t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
@@ -390,24 +487,25 @@ xmlDocPtr			getdoc(char *docname);
 //Matrix
 
 void				matrix_init(t_rt *e);
-// GTK
-int					parse_filename(t_rt *e, char *filename);
-void 				ft_start_rt(t_rt	*e);
-void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-// GtkWidget 			*ft_gtk_new_btn(t_rt *e, int pos[], int size[], char *name);
-// GtkWidget 			*ft_gtk_new_window(gint w, gint h, gchar *name);
+void				fl_anaglyph(t_rt *e);
 
+//GTK
+// int					parse_filename(t_rt *e, char *filename);
+// void 				ft_start_rt(t_rt *e);
+// void				init_rt(t_rt *e);
+
+// void 				ft_gtk_start_launcher(t_rt *e);
+// void 				ft_gtk_start_settings(t_rt *e);
+// void 				ft_settings(t_rt *e);
+// void 				ft_gtk_launcher(t_rt *e);
+
+// GtkWidget 			*new_window(gint w, gint h, gchar *name);
+// GtkWidget			*new_input(t_gtk_input *data);
+// GtkWidget			*new_txt(gchar *str);
+// GtkWidget			*new_btn(int x, int y, char *name);
 // void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
-// void 				ft_gtk_init_window(t_rt *e);
-// void 				ft_gtk_add_menu(t_rt *e);
-// void 				ft_gtk_add_logo(t_rt *e);
-// void 				ft_gtk_add_radio_filters(t_rt *e);
-// void 				ft_gtk_new_css(GtkWidget	*window, gchar *css);
-// void 				print_text(GtkEntry *entry, void *optional_data);
-// void ft_gtk_add_input_width(t_rt *e);
-// void 				ft_gtk_add_input_height(t_rt *e);
-// void 				ft_gtk_add_btn(t_rt *e);
+
 
 //Texture 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copyrt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jribeiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 23:14:17 by jribeiro          #+#    #+#             */
-/*   Updated: 2017/08/27 21:09:28 by jribeiro         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:04:51 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_scene				copy_scene(t_scene scene)
 	copy.id = scene.id;
 	copy.supersampling = scene.supersampling;
 	copy.cam = scene.cam;
+	copy.filters = scene.filters;
 	return (copy);
 }
 
@@ -81,7 +82,7 @@ t_rt				*copy_rt(t_rt *e)
 	if ((copy = (t_rt *)malloc(sizeof(t_rt))) == NULL)
 		exit(42);
 	copy->scene = copy_scene(e->scene);
-	copy->img_temp = NULL;
+//	copy->img_temp = NULL;
 	copy->file.larg = e->file.larg;
 	copy->file.haut = e->file.haut;
 	copy->file.reso = e->file.reso;

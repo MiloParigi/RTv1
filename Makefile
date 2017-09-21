@@ -6,7 +6,7 @@
 #    By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/08/14 22:04:16 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/21 15:13:23 by ocojeda-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,44 +14,49 @@ PROJECT		=	RT
 NAME		=	rt
 OBJDIR		=	objs/
 SRCDIR		=	srcs/
+
 SRC			=	color.c \
-				cone.c \
+				reflexion.c \
 				create_ocl.c \
-				cylinder.c \
 				frame.c \
 				hooks.c \
 				main.c \
 				parser.c \
-				plane.c \
 				ray.c \
 				raytrace.c \
 				set_ocl.c \
-				sphere.c \
 				supersampler.c \
 				filters.c \
-				cone2.c \
 				copyrt.c \
 				thread.c \
-				xml_parser.c \
-				xml_errors.c \
-				xml_checks.c \
+				/xml/xml_parser.c \
+				/xml/xml_errors.c \
+				/xml/xml_checks.c \
 				create_complex.c \
 				matrix.c \
-				debug.c
-				# gtk_btn.c 			\
-				# gtk_init.c 			\
-				# gtk_input.c 		\
-				# gtk_new.c	
+				debug.c \
+				hook2.c \
+				move.c \
+				/intersect/plane.c \
+				/intersect/cylinder.c \
+				/intersect/sphere.c \
+				/intersect/cone.c \
+				/intersect/cone2.c \
+				filters_anaglyph.c
+				# gtk/gtk_btn.c	\
+				# gtk/gtk_init.c \
+				# gtk/gtk_input.c \
+				# gtk/gtk_new.c
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
 LIBVEC		=	libs/libvec/libvec.a
 LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ -I libs/gtk+3/ `pkg-config --cflags gtk+-3.0`
+CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ -I libs/gtk+3/ #`pkg-config --cflags gtk+-3.0`
 OPTI		=	-O3
 DEBUG		=	-g
-MLXF		=	-framework OpenGL -framework AppKit `pkg-config --libs gtk+-3.0`
+MLXF		=	-framework OpenGL -framework AppKit #`pkg-config --libs gtk+-3.0`
 
 WHITE		=	\033[7;49;39m
 BLUE		=	\033[7;49;34m
@@ -64,7 +69,7 @@ NO_COLOR	=	\033[m
 
 all: mlx lib vec $(NAME)
 
-$(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
+$(NAME): $(MINILIBX) $(LIBFT) $(OBJDIR) $(OBJ)
 	@printf "\r$(GREEN)[$(PROJECT)] Obj compilation done.                                                        \n"
 	@printf "$(YELLOW)[$(PROJECT)] Compiling $(NAME)..."
 	@$(CC) $(CFLAGS) $(DEBUG) $(MLXF) -o $(NAME) $(OBJ) $(MINILIBX) $(LIBFT) $(LIBVEC) $(LIBXML)
@@ -86,6 +91,9 @@ vec:
 
 $(OBJDIR):
 	@mkdir $(OBJDIR)
+	@mkdir $(OBJDIR)gtk
+	@mkdir $(OBJDIR)intersect
+	@mkdir $(OBJDIR)xml
 
 clean:
 	@make -s -C libs/libft clean

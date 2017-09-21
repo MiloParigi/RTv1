@@ -1,5 +1,5 @@
 camera:
-  pos: 700 1 -3000
+  pos: 700 350 -5000
   dir: 0 0 1
   fov: 8
 light:

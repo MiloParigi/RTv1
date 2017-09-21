@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 22:31:10 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	mlx_pixel(int x, int y, t_rt *e, int color)
 	}
 }
 
+
+
 void	filters(t_rt *e)
 {
 	if (e->scene.filters == 1)
@@ -62,34 +64,44 @@ void	filters(t_rt *e)
 		fl_black_and_white(e);
 	if (e->scene.filters == 3)
 		fl_revers(e);
+	if (e->scene.filters == 4)
+		fl_anaglyph(e);
 }
 
 void	frame(t_rt *e)
 {
-
 	t_rt		**th_e;
 	int			i;
+	int			i2;
 	int			x;
 	int			y;
 
 	matrix_init(e);
 	th_e = launch_thread(e);
 	i = 0;
+	i2 = 0;
+
 	while (i < NB_THREADS)
 	{
-		y = i;
-		while (y < HAUTEUR / RES)
+		y = th_e[i]->thread.y / ALIASING;
+		// printf("%f\n", th_e[i]->thread.y/ ALIASING);
+		// printf("%f \n\n", th_e[i]->thread.max_y/ ALIASING);
+		while (y < th_e[i]->thread.max_y / ALIASING)
 		{
 			x = 0;
-			while (x < LARGEUR / RES)
+			while (x < th_e[i]->thread.w / ALIASING)
 			{
-				pixel_to_image(x, y, e,
-				ret_colors(th_e[i]->thread.colors[x + ((y / NB_THREADS) * RES_W)]));
+				// if (e->scene.filters == 5)
+					pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// else
+				// 	pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));				
+				// mlx_pixel(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
 				++x;
-
+				++i2;
 			}
-			y += NB_THREADS;
+			++y;
 		}
+		i2 = 0;
 		++i;
 	}
 	filters(e);
@@ -97,16 +109,3 @@ void	frame(t_rt *e)
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
 	disp_cam(e);
 }
-
-// void	frame(t_rt *e)
-// {
-// 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
-// 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
-// 		&e->mlx.endian);
-// 	if (SS == 1)
-// 		anti_aliasing_off(e);
-// 	else
-// 		anti_aliasing_on(e, NULL);
-// 	filters(e);
-// 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
-// }

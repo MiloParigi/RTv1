@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 20:14:59 by bbeldame          #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/21 15:01:39 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ t_color			copy_color(t_color color)
 ** We convert the number 0 - 255 to 0 - 0.5
 ** @todo : explain why
 */
+
+t_color			ft_map_color(t_color color1, t_color color2, float taux1)
+{
+	t_color		new_color;
+	float 		taux2;
+
+	if(taux1 >= 1)
+		return color2;
+	taux2 = 1 - taux1;
+	color1 = color_mult(color1, taux2);	
+	color2 = color_mult(color2, taux1);
+	new_color.r = color1.r + color2.r;
+	new_color.g = color1.g + color2.g;
+	new_color.b = color1.b + color2.b;
+	return (new_color);
+}
 
 t_color			color_mult(t_color color, float taux)
 {

@@ -6,7 +6,7 @@
 /*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/20 23:12:13 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/09/21 15:11:15 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,56 +81,6 @@ float			get_min_dist(t_rt *e, t_ray ray, int cangoneg)
 	return ((min_dist < DIST_MAX) ? min_dist : -1);
 }
 
-t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color)
-{
-
-	float		min_dist;
-	float		dist;
-	int			i;
-	int a = 0;
-	(void)base_color;
-
-	//ft_putnbr(e->scene.obj[e->scene.id].type);
-	//e->scene.obj[e->scene.id].type = 3;
-	//e->scene.id= SPHERE;
-//	if(e->scene.obj[e->scene.id].type == 3)
-//	{
-	/*
-	*	le calcul suivant est uniqument valable pour la normal de une sphere!!!!!
-	*/	
-	ray.pos = e->scene.obj[e->scene.id].pos;
-	ray.dir = vec_norme3(vec_sub3(poi, e->scene.obj[e->scene.id].pos));
-//	}
-//	else
-//	return base_color;
-	i = 0;
-	dist = 0;
-	min_dist = DIST_MAX;
-	while (i < e->scene.nbr_obj)
-	{
-		if (i != e->scene.id)
-		{
-			dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, e->COBJ) : dist;
-			dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
-			dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
-			dist = (e->COBJ.type == CONE) ? intersect_cone2(ray, e->COBJ) : dist;
-			if (dist < min_dist)
-			{
-				min_dist = dist;
-				a = i;
-				//e->scene.id = a;
-			}
-		}
-		i++;
-	}
-	//if(min_dist <= 0)
-	//	ft_putchar('@');
-	t_vec3 point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
-	return get_color(e, e->scene.obj[a], point_of_impact);
-	// je laisse base_color pour le utiliser apres avec une moyenne entre la couleur de base 
-	// de lobjet reflectant et celui qui a etait trouve dans intersect
-}
-
 static t_color	get_pxl_color(t_rt *e, t_ray ray)
 {
 	float		min_dist;
@@ -158,7 +108,7 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	ray = ray_init(e, x * RES, y * RES);
+	ray = ray_init(e, x, y);
 	color = get_pxl_color(e, ray);
 	 return (color);
 }

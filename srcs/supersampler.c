@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supersampler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 09:45:23 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/08/21 13:07:30 by tfaure           ###   ########.fr       */
+/*   Updated: 2017/09/21 13:04:26 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	anti_aliasing_off(t_rt *e)
 		x = 0;
 		while (x < WSS)
 		{
-			mlx_pixel(x, y, e, ret_colors(raytrace(x, y, e)));
+		//	mlx_pixel(x, y, e, ret_colors(raytrace(x, y, e)));
 			x += 1;
 		}
 		y += 1;
@@ -44,7 +44,7 @@ unsigned int *anti_aliasing_img_creator(t_rt *e, unsigned int *img_temp)
 		x = 0;
 		while (x < WSS)
 		{
-			img_temp[x + y * WSS] = ret_colors(raytrace(x, y, e));
+		//	img_temp[x + y * WSS] = ret_colors(raytrace(x, y, e));
 			x += 1;
 		}
 		y += 1;
@@ -69,12 +69,12 @@ void	anti_aliasing_on(t_rt *e, unsigned int *img_temp)
 			x1 = 0;
 			while (x < WSS / 2)
 			{
-				mlx_pixel(x, y, e, AVERAGE(AVERAGE
+		/*		mlx_pixel(x, y, e, AVERAGE(AVERAGE
 				(img_temp[x1 + y1 * WSS],
 				img_temp[(x1 + 1) + (y1 * WSS)]),
 				AVERAGE(img_temp[x1 + (y1 + 1) * WSS],
 				img_temp[(x1 + 1) + (y1 + 1) * WSS])));
-				x1 += 1;
+		*/		x1 += 1;
 			}
 			y1 += 1;
 		}
@@ -91,7 +91,7 @@ void	anti_supersampler(t_rt *e)
 	x1 = WSS * HSS;
 	while (x < x1)
 	{
-		((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
+		//((unsigned int *)e->mlx.data)[x] = e->img_temp[x];
 		x += 1;
 	}
 }
@@ -111,12 +111,12 @@ void	super_sampler(t_rt *e)
 		x1 = 0;
 		while (x < WSS / 2)
 		{
-			((unsigned int *)e->mlx.data)[x + y * WSS / 2] = AVERAGE(
+		/*	((unsigned int *)e->mlx.data)[x + y * WSS / 2] = AVERAGE(
 				AVERAGE(e->img_temp[x1 + y1 * WSS],
 					e->img_temp[(x1 + 1) + (y1 * WSS)]),
 				AVERAGE(e->img_temp[x1 + (y1 + 1) * WSS],
 					e->img_temp[(x1 + 1) + (y1 + 1) * WSS]));
-			x1 += 1;
+		*/	x1 += 1;
 		}
 		y1 += 1;
 	}
