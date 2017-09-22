@@ -24,7 +24,7 @@ SRC			=	color.c \
 				raytrace.c \
 				set_ocl.c \
 				filters.c \
-				filters_anaglyph.c \
+				filters2.c \
 				copyrt.c \
 				thread.c \
 				matrix.c \

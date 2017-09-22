@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/22 02:05:18 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/20 22:16:34 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,27 @@ int			create_type(char *type, t_rt *e)
 	return (0);
 }
 
+static void free_word(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
+
 void		store_type_or_data(char *line, t_rt *e)
 {
 	char	**tab;
 	int		last;
-	int		i;
 
 	tab = ft_split_whitespace(line);
 	if (tab && tab[0] && (last = create_type(tab[0], e)))
 		e->scene.last = last;
 	if (tab && tab[0] && tab[1])
 		set_last(e, tab);
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+	free_word(tab);
 }
 
 static int	is_file(char *path)
@@ -81,7 +87,7 @@ int			parse_obj(t_rt *e, int fd)
 int			parse_filename(t_rt *e, char *filename)
 {
 	int		fd;
-	int		tmp;
+	int 	tmp;
 
 	SFILE = ft_strdup(filename);
 	if ((fd = is_file(SFILE)) > -1)
@@ -113,13 +119,16 @@ int			parse_args(char **argv, int argc, t_rt *e)
 		else if (!ft_strcmp("-s", argv[i]))
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-a", argv[i]))
-			e->scene.supersampling = 2;
+		 	e->scene.supersampling = 2;
 		else
 			return (0);
 		i += 2;
 	}
 	if ((fd = is_file(SFILE)) > -1)
 		if (parse_obj(e, fd))
-			return (create_complex(e));
+		{
+			create_complex(e);
+			return (1);
+		}
 	return (0);
 }

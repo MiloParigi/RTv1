@@ -120,6 +120,7 @@
 # define KEY_4		21
 # define KEY_5		23
 # define KEY_6		22
+# define KEY_7		26
 # define PLUS		69
 # define MINUS		78
 # define UP			126
@@ -141,6 +142,7 @@
 # define DATA e->mlx.data
 
 # define RES e->file.reso
+# define RES_BUFF e->file.reso_buff
 # define ALIASING e->file.aliasing
 # define SS (e->scene.supersampling)
 # define HAUTEUR e->file.haut
@@ -294,6 +296,7 @@ typedef struct		s_file
 	int				larg;
 	int 			fdp;
 	int 			reso;
+	int				reso_buff;
 	int				aliasing;
 }					t_file;
 
@@ -382,7 +385,7 @@ t_matiere			create_matiere(void);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
-int 				create_complex(t_rt *e);
+void 				create_complex(t_rt *e);
 
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -397,6 +400,8 @@ void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
 void				fl_sepia_apply(t_rt *e);
 void				fl_black_and_white(t_rt *e);
+void				fl_border_limits(t_rt *e);
+void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
 void				fl_anaglyph(t_rt *e);
 //Debug
@@ -495,6 +500,7 @@ void				matrix_init(t_rt *e);
 // void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
 void				fl_anaglyph(t_rt *e);
+void				fl_motionblur(t_rt *e);
 
 //GTK
 // int					parse_filename(t_rt *e, char *filename);

@@ -6,44 +6,44 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/22 01:52:28 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/20 22:29:22 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void			pixel_to_image(int x, int y, t_rt *e, int color)
+void    pixel_to_image(int x, int y, t_rt *e, int color)
 {
-	int			max_x;
-	int			max_y;
-	int			start_y;
+    int max_x;
+    int max_y;
+    int start_y;
 
-	x = x * RES;
-	y = y * RES;
-	start_y = y;
-	max_x = x + RES;
-	max_y = y + RES;
-	while (x <= max_x)
-	{
-		while (y <= max_y)
-		{
-			if ((x >= 0 && y >= 0) || (x < RES_W && y < RES_H))
-			{
-				if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
-					mlx_pixel(x, y, e, 0x333333);
-				else
-					mlx_pixel(x, y, e, color);
-			}
-			y++;
-		}
-		y = start_y;
-		x++;
-	}
+    x = x * RES;
+    y = y * RES;
+    start_y = y;
+    max_x = x + RES;
+    max_y = y + RES;
+    while (x <= max_x)
+    {
+        while (y <= max_y)
+        {
+            if ((x >= 0 && y >= 0 ) || (x < RES_W && y < RES_H ))
+            {
+                if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
+                    mlx_pixel(x, y, e, 0x333333);
+                else
+                    mlx_pixel(x, y, e, color);
+            }
+            y++;
+        }
+        y = start_y;
+        x++;
+    }
 }
 
-void			mlx_pixel(int x, int y, t_rt *e, int color)
+void	mlx_pixel(int x, int y, t_rt *e, int color)
 {
-	int			pos;
+	int		pos;
 
 	if (x < LARGEUR && y < HAUTEUR)
 	{
@@ -54,7 +54,9 @@ void			mlx_pixel(int x, int y, t_rt *e, int color)
 	}
 }
 
-void			filters(t_rt *e)
+
+
+void	filters(t_rt *e)
 {
 	if (e->scene.filters == 1)
 		fl_sepia_apply(e);
@@ -62,13 +64,11 @@ void			filters(t_rt *e)
 		fl_black_and_white(e);
 	if (e->scene.filters == 3)
 		fl_revers(e);
-	if (e->scene.filters == 4)
-		fl_anaglyph(e);
-	disp_cam(e, 0x00FFFFFF);
-	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
+	if (e->scene.filters == 6)
+		fl_motionblur(e);
 }
 
-void			frame(t_rt *e)
+void	frame(t_rt *e)
 {
 	t_rt		**th_e;
 	int			i;
@@ -76,23 +76,36 @@ void			frame(t_rt *e)
 	int			x;
 	int			y;
 
+	matrix_init(e);
 	th_e = launch_thread(e);
-	i = -1;
-	while (++i < NB_THREADS)
+	i = 0;
+	i2 = 0;
+
+	while (i < NB_THREADS)
 	{
 		y = th_e[i]->thread.y / ALIASING;
-		i2 = 0;
+		// printf("%f\n", th_e[i]->thread.y/ ALIASING);
+		// printf("%f \n\n", th_e[i]->thread.max_y/ ALIASING);
 		while (y < th_e[i]->thread.max_y / ALIASING)
 		{
-			x = -1;
-			while (++x < th_e[i]->thread.w / ALIASING)
+			x = 0;
+			while (x < th_e[i]->thread.w / ALIASING)
 			{
-				pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// if (e->scene.filters == 5)
+					pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				// else
+				// 	pixel_to_image(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));				
+				// mlx_pixel(x, y, e, ret_colors(th_e[i]->thread.colors[i2]));
+				++x;
 				++i2;
 			}
 			++y;
 		}
+		i2 = 0;
+		++i;
 	}
 	filters(e);
 	free(th_e);
+	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
+	disp_cam(e, 0x00FFFFFF);
 }

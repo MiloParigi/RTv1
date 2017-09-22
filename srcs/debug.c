@@ -37,6 +37,8 @@ void	disp_cam(t_rt *e, int color)
 	free(tmp);
 	mlx_string_put(INIT, WIN, 10, 130, color, "Position Z");
 	mlx_string_put(INIT, WIN, 150, 130, color, (tmp = ft_itoa(e->scene.cam.pos.z)));
+	mlx_string_put(INIT, WIN, 10, 150, color, "Resolution");
+	mlx_string_put(INIT, WIN, 150, 150, color, (tmp = ft_itoa(RES)));
 	free(tmp);
 }
 
@@ -59,11 +61,4 @@ void	disp_vec(t_vec3 vec, char *name)
 	if (name != NULL)
 		ft_putstr(name);
 	printf("X = %f & Y = %f & Z = %f\n", vec.x, vec.y, vec.z);
-}
-
-int				ft_close(void *param)
-{
-	param = NULL;
-	exit(42);
-	return (0);
 }

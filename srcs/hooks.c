@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/22 01:54:58 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/22 01:55:06 by mhalit           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "rt.h"
 
 static	void	key(t_rt *e)
@@ -21,6 +9,13 @@ static	void	key(t_rt *e)
 	frame(e);
 }
 
+int				ft_close(void *param)
+{
+	param = NULL;
+	exit(42);
+	return (0);
+}
+
 int				no_event(void *param)
 {
 	t_rt	*e;
@@ -29,6 +24,21 @@ int				no_event(void *param)
 	key(e);
 	return (OK);
 }
+
+int				nbrs_move_keys(t_rt *e)
+{
+	return (	e->keys.key_w +
+				e->keys.key_a +
+				e->keys.key_s +
+				e->keys.key_d +
+				e->keys.key_up +
+				e->keys.key_left +
+				e->keys.key_down +
+				e->keys.key_right +
+				e->keys.key_plus +
+				e->keys.key_minus);
+}
+
 
 int				keypress(int keycode, void *param)
 {
@@ -53,6 +63,10 @@ int				keypress(int keycode, void *param)
 		1 : e->keys.key_plus;
 	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ?
 		1 : e->keys.key_minus;
+	// printf("(%d)\n", nbrs_move_keys(e));
+	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_move_keys(e) >= 1)
+		if (RES < 8)
+			RES = 8;
 	onepress(keycode, e);
 	key(e);
 	return (keycode);
@@ -79,6 +93,8 @@ int				keyrelease(int keycode, void *param)
 		0 : e->keys.key_plus;
 	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ?
 		0 : e->keys.key_minus;
+	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_move_keys(e) == 0)
+		RES = RES_BUFF;
 	return (keycode);
 }
 
