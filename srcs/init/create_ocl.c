@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_ocl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 05:32:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 00:55:35 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_color			c_color(float r, float g, float b)
 {
 	t_color		color;
 
-	color.r = ft_map(r, 255, 0, 0.5);
-	color.g = ft_map(g, 255, 0, 0.5);
-	color.b = ft_map(b, 255, 0, 0.5);
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	return (color);
 }
 

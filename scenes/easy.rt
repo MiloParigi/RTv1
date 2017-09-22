@@ -2,12 +2,11 @@ camera:
 	pos: 0 0 -1000
 	dir: 0 0 0
 	fov: 45
+
 light:
 	pos: 800 0 -400
-	intensity: 1
 light:
 	pos: 100 700 -400
-	intensity: 0.7
 
 * BOX
 
@@ -32,6 +31,16 @@ sphere:
 	pos: 75 20 100
 	radius: 50
 	color: 0 250 0
+
+sphere:
+	radius: 30
+	color: 255 255 255
+	pos: 800 0 -400
+
+sphere:
+	radius: 30
+	color: 255 255 255
+	pos: 100 700 -400
 
 cone:
 	pos: 100 200 0

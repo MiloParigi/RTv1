@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by myernaux          #+#    #+#             */
-/*   Updated: 2017/09/21 19:48:41 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 01:13:31 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vec3	cylinder_norm(t_obj obj, t_ray ray)
+t_vec3	cylinder_norm(t_obj cyl, t_vec3 poi)
+{
+	t_vec3		normal;
+	t_vec3		tmp;
+	t_vec3		project;
+	float		dot;
+
+	tmp = vec_sub3(poi, cyl.pos);
+	dot = vec_dot3(tmp, cyl.vector);
+	project = vec_scale3(cyl.vector, dot);
+	normal = vec_sub3(tmp, project);
+	return (vec_norme3(normal));
+}
+
+/*t_vec3	cylinder_norm(t_obj obj, t_vec3 poi)
 {
 	float	m;
 
-	m = vec_dot3(ray.dir, vec_scale3(obj.vector, obj.t)) + vec_dot3(vec_sub3(ray.pos, obj.pos), obj.vector);
+	m = vec_dot3(poi, vec_scale3(obj.vector, obj.t)) + vec_dot3(vec_sub3(poi, obj.pos), obj.vector);
 	return (vec_norme3(vec_sub3(obj.pos, vec_scale3(obj.vector, obj.t))));
-}
-
-float	intensity_cylinder(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
-{
-	t_vec3		dist_to_light;
-	float		intensity;
-
-	(void)e;
-	(void)cylinder;
-	dist_to_light = vec_sub3(light.ray.pos, poi);
-	intensity = 0.5 * ft_map(get_length(dist_to_light),
-		2000 * light.intensity, 500, 200);
-	return (intensity > 0) ? intensity : 0;
-}
+}*/
 
 float	intersect_cylinder(t_ray ray, t_obj cyl)
 {

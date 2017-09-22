@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:58:43 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/20 22:54:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 02:52:56 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			onepress(int keycode, t_rt *e)
 	e->scene.filters = (keycode == KEY_3) ? 2 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_4) ? 3 : e->scene.filters;
 	if (keycode == LSHIFT)
-		AMBIENT_LIGHT += (AMBIENT_LIGHT == 1) ? -1 : 0.05;
+		AMBIENT_LIGHT += ((int)AMBIENT_LIGHT == 1) ? -1 : 0.05;
 	RES += (keycode == PAGE_UP && RES < 200) ? 1 : 0;
 	RES -= (keycode == PAGE_DOWN && RES > 1) ? 1 : 0;
 	if (keycode == 50)

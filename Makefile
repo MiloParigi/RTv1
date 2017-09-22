@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+         #
+#    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/09/20 23:09:42 by mparigi          ###   ########.fr        #
+#    Updated: 2017/09/22 05:14:48 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			=	color.c \
 				intersect/sphere.c \
 				intersect/cone.c \
 				intersect/intersect.c \
+				intersect/intensity.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \

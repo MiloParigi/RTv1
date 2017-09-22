@@ -6,50 +6,22 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/21 19:57:33 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 02:40:55 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light light)
-{
-	t_ray	ray;
-	float	dist;
-	float	dist_to_light;
-	t_vec3	n;
-
-	n = vec_norme3(vec_sub3(light.ray.pos, poi));
-	dist_to_light = get_length(n);
-	ray = c_ray(vec_add3(poi, n), n);
-	dist = get_min_dist(e, ray);
-	if (dist > 0 && dist < dist_to_light)
-		return (1);
-	else
-		return (0);
-}
-
-t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
+t_color			get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi)
 {
 	float		intensity;
-	float		tmp;
 	int			i;
 
 	i = 0;
 	intensity = 0;
 	while (i < e->scene.nbr_light)
 	{
-		if (obj.type == SPHERE)
-			tmp = intensity_sphere(poi, obj, e->CLIGHT);
-		if (obj.type == PLANE)
-			tmp = intensity_plane(e, poi, obj, e->CLIGHT);
-		if (obj.type == CYLINDER)
-		 	tmp = intensity_cylinder(e, poi, obj, e->CLIGHT);
-		if (obj.type == CONE)
-			tmp = intensity_cone(e, poi, obj, e->CLIGHT);
-		if (obj_in_shadow(e, poi, e->CLIGHT))
-			tmp -= 100 - AMBIENT_LIGHT;
-		intensity += ((tmp > 2 * AMBIENT_LIGHT) ? tmp : 2 * AMBIENT_LIGHT);
+		intensity += intensity_obj(e, poi, obj, e->CLIGHT, ray);
 		i++;
 	}
 	return ((i <= e->scene.nbr_light && intensity >= 0)
@@ -81,16 +53,16 @@ float			get_min_dist(t_rt *e, t_ray ray)
 static t_color	get_pxl_color(t_rt *e, t_ray ray)
 {
 	float		min_dist;
-	t_vec3		point_of_impact;
+	t_vec3		poi;
 	t_color		color;
 
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray)) == -1)
 		return ((t_color){0, 0, 0, 0});
-	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
+	poi = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
-		color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
+		color = get_color(e, e->scene.obj[e->scene.id], ray, poi);
 	return (color);
 }
 
