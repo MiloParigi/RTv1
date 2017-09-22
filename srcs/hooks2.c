@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:58:43 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/20 22:54:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 01:58:16 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			exportimg(t_rt *e)
 {
-	t_file 		export;
+	t_file		export;
 	int			pos;
 
 	ft_putendl("Exporting image ...");

@@ -382,7 +382,7 @@ t_matiere			create_matiere(void);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
-void 				create_complex(t_rt *e);
+int 				create_complex(t_rt *e);
 
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -397,8 +397,6 @@ void				frame(t_rt *e);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
 void				fl_sepia_apply(t_rt *e);
 void				fl_black_and_white(t_rt *e);
-void				fl_border_limits(t_rt *e);
-void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
 void				fl_anaglyph(t_rt *e);
 //Debug

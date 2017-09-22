@@ -54,7 +54,7 @@ static void		create_mickey(t_obj obj, t_rt *e, int i)
 	SOBJ.color = obj.color;
 }
 
-void create_complex(t_rt *e)
+int create_complex(t_rt *e)
 {
 		int i;
 
@@ -67,4 +67,5 @@ void create_complex(t_rt *e)
 				create_dick(e->COBJ, e, i);
 			++i;
 		}
+		return (1);
 }

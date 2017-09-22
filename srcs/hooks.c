@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/22 01:54:58 by mhalit            #+#    #+#             */
+/*   Updated: 2017/09/22 01:55:06 by mhalit           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 static	void	key(t_rt *e)
@@ -7,13 +19,6 @@ static	void	key(t_rt *e)
 	else
 		move_obj(e, 10);
 	frame(e);
-}
-
-int				ft_close(void *param)
-{
-	param = NULL;
-	exit(42);
-	return (0);
 }
 
 int				no_event(void *param)

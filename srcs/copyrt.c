@@ -6,7 +6,7 @@
 /*   By: jribeiro <jribeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 23:14:17 by jribeiro          #+#    #+#             */
-/*   Updated: 2017/09/20 05:36:21 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 01:36:58 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,10 @@ t_scene				copy_scene(t_scene scene)
 	t_scene			copy;
 	int				i;
 
-	i = 0;
+	i = -1;
 	copy.lights = (t_light *)malloc(scene.nbr_light * sizeof(t_light));
-	while (i < scene.nbr_light)
-	{
+	while (++i < scene.nbr_light)
 		copy.lights[i] = copy_light(scene.lights[i]);
-		++i;
-	}
 	copy.obj = (t_obj *)malloc(scene.nbr_obj * sizeof(t_obj));
 	i = 0;
 	while (i < scene.nbr_obj)

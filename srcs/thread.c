@@ -114,8 +114,7 @@ t_rt            **launch_thread(t_rt *e)
     if (!(th_e = (t_rt **)malloc(NB_THREADS * sizeof(t_rt *))))
         return (NULL);
 	i = 0;
-	// printf("(%d -- %d) = ", LARGEUR * ALIASING, HAUTEUR * ALIASING);
-	// printf("(%d -- %d)\n", LARGEUR * ALIASING / RES, HAUTEUR * ALIASING / RES);
+	matrix_init(e);
 	while (i < NB_THREADS)
 	{
 		th_e[i] = copy_rt(e);
@@ -125,8 +124,6 @@ t_rt            **launch_thread(t_rt *e)
 		th_e[i]->thread.w /= RES;
 		th_e[i]->thread.y = ((th_e[i]->thread.h) / NB_THREADS) * i;
 		th_e[i]->thread.max_y = th_e[i]->thread.y + ((th_e[i]->thread.h) / NB_THREADS);
-
-		// printf("(%.1f - %.1f)\n", th_e[i]->thread.y, th_e[i]->thread.max_y);
 		if (ALIASING == 1)
 			pthread_create(&th[i], NULL, drawline, (void *)th_e[i]);
 		else if (ALIASING == 2)
@@ -136,10 +133,8 @@ t_rt            **launch_thread(t_rt *e)
 			ft_putstr("anti-aliasing != (0 || 1)");
 			exit(42);
 		}
-
 		++i;
 	}
-	// printf("\n");
 	i = 0;
 	while (i < NB_THREADS)
 	{

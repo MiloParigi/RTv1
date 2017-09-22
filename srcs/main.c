@@ -6,7 +6,7 @@
 /*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 20:02:47 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/22 02:00:52 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void			display_args(void)
 	ft_putstr("-a : Set the antialiasing technique to the image\n");
 	exit(42);
 }
-
 
 static void		key_init(t_rt *e)
 {
@@ -67,7 +66,8 @@ void			ft_start_rt(t_rt *e)
 {
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
-	e->mlx.window = mlx_new_window(e->mlx.init, e->file.larg, e->file.haut, "RT Again");
+	e->mlx.window = mlx_new_window(e->mlx.init, e->file.larg,
+			e->file.haut, "RT Again");
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
 	&e->mlx.endian);
@@ -94,8 +94,8 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		display_args();
-	 	//ft_gtk_start(e, argc, argv);
+		display_args(); 
+		/*ft_gtk_start(e, argc, argv);*/
 	}
 	return (0);
 }

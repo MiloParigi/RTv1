@@ -60,3 +60,10 @@ void	disp_vec(t_vec3 vec, char *name)
 		ft_putstr(name);
 	printf("X = %f & Y = %f & Z = %f\n", vec.x, vec.y, vec.z);
 }
+
+int				ft_close(void *param)
+{
+	param = NULL;
+	exit(42);
+	return (0);
+}
