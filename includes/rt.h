@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/19 17:28:54 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/23 20:31:49 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,12 +179,6 @@
 # define GTK_W 300
 # define GTK_H 200
 
-typedef struct		s_vec2
-{
-	float			x;
-	float			y;
-}					t_vec2;
-
 typedef struct		s_ray
 {
 	t_vec3			pos;
@@ -232,10 +226,11 @@ typedef struct		s_mlx
 
 typedef struct		s_texture
 {
-	void			*img;
+	char			is_init;
+	void			*ptr;
 	char			*data;
 	int				bpp;
-	int				size_l;
+	int				sizl;
 	int				endian;
 	int				width;
 	int				height;
@@ -243,16 +238,11 @@ typedef struct		s_texture
 
 typedef struct		s_matiere
 {
-	t_color			diffuse;
-	float			reflex;
-	float			specular;
-	float			shininess;
+	float			diff;
+	float			spec;
 	float			reflect;
-	float			transparency;
-	float			absorbtion;
-	char			*coeff;
-	char			opacite;
-	t_texture		texture;
+	float			refract;
+	t_texture		tex;
 }					t_matiere;
 
 typedef struct	s_keys
@@ -274,20 +264,6 @@ typedef struct	s_keys
 	char			key_roty_left;
 	char			key_roty_right;
 }					t_keys;
-
-typedef struct		s_calc
-{
-	float			a;
-	float			b;
-	float			c;
-	float			d;
-	float			t0;
-	float			t1;
-	float			disc;
-	float			eq;
-	t_vec3			len;
-	float			sqrtdisc;
-}					t_calc;
 
 typedef struct		s_file
 {
@@ -390,6 +366,7 @@ void 				create_complex(t_rt *e);
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
 int					set_camera(t_rt *e, char **a);
+int					set_mat(t_rt *e, char **a);
 int					set_last(t_rt *e, char **params);
 
 t_color				c_color(float r, float g, float b);
@@ -404,6 +381,7 @@ void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
 void				fl_anaglyph(t_rt *e);
+
 //Debug
 void				disp_cam(t_rt *e, int color);
 void				disp_mtrx4(t_mtrx4 matrix, char *name);
@@ -469,14 +447,14 @@ float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
 
-float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light, t_ray ray);
+float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light);
 float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
-float				spec_intensity(t_obj obj, t_ray light, t_ray ray, t_vec3 norm);
+float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 
-t_color				get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi);
+t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c);

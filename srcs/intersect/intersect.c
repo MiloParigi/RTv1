@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/22 05:14:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/23 18:23:05 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,6 @@ float			intersect_obj(t_ray ray, t_obj obj)
 	return (DIST_MAX);
 }
 
-// float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
-// {
-// 	float	intensity;
-// 	t_vec3	norm;
-
-// 	(void)e;
-// 	intensity = 0;
-// 	light.ray.dir = vec_norme3(vec_sub3(light.ray.pos, poi));
-// 	norm = object_norm(obj, light.ray);
-// 	//Ambiant light
-// 	//Diffuse light
-// 	//Spec light
-// 	return (intensity);
-// }
 t_vec3			object_norm(t_obj obj, t_vec3 poi)
 {
 	if (obj.type == CYLINDER)

@@ -24,13 +24,11 @@ sphere:
 	pos: 220 20 -40
 	radius: 40
 	color: 0 255 0
-	reflection: 1
 *Sphere Red
 sphere:
 	pos: -220 20 -40
 	radius: 40
 	color: 255 0 0
-	reflection: 0.3
 cylinder:
 	pos: 0 150 0
 	vector: 1 1 0

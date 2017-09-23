@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/09 20:14:59 by bbeldame          #+#    #+#             */
+/*   Created: 2017/04/09 20:14:59 by mparigi          #+#    #+#             */
 /*   Updated: 2017/09/22 05:54:08 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -22,12 +22,6 @@ t_color			copy_color(t_color color)
 	return (newcolor);
 }
 
-/*
-** @param color rbg between 0 and 255
-** We convert the number 0 - 255 to 0 - 0.5
-** @todo : explain why
-*/
-
 t_color			color_mult(t_color color, float taux)
 {
 	t_color		new_color;
@@ -36,9 +30,9 @@ t_color			color_mult(t_color color, float taux)
 	new_color.r = color.r * taux;
 	new_color.g = color.g * taux;
 	new_color.b = color.b * taux;
-	new_color.r = (new_color.r > 255) ? 255 : new_color.r;
-	new_color.g = (new_color.g > 255) ? 255 : new_color.g;
-	new_color.b = (new_color.b > 255) ? 255 : new_color.b;
+	new_color.r = (new_color.r > 255 || (new_color.r == 0 && taux > 1.1)) ? 255 : new_color.r;
+	new_color.g = (new_color.g > 255 || (new_color.g == 0 && taux > 1.1)) ? 255 : new_color.g;
+	new_color.b = (new_color.b > 255 || (new_color.b == 0 && taux > 1.1)) ? 255 : new_color.b;
 	new_color.r = (new_color.r < 0) ? 0 : new_color.r;
 	new_color.g = (new_color.g < 0) ? 0 : new_color.g;
 	new_color.b = (new_color.b < 0) ? 0 : new_color.b;

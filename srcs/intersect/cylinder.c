@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by myernaux          #+#    #+#             */
 /*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
@@ -37,15 +37,18 @@ float		vec_dot2(t_vec3 u, t_vec3 v, t_vec3 axis)
 
 float	intersect_cylinder(t_ray ray, t_obj obj)
 {
-	float		a;
-	float		b;
-	float		c;
-	t_vec3		x;
+	float	a;
+	float	b;
+	float	c;
+	float	dotdv;
+	float	dotxv;
+	t_vec3	x;
 
 	x = vec_sub3(ray.pos, obj.pos);
-	obj.vector = vec_norme3(obj.vector);
-	a = vec_dot2(ray.dir, ray.dir, obj.vector);
-	b = 2 * vec_dot2(ray.dir, x, obj.vector);
-	c = vec_dot2(x, x, obj.vector) - obj.r * obj.r;
+	dotdv = vec_dot3(ray.dir, obj.vector);
+	dotxv = vec_dot3(x, obj.vector);
+	a = vec_dot3(ray.dir, ray.dir) - p(dotdv);
+	b = 2 * (vec_dot3(ray.dir, x) - dotdv * dotxv);
+	c = vec_dot3(x, x) - p(dotxv) - p(obj.r);
 	return (get_res_of_quadratic(a, b, c));
 }
