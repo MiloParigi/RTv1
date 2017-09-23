@@ -99,34 +99,3 @@ void				fl_border_limits(t_rt *e)
 		}
 	}
 }
-
-void				fl_border(t_rt *e)
-{
-	static int		weight[3][3] = { { -1,  0,  1 }, { -2,  0,  2 }, { -1,  0,  1 } };
-	int				ptr[2] = { 0, 0 };
-	float			pxval;
-	float			min;
-	float			max;
-	int				ptw[2];
-	unsigned char	*img;
-
-	img = (unsigned char *)DATA;
-	min = 9223372036854775800;
-	max = -9223372036854775800;
-	while (++ptr[1] < (HAUTEUR * 4) - 1)
-	{
-		while (++ptr[0] < (LARGEUR * 4) - 1)
-		{
-			ptw[0] = -2;
-			ptw[1] = -2;
-			pxval = 0.0;
-			while (++ptw[1] <= 1)
-			{
-				while (++ptw[0] <= 1)
-					pxval += weight[ptw[1] + 1][ptw[0] + 1] * (*(int *)(img + (ptr[1] * LARGEUR) + ptr[0]));
-			}
-			min = FT_MIN(pxval, min);
-			max = FT_MAX(pxval, max);
-		}
-	}
-}

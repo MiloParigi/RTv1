@@ -39,7 +39,6 @@ int				nbrs_move_keys(t_rt *e)
 				e->keys.key_minus);
 }
 
-
 int				keypress(int keycode, void *param)
 {
 	t_rt	*e;

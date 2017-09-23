@@ -67,10 +67,9 @@ void		fl_motionblur(t_rt *e)
 	// (LARGEUR * HAUTEUR * 4)
 	while (i < (LARGEUR * HAUTEUR * 4))
 	{
-		printf("blue  = (%d)\n",DATA[i]);
-		printf("green = (%d)\n",DATA[i + 1]);
-		printf("red   = (%d)\n",DATA[i + 2]);
-		
+		// printf("blue  = (%d)\n",DATA[i]);
+		// printf("green = (%d)\n",DATA[i + 1]);
+		// printf("red   = (%d)\n",DATA[i + 2]);
 		// printf("---------BLUE-------\n");
 		DATA[i] = ft_average_blur(e, i, 5);
 		// printf("---------GREEN-------\n");

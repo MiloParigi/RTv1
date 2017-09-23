@@ -29,9 +29,9 @@ void    pixel_to_image(int x, int y, t_rt *e, int color)
         {
             if ((x >= 0 && y >= 0 ) || (x < RES_W && y < RES_H ))
             {
-                if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
-                    mlx_pixel(x, y, e, 0x333333);
-                else
+                // if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
+                //     mlx_pixel(x, y, e, 0x333333);
+                // else
                     mlx_pixel(x, y, e, color);
             }
             y++;

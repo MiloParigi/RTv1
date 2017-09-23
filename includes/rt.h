@@ -428,12 +428,12 @@ void				onepress(int keycode, t_rt *e);
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
-//Light
-t_vec3				cone_norm(t_obj obj, t_ray ray);
-t_vec3				object_norm(t_obj obj, t_ray ray);
+//Normal
+t_vec3				cone_norm(t_obj obj, t_vec3 poi);
+t_vec3				object_norm(t_obj obj, t_vec3 poi);
 t_vec3				plane_norm(t_obj obj);
-t_vec3				sphere_norm(t_obj obj, t_ray ray);
-t_vec3				cylinder_norm(t_obj obj, t_ray ray);
+t_vec3				sphere_norm(t_obj obj, t_vec3 poi);
+t_vec3				cylinder_norm(t_obj obj, t_vec3 poi);
 
 //Multithreading
 t_light				copy_light(t_light light);
@@ -469,23 +469,19 @@ float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
 
-float				intensity_cone(t_rt *e, t_vec3 poi,
-						t_obj cone, t_light light);
-float				intensity_sphere(t_vec3 poi,
-						t_obj sphere, t_light light);
-float				intensity_plane(t_rt *e, t_vec3 poi,
-						t_obj plane, t_light light);
-float				intensity_cylinder(t_rt *e, t_vec3 poi,
-						t_obj cyl, t_light light);
+float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light, t_ray ray);
+float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
+float				spec_intensity(t_obj obj, t_ray light, t_ray ray, t_vec3 norm);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 
-t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
+t_color				get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
-int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light light);
+int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c);
 
+// XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
 void				xml_read_error();
