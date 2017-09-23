@@ -480,7 +480,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c);
-
+t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);

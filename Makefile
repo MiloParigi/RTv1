@@ -31,6 +31,7 @@ SRC			=	color.c \
 				debug.c \
 				hooks.c \
 				hooks2.c \
+				reflexion.c \
 				intersect/plane.c \
 				intersect/cylinder.c \
 				intersect/sphere.c \

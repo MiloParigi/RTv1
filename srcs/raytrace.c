@@ -53,16 +53,21 @@ float			get_min_dist(t_rt *e, t_ray ray)
 static t_color	get_pxl_color(t_rt *e, t_ray ray)
 {
 	float		min_dist;
-	t_vec3		poi;
+	t_vec3		point_of_impact;
 	t_color		color;
 
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray)) == -1)
 		return ((t_color){0, 0, 0, 0});
-	poi = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
+	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
-		color = get_color(e, e->scene.obj[e->scene.id], ray, poi);
+	{
+		if (e->scene.obj[e->scene.id].mat.reflex)
+			return (get_reflected_color(e, ray, point_of_impact, get_color(e, e->scene.obj[e->scene.id], ray, point_of_impact)));
+		else
+			color = get_color(e, e->scene.obj[e->scene.id], ray, point_of_impact);
+	}
 	return (color);
 }
 
