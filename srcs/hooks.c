@@ -64,8 +64,8 @@ int				keypress(int keycode, void *param)
 		1 : e->keys.key_minus;
 	// printf("(%d)\n", nbrs_move_keys(e));
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_move_keys(e) >= 1)
-		if (RES < 3)
-			RES = 3;
+		if (RES < 6)
+			RES = 6;
 	onepress(keycode, e);
 	key(e);
 	return (keycode);

@@ -327,18 +327,12 @@ typedef struct		s_scene
 	int				nbr_obj;
 	char			nbr_tot;
 	int 			id;
+	t_vec3			last_impact;
 	int				supersampling;
 	int 			filters;
 	int				selected;
 	t_camera		cam;
 }					t_scene;
-
-typedef struct		s_screen
-{
-	float			pos;
-	float			pitch;
-	float			yaw;
-}					t_screen;
 
 typedef struct		s_mthread
 {
@@ -481,6 +475,7 @@ float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c);
 t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
+t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);

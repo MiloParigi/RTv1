@@ -49,7 +49,7 @@ void			init_rt(t_rt *e)
 	e->mlx.init = mlx_init();
 	LARGEUR = 1024;
 	HAUTEUR = 768;
-	RES = 3;
+	RES = 8;
 	RES_BUFF = RES;
 	ALIASING = 1;
 	e->scene.nbr_obj = 0;
