@@ -55,7 +55,10 @@ void			onepress(int keycode, t_rt *e)
 	RES += (keycode == PAGE_UP && RES < 200) ? 1 : 0;
 	RES -= (keycode == PAGE_DOWN && RES > 1) ? 1 : 0;
 	if (keycode == PAGE_UP || keycode == PAGE_DOWN)
+	{
 		RES_BUFF = RES;
+		frame(e);
+	}
 	if (keycode == 50)
 		exportimg(e);
 }

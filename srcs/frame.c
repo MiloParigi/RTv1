@@ -76,6 +76,8 @@ void	frame(t_rt *e)
 	int			x;
 	int			y;
 
+	e->frame++;
+	// printf("%d\n", e->frame);
 	matrix_init(e);
 	th_e = launch_thread(e);
 	i = 0;

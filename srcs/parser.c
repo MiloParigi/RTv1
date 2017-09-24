@@ -113,13 +113,11 @@ int			parse_args(char **argv, int argc, t_rt *e)
 			return (0);
 		}
 		else if (!ft_strcmp("-w", argv[i]))
-			i + 1 < argc ? e->file.larg = ft_atoi(argv[i + 1]) : 0;
+			i + 1 < argc ? LARGEUR = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-h", argv[i]))
-			i + 1 < argc ? e->file.haut = ft_atoi(argv[i + 1]) : 0;
+			i + 1 < argc ? HAUTEUR = ft_atoi(argv[i + 1]) : 0;
 		else if (!ft_strcmp("-s", argv[i]))
 			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
-		else if (!ft_strcmp("-a", argv[i]))
-		 	e->scene.supersampling = 2;
 		else
 			return (0);
 		i += 2;
@@ -127,7 +125,7 @@ int			parse_args(char **argv, int argc, t_rt *e)
 	if ((fd = is_file(SFILE)) > -1)
 		if (parse_obj(e, fd))
 		{
-			create_complex(e);
+			// create_complex(e);
 			return (1);
 		}
 	return (0);
