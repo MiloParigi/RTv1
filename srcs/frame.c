@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/20 22:29:22 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void    pixel_to_image(int x, int y, t_rt *e, int color)
         {
             if ((x >= 0 && y >= 0 ) || (x < RES_W && y < RES_H ))
             {
-                if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
-                    mlx_pixel(x, y, e, 0x333333);
-                else
+                // if (RES > 10 && (x + 1 == max_x || y + 1 == max_y))
+                //     mlx_pixel(x, y, e, 0x333333);
+                // else
                     mlx_pixel(x, y, e, color);
             }
             y++;
@@ -64,8 +64,8 @@ void	filters(t_rt *e)
 		fl_black_and_white(e);
 	if (e->scene.filters == 3)
 		fl_revers(e);
-	if (e->scene.filters == 4)
-		fl_anaglyph(e);
+	if (e->scene.filters == 6)
+		fl_motionblur(e);
 }
 
 void	frame(t_rt *e)
@@ -107,5 +107,5 @@ void	frame(t_rt *e)
 	filters(e);
 	free(th_e);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
-	disp_cam(e);
+	disp_cam(e, 0x00FFFFFF);
 }

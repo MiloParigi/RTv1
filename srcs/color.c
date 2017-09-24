@@ -6,27 +6,11 @@
 /*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 20:14:59 by bbeldame          #+#    #+#             */
-/*   Updated: 2017/09/21 15:01:39 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/09/24 06:51:33 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-t_color			copy_color(t_color color)
-{
-	t_color		newcolor;
-
-	newcolor.r = color.r;
-	newcolor.g = color.g;
-	newcolor.b = color.b;
-	return (newcolor);
-}
-
-/*
-** @param color rbg between 0 and 255
-** We convert the number 0 - 255 to 0 - 0.5
-** @todo : explain why
-*/
 
 t_color			ft_map_color(t_color color1, t_color color2, float taux1)
 {
@@ -43,6 +27,22 @@ t_color			ft_map_color(t_color color1, t_color color2, float taux1)
 	new_color.b = color1.b + color2.b;
 	return (new_color);
 }
+
+t_color			copy_color(t_color color)
+{
+	t_color		newcolor;
+
+	newcolor.r = color.r;
+	newcolor.g = color.g;
+	newcolor.b = color.b;
+	return (newcolor);
+}
+
+/*
+** @param color rbg between 0 and 255
+** We convert the number 0 - 255 to 0 - 0.5
+** @todo : explain why
+*/
 
 t_color			color_mult(t_color color, float taux)
 {
@@ -69,7 +69,7 @@ unsigned int	ret_colors(t_color colo)
 	total = 0;
 	if (colo.r > 0)
 	{
-		temp = (int)colo.r * 65536;
+		temp = (int)colo.r * 256 * 256;
 		total += temp;
 	}
 	if (colo.g > 0)

@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 23:27:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/03 21:46:55 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/10 23:13:18 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,15 @@ t_vec3		prod_vec3_matrx4(t_vec3 vec, t_mtrx4 a)
 	ret.y = vec.x * a.mtrx[4] + vec.y * a.mtrx[5] + vec.z * a.mtrx[6] + a.mtrx[7];
 	ret.z = vec.x * a.mtrx[8] + vec.y * a.mtrx[9] + vec.z * a.mtrx[10] + a.mtrx[11];
 	return (ret);
+}
+
+void			round_matrx4(t_mtrx4 *matrix)
+{
+	int		i;
+
+	i = -1;
+	while (++i <= 15)
+	{
+		matrix->mtrx[i]  = ((float)((int)(matrix->mtrx[i] * 100)) / 100);
+	}
 }

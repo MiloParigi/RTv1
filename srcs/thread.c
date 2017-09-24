@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 22:26:17 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/21 14:01:51 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/08/28 22:26:31 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_color		ft_average(t_color c1, t_color c2, t_color c3, t_color c4)
 {
 	t_color final;
 
-	final.r = (int)(c1.r + c2.r + c3.r + c4.r) >> 2;
-	final.g = (int)(c1.g + c2.g + c3.g + c4.g) >> 2;
-	final.b = (int)(c1.b + c2.b + c3.b + c4.b) >> 2;
+	final.r = (c1.r + c2.r + c3.r + c4.r) / 4;
+	final.g = (c1.g + c2.g + c3.g + c4.g) / 4;
+	final.b = (c1.b + c2.b + c3.b + c4.b) / 4;
 	return (final);
 }
 

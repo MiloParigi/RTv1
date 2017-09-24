@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/20 20:02:47 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	display_args(void)
+void			display_args(void)
 {
 	ft_putstr("\nusage: rtv1 [-s source] [-w width] [-h height]\n");
 	ft_putstr("-s : Set the specified source file\n");
@@ -42,17 +42,15 @@ static void		key_init(t_rt *e)
 	e->keys.key_roty_left = 0;
 	e->keys.key_plus = 0;
 	e->keys.key_minus = 0;
-	// e->scene.diff = 0.6;
-	// e->scene.spec = 0.2;
-	e->scene.selected = -1;
 }
 
-void		init_rt(t_rt *e)
+void			init_rt(t_rt *e)
 {
 	e->mlx.init = mlx_init();
 	LARGEUR = 1024;
 	HAUTEUR = 768;
-	RES = 5;
+	RES = 3;
+	RES_BUFF = RES;
 	ALIASING = 1;
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_light = 0;
@@ -63,11 +61,10 @@ void		init_rt(t_rt *e)
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
 	e->scene.selected = -1;
-	e->scene.cam.aspect = (float)LARGEUR / (float)HAUTEUR;
 	key_init(e);
 }
 
-void ft_start_rt(t_rt *e)
+void			ft_start_rt(t_rt *e)
 {
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
@@ -76,16 +73,15 @@ void ft_start_rt(t_rt *e)
 	e->mlx.data = mlx_get_data_addr(IMG, &e->mlx.bpp, &e->mlx.size_l,
 	&e->mlx.endian);
 	frame(e);
-	mlx_key_hook(WIN, key_hook, e);
-	// mlx_hook(WIN, 2, 0, keypress, e);
-	// mlx_hook(WIN, 3, 0, keyrelease, e);
-	// mlx_hook(WIN, 17, 0, ft_close, NULL);
-	// mlx_mouse_hook(WIN, select_obj, e);
-	//mlx_mouse_hook(WIN, mouse_hook, e);
+	mlx_hook(WIN, 2, 0, keypress, e);
+	mlx_hook(WIN, 3, 0, keyrelease, e);
+	mlx_hook(WIN, 17, 0, ft_close, NULL);
+	mlx_mouse_hook(WIN, select_obj, e);
+	mlx_loop_hook(INIT, no_event, e);
 	mlx_loop(INIT);
 }
-          
-int			main(int argc, char **argv)
+
+int				main(int argc, char **argv)
 {
 	t_rt	*e;
 
@@ -98,8 +94,9 @@ int			main(int argc, char **argv)
 		ft_start_rt(e);
 	}
 	else
+	{
 		display_args();
 	 	//ft_gtk_start(e, argc, argv);
-
+	}
 	return (0);
 }

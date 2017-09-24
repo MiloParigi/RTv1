@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,45 +12,19 @@
 
 #include "rt.h"
 
-float			intensity_cylinder(t_rt *e, t_vec3 poi, t_obj cylinder, t_light light)
+t_vec3	cylinder_norm(t_obj cyl, t_vec3 poi)
 {
-	t_vec3		dist_to_light;
-	float		intensity;
+	t_vec3		normal;
+	t_vec3		tmp;
+	t_vec3		project;
+	float		dot;
 
-	(void)e;
-	(void)cylinder;
-	dist_to_light = vec_sub3(light.ray.pos, poi);
-	intensity = 0.5 * ft_map(get_length(dist_to_light),
-			2000 * light.intensity, 500, 200);
-	return (intensity > 0) ? intensity : 0;
+	tmp = vec_sub3(poi, cyl.pos);
+	dot = vec_dot3(tmp, cyl.vector);
+	project = vec_scale3(cyl.vector, dot);
+	normal = vec_sub3(tmp, project);
+	return (vec_norme3(normal));
 }
-
-// float			intersect_cylinder(t_ray ray, t_obj cylinder)
-// {
-// 	t_calc		op;
-// 	t_vec3		x;
-
-// 	x = vec_sub3(cylinder.pos, ray.pos);
-// 	op.a = vec_dot3(ray.dir, ray.dir) -
-// 		vec_dot3(ray.dir, cylinder.normal);
-// 	op.c = vec_dot3(x, x) - pow(vec_dot3(x, cylinder.normal), 2) -
-// 		pow(cylinder.r, 2);
-// 	op.b = 2 * (vec_dot3(ray.dir, x) -
-// 	(vec_dot3(ray.dir, cylinder.normal) * vec_dot3(x, cylinder.normal)));
-// 	op.disc = op.b * op.b - 4 * op.a * op.c;
-// 	if (op.disc >= 0)
-// 	{
-// 		op.disc = sqrt(op.disc);
-// 		op.t0 = (-op.b - op.disc) / (2 * op.a);
-// 		op.t1 = (-op.b + op.disc) / (2 * op.a);
-// 		if (op.t0 > op.t1)
-// 			return (op.t1);
-// 		else
-// 			return (op.t0);
-// 	}
-// 	return (DIST_MAX);
-// }
-
 
 float		vec_dot2(t_vec3 u, t_vec3 v, t_vec3 axis)
 {
@@ -69,9 +43,9 @@ float	intersect_cylinder(t_ray ray, t_obj obj)
 	t_vec3		x;
 
 	x = vec_sub3(ray.pos, obj.pos);
-	obj.normal = vec_norme3(obj.normal);
-	a = vec_dot2(ray.dir, ray.dir, obj.normal);
-	b = 2 * vec_dot2(ray.dir, x, obj.normal);
-	c = vec_dot2(x, x, obj.normal) - obj.r * obj.r;
+	obj.vector = vec_norme3(obj.vector);
+	a = vec_dot2(ray.dir, ray.dir, obj.vector);
+	b = 2 * vec_dot2(ray.dir, x, obj.vector);
+	c = vec_dot2(x, x, obj.vector) - obj.r * obj.r;
 	return (get_res_of_quadratic(a, b, c));
 }

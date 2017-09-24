@@ -3,51 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:04:18 by tfaure            #+#    #+#             */
-/*   Updated: 2017/08/21 13:26:34 by tfaure           ###   ########.fr       */
+/*   Updated: 2017/09/22 02:13:48 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float	get_res_of_quadratic(float a, float b, float c)
+t_vec3	sphere_norm(t_obj obj, t_vec3 poi)
 {
-	float	t0;
-	float	t1;
-	float	determinant;
-
-	determinant = b * b - 4 * a * c;
-	if (determinant < 0)
-		return (DIST_MAX);
-	if (determinant == 0)
-		return (-b / (2 * a));
-	determinant = sqrt(determinant);
-	t0 = (-b + determinant) / (2 * a);
-	t1 = (-b - determinant) / (2 * a);
-	return ((t0 > t1) ? t1 : t0);
+	return (vec_norme3(vec_sub3(poi, obj.pos)));
 }
-
-float	intensity_sphere(t_vec3 poi, t_obj sphere, t_light light)
-{
-	float		dist_to_light;
-	t_vec3		vec_to_eyes;
-	t_vec3		vec_to_light;
-	float		intensity;
-
-	vec_to_eyes = vec_norme3(vec_sub3(poi, sphere.pos));
-	vec_to_light = vec_sub3(light.ray.pos, poi);
-	dist_to_light = get_length(vec_to_light);
-	intensity = (vec_dot3(vec_to_eyes, vec_norme3(vec_to_light)) *
-		ft_map(dist_to_light, 1200 * light.intensity, 470, 350));
-	return (intensity);
-}
-
-/*
-** Implementation of :
-** http://hugi.scene.org/online/hugi24/index%20coding%20&%20maths.htm
-*/
 
 float	intersect_sphere(t_ray ray, t_obj sphere)
 {
