@@ -46,21 +46,6 @@ int				no_event(void *param)
 	return (OK);
 }
 
-void new_rt()
-{
-	t_rt	*e;
-
-	e = (t_rt *)malloc(sizeof(t_rt));
-	init_rt(e);
-	ft_gtk_start_launcher(e);
-}
-
-void show_settings(t_rt *e)
-{
-	mlx_destroy_window(INIT, WIN);
-	ft_gtk_start_settings(e);
-}
-
 
 int calcul_res(t_rt *e, int limit)
 {
@@ -69,24 +54,35 @@ int calcul_res(t_rt *e, int limit)
 
 	air = LARGEUR * HAUTEUR;
 	res = 1;
+	if (ALIASING == 2)
+		limit /= 2;
 	while ((air / res) > limit)
 		res++;
+	
 	return (res);
+}
+
+void	auto_res(int keycode, t_rt *e)
+{
+	int		average_res;
+	
+	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
+	{
+		average_res = calcul_res(e, 125000);
+		if (average_res > RES)
+			RES = average_res;
+	}
 }
 
 int				keypress(int keycode, void *param)
 {
 	t_rt	*e;
-	int		average_res;
 	e = (t_rt *)param;
 
 
 	if (keycode == KEY_ESC)
 		exit(42);
-	if (keycode == 45 )
-		new_rt();
-	else if (keycode == 31)
-		show_settings(e);
+
 	e->keys.key_w = (keycode == KEY_W) ? 1 : e->keys.key_w;
 	e->keys.key_a = (keycode == KEY_A) ? 1 : e->keys.key_a;
 	e->keys.key_s = (keycode == KEY_S) ? 1 : e->keys.key_s;
@@ -97,16 +93,10 @@ int				keypress(int keycode, void *param)
 	e->keys.key_right = (keycode == KEY_RIGHT) ? 1 : e->keys.key_right;
 	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ? 1 : e->keys.key_plus;
 	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ? 1 : e->keys.key_minus;
-
 	e->keys.key_n = (keycode == KEY_N) ? 1 : e->keys.key_n;
 	e->keys.key_o = (keycode == KEY_O) ? 1 : e->keys.key_o;
-	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
-	{
-		average_res = calcul_res(e, 125000);
-		if (average_res > RES)
-			RES = average_res;
-	}
 	onepress(keycode, e);
+	auto_res(keycode, e);
 	key(e);
 	return (keycode);
 }
@@ -126,15 +116,13 @@ int				keyrelease(int keycode, void *param)
 	e->keys.key_right = (keycode == KEY_RIGHT) ? 0 : e->keys.key_right;
 	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ? 0 : e->keys.key_plus;
 	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ? 0 : e->keys.key_minus;
-
 	e->keys.key_n = (keycode == KEY_N) ? 0 : e->keys.key_n;
 	e->keys.key_o = (keycode == KEY_O) ? 0 : e->keys.key_o;
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) == 0)
 	{
-		RES = RES_BUFF;		
+		RES = RES_BUFF;
 		frame(e);
 	}
-	// key(e);
 	return (keycode);
 }
 

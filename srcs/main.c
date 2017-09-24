@@ -23,7 +23,7 @@ void			display_args(void)
 	exit(42);
 }
 
-static void		key_init(t_rt *e)
+void		key_init(t_rt *e)
 {
 	e->keys.key_up = 0;
 	e->keys.key_down = 0;
@@ -68,7 +68,7 @@ void			ft_start_rt(t_rt *e)
 	e->gtk.started = 1;	
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
-	printf("(%d,%d)\n", HAUTEUR, LARGEUR);
+	// printf("(%d,%d)\n", HAUTEUR, LARGEUR);
 
 	WIN = mlx_new_window(INIT, LARGEUR, HAUTEUR, "RT");
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);

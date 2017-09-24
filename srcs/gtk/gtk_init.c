@@ -17,11 +17,11 @@ void ft_init_values(t_rt *e)
    e->gtk.values.width = LARGEUR;
    e->gtk.values.height = HAUTEUR;
    e->gtk.values.res = RES;
-   printf("width      = {%d}\n", LARGEUR);
-   printf("height     = {%d}\n", HAUTEUR);
-   printf("RES        = {%d}\n", RES);
-   printf("anti-alias = {%d}\n", ALIASING);
-   printf("started    = (%d)\n", e->gtk.started);
+  //  printf("width      = {%d}\n", LARGEUR);
+  //  printf("height     = {%d}\n", HAUTEUR);
+  //  printf("RES        = {%d}\n", RES);
+  //  printf("anti-alias = {%d}\n", ALIASING);
+  //  printf("started    = (%d)\n", e->gtk.started);
 
 }
 

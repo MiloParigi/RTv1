@@ -528,6 +528,7 @@ void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
 
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
+void				key_init(t_rt *e);
 
 // Texture
 

@@ -106,7 +106,7 @@ void ft_update(GtkButton *btn, t_rt *e)
 	LARGEUR = e->gtk.values.width;
 	HAUTEUR = e->gtk.values.height;
 
-	printf("(%d = %d)", RES, e->gtk.values.res);
+	// printf("(%d = %d)", RES, e->gtk.values.res);
 	if (e->gtk.values.res != RES)
 	{
 		RES = e->gtk.values.res;
