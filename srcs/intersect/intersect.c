@@ -17,7 +17,7 @@ float			intersect_obj(t_ray ray, t_obj obj)
 	if (obj.type == CYLINDER)
 		return (intersect_cylinder(ray, obj));
 	else if (obj.type == SPHERE)
-		return (intersect_sphere(ray, obj));
+		return (intersect_sphere(ray, &obj));
 	else if (obj.type == PLANE)
 		return (intersect_plane(ray, obj));
 	else if (obj.type == CONE)
@@ -69,26 +69,24 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 		return (0);
 }
 
-float	get_res_of_quadratic(float a, float b, float c)
+
+float	get_res_of_quadratic(float a, float b, float c, char *select)
 {
 	float	t0;
 	float	t1;
-	float	delta;
-	float	sqr;
+	float	determinant;
 
-	if (a == 0)
-		return (-c / b);
-	delta = p(b) - 4 * a * c;
-	if (delta < 0)
+	determinant = b * b - 4 * a * c;
+	if (determinant < 0)
 		return (DIST_MAX);
-	if (delta == 0)
+	if (determinant == 0)
 		return (-b / (2 * a));
-	sqr = sqrt(delta);
-	t0 = ((-b + sqr) / (2 * a));
-	t1 = ((-b - sqr) / (2 * a));
-	if ((t0 < t1 || t1 < EPSILON) && t0 > EPSILON)
-		return (t0);
-	else if ((t1 < t0 || t0 < EPSILON) && t1 > EPSILON)
-		return (t1);
+	determinant = sqrt(determinant);
+	t0 = (-b + determinant) / (2 * a);
+	t1 = (-b - determinant) / (2 * a);
+	if (ft_strcmp(select, "lowdist") == 0)
+		return ((t0 > t1) ? t1 : t0);
+	if (ft_strcmp(select, "highdist") == 0)
+		return ((t0 > t1) ? t0 : t1);
 	return (DIST_MAX);
 }

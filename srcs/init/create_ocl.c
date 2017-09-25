@@ -51,7 +51,7 @@ int			create_obj(int type, t_rt *e)
 	i = e->scene.nbr_obj;
 	e->COBJ.is_init = 1;
 	e->COBJ.type = type;
-	e->COBJ.color = c_color(255, 255, 255);
+	e->COBJ.color = c_color(0, 0, 0);
 	e->COBJ.pos = vec_new3(0, 0, 0);
 	e->COBJ.dir = vec_new3(0, 0, 0);
 	e->COBJ.k = tan(10 * DEG2RAD / 2);;

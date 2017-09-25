@@ -306,15 +306,19 @@ typedef struct		s_obj
 	int				type;
 	t_color			color;
 	t_vec3			pos;
-	t_vec3			dir; //For Cylinder and Cone
-	float			k; //For Cone (tan of half the angle)
+	t_vec3			dir;
+	float			k;
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
 	t_vec3			maxp; //For Cylinder and Cone
-	t_vec3			minp; //For Cylinder and Cone
-	int				r; //For Cylinder, Sphere and Cone (?)
+	t_vec3			minp; //For Cone
+	int				r;
 	float			t;
 	t_vec3			normal;
 	t_matiere		mat;
+	int				plimit_active;
+	int				plimit_type;
+	int				plimit_valid;
+	struct s_obj	*plimit;
 }					t_obj;
 
 typedef struct		s_scene
@@ -380,6 +384,7 @@ int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
+void				create_limits(t_rt *e);
 
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -458,7 +463,7 @@ float				get_length(t_vec3 v);
 unsigned int		ret_colors(t_color color);
 
 float				intersect_obj(t_ray ray, t_obj obj);
-float				intersect_sphere(t_ray ray, t_obj sphere);
+float				intersect_sphere(t_ray ray, t_obj *sphere);
 float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
@@ -473,7 +478,7 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 t_color				get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
-float				get_res_of_quadratic(float a, float b, float c);
+float				get_res_of_quadratic(float a, float b, float c, char *select);
 t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
 t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 // XML

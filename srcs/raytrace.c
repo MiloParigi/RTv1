@@ -39,7 +39,10 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
-		dist = intersect_obj(ray, e->COBJ);
+		dist = (e->COBJ.type == SPHERE) ? intersect_sphere(ray, &(e->COBJ)) : dist;
+		dist = (e->COBJ.type == PLANE) ? intersect_plane(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CYLINDER) ? intersect_cylinder(ray, e->COBJ) : dist;
+		dist = (e->COBJ.type == CONE) ? intersect_cone(ray, e->COBJ) : dist;
 		if (dist < min_dist)
 		{
 			min_dist = (dist < 0) ? min_dist : dist;
@@ -55,6 +58,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	float		min_dist;
 	t_vec3		point_of_impact;
 	t_color		color;
+	//t_obj 		obj;
 
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
@@ -63,10 +67,18 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 	{
-		if (e->scene.obj[e->scene.id].mat.reflex)
-			return (get_reflected_color(e, ray, point_of_impact, get_color(e, e->scene.obj[e->scene.id], ray, point_of_impact)));
+		if (e->scene.obj[e->scene.id].plimit_valid == 1)
+			color = get_color(e, *(e->scene.obj[e->scene.id].plimit), ray, point_of_impact);
 		else
 			color = get_color(e, e->scene.obj[e->scene.id], ray, point_of_impact);
+		// if (e->scene.obj[e->scene.id].plimit_valid == 1)
+		// 	obj = *(e->scene.obj[e->scene.id].plimit);
+		// else
+		// 	obj = e->scene.obj[e->scene.id];
+		// if (e->scene.obj[e->scene.id].mat.reflex)
+		// 	return (get_reflected_color(e, ray, point_of_impact, get_color(e, obj, ray, point_of_impact)));
+		// else
+		// 	color = get_color(e, obj, ray, point_of_impact);
 	}
 	return (color);
 }

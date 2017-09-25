@@ -47,5 +47,5 @@ float	intersect_cylinder(t_ray ray, t_obj obj)
 	a = vec_dot2(ray.dir, ray.dir, obj.vector);
 	b = 2 * vec_dot2(ray.dir, x, obj.vector);
 	c = vec_dot2(x, x, obj.vector) - obj.r * obj.r;
-	return (get_res_of_quadratic(a, b, c));
+	return (get_res_of_quadratic(a, b, c, "lowdist"));
 }

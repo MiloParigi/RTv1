@@ -81,6 +81,43 @@ void			ft_start_rt(t_rt *e)
 	mlx_loop(INIT);
 }
 
+void			create_limits(t_rt *e)
+{
+	int			i;
+	int			chk;
+
+	i = 0;
+	chk = 0;
+	while (i < e->scene.nbr_obj)
+	{
+		e->COBJ.plimit_active = 0;
+		e->COBJ.plimit_valid = 0;
+		e->COBJ.plimit = NULL;
+		if (e->COBJ.type == SPHERE && chk == 0)
+		{
+			e->COBJ.plimit_type = 0;
+			e->COBJ.plimit_active = 1;
+			e->COBJ.plimit = (t_obj *)malloc(sizeof(t_obj) + 1);
+			e->COBJ.plimit->is_init = -1;
+			e->COBJ.plimit->type = PLANE;
+			e->COBJ.plimit->color = e->COBJ.color;
+			e->COBJ.plimit->pos = vec_new3(750, 400, 300);
+			e->COBJ.plimit->dir = vec_new3(0, 0, 0);
+			e->COBJ.plimit->k = 0;
+			e->COBJ.plimit->vector = vec_norme3(vec_new3(0,0, 1));
+			e->COBJ.plimit->maxp = vec_new3(0, 0, 0);
+			e->COBJ.plimit->minp = vec_new3(0, 0, 0);
+			e->COBJ.plimit->r = 0;
+			e->COBJ.plimit->t = -1;
+			e->COBJ.plimit->normal = vec_norme3(vec_new3(0, 1, 1));
+			e->COBJ.plimit->mat = create_matiere();
+			e->COBJ.plimit->plimit_active = 0;
+			chk = 1;
+		}		
+		++i;
+	}
+}
+
 int				main(int argc, char **argv)
 {
 	t_rt	*e;
@@ -91,6 +128,7 @@ int				main(int argc, char **argv)
 	{
 		if (!parse_args(argv, argc, e))
 			return (0);
+		create_limits(e);
 		ft_start_rt(e);
 	}
 	else

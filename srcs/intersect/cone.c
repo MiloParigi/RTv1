@@ -41,5 +41,5 @@ float	intersect_cone(t_ray ray, t_obj cone)
 	a = vec_dot3(ray.dir, ray.dir) - (1 + p(cone.k)) * p(dotdv);
 	b = 2 * (vec_dot3(ray.dir, x) - (1 + p(cone.k)) * dotdv * dotxv);
 	c = vec_dot3(x, x) - (1 + p(cone.k)) * p(dotxv);
-	return (get_res_of_quadratic(a, b, c));
+	return (get_res_of_quadratic(a, b, c, "lowdist"));
 }

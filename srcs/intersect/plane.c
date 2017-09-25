@@ -26,8 +26,11 @@ float			intersect_plane(t_ray ray, t_obj plane)
 	d = vec_dot3(plane.vector, ray.dir);
 	vector_distance = vec_sub3(plane.pos, ray.pos);
 	dist = vec_dot3(vector_distance, plane.vector) / d;
+	if (plane.is_init == -1)
+		return (dist);
 	if (dist <= 0)
 		return (DIST_MAX);
 	else
 		return (dist);
+	return (DIST_MAX);
 }
