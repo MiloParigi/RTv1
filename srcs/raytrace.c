@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/23 19:57:45 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/25 23:54:16 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		intensity += intensity_obj(e, poi, obj, e->CLIGHT);
 		i++;
 	}
-	return ((i <= e->scene.nbr_light && intensity >= 0)
-			? color_mult(obj.color, intensity) : (t_color){0, 0, 0, 0});
+	if (intensity != 0 && obj.mat.tex.is_init == 1 && obj.type == SPHERE)
+		return (color_text(obj, poi, intensity));
+	else if (intensity != 0)
+		return (color_mult(obj.color, intensity));
+	return ((t_color){0, 0, 0, 0});
 }
 
 float			get_min_dist(t_rt *e, t_ray ray)
@@ -59,7 +62,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray)) == -1)
-		return ((t_color){0, 0, 0, 0});
+		return ((!e->scene.skybox.is_init) ? (t_color){0, 0, 0, 0} : skybox(e, ray));
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 	{

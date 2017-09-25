@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/23 20:31:49 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/25 21:45:45 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,8 +295,10 @@ typedef struct		s_obj
 
 typedef struct		s_scene
 {
+	t_camera		cam;
 	t_light			*lights;
 	t_obj			*obj;
+	t_texture		skybox;
 	int				last;
 	float			ambient;
 	int				nbr_light;
@@ -306,7 +308,6 @@ typedef struct		s_scene
 	int				supersampling;
 	int 			filters;
 	int				selected;
-	t_camera		cam;
 }					t_scene;
 
 typedef struct		s_screen
@@ -440,6 +441,8 @@ t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
 unsigned int		ret_colors(t_color color);
+t_color				color_text(t_obj obj, t_vec3 poi, float taux);
+t_color				skybox(t_rt *e, t_ray ray);
 
 float				intersect_obj(t_ray ray, t_obj obj);
 float				intersect_sphere(t_ray ray, t_obj sphere);
