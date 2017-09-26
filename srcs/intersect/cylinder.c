@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 16:26:32 by myernaux          #+#    #+#             */
 /*   Updated: 2017/08/17 21:21:50 by rlecart          ###   ########.fr       */
@@ -37,10 +37,12 @@ float		vec_dot2(t_vec3 u, t_vec3 v, t_vec3 axis)
 
 float	intersect_cylinder(t_ray ray, t_obj obj)
 {
-	float		a;
-	float		b;
-	float		c;
-	t_vec3		x;
+	float	a;
+	float	b;
+	float	c;
+	float	dotdv;
+	float	dotxv;
+	t_vec3	x;
 
 	x = vec_sub3(ray.pos, obj.pos);
 	obj.vector = vec_norme3(obj.vector);

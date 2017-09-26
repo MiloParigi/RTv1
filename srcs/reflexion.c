@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflexion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 07:03:06 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/23 07:03:16 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/09/23 19:55:33 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color
 	float		min_dist;
 	float		dist;
 	int			i;
-	int         a = 0;
+	int			a = 0;
 	
 	t_color final_color;
 	float taux_temp;
@@ -42,8 +42,7 @@ t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color
     i = e->scene.id;
 	ray.pos = e->COBJ.pos;
 	ray.dir = object_norm(e->COBJ, poi);
-	taux_temp = e->COBJ.mat.reflex;
-
+	taux_temp = e->COBJ.mat.reflect;
 	i = 0;
 	dist = 0;
 	min_dist = DIST_MAX;
@@ -61,7 +60,7 @@ t_color			get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color
 		i++;
 	}
 	t_vec3 point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
-	final_color = get_color(e, e->scene.obj[a], ray, point_of_impact);
+	final_color = get_color(e, e->scene.obj[a], point_of_impact);
 	
 	return ft_map_color(base_color, final_color, taux_temp);
 }
