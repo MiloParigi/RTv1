@@ -30,6 +30,7 @@ t_matiere		create_matiere(void)
 	mat.spec = 0.6;
 	mat.reflect = 0;
 	mat.refract = 0;
+	mat.reflex = 0;
 	mat.tex.is_init = 0;
 	return (mat);
 }
