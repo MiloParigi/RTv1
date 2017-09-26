@@ -61,7 +61,7 @@ float	intersect_sphere(t_ray ray, t_obj *sphere)
 				return (sphere_lowdist);
 			if (plimit_dist < sphere_highdist && sphere_highdist >= 0)
 				return (sphere_highdist);
-		return (DIST_MAX);
+			return (DIST_MAX);
 		}
 		else
 		{
