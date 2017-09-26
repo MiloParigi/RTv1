@@ -138,6 +138,7 @@ void ft_btn_update(t_rt *e)
 
 void ft_settings(t_rt *e)
 {
+	if(e){}
 	gtk_layout_put(GTK_LAYOUT(e->gtk.settings.layout), new_txt("Screen size"), 20, 20);
 	gtk_widget_show_all (e->gtk.settings.window);
 	ft_add_win_size(e);

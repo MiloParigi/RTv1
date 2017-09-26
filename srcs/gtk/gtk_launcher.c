@@ -23,7 +23,7 @@ void btn_settings_clicked(GtkWidget *btn, t_rt *e)
 {
 	if (btn){}
 	gtk_widget_set_sensitive(GTK_WIDGET(e->gtk.menu.window), 0);
-	ft_settings(e);
+	ft_gtk_start_settings(e);
 	g_signal_connect(e->gtk.settings.window, "delete-event", G_CALLBACK(ft_close_settings), e);
 
 }
@@ -58,7 +58,7 @@ void open_scene_clicked(GtkWidget *btn, t_rt *e)
 		gtk_widget_destroy (dialog);
 		if (parse_filename(e, filename))
 		{
-			gtk_widget_destroy (e->gtk.menu.window);
+			gtk_widget_destroy(e->gtk.menu.window);
 			ft_start_rt(e);
 		}
 		g_free (filename);
