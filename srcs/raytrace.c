@@ -78,6 +78,8 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 		else if (e->scene.obj[e->scene.id].mat.refract)
 			color = get_refracted_color(e, point_of_impact, 
 			get_color(e, e->scene.obj[e->scene.id], point_of_impact), 3);
+		else if (e->scene.obj[e->scene.id].mat.checker.l > 0)
+			color = get_checker_col(e->scene.obj[e->scene.id].mat.checker, point_of_impact);
 		else
 			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 	}

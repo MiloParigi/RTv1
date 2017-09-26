@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/25 21:45:45 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/26 16:09:13 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,8 +236,16 @@ typedef struct		s_texture
 	int				height;
 }					t_texture;
 
+typedef struct		s_checker
+{
+	t_color			c1;
+	t_color			c2;
+	int				l;
+}					t_checker;
+
 typedef struct		s_matiere
 {
+	t_checker		checker;
 	float			diff;
 	float			spec;
 	float			reflect;
@@ -521,6 +529,8 @@ void				fl_motionblur(t_rt *e);
 // GtkWidget			*new_btn(int x, int y, char *name);
 // void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
 
+//Perturbation (checker, tole etc..)
+t_color				get_checker_col(t_checker check, t_vec3 pt);
 
 //Texture
 
