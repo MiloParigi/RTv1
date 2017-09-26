@@ -6,7 +6,7 @@
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/09/19 17:29:46 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/26 09:29:05 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ LIBVEC		=	libs/libvec/libvec.a
 LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g  -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ #-I libs/gtk+3/ `pkg-config --cflags gtk+-3.0`
+CFLAGS		=	-Wall -Werror -Wextra -g -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ #-I libs/gtk+3/ `pkg-config --cflags gtk+-3.0`
 OPTI		=	-O3
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit # `pkg-config --libs gtk+-3.0`

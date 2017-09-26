@@ -19,7 +19,7 @@ t_color			get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int count
 	a = 0;
     i = e->scene.id;
 	ray.pos = e->COBJ.pos;
-	ray.dir = vec_norme3(vec_scale3(vec_sub3(poi, e->scene.obj[e->scene.id].pos), -1));
+	ray.dir = object_norm(e->COBJ, poi);
 	//la ligne precedent est fausse, il faut trouver comment faire la goute deau et la boule 
 	//de noel, jai rien compris moi =)
 	//http://heigeas.free.fr/laure/ray_tracing/principes.html#reflection
