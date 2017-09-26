@@ -297,6 +297,20 @@ typedef struct		s_obj
 	struct s_obj	*plimit;
 }					t_obj;
 
+typedef struct		s_calc
+{
+	float			a;
+	float			b;
+	float			c;
+	float			d;
+	float			t0;
+	float			t1;
+	float			disc;
+	float			eq;
+	t_vec3			len;
+	float			sqrtdisc;
+}					t_calc;
+
 typedef struct		s_scene
 {
 	t_camera		cam;
