@@ -50,7 +50,8 @@ void ft_gtk_start_settings(t_rt *e)
 void ft_gtk_start_launcher(t_rt *e)
 {
     gtk_init(NULL, NULL);
-    e->gtk.menu.window = new_window(GTK_W, GTK_H, "RT");
+    if (e){}
+    e->gtk.menu.window = new_window(300, 200, "RT");
 		e->gtk.menu.layout = gtk_layout_new(NULL, NULL);
 		gtk_container_add(GTK_CONTAINER(e->gtk.menu.window), e->gtk.menu.layout);
     ft_init_values(e);

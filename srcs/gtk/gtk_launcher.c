@@ -51,7 +51,7 @@ void open_scene_clicked(GtkWidget *btn, t_rt *e)
 											"Cancel",GTK_RESPONSE_CANCEL,
 											"Open", GTK_RESPONSE_ACCEPT,
 											NULL);
-	res = gtk_dialog_run (GTK_DIALOG (dialog));
+	res = gtk_dialog_run(GTK_DIALOG (dialog));
 	if (res == GTK_RESPONSE_ACCEPT)
 	{
 	    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
@@ -61,10 +61,10 @@ void open_scene_clicked(GtkWidget *btn, t_rt *e)
 			gtk_widget_destroy(e->gtk.menu.window);
 			ft_start_rt(e);
 		}
-		g_free (filename);
+		g_free(filename);
 	}
 	else
-		gtk_widget_destroy (dialog);
+		gtk_widget_destroy(dialog);
 }
 
 void open_scene(t_rt *e)
