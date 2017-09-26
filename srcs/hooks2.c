@@ -50,6 +50,10 @@ void			onepress(int keycode, t_rt *e)
 	e->scene.filters = (keycode == KEY_5) ? 4 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_6) ? 5 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_7) ? 6 : e->scene.filters;
+	if (keycode == 81 || keycode == 75 )
+	e->scene.obj[e->scene.selected].r += (keycode == 81) ? 10 : -10;
+	if (e->scene.obj[e->scene.selected].r == 0)
+		e->scene.obj[e->scene.selected].r = 5;
 	if (keycode == LSHIFT)
 		AMBIENT_LIGHT += ((int)AMBIENT_LIGHT == 1) ? -1 : 0.05;
 	RES += (keycode == PAGE_UP && RES < 200) ? 1 : 0;

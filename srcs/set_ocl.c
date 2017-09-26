@@ -25,6 +25,29 @@ int		set_last(t_rt *e, char **params)
 	return (0);
 }
 
+void			create_limits(t_rt *e, char **args)
+{
+	SOBJ.plimit_type = 0;
+	SOBJ.plimit_active = 1;
+	SOBJ.plimit = (t_obj *)malloc(sizeof(t_obj) + 1);
+	SOBJ.plimit->is_init = -1;
+	SOBJ.plimit->type = ft_atoi(args[1]);
+	SOBJ.plimit->r = ft_atoi(args[2]);
+	SOBJ.plimit->color = SOBJ.color;
+	SOBJ.plimit->pos = SOBJ.pos;
+	SOBJ.plimit->dir = vec_new3(0, 0, 0);
+	SOBJ.plimit->k = ft_atoi(args[2]);
+	SOBJ.plimit->mat = create_matiere();
+	SOBJ.plimit->plimit_active = 0;
+	if (SOBJ.plimit->r > 2)
+		return ;
+	SOBJ.plimit->vector = vec_norme3(vec_new3(ft_atoi(args[2]),ft_atoi(args[3]), ft_atoi(args[4])));
+	SOBJ.plimit->maxp = vec_new3(0, 0, 0);
+	SOBJ.plimit->minp = vec_new3(0, 0, 0);
+	SOBJ.plimit->t = -1;
+	SOBJ.plimit->normal = vec_norme3(vec_new3(ft_atoi(args[2]),ft_atoi(args[3]), ft_atoi(args[4])));
+}
+
 int		set_obj(t_rt *e, char **a)
 {
 	int		i;
@@ -52,6 +75,8 @@ int		set_obj(t_rt *e, char **a)
 		SOBJ.color = c_color(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("angle:", a[0]))
 		SOBJ.k = tan(ft_atoi(a[1]) * DEG2RAD / 2);
+	else if (i > 3 && i < 6 && !ft_strcmp("negatif:", a[0]))
+		create_limits(e, a);
 	else
 		return (0);
 	return (1);

@@ -384,7 +384,7 @@ int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
-void				create_limits(t_rt *e);
+void			create_limits(t_rt *e, char **args);
 
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -479,6 +479,8 @@ t_color				get_color(t_rt *e, t_obj obj, t_ray ray, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c, char *select);
+// float				get_res_of_quadratic2(t_calc *op, char *select);
+
 t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
 t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 // XML

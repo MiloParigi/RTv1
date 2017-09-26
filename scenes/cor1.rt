@@ -25,6 +25,7 @@ sphere:
 	radius: 40
 	color: 0 255 0
 	reflection: 0.8
+	negatif: 2 1 0 1
 *Sphere Red
 sphere:
 	pos: -220 20 -40
