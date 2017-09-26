@@ -248,6 +248,7 @@ typedef struct		s_matiere
 	float			specular;
 	float			shininess;
 	float			reflect;
+	float			refract;
 	float			transparency;
 	float			absorbtion;
 	char			*coeff;
@@ -384,7 +385,7 @@ int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
-void			create_limits(t_rt *e, char **args);
+void				create_limits(t_rt *e, char **args);
 
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -452,10 +453,10 @@ t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
-void				super_sampler(t_rt *e);
-void				anti_supersampler(t_rt *e);
-void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
-void				anti_aliasing_off(t_rt *e);
+// void				super_sampler(t_rt *e);
+// void				anti_supersampler(t_rt *e);
+// void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
+// void				anti_aliasing_off(t_rt *e);
 
 t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
@@ -464,6 +465,8 @@ unsigned int		ret_colors(t_color color);
 
 float				intersect_obj(t_ray ray, t_obj obj);
 float				intersect_sphere(t_ray ray, t_obj *sphere);
+t_color				ft_map_color(t_color color1, t_color color2, float taux1);
+
 float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
@@ -481,8 +484,10 @@ int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c, char *select);
 // float				get_res_of_quadratic2(t_calc *op, char *select);
 
-t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
-t_color				ft_map_color(t_color color1, t_color color2, float taux1);
+// t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
+
+t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);

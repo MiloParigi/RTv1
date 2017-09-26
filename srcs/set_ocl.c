@@ -65,6 +65,8 @@ int		set_obj(t_rt *e, char **a)
 		SOBJ.vector = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (!ft_strcmp("reflection:", a[0]))
 		SOBJ.mat.reflex = ft_atof(a[1]);
+	else if (!ft_strcmp("refraction:", a[0]))
+		SOBJ.mat.refract = ft_atof(a[1]);
 	else if (i == 4 && !ft_strcmp("normal:", a[0]))
 		SOBJ.vector = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 4 && !ft_strcmp("rot:", a[0]))

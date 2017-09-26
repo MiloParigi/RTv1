@@ -32,6 +32,7 @@ SRC			=	color.c \
 				hooks.c \
 				hooks2.c \
 				reflexion.c \
+				refraction.c \
 				intersect/plane.c \
 				intersect/cylinder.c \
 				intersect/sphere.c \

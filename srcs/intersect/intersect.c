@@ -69,7 +69,6 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 		return (0);
 }
 
-
 float	get_res_of_quadratic(float a, float b, float c, char *select)
 {
 	float	t0;
@@ -90,3 +89,4 @@ float	get_res_of_quadratic(float a, float b, float c, char *select)
 		return ((t0 > t1) ? t0 : t1);
 	return (DIST_MAX);
 }
+
