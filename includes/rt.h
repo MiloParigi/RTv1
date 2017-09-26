@@ -242,8 +242,13 @@ typedef struct		s_matiere
 	float			spec;
 	float			reflect;
 	float			refract;
-	float 			reflex;
+	float			reflex;
 	t_texture		tex;
+	float			transparency;
+	float			absorbtion;
+	char			*coeff;
+	char			opacite;
+	t_texture		texture;
 }					t_matiere;
 
 typedef struct	s_keys
