@@ -40,7 +40,7 @@ t_obj				copy_objs(t_obj obj)
 	copy.t = obj.t;
 	copy.vector = obj.vector;
 	copy.mat = obj.mat;
-		copy.plimit_active = obj.plimit_active;
+	copy.plimit_active = obj.plimit_active;
 	copy.plimit_valid = obj.plimit_valid;
 	copy.plimit_type = obj.plimit_type;
 	if (copy.plimit_active == 1)

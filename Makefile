@@ -6,7 +6,7 @@
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/09/19 17:29:46 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/26 09:29:05 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC			=	color.c \
 				hooks.c \
 				hooks2.c \
 				reflexion.c \
+				refraction.c \
 				intersect/plane.c \
 				intersect/cylinder.c \
 				intersect/sphere.c \

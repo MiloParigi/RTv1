@@ -32,5 +32,4 @@ float			intersect_plane(t_ray ray, t_obj plane)
 		return (DIST_MAX);
 	else
 		return (dist);
-	return (DIST_MAX);
 }

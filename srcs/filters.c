@@ -69,3 +69,4 @@ void				fl_revers(t_rt *e)
 		i += 4;
 	}
 }
+
