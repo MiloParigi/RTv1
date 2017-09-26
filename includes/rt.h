@@ -505,7 +505,7 @@ void				matrix_init(t_rt *e);
 // void 				ft_start_rt(t_rt	*e);
 // void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-void				fl_anaglyph(t_rt *e);
+void				fl_stereoscopie(t_rt *e);
 void				fl_motionblur(t_rt *e);
 
 //GTK

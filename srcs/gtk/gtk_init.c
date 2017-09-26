@@ -22,7 +22,6 @@ void ft_init_values(t_rt *e)
   //  printf("RES        = {%d}\n", RES);
   //  printf("anti-alias = {%d}\n", ALIASING);
   //  printf("started    = (%d)\n", e->gtk.started);
-
 }
 
 gboolean hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
