@@ -262,6 +262,7 @@ typedef struct		s_matiere
 	float			absorbtion;
 	char			*coeff;
 	char			opacite;
+	int				sin;
 	t_texture		texture;
 }					t_matiere;
 

@@ -14,7 +14,10 @@
 
 t_vec3	sphere_norm(t_obj obj, t_vec3 poi)
 {
-	return (vec_norme3(vec_sub3(poi, obj.pos)));
+	t_vec3	norme;
+
+	norme = vec_norme3(vec_sub3(poi, obj.pos));
+	return (norme);
 }
 
 float	get_res_of_quadratic2(t_calc *op, char *select)

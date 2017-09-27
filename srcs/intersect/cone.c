@@ -20,6 +20,13 @@ t_vec3	cone_norm(t_obj cone, t_vec3 poi)
 	float		dot;
 
 	tmp = vec_sub3(poi, cone.pos);
+
+	if (cone.mat.sin == 1)
+	{
+		tmp.x = sin(tmp.x);
+		tmp.y = sin(tmp.y);
+		tmp.z = sin(tmp.z);
+	}
 	dot = vec_dot3(tmp, cone.vector);
 	project = vec_scale3(cone.vector, dot);
 	normal = vec_sub3(tmp, project);

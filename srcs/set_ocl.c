@@ -86,17 +86,24 @@ int		set_obj(t_rt *e, char **a)
 
 int		set_mat(t_rt *e, char **a)
 {
-	if (!ft_strcmp("reflection:", a[0]))
+	int		i;
+
+	i = 0;
+	while (a[i])
+		i++;
+	if (i == 2 && !ft_strcmp("reflection:", a[0]))
 		SOBJ.mat.reflect = ft_atof(a[1]);
-	else if (!ft_strcmp("refraction:", a[0]))
+	else if (i == 2 && !ft_strcmp("refraction:", a[0]))
 		SOBJ.mat.refract = ft_atof(a[1]);
-	else if (!ft_strcmp("specular:", a[0]))
+	else if (i == 2 && !ft_strcmp("specular:", a[0]))
 		SOBJ.mat.spec = ft_atof(a[1]);
-	else if (!ft_strcmp("diffuse:", a[0]))
+	else if (i == 2 && !ft_strcmp("diffuse:", a[0]))
 		SOBJ.mat.diff = ft_atof(a[1]);
-	else if (!ft_strcmp("checker:", a[0]))
+	else if (i == 2 && !ft_strcmp("sin:", a[0]))
+		SOBJ.mat.sin = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("checker:", a[0]))
 		SOBJ.mat.checker = (t_checker){c_color(0, 125, 255), c_color(0, 0, 0), ISTRUE(a[1])};
-	else if (!ft_strcmp("texture:", a[0]))
+	else if (i == 2 && !ft_strcmp("texture:", a[0]))
 	{
 		if ((SOBJ.mat.tex.ptr = mlx_xpm_file_to_image(INIT, a[1], &SOBJ.mat.tex.width, &SOBJ.mat.tex.height)))
 		{

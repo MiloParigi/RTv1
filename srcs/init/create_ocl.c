@@ -26,12 +26,13 @@ t_matiere		create_matiere(void)
 {
 	t_matiere	mat;
 
-	mat.diff = 0.4;
-	mat.spec = 0.6;
+	mat.diff = 0.2;
+	mat.spec = 0.10;
 	mat.reflect = 0;
 	mat.refract = 0;
 	mat.reflex = 0;
 	mat.tex.is_init = 0;
+	mat.sin = 0;
 	mat.checker = (t_checker){c_color(255, 255, 255), c_color(0, 0, 0), 0};
 	return (mat);
 }
