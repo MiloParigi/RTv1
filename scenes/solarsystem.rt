@@ -17,7 +17,7 @@ sphere:
     pos 0 0 0
     radius: 50
     texture: texs/earth.xpm
-
+    refraction: 1
 sphere:
     pos: 100 0 0
     radius: 20

@@ -59,14 +59,14 @@ void			init_rt(t_rt *e)
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
 	e->scene.selected = -1;
-	e->gtk.started = 0;
+//	e->gtk.started = 0;
 	e->frame = 0;
 	key_init(e);
 }
 
 void			ft_start_rt(t_rt *e)
 {
-	e->gtk.started = 1;	
+	//e->gtk.started = 1;	
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
 	// printf("(%d,%d)\n", HAUTEUR, LARGEUR);
@@ -96,8 +96,8 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		// display_args();
-		ft_gtk_start_launcher(e);
+		display_args();
+		//ft_gtk_start_launcher(e);
 	}
 	return (0);
 }

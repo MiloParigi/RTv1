@@ -42,10 +42,10 @@ SRC			=	color.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \
-				gtk/gtk_init.c \
-				gtk/gtk_launcher.c \
-				gtk/gtk_settings.c \
-				gtk/gtk_new.c
+				# gtk/gtk_init.c \
+				# gtk/gtk_launcher.c \
+				# gtk/gtk_settings.c \
+				# gtk/gtk_new.c
 
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
@@ -53,10 +53,10 @@ LIBVEC		=	libs/libvec/libvec.a
 LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ `pkg-config --cflags gtk+-3.0`
+CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ #`pkg-config --cflags gtk+-3.0`
 OPTI		=	-O3
 DEBUG		=	-g
-MLXF		=	-framework OpenGL -framework AppKit -lxml2 `pkg-config --libs gtk+-3.0`
+MLXF		=	-framework OpenGL -framework AppKit -lxml2 #4`pkg-config --libs gtk+-3.0`
 WHITE		=	\033[7;49;39m
 BLUE		=	\033[7;49;34m
 RED			=	\x1B[31m
