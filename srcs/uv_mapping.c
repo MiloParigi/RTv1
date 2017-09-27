@@ -6,7 +6,7 @@
 /*   By: rlecart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 22:41:01 by rlecart           #+#    #+#             */
-/*   Updated: 2017/09/27 02:55:44 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/27 04:24:09 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ t_vec2	uv_plane(t_vec3 poi, t_vec3 norm)
 	return (uv);
 }
 
+t_vec2	uv_cylinder(t_obj obj, t_vec3 poi)
+{
+	t_vec3	d;
+	t_vec2	uv;
+
+	d = vec_norme3(vec_sub3(poi, obj.pos));
+	uv.x = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
+	uv.y = 0.5 - asin(d.y) / M_PI;
+	return (uv);
+}
+
 t_vec2	get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm)
 {
 	t_vec2	uv;
@@ -42,6 +53,8 @@ t_vec2	get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm)
 		uv = uv_sphere(norm);
 	else if (obj.type == PLANE)
 		uv = uv_plane(poi, norm);
+	else if (obj.type == CYLINDER)
+		uv = uv_cylinder(obj, poi);
 	else
 	{
 		uv.x = 0;
