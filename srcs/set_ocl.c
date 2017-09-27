@@ -94,6 +94,8 @@ int		set_mat(t_rt *e, char **a)
 		SOBJ.mat.spec = ft_atof(a[1]);
 	else if (!ft_strcmp("diffuse:", a[0]))
 		SOBJ.mat.diff = ft_atof(a[1]);
+	else if (!ft_strcmp("checker:", a[0]))
+		SOBJ.mat.checker = (t_checker){c_color(0, 125, 255), c_color(0, 0, 0), ISTRUE(a[1])};
 	else if (!ft_strcmp("texture:", a[0]))
 	{
 		if ((SOBJ.mat.tex.ptr = mlx_xpm_file_to_image(INIT, a[1], &SOBJ.mat.tex.width, &SOBJ.mat.tex.height)))

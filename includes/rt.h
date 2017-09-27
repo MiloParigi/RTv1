@@ -178,6 +178,7 @@
 # define DIST_MIN -80000
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
+# define ISTRUE(x) (x > 0 ? 1 : 0)
 # define PX_WHI 0x00FFFFFF
 
 # define NB_THREADS 8
