@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
+#    By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
-#    Updated: 2017/09/27 03:19:39 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/26 15:51:49 by agfernan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC			=	color.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \
+				checker.c \
 				uv_mapping.c
 				# gtk/gtk_btn.c	\
 				# gtk/gtk_init.c \
@@ -79,7 +80,7 @@ $(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@printf "$(YELLOW)\r[$(PROJECT)] Compiling $< to $@                                                          \r"
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(OPTI) $(CFLAGS) -o $@ -c $<
 
 mlx:
 	@printf "$(YELLOW)[MINILIBX] Compiling obj...                                                     \r$(NO_COLOR)"

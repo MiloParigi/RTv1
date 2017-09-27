@@ -6,7 +6,7 @@
 /*   By: rlecart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 22:41:01 by rlecart           #+#    #+#             */
-/*   Updated: 2017/09/27 04:24:09 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/27 04:37:45 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_vec2	get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm)
 		uv = uv_sphere(norm);
 	else if (obj.type == PLANE)
 		uv = uv_plane(poi, norm);
-	else if (obj.type == CYLINDER)
+	else if (obj.type == CYLINDER || obj.type == CONE)
 		uv = uv_cylinder(obj, poi);
 	else
 	{
