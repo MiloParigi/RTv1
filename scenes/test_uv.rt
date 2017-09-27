@@ -36,3 +36,9 @@ cylinder:
   normal: 1 0 0
   radius: 10
   texture: texs/earth.xpm
+
+cone:
+  pos: 0 0 10
+  normal: 1 0 0
+  radius: 10
+  texture: texs/moon.xpm
