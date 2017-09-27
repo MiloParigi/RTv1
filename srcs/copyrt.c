@@ -94,5 +94,7 @@ t_rt				*copy_rt(t_rt *e)
 	copy->file.larg = e->file.larg;
 	copy->file.haut = e->file.haut;
 	copy->file.reso = e->file.reso;
+	copy->file.aliasing = e->file.aliasing;
+
 	return (copy);
 }

@@ -140,6 +140,9 @@
 # define WIN e->mlx.window
 # define IMG e->mlx.image
 # define DATA e->mlx.data
+# define SIZE_L e->mlx.size_l
+# define BPP e->mlx.bpp
+# define ENDIAN e->mlx.endian
 
 # define RES e->file.reso
 # define RES_BUFF e->file.reso_buff
@@ -271,12 +274,10 @@ typedef struct	s_keys
 	char			key_a;
 	char			key_s;
 	char			key_d;
+	char			key_n;
+	char			key_o;
 	char			key_plus;
 	char			key_minus;
-	char			key_rotx_left;
-	char			key_rotx_right;
-	char			key_roty_left;
-	char			key_roty_right;
 }					t_keys;
 
 typedef struct		s_file
@@ -337,7 +338,6 @@ typedef struct		s_scene
 	int				nbr_obj;
 	char			nbr_tot;
 	int 			id;
-	t_vec3			last_impact;
 	int				supersampling;
 	int 			filters;
 	int				selected;
@@ -374,14 +374,23 @@ typedef struct		s_mthread
 // 	GtkWidget 		*anti_aliasing;
 // }					t_gtk_settings;
 
+// typedef struct		s_gtk
+// {
+// 	t_gtk_win		menu;
+// 	t_gtk_win		settings;
+// 	t_gtk_settings	values;
+// 	int				started;
+// }					t_gtk;
+
 typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_keys			keys;
-	//t_gtk			gtk;
+	// t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
+	int				frame;
 }					t_rt;
 
 t_matiere			create_matiere(void);
@@ -409,6 +418,8 @@ void				fl_border_limits(t_rt *e);
 void				fl_border(t_rt *e);
 void				fl_revers(t_rt *e);
 void				fl_anaglyph(t_rt *e);
+void				fl_stereoscopie(t_rt *e);
+void				fl_motionblur(t_rt *e);
 
 //Debug
 void				disp_cam(t_rt *e, int color);
@@ -490,10 +501,6 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c, char *select);
-// float				get_res_of_quadratic2(t_calc *op, char *select);
-
-// t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
-
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
@@ -503,20 +510,13 @@ void				xml_read_error();
 xmlDocPtr			getdoc(char *docname);
 
 //Matrix
-
 void				matrix_init(t_rt *e);
-// GTK
-// int					parse_filename(t_rt *e, char *filename);
-// void 				ft_start_rt(t_rt	*e);
-// void 				ft_gtk_start(t_rt *e, int argc, char **argv);
-
-void				fl_anaglyph(t_rt *e);
-void				fl_motionblur(t_rt *e);
 
 //GTK
-// int					parse_filename(t_rt *e, char *filename);
-// void 				ft_start_rt(t_rt *e);
-// void				init_rt(t_rt *e);
+int					parse_filename(t_rt *e, char *filename);
+void 				ft_start_rt(t_rt *e);
+void				init_rt(t_rt *e);
+
 
 // void 				ft_gtk_start_launcher(t_rt *e);
 // void 				ft_gtk_start_settings(t_rt *e);
@@ -533,6 +533,10 @@ void				fl_motionblur(t_rt *e);
 t_color				get_checker_col(t_checker check, t_vec3 pt);
 
 //Texture
+t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
+int					calcul_res(t_rt *e, int limit);
+int					key_hook(int keycode, t_rt *e);
+void				key_init(t_rt *e);
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
 

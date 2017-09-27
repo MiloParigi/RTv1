@@ -25,7 +25,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		intensity += intensity_obj(e, poi, obj, e->CLIGHT);
 		i++;
 	}
-	if (intensity != 0 && obj.mat.tex.is_init == 1 && obj.type == SPHERE)
+	if (intensity != 0 && obj.mat.tex.is_init == 1)
 		return (color_text(obj, poi, intensity));
 	else if (intensity != 0)
 		return (color_mult(obj.color, intensity));
@@ -92,7 +92,8 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	ray = ray_init(e, x * RES, y * RES);
+	// printf("alia = %d\n", ALIASING);
+	ray = ray_init(e, x * RES / ALIASING, y * RES / ALIASING);
 	color = get_pxl_color(e, ray);
 	 return (color);
 }
