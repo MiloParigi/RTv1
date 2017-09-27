@@ -30,3 +30,9 @@ plane:
   *texture: texs/dora.xpm
   *texture: texs/moon.xpm
   texture: texs/4kstars.xpm
+
+cylinder:
+  pos: 0 0 0
+  normal: 1 0 0
+  radius: 10
+  texture: texs/earth.xpm
