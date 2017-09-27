@@ -6,7 +6,7 @@
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
-#    Updated: 2017/09/23 19:29:26 by mparigi          ###   ########.fr        #
+#    Updated: 2017/09/26 22:45:40 by rlecart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC			=	color.c \
 				intersect/intensity.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
-				xml/xml_checks.c
+				xml/xml_checks.c \
+				uv_mapping.c
 				# gtk/gtk_btn.c	\
 				# gtk/gtk_init.c \
 				# gtk/gtk_input.c \

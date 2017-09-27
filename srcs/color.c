@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 20:14:59 by mparigi          #+#    #+#             */
-/*   Updated: 2017/09/22 05:54:08 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/27 02:52:57 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,17 @@ t_color			skybox(t_rt *e, t_ray ray)
 
 t_color			color_text(t_obj obj, t_vec3 poi, float taux)
 {
-	t_color	color_text;	
-	float	u;
-	float	v;
+	t_color	color_text;
+	t_vec2	uv;
 	t_vec3	norm;
 
 	norm = object_norm(obj, poi);
-	u = atan2(norm.x, norm.z) / (2 * M_PI) + 0.5;
-	v = norm.y * 0.5 + 0.5;
-	u = fabsf(obj.mat.tex.width * (1 - u));
-	v = fabsf(obj.mat.tex.height * (1 - v));
-	u = (u > obj.mat.tex.width) ? (int)u % obj.mat.tex.width : u;
-	v = (v > obj.mat.tex.width) ? (int)v % obj.mat.tex.width : v;
-	color_text = get_text_color((int)u, (int)v, obj.mat.tex);
+	uv = get_uv_obj(obj, poi, norm);
+	uv.x = fabsf(obj.mat.tex.width * (1 - uv.x));
+	uv.y = fabsf(obj.mat.tex.height * (1 - uv.y));
+	uv.x = (uv.x > obj.mat.tex.width) ? (int)uv.x % obj.mat.tex.width : uv.x;
+	uv.y = (uv.y > obj.mat.tex.width) ? (int)uv.y % obj.mat.tex.width : uv.y;
+	color_text = get_text_color((int)uv.x, (int)uv.y, obj.mat.tex);
 	return (color_mult(color_text, taux));
 }
 

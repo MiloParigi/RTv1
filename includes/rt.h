@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/25 21:45:45 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/27 02:00:28 by rlecart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,6 +523,7 @@ void				fl_motionblur(t_rt *e);
 
 
 //Texture
+t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
 
