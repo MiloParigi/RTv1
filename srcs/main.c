@@ -69,7 +69,6 @@ void			ft_start_rt(t_rt *e)
 	//e->gtk.started = 1;	
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
-	// printf("(%d,%d)\n", HAUTEUR, LARGEUR);
 	WIN = mlx_new_window(INIT, LARGEUR, HAUTEUR, "RT");
 	IMG = mlx_new_image(INIT, LARGEUR, HAUTEUR);
 	DATA = mlx_get_data_addr(IMG, &BPP, &SIZE_L, &ENDIAN);

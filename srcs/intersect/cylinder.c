@@ -37,9 +37,9 @@ float		vec_dot2(t_vec3 u, t_vec3 v, t_vec3 axis)
 
 float	intersect_cylinder(t_ray ray, t_obj obj)
 {
-	float	a;
-	float	b;
-	float	c;
+	t_calc 	op;
+	float	obj_lowdist;
+	float	obj_highdist;
 	float	dotdv;
 	float	dotxv;
 	t_vec3	x;
@@ -47,8 +47,14 @@ float	intersect_cylinder(t_ray ray, t_obj obj)
 	x = vec_sub3(ray.pos, obj.pos);
 	dotdv = vec_dot3(ray.dir, obj.vector);
 	dotxv = vec_dot3(x, obj.vector);
-	a = vec_dot3(ray.dir, ray.dir) - p(dotdv);
-	b = 2 * (vec_dot3(ray.dir, x) - dotdv * dotxv);
-	c = vec_dot3(x, x) - p(dotxv) - p(obj.r);
-	return (get_res_of_quadratic(a, b, c, "lowdist"));
+	op.a = vec_dot3(ray.dir, ray.dir) - p(dotdv);
+	op.b = 2 * (vec_dot3(ray.dir, x) - dotdv * dotxv);
+	op.c = vec_dot3(x, x) - p(dotxv) - p(obj.r);
+	op.eq = get_res_of_quadratic2(&op, "lowdist");
+	obj_lowdist = op.eq;
+	if (op.eq == op.t0)
+		obj_highdist = op.t1;
+	else
+		obj_highdist = op.t0;
+	return (limit_dist(&obj, ray, obj_lowdist, obj_highdist));
 }

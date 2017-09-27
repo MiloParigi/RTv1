@@ -135,6 +135,8 @@ void			move_obj(t_rt *e, int speed)
 {
 	if (e->keys.key_w || e->keys.key_s || e->keys.key_a || e->keys.key_d)
 		move(e, &e->scene.obj[e->scene.selected].pos, speed);
+	if (ISLIMIT == 1)
+		e->scene.obj[SELECTED].plimit->pos = e->scene.obj[e->scene.selected].pos;
 	e->scene.obj[e->scene.selected].pos.y +=
 		(e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
 	e->scene.obj[e->scene.selected].pos.y -=

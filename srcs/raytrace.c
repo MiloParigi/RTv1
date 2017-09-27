@@ -90,7 +90,6 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	// printf("alia = %d\n", ALIASING);
 	ray = ray_init(e, x * RES / ALIASING, y * RES / ALIASING);
 	color = get_pxl_color(e, ray);
 	 return (color);

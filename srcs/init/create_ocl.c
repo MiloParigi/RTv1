@@ -62,6 +62,7 @@ int				create_obj(int type, t_rt *e)
 	e->COBJ.t = -1;
 	e->COBJ.mat = create_matiere();
 	e->COBJ.vector = vec_new3(0, 0, 0);
+	e->COBJ.normal = vec_new3(0, 0, 0);
 	e->COBJ.plimit_active = 0;
 	e->COBJ.plimit = NULL;
 	e->scene.nbr_obj++;

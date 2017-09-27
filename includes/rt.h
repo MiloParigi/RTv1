@@ -157,6 +157,8 @@
 # define CLIGHT scene.lights[i]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
+# define SELECTED e->scene.selected
+# define ISLIMIT e->scene.obj[e->scene.selected].plimit_active
 # define AMBIENT_LIGHT e->scene.ambient
 # define DIFF_LIGHT e->scene.ambient
 # define SPEC_LIGHT e->scene.ambient
@@ -391,7 +393,8 @@ int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
 void				create_limits(t_rt *e, char **args);
-
+float    		    limit_dist(t_obj *obj, t_ray ray, float bdist, float maxdist);
+int					set_skybox(t_rt *e, char *path);
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
 int					set_camera(t_rt *e, char **a);
@@ -462,10 +465,6 @@ t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
-// void				super_sampler(t_rt *e);
-// void				anti_supersampler(t_rt *e);
-// void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
-// void				anti_aliasing_off(t_rt *e);
 
 t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
@@ -493,6 +492,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c, char *select);
+float				get_res_of_quadratic2(t_calc *op, char *select);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML

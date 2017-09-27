@@ -17,7 +17,7 @@ t_vec3	sphere_norm(t_obj obj, t_vec3 poi)
 	return (vec_norme3(vec_sub3(poi, obj.pos)));
 }
 
-static float	get_res_of_quadratic2(t_calc *op, char *select)
+float	get_res_of_quadratic2(t_calc *op, char *select)
 {
 	op->disc = op->b * op->b - 4 * op->a * op->c;
 	if (op->disc < 0)
@@ -38,7 +38,6 @@ static float	get_res_of_quadratic2(t_calc *op, char *select)
 
 float	intersect_sphere(t_ray ray, t_obj *sphere)
 {
-	float		plimit_dist;
 	float		sphere_lowdist;
 	float		sphere_highdist;
 	t_vec3		x;
@@ -49,30 +48,13 @@ float	intersect_sphere(t_ray ray, t_obj *sphere)
 	op.a = vec_dot3(ray.dir, ray.dir);
 	op.b = 2 * vec_dot3(ray.dir, x);
 	op.c = vec_dot3(x, x) - (sphere->r * sphere->r);
-	sphere_lowdist = get_res_of_quadratic2(&op, "lowdist");
-	sphere_highdist = get_res_of_quadratic2(&op, "highdist");
-	if (sphere->plimit_active == 1 && sphere_lowdist != DIST_MAX)
-	{
-		plimit_dist = intersect_plane(ray, *(sphere->plimit));
-		float result = vec_dot3(ray.dir, sphere->plimit->vector);
-		if (result > 0)
-		{
-			if (plimit_dist < sphere_lowdist && sphere_lowdist >= 0)
-				return (sphere_lowdist);
-			if (plimit_dist < sphere_highdist && sphere_highdist >= 0)
-				return (sphere_highdist);
-			return (DIST_MAX);
-		}
-		else
-		{
-			if (plimit_dist > sphere_lowdist && sphere_lowdist >= 0)
-				return (sphere_lowdist);
-			if (plimit_dist > sphere_highdist && sphere_highdist >= 0)
-				return (sphere_highdist);
-			return (DIST_MAX);
-		}
-	}
-	return (sphere_lowdist);
+	op.eq = get_res_of_quadratic2(&op, "lowdist");
+	sphere_lowdist = op.eq;
+	if (op.eq == op.t0)
+		sphere_highdist = op.t1;
+	else
+		sphere_highdist = op.t0;
+	return (limit_dist(sphere, ray, sphere_lowdist, sphere_highdist));
 }
 
 
