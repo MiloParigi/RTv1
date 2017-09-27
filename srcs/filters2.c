@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filters_anaglyph.c                                 :+:      :+:    :+:   */
+/*   filters2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlecart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void		fl_anaglyph(t_rt *e)
+void		fl_stereoscopie(t_rt *e)
 {
 	int		i;
 
@@ -42,40 +42,27 @@ int ft_average_blur(t_rt *e, int i, int size)
 		y = 0;
 		while (y < (size * 4))
 		{
-			tmp = i + x + (y * (HAUTEUR * 4));
+			tmp = i + x + (y * SIZE_L);
 			average += (DATA[tmp]);
-			// printf("%d = DATA[%d + %d + (%d * (%d * %d))]   (%d)\n",DATA[tmp], i, x, y, HAUTEUR, 4, tmp);
+			if (DATA[tmp] < 0)
+				average += 256;
 			y += 4;
 		}
-		// printf("\n");
 		x += 4;
 	}
 	average /= size * size;
-	if (average < 0)
-		average = 0;
 	return (average);
 	
 }
 
 void		fl_motionblur(t_rt *e)
 {
-	int		i;
-
-	// fl_black_and_white(e);
+	int i;
 
 	i = 0;
-	// (LARGEUR * HAUTEUR * 4)
-	while (i < (LARGEUR * HAUTEUR * 4))
+	while (i < (HAUTEUR * SIZE_L))
 	{
-		// printf("blue  = (%d)\n",DATA[i]);
-		// printf("green = (%d)\n",DATA[i + 1]);
-		// printf("red   = (%d)\n",DATA[i + 2]);
-		// printf("---------BLUE-------\n");
 		DATA[i] = ft_average_blur(e, i, 5);
-		// printf("---------GREEN-------\n");
-		DATA[i + 1] = ft_average_blur(e, i + 1, 5);
-		// printf("---------RED-------\n");
-		DATA[i + 2] = ft_average_blur(e, i + 2, 5);
-		i += 4;
+		i++;
 	}
 }

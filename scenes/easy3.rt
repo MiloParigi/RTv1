@@ -33,8 +33,8 @@ sphere:
   pos: 750 300 -3500
   radius: 200
   color: 255 0 0
-  reflection: 0.2
-  refraction: 0.4
+  reflection: 1
+  refraction: 1
 sphere:
   pos: 1000 400 -3000
   radius: 100
