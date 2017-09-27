@@ -31,7 +31,7 @@
 # include "xmlstring.h"
 # include "xmlreader.h"
 
-// # include <gtk/gtk.h>
+# include <gtk/gtk.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -140,6 +140,9 @@
 # define WIN e->mlx.window
 # define IMG e->mlx.image
 # define DATA e->mlx.data
+# define SIZE_L e->mlx.size_l
+# define BPP e->mlx.bpp
+# define ENDIAN e->mlx.endian
 
 # define RES e->file.reso
 # define RES_BUFF e->file.reso_buff
@@ -263,12 +266,10 @@ typedef struct	s_keys
 	char			key_a;
 	char			key_s;
 	char			key_d;
+	char			key_n;
+	char			key_o;
 	char			key_plus;
 	char			key_minus;
-	char			key_rotx_left;
-	char			key_rotx_right;
-	char			key_roty_left;
-	char			key_roty_right;
 }					t_keys;
 
 typedef struct		s_file
@@ -329,11 +330,17 @@ typedef struct		s_scene
 	int				nbr_obj;
 	char			nbr_tot;
 	int 			id;
-	t_vec3			last_impact;
 	int				supersampling;
 	int 			filters;
 	int				selected;
 }					t_scene;
+
+typedef struct		s_screen
+{
+	float			pos;
+	float			pitch;
+	float			yaw;
+}					t_screen;
 
 typedef struct		s_mthread
 {
@@ -344,36 +351,45 @@ typedef struct		s_mthread
 	t_color			*colors;
 }					t_mthread;
 
-// typedef struct		s_gtk_input
-// {
-// 	gint			max_size;
-// 	gint			max_char;
-// 	gchar			*placeholder;
-// 	gchar   		*deflaut_value;
-// }					t_gtk_input;
+typedef struct		s_gtk_input
+{
+	gint			max_size;
+	gint			max_char;
+	gchar			*placeholder;
+	gchar   		*deflaut_value;
+}					t_gtk_input;
 
-// typedef struct		s_gtk_win
-// {
-// 	GtkWidget 		*window;
-// 	GtkWidget		*layout;
-// }					t_gtk_win;
+typedef struct		s_gtk_win
+{
+	GtkWidget 		*window;
+	GtkWidget		*layout;
+}					t_gtk_win;
 
-// typedef struct		s_gtk_settings
-// {
-// 	int 			width;
-// 	int 			height;
-// 	int 			res;
-// 	GtkWidget 		*anti_aliasing;
-// }					t_gtk_settings;
+typedef struct		s_gtk_settings
+{
+	int 			width;
+	int 			height;
+	int 			res;
+	GtkWidget 		*anti_aliasing;
+}					t_gtk_settings;
+
+typedef struct		s_gtk
+{
+	t_gtk_win		menu;
+	t_gtk_win		settings;
+	t_gtk_settings	values;
+	int				started;
+}					t_gtk;
 
 typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_keys			keys;
-	//t_gtk			gtk;
+	t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
+	int				frame;
 }					t_rt;
 
 t_matiere			create_matiere(void);
@@ -481,6 +497,7 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
+// <<<<<<< HEAD
 float				get_res_of_quadratic(float a, float b, float c, char *select);
 // float				get_res_of_quadratic2(t_calc *op, char *select);
 
@@ -488,6 +505,10 @@ float				get_res_of_quadratic(float a, float b, float c, char *select);
 
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+// =======
+// float				get_res_of_quadratic(float a, float b, float c);
+// t_color				get_reflected_color(t_rt *e, t_ray ray, t_vec3 poi, t_color base_color);
+// >>>>>>> 1eca267adfa013f25c8b0ab69dee5143ce7c3296
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
@@ -502,27 +523,32 @@ void				matrix_init(t_rt *e);
 // void 				ft_start_rt(t_rt	*e);
 // void 				ft_gtk_start(t_rt *e, int argc, char **argv);
 
-void				fl_anaglyph(t_rt *e);
+void				fl_stereoscopie(t_rt *e);
 void				fl_motionblur(t_rt *e);
 
 //GTK
-// int					parse_filename(t_rt *e, char *filename);
-// void 				ft_start_rt(t_rt *e);
-// void				init_rt(t_rt *e);
-
-// void 				ft_gtk_start_launcher(t_rt *e);
-// void 				ft_gtk_start_settings(t_rt *e);
-// void 				ft_settings(t_rt *e);
-// void 				ft_gtk_launcher(t_rt *e);
-
-// GtkWidget 			*new_window(gint w, gint h, gchar *name);
-// GtkWidget			*new_input(t_gtk_input *data);
-// GtkWidget			*new_txt(gchar *str);
-// GtkWidget			*new_btn(int x, int y, char *name);
-// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+int					parse_filename(t_rt *e, char *filename);
+void 				ft_start_rt(t_rt *e);
+void				init_rt(t_rt *e);
 
 
-//Texture
+void 				ft_gtk_start_launcher(t_rt *e);
+void 				ft_gtk_start_settings(t_rt *e);
+void 				ft_settings(t_rt *e);
+void 				ft_gtk_launcher(t_rt *e);
+
+GtkWidget 			*new_window(gint w, gint h, gchar *name);
+GtkWidget			*new_input(t_gtk_input *data);
+GtkWidget			*new_txt(gchar *str);
+GtkWidget			*new_btn(int x, int y, char *name);
+void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+
+
+int					calcul_res(t_rt *e, int limit);
+int					key_hook(int keycode, t_rt *e);
+void				key_init(t_rt *e);
+
+// Texture
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
 
