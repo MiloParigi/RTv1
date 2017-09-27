@@ -44,7 +44,8 @@ SRC			=	color.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \
 				checker.c \
-				uv_mapping.c
+				uv_mapping.c \
+				perlin.c
 				# gtk/gtk_btn.c	\
 				# gtk/gtk_init.c \
 				# gtk/gtk_launcher.c \

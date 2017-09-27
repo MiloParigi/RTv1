@@ -73,10 +73,12 @@ int		set_obj(t_rt *e, char **a)
 		SOBJ.dir = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 2 && !ft_strcmp("radius:", a[0]))
 		SOBJ.r = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("k:", a[0]))
+		SOBJ.k = tan(ft_atof(a[1]) * DEG2RAD / 2);
+	else if (i == 2 && !ft_strcmp("angle:", a[0]))
+		SOBJ.k = tan(ft_atof(a[1]) * DEG2RAD / 2);
 	else if (i == 4 && !ft_strcmp("color:", a[0]))
 		SOBJ.color = c_color(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
-	else if (i == 2 && !ft_strcmp("angle:", a[0]))
-		SOBJ.k = tan(ft_atoi(a[1]) * DEG2RAD / 2);
 	else if (i > 3 && i < 6 && !ft_strcmp("negatif:", a[0]))
 		create_limits(e, a);
 	else
@@ -103,6 +105,8 @@ int		set_mat(t_rt *e, char **a)
 		SOBJ.mat.sin = ft_atof(a[1]);
 	else if (i == 2 && !ft_strcmp("checker:", a[0]))
 		SOBJ.mat.checker = (t_checker){c_color(0, 125, 255), c_color(0, 0, 0), ISTRUE(a[1])};
+	else if (i == 2 && !ft_strcmp("perlin:", a[0]))
+		SOBJ.mat.perlin = ISTRUE(a[1]);
 	else if (i == 2 && !ft_strcmp("texture:", a[0]))
 	{
 		if ((SOBJ.mat.tex.ptr = mlx_xpm_file_to_image(INIT, a[1], &SOBJ.mat.tex.width, &SOBJ.mat.tex.height)))

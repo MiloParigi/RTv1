@@ -17,7 +17,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
-
+	// t_vec2		uv;
 	i = 0;
 	intensity = 0;
 	while (i < e->scene.nbr_light)
@@ -63,7 +63,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray)) == -1)
-		return ((!e->scene.skybox.is_init) ? (t_color){0, 0, 0, 0} : skybox(e, ray));
+		return (skybox(e, ray));
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 	{

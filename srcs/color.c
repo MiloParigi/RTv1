@@ -63,6 +63,8 @@ t_color			skybox(t_rt *e, t_ray ray)
 	float	v;
 	t_vec3	norm;
 
+	if (!(e->scene.skybox.is_init))
+		return ((t_color){0, 0, 0, 0});
 	norm = vec_norme3(ray.dir);
 	u = atan2(norm.x, norm.z) / (2 * M_PI) + 0.5;
 	v = norm.y * 0.5 + 0.5;

@@ -13,6 +13,7 @@ light:
 sphere:
     pos 0 0 0
     radius: 50
+    reflection: 0.5
     texture: texs/earth.xpm
 sphere:
     pos: 100 0 0

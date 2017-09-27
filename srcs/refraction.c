@@ -53,5 +53,5 @@ t_color			get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int count
 			return (get_reflected_color(e, point_of_impact, base_color, counter));
 		return base_color;
 	}
-	return ft_map_color(base_color, c_color(0,0,0), taux_temp);
+	return ft_map_color(base_color, skybox(e, ray), taux_temp);
 }

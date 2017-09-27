@@ -263,6 +263,7 @@ typedef struct		s_matiere
 	char			*coeff;
 	char			opacite;
 	int				sin;
+	int 			perlin;
 	t_texture		texture;
 }					t_matiere;
 

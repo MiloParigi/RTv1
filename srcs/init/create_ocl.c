@@ -33,6 +33,7 @@ t_matiere		create_matiere(void)
 	mat.reflex = 0;
 	mat.tex.is_init = 0;
 	mat.sin = 0;
+	mat.perlin = 0;
 	mat.checker = (t_checker){c_color(255, 255, 255), c_color(0, 0, 0), 0};
 	return (mat);
 }
@@ -59,7 +60,7 @@ int				create_obj(int type, t_rt *e)
 	e->COBJ.color = c_color(0, 0, 0);
 	e->COBJ.pos = vec_new3(0, 0, 0);
 	e->COBJ.dir = vec_new3(0, 0, 0);
-	e->COBJ.k = tan(10 * DEG2RAD / 2);;
+	e->COBJ.k = tan(10 * DEG2RAD / 2);
 	e->COBJ.r = 0;
 	e->COBJ.t = -1;
 	e->COBJ.mat = create_matiere();
