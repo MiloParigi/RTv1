@@ -542,5 +542,5 @@ int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
 
 float Get2DPerlinNoiseValue(float x, float y, float res);
-
+t_color				get_text_color(int x, int y, t_texture tex);
 #endif

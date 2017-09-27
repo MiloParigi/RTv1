@@ -6,7 +6,7 @@
 /*   By: rlecart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 17:21:08 by rlecart           #+#    #+#             */
-/*   Updated: 2017/09/19 17:29:19 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/27 13:14:59 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ void		fl_stereoscopie(t_rt *e)
 	}
 }
 
-
-int ft_average_blur(t_rt *e, int i, int size)
+int			ft_average_blur(t_rt *e, int i, int size)
 {
-	int x;
-	int y;
-	int average;
-	int tmp;
+	int		x;
+	int		y;
+	int		average;
+	int		tmp;
 
 	x = 0;
 	average = 0;
@@ -52,12 +51,11 @@ int ft_average_blur(t_rt *e, int i, int size)
 	}
 	average /= size * size;
 	return (average);
-	
 }
 
 void		fl_motionblur(t_rt *e)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < (HAUTEUR * SIZE_L))

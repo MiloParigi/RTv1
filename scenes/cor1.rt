@@ -49,4 +49,5 @@ cone:
 	angle: 30
 	color: 255 255 0
 	negatif: 2 1 0 1
+*	negatif: 2 0 1 0 
 	sin: 1

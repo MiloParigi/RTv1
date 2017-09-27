@@ -69,10 +69,10 @@ void	        *drawlinex2(void *arg)
 												raytrace(x + 1, y + 1, e));
 			if (e->scene.filters == 5)
 				e->thread.colors[i] = fl_cartoon(e->thread.colors[i]);
-			x += 2;
+			x += ALIASING;
 			++i;
 		}
-		y += 2;
+		y += ALIASING;
 	}
 	return (NULL);
 }

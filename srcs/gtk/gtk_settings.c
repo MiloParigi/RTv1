@@ -113,7 +113,7 @@ void ft_update(GtkButton *btn, t_rt *e)
 		RES_BUFF = RES;
 	}
 	else
-		RES = calcul_res(e, 500000);
+		RES = calcul_res(e, 5000000);
 	e->scene.cam.ratio_x = (LARGEUR > HAUTEUR) ? (float)LARGEUR / (float)HAUTEUR : 1;
 	e->scene.cam.ratio_y = (HAUTEUR > LARGEUR) ? (float)HAUTEUR / (float)LARGEUR : 1;
 	// printf("width      = {%d}\n", LARGEUR);
