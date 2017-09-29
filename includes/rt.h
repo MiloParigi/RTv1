@@ -317,7 +317,7 @@ typedef struct		s_obj
 	int				plimit_valid;
 	int				nbr_limit;
 	struct s_obj	*plimit;
-	int				complex;
+	int				id;
 }					t_obj;
 
 typedef struct		s_calc

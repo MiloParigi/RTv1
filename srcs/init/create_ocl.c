@@ -67,7 +67,7 @@ int				create_obj(int type, t_rt *e)
 	e->COBJ.vector = vec_new3(0, 0, 0);
 	e->COBJ.normal = vec_new3(0, 0, 0);
 	e->COBJ.plimit_active = 0;
-	e->COBJ.complex = 0;
+	e->COBJ.id = e->scene.nbr_obj;
 	e->COBJ.plimit_valid = 0;
 	e->COBJ.nbr_limit = 0;
 	e->COBJ.plimit = (t_obj *)malloc(sizeof(t_obj) * MAXLIM + 1);

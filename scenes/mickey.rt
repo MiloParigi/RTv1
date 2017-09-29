@@ -1,5 +1,5 @@
 camera:
-  pos: 0 0 -1000
+  pos: 0 0 -1500
   dir: 0 0 0
   fov: 45
 light:
@@ -12,4 +12,8 @@ light:
 mickey:
   pos: 0 0 0
   radius: 200
+  color: 255 0 0
+dick:
+  pos: 500 0 0
+  radius: 50
   color: 255 0 0
