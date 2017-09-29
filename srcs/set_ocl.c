@@ -106,8 +106,6 @@ int		set_mat(t_rt *e, char **a)
 		SOBJ.mat.spec = ft_atof(a[1]);
 	else if (!ft_strcmp("diffuse:", a[0]))
 		SOBJ.mat.diff = ft_atof(a[1]);
-	else if (!ft_strcmp("zoomtext:", a[0]))
-		SOBJ.mat.zoomtext = ft_atof(a[1]);
 	else if (!ft_strcmp("texture:", a[0]))
 	{
 
@@ -116,8 +114,6 @@ int		set_mat(t_rt *e, char **a)
 			if (!(SOBJ.mat.tex.data = mlx_get_data_addr(SOBJ.mat.tex.ptr, &SOBJ.mat.tex.bpp, &SOBJ.mat.tex.sizl, &SOBJ.mat.tex.endian)))
 				ft_putstr("texture \""), ft_putstr(a[1]), ft_putendl("\" can't be loaded");
 			else{
-				if (SOBJ.mat.zoomtext != 1)
-				{}
 				SOBJ.mat.tex.is_init = 1;
 			}
 		}

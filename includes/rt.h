@@ -251,7 +251,6 @@ typedef struct		s_matiere
 	float			absorbtion;
 	char			*coeff;
 	char			opacite;
-	float			zoomtext;
 	t_texture		texture;
 }					t_matiere;
 
