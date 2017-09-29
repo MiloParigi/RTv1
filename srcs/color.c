@@ -37,12 +37,12 @@ t_color			copy_color(t_color color)
 	newcolor.b = color.b;
 	return (newcolor);
 }
-
 t_color			color_text(t_obj obj, t_vec3 poi, float taux)
 {
 	t_color	color_text;
 	t_vec2	uv;
 	t_vec3	norm;
+//	float 	perlin;
 
 	norm = object_norm(obj, poi);
 	uv = get_uv_obj(obj, poi, norm);
