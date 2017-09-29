@@ -31,7 +31,7 @@
 # include "xmlstring.h"
 # include "xmlreader.h"
 
-// # include <gtk/gtk.h>
+# include <gtk/gtk.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -155,6 +155,7 @@
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
+// # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
 # define SELECTED e->scene.selected
@@ -164,7 +165,7 @@
 # define SPEC_LIGHT e->scene.ambient
 # define MAXOBJ 50
 # define MAXLIGHT 21
-
+# define MAXLIM 10
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)
 # define RES_H (HAUTEUR / RES)
@@ -314,6 +315,7 @@ typedef struct		s_obj
 	int				plimit_active;
 	int				plimit_type;
 	int				plimit_valid;
+	int				nbr_limit;
 	struct s_obj	*plimit;
 	int				complex;
 }					t_obj;
@@ -393,7 +395,7 @@ typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_keys			keys;
-	// t_gtk			gtk;
+	t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
@@ -405,8 +407,8 @@ int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
-void				create_limits(t_rt *e, char **args);
-float    		limit_dist(t_obj *obj, t_ray ray, float bdist, float maxdist);
+void				create_limits(t_rt *e, char **args, int tot);
+float    		    limit_dist(t_obj obj, t_ray ray, float bdist, float maxdist);
 int					set_skybox(t_rt *e, char *path);
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -486,7 +488,7 @@ t_color				color_text(t_obj obj, t_vec3 poi, float taux);
 t_color				skybox(t_rt *e, t_ray ray);
 
 float				intersect_obj(t_ray ray, t_obj obj);
-float				intersect_sphere(t_ray ray, t_obj *sphere);
+float				intersect_sphere(t_ray ray, t_obj sphere);
 t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 
 float				intersect_plane(t_ray ray, t_obj plane);
@@ -503,8 +505,7 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
-float				get_res_of_quadratic(float a, float b, float c, char *select);
-float				get_res_of_quadratic2(t_calc *op, char *select);
+float				get_res_of_quadratic2(t_calc *op);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
@@ -524,10 +525,10 @@ void				init_rt(t_rt *e);
 void		ft_init_values(t_rt *e);
 gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
-// void 				ft_gtk_start_launcher(t_rt *e);
-// void 				ft_gtk_start_settings(t_rt *e);
-// void 				ft_settings(t_rt *e);
-// void 				ft_gtk_launcher(t_rt *e);
+void 				ft_gtk_start_launcher(t_rt *e);
+void 				ft_gtk_start_settings(t_rt *e);
+void 				ft_settings(t_rt *e);
+void 				ft_gtk_launcher(t_rt *e);
 
 GtkWidget 			*new_window(gint w, gint h, gchar *name);
 GtkWidget			*new_input(t_gtk_input *data);
@@ -541,11 +542,11 @@ void				ft_add_anti(GObject *sw, GParamSpec *ps, t_rt *e);
 void				ft_add_antialiasing(t_rt *e);
 void				ft_add_resolution(t_rt *e);
 void				ft_add_win_size(t_rt *e);
-// GtkWidget 			*new_window(gint w, gint h, gchar *name);
-// GtkWidget			*new_input(t_gtk_input *data);
-// GtkWidget			*new_txt(gchar *str);
-// GtkWidget			*new_btn(int x, int y, char *name);
-// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+GtkWidget 			*new_window(gint w, gint h, gchar *name);
+GtkWidget			*new_input(t_gtk_input *data);
+GtkWidget			*new_txt(gchar *str);
+GtkWidget			*new_btn(int x, int y, char *name);
+void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
 
 //Perturbation (checker, tole etc..)
 t_color				get_checker_col(t_checker check, t_vec3 pt);

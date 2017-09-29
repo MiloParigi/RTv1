@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/rt",
-            "args": ["-s", "scenes/cor1.rt"],
+            "args": ["-s", "scenes/easy.rt"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

@@ -67,7 +67,7 @@ void	auto_res(int keycode, t_rt *e)
 	
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
 	{
-		average_res = calcul_res(e, 1250000);
+		average_res = calcul_res(e, 125000);
 		if (average_res > RES)
 			RES = average_res;
 	}

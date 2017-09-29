@@ -48,7 +48,7 @@ void			init_rt(t_rt *e)
 	HAUTEUR = 768;
 	RES = calcul_res(e, 500000);
 	RES_BUFF = RES;
-	ALIASING = 2;
+	ALIASING = 1;
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_complex = 0;
 	e->scene.nbr_light = 0;
@@ -96,8 +96,8 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		display_args();
-		// ft_gtk_start_launcher(e);
+		//display_args();
+		ft_gtk_start_launcher(e);
 	}
 	return (0);
 }
