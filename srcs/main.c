@@ -48,7 +48,7 @@ void			init_rt(t_rt *e)
 	HAUTEUR = 768;
 	RES = calcul_res(e, 500000);
 	RES_BUFF = RES;
-	ALIASING = 1;
+	ALIASING = 2;
 	e->scene.nbr_obj = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
@@ -59,14 +59,14 @@ void			init_rt(t_rt *e)
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
 	e->scene.selected = -1;
-	e->gtk.started = 0;
+	// e->gtk.started = 0;
 	e->frame = 0;
 	key_init(e);
 }
 
 void			ft_start_rt(t_rt *e)
 {
-	e->gtk.started = 1;	
+	// e->gtk.started = 1;	
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
 	WIN = mlx_new_window(INIT, LARGEUR, HAUTEUR, "RT");
@@ -95,8 +95,8 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		// display_args();
-		ft_gtk_start_launcher(e);
+		display_args();
+		// ft_gtk_start_launcher(e);
 	}
 	return (0);
 }

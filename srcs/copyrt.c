@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 23:14:17 by jribeiro          #+#    #+#             */
-/*   Updated: 2017/09/25 22:21:35 by mparigi          ###   ########.fr       */
+/*   Created: 2017/08/22 23:14:17 by mparigi           #+#    #+#             */
+/*   Updated: 2017/09/27 13:13:13 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,14 @@ t_scene				copy_scene(t_scene scene)
 	t_scene			copy;
 	int				i;
 
-	i = 0;
+	i = -1;
 	copy.lights = (t_light *)malloc(scene.nbr_light * sizeof(t_light));
-	while (i < scene.nbr_light)
-	{
+	while (++i < scene.nbr_light)
 		copy.lights[i] = copy_light(scene.lights[i]);
-		++i;
-	}
 	copy.obj = (t_obj *)malloc(scene.nbr_obj * sizeof(t_obj));
-	i = 0;
-	while (i < scene.nbr_obj)
-	{
+	i = -1;
+	while (++i < scene.nbr_obj)
 		copy.obj[i] = copy_objs(scene.obj[i]);
-		++i;
 	}
 	copy.skybox = scene.skybox;
 	copy.last = scene.last;
@@ -95,6 +90,5 @@ t_rt				*copy_rt(t_rt *e)
 	copy->file.haut = e->file.haut;
 	copy->file.reso = e->file.reso;
 	copy->file.aliasing = e->file.aliasing;
-
 	return (copy);
 }

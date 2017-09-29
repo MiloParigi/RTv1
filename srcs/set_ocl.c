@@ -85,6 +85,10 @@ int		set_obj(t_rt *e, char **a)
 		SOBJ.dir = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 2 && !ft_strcmp("radius:", a[0]))
 		SOBJ.r = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("k:", a[0]))
+		SOBJ.k = tan(ft_atof(a[1]) * DEG2RAD / 2);
+	else if (i == 2 && !ft_strcmp("angle:", a[0]))
+		SOBJ.k = tan(ft_atof(a[1]) * DEG2RAD / 2);
 	else if (i == 4 && !ft_strcmp("color:", a[0]))
 		SOBJ.color = c_color(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("angle:", a[0]))
@@ -98,24 +102,33 @@ int		set_obj(t_rt *e, char **a)
 
 int		set_mat(t_rt *e, char **a)
 {
-	if (!ft_strcmp("reflection:", a[0]))
-		SOBJ.mat.reflect = ft_atof(a[1]);
-	else if (!ft_strcmp("refraction:", a[0]))
-		SOBJ.mat.refract = ft_atof(a[1]);
-	else if (!ft_strcmp("specular:", a[0]))
-		SOBJ.mat.spec = ft_atof(a[1]);
-	else if (!ft_strcmp("diffuse:", a[0]))
-		SOBJ.mat.diff = ft_atof(a[1]);
-	else if (!ft_strcmp("texture:", a[0]))
-	{
+	int		i;
 
+	i = 0;
+	while (a[i])
+		i++;
+	if (i == 2 && !ft_strcmp("reflection:", a[0]))
+		SOBJ.mat.reflect = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("refraction:", a[0]))
+		SOBJ.mat.refract = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("specular:", a[0]))
+		SOBJ.mat.spec = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("diffuse:", a[0]))
+		SOBJ.mat.diff = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("sin:", a[0]))
+		SOBJ.mat.sin = ft_atof(a[1]);
+	else if (i == 2 && !ft_strcmp("checker:", a[0]))
+		SOBJ.mat.checker = (t_checker){c_color(0, 125, 255), c_color(0, 0, 0), ISTRUE(a[1])};
+	else if (i == 2 && !ft_strcmp("perlin:", a[0]))
+		SOBJ.mat.perlin = ISTRUE(a[1]);
+	else if (i == 2 && !ft_strcmp("texture:", a[0]))
+	{
 		if ((SOBJ.mat.tex.ptr = mlx_xpm_file_to_image(INIT, a[1], &SOBJ.mat.tex.width, &SOBJ.mat.tex.height)))
 		{
 			if (!(SOBJ.mat.tex.data = mlx_get_data_addr(SOBJ.mat.tex.ptr, &SOBJ.mat.tex.bpp, &SOBJ.mat.tex.sizl, &SOBJ.mat.tex.endian)))
 				ft_putstr("texture \""), ft_putstr(a[1]), ft_putendl("\" can't be loaded");
-			else{
+			else
 				SOBJ.mat.tex.is_init = 1;
-			}
 		}
 		else
 			ft_putstr("texture \""), ft_putstr(a[1]), ft_putendl("\" can't be loaded");
@@ -145,6 +158,19 @@ int		set_light(t_rt *e, char **a)
 	return (1);
 }
 
+int		set_skybox(t_rt *e, char *path)
+{
+	if ((e->scene.skybox.ptr = mlx_xpm_file_to_image(INIT, path, &e->scene.skybox.width, &e->scene.skybox.height)))
+	{
+		if (!(e->scene.skybox.data = mlx_get_data_addr(e->scene.skybox.ptr, &e->scene.skybox.bpp, &e->scene.skybox.sizl, &e->scene.skybox.endian)))
+			ft_putstr("skybox \""), ft_putstr(path), ft_putendl("\" can't be loaded");
+		else
+			e->scene.skybox.is_init = 1;
+	}
+	else
+		ft_putstr("skybox \""), ft_putstr(path), ft_putendl("\" can't be loaded");
+	return  (0);
+}
 int		set_camera(t_rt *e, char **a)
 {
 	int		i;
@@ -160,6 +186,8 @@ int		set_camera(t_rt *e, char **a)
 			vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 2 && !ft_strcmp("fov:", a[0]))
 		e->scene.cam.fov = ft_atoi(a[1]);
+	else if (i == 2 && !ft_strcmp("skybox:", a[0]))
+		return (set_skybox(e, a[1]));
 	else
 		return (0);
 	return (1);

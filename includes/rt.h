@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/27 03:19:19 by rlecart          ###   ########.fr       */
+/*   Updated: 2017/09/26 16:09:13 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include "xmlstring.h"
 # include "xmlreader.h"
 
-# include <gtk/gtk.h>
+// # include <gtk/gtk.h>
 
 # define RT_XSD "validator.xsd"
 # define RT_DTD "validator.dtd"
@@ -157,6 +157,8 @@
 # define CLIGHT scene.lights[i]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
+# define SELECTED e->scene.selected
+# define ISLIMIT e->scene.obj[e->scene.selected].plimit_active
 # define AMBIENT_LIGHT e->scene.ambient
 # define DIFF_LIGHT e->scene.ambient
 # define SPEC_LIGHT e->scene.ambient
@@ -176,6 +178,7 @@
 # define DIST_MIN -80000
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
+# define ISTRUE(x) (x > 0 ? 1 : 0)
 # define PX_WHI 0x00FFFFFF
 
 # define NB_THREADS 8
@@ -239,8 +242,16 @@ typedef struct		s_texture
 	int				height;
 }					t_texture;
 
+typedef struct		s_checker
+{
+	t_color			c1;
+	t_color			c2;
+	int				l;
+}					t_checker;
+
 typedef struct		s_matiere
 {
+	t_checker		checker;
 	float			diff;
 	float			spec;
 	float			reflect;
@@ -251,6 +262,8 @@ typedef struct		s_matiere
 	float			absorbtion;
 	char			*coeff;
 	char			opacite;
+	int				sin;
+	int 			perlin;
 	t_texture		texture;
 }					t_matiere;
 
@@ -378,7 +391,7 @@ typedef struct		s_rt
 {
 	t_mlx			mlx;
 	t_keys			keys;
-	t_gtk			gtk;
+	// t_gtk			gtk;
 	t_scene			scene;
 	t_file			file;
 	t_mthread		thread;
@@ -391,7 +404,8 @@ int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
 void				create_limits(t_rt *e, char **args);
-
+float    		limit_dist(t_obj *obj, t_ray ray, float bdist, float maxdist);
+int					set_skybox(t_rt *e, char *path);
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
 int					set_camera(t_rt *e, char **a);
@@ -462,11 +476,6 @@ t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
-// void				super_sampler(t_rt *e);
-// void				anti_supersampler(t_rt *e);
-// void				anti_aliasing_on(t_rt *e, unsigned int *img_temp);
-// void				anti_aliasing_off(t_rt *e);
-
 t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
@@ -493,6 +502,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				get_res_of_quadratic(float a, float b, float c, char *select);
+float				get_res_of_quadratic2(t_calc *op, char *select);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
@@ -512,10 +522,10 @@ void				init_rt(t_rt *e);
 void		ft_init_values(t_rt *e);
 gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
-void 				ft_gtk_start_launcher(t_rt *e);
-void 				ft_gtk_start_settings(t_rt *e);
-void 				ft_settings(t_rt *e);
-void 				ft_gtk_launcher(t_rt *e);
+// void 				ft_gtk_start_launcher(t_rt *e);
+// void 				ft_gtk_start_settings(t_rt *e);
+// void 				ft_settings(t_rt *e);
+// void 				ft_gtk_launcher(t_rt *e);
 
 GtkWidget 			*new_window(gint w, gint h, gchar *name);
 GtkWidget			*new_input(t_gtk_input *data);
@@ -529,13 +539,20 @@ void				ft_add_anti(GObject *sw, GParamSpec *ps, t_rt *e);
 void				ft_add_antialiasing(t_rt *e);
 void				ft_add_resolution(t_rt *e);
 void				ft_add_win_size(t_rt *e);
+// GtkWidget 			*new_window(gint w, gint h, gchar *name);
+// GtkWidget			*new_input(t_gtk_input *data);
+// GtkWidget			*new_txt(gchar *str);
+// GtkWidget			*new_btn(int x, int y, char *name);
+// void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+
+//Perturbation (checker, tole etc..)
+t_color				get_checker_col(t_checker check, t_vec3 pt);
 
 //Texture
 t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
-
-float				Get2DPerlinNoiseValue(float x, float y, float res);
-
+float       Get2DPerlinNoiseValue(float x, float y, float res);
+t_color				get_text_color(int x, int y, t_texture tex);
 #endif

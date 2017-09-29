@@ -13,8 +13,11 @@
 #include "rt.h"
 
 t_vec3	plane_norm(t_obj obj)
-{
-	return (vec_norme3(vec_sub3(obj.vector, obj.pos)));
+{	
+	t_vec3 normal;
+
+	normal = vec_norme3(vec_sub3(obj.vector, obj.pos));
+	return (normal);
 }
 
 float			intersect_plane(t_ray ray, t_obj plane)
@@ -31,5 +34,5 @@ float			intersect_plane(t_ray ray, t_obj plane)
 	if (dist <= 0)
 		return (DIST_MAX);
 	else
-		return (dist);
+		return (limit_dist(&plane, ray, dist, dist));
 }

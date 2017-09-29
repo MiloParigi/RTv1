@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
+#    By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
-#    Updated: 2017/09/27 03:19:39 by rlecart          ###   ########.fr        #
+#    Updated: 2017/09/27 03:19:39 by mhalit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC			=	color.c \
 				hooks2.c \
 				reflexion.c \
 				refraction.c \
+				intersect/limits.c \
 				intersect/plane.c \
 				intersect/cylinder.c \
 				intersect/sphere.c \
@@ -49,6 +50,8 @@ SRC			=	color.c \
 				gtk/gtk_launcher.c \
 				gtk/gtk_settings.c \
 				gtk/gtk_new.c
+				checker.c \
+				perlin.c
 
 MINILIBX	=	libs/minilibx/libmlx.a
 LIBFT		=	libs/libft/libft.a
@@ -59,7 +62,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ `pkg-config --cflags gtk+-3.0` -fsanitize=address
 OPTI		=	
 DEBUG		=	-g
-MLXF		=	-framework OpenGL -framework AppKit -lxml2 `pkg-config --libs gtk+-3.0`
+MLXF		=	-framework OpenGL -framework AppKit -lxml2 #`pkg-config --libs gtk+-3.0`
 WHITE		=	\033[7;49;39m
 BLUE		=	\033[7;49;34m
 RED			=	\x1B[31m
@@ -79,7 +82,7 @@ $(NAME): $(MINILIBX) $(LIBFT) $(GRAPHICS) $(OBJDIR) $(OBJ)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@printf "$(YELLOW)\r[$(PROJECT)] Compiling $< to $@                                                          \r"
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(OPTI) $(CFLAGS) -o $@ -c $<
 
 mlx:
 	@printf "$(YELLOW)[MINILIBX] Compiling obj...                                                     \r$(NO_COLOR)"
