@@ -9,7 +9,7 @@ plane:
   pos: -1 800 0
   normal: 0 0.999 0.001
   color: 0 255 0
-  negatif: 1 0 0 1
+ * negatif: 1 0 0 1
 plane:
   pos: 1500 0 0
   normal: 0.99 0 0.01
@@ -30,10 +30,8 @@ sphere:
   pos: 750 400 300
   radius: 200
   color: 255 0 0
-  refraction: 0.1
-* Usage [obj type 2 = plan] normale(x, y, z) // Only plane limit now.
-  negatif: 2 0.5 1 0.5 750 320 290
-  negatif: 2 1 0 0.5 500 300 290
+  refraction: 0
+  reflection: 1
 sphere:
   pos: 1000 400 100
   radius: 100

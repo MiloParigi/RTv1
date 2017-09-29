@@ -59,14 +59,15 @@ void			init_rt(t_rt *e)
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
 	e->scene.selected = -1;
-	// e->gtk.started = 0;
+	SFILE = NULL;
+	e->gtk.started = 0;
 	e->frame = 0;
 	key_init(e);
 }
 
 void			ft_start_rt(t_rt *e)
 {
-	// e->gtk.started = 1;	
+	e->gtk.started = 1;	
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
 	WIN = mlx_new_window(INIT, LARGEUR, HAUTEUR, "RT");

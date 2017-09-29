@@ -84,6 +84,6 @@ float       limit_dist(t_obj obj, t_ray ray, float obj_lowdist, float obj_highdi
 				return (obj_highdist);
 			return (DIST_MAX);
 		}
-	 }
+	}
 	return (obj_lowdist);
 }

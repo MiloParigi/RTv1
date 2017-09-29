@@ -15,12 +15,12 @@
 t_color			ft_map_color(t_color color1, t_color color2, float taux1)
 {
 	t_color		new_color;
-	float 		taux2;
+	float		taux2;
 
-	if(taux1 >= 1)
-		return color2;
+	if (taux1 >= 1)
+		return (color2);
 	taux2 = 1 - taux1;
-	color1 = color_mult(color1, taux2);	
+	color1 = color_mult(color1, taux2);
 	color2 = color_mult(color2, taux1);
 	new_color.r = color1.r + color2.r;
 	new_color.g = color1.g + color2.g;
@@ -43,7 +43,6 @@ t_color			color_text(t_obj obj, t_vec3 poi, float taux)
 	t_color	color_text;
 	t_vec2	uv;
 	t_vec3	norm;
-//	float 	perlin;
 
 	norm = object_norm(obj, poi);
 	uv = get_uv_obj(obj, poi, norm);

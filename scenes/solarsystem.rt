@@ -21,3 +21,13 @@ sphere:
     radius: 20
     texture: texs/moon.xpm
     perlin: 1
+sphere: 
+  pos: 100 0 0
+  radius: 50
+  color: 255 0 0
+  refraction: 1
+sphere: 
+  pos: 200 0 0
+  radius: 50
+  color: 255 0 0
+  refraction: 1
