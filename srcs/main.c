@@ -95,8 +95,8 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		display_args();
-		// ft_gtk_start_launcher(e);
+		//display_args();
+		ft_gtk_start_launcher(e);
 	}
 	return (0);
 }

@@ -41,31 +41,31 @@ void			exportimg(t_rt *e)
 	ft_putendl("Image exported !");
 }
 
-// void new_rt()
-// {
-// 	t_rt	*e;
+void new_rt()
+{
+	t_rt	*e;
 
-// 	e = (t_rt *)malloc(sizeof(t_rt));
-// 	init_rt(e);
-// 	ft_gtk_start_launcher(e);
-// }
+	e = (t_rt *)malloc(sizeof(t_rt));
+	init_rt(e);
+	ft_gtk_start_launcher(e);
+}
 
-// void show_settings(t_rt *e)
-// {
-// 	mlx_destroy_window(INIT, WIN);
-// 	ft_gtk_start_settings(e);
-// }
+void show_settings(t_rt *e)
+{
+	mlx_destroy_window(INIT, WIN);
+	ft_gtk_start_settings(e);
+}
 
-// void	gtk_hook(int keycode, t_rt *e)
-// {
-// 	if (keycode == KEY_N || keycode == KEY_O)
-// 		key_init(e);
-// 	if (keycode == KEY_N)
-// 		new_rt();
-// 	else if (keycode == KEY_O)
-// 		show_settings(e);
+void	gtk_hook(int keycode, t_rt *e)
+{
+	if (keycode == KEY_N || keycode == KEY_O)
+		key_init(e);
+	if (keycode == KEY_N)
+		new_rt();
+	else if (keycode == KEY_O)
+		show_settings(e);
 	
-// }
+}
 
 void			onepress(int keycode, t_rt *e)
 {
@@ -95,7 +95,7 @@ void			onepress(int keycode, t_rt *e)
 	}
 	if (keycode == 50)
 		exportimg(e);
-	//gtk_hook(keycode, e);
+	gtk_hook(keycode, e);
 }
 
 void			move(t_rt *e, t_vec3 *vec, int speed)

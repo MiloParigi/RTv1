@@ -2,7 +2,7 @@ camera:
     pos: 100 0 -500
     dir: 0 0 1
     fov: 45
-    skybox: texs/img0142.xpm
+    skybox: texs/4kstars.xpm
 light:
 	pos: 800 0 -400
 	intensity: 1

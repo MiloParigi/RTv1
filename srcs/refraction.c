@@ -20,10 +20,6 @@ t_color			get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int count
     i = e->scene.id;
 	ray.pos = e->COBJ.pos;
 	ray.dir = object_norm(e->COBJ, poi);
-	//la ligne precedent est fausse, il faut trouver comment faire la goute deau et la boule 
-	//de noel, jai rien compris moi =)
-	//http://heigeas.free.fr/laure/ray_tracing/principes.html#reflection
-	// au cas ou qqun comprends
 	taux_temp = e->COBJ.mat.refract;
 	i = 0;
 	dist = 0;

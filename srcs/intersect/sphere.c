@@ -37,8 +37,6 @@ float	get_res_of_quadratic2(t_calc *op)
 	return (DIST_MAX);
 }
 
-
-
 float	intersect_sphere(t_ray ray, t_obj sphere)
 {
 	float		sphere_lowdist;

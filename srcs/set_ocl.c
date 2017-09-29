@@ -14,6 +14,18 @@
 
 int		set_last(t_rt *e, char **params)
 {
+	if (!ft_strcmp(params[0], "skybox:"))
+	{
+		if ((e->scene.skybox.ptr = mlx_xpm_file_to_image(INIT, params[1], &e->scene.skybox.width, &e->scene.skybox.height)))
+		{
+			if (!(e->scene.skybox.data = mlx_get_data_addr(e->scene.skybox.ptr, &e->scene.skybox.bpp, &e->scene.skybox.sizl, &e->scene.skybox.endian)))
+				ft_putstr("skybox \""), ft_putstr(params[1]), ft_putendl("\" can't be loaded");
+			else
+				e->scene.skybox.is_init = 1;
+		}
+		else
+			ft_putstr("skybox \""), ft_putstr(params[1]), ft_putendl("\" can't be loaded");
+	}
 	if (SPHERE == e->scene.last || PLANE == e->scene.last ||
 		CONE == e->scene.last || MICKEY == e->scene.last ||
  		DICK == e->scene.last || CYLINDER == e->scene.last)

@@ -5,14 +5,11 @@ camera:
 light:
   pos: 800 0 -400
   intensity: 0.005
-light:
-  pos: 100 700 -400
-  intensity: 0.007
-* BOX
 plane:
   pos: -1 800 0
   normal: 0 0.999 0.001
   color: 0 255 0
+  negatif: 1 0 0 1
 plane:
   pos: 1500 0 0
   normal: 0.99 0 0.01
