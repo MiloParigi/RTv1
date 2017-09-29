@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbeldame <bbeldame@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 14:55:55 by tfaure            #+#    #+#             */
 /*   Updated: 2017/08/18 00:53:04 by rlecart          ###   ########.fr       */

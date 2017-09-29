@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/26 19:16:02 by bbeldame          #+#    #+#              #
-#    Updated: 2017/09/19 17:29:46 by rlecart          ###   ########.fr        #
+#    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
+#    Updated: 2017/09/27 03:19:39 by rlecart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC			=	color.c \
 				hooks.c \
 				hooks2.c \
 				reflexion.c \
+				refraction.c \
 				intersect/plane.c \
 				intersect/cylinder.c \
 				intersect/sphere.c \
@@ -41,6 +42,9 @@ SRC			=	color.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \
+				uv_mapping.c \
+				gtk/gtk_add.c \
+				gtk/gtk_add2.c \
 				gtk/gtk_init.c \
 				gtk/gtk_launcher.c \
 				gtk/gtk_settings.c \
@@ -52,8 +56,8 @@ LIBVEC		=	libs/libvec/libvec.a
 LIBXML		=	-lxml2
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ `pkg-config --cflags gtk+-3.0`
-OPTI		=	-O3
+CFLAGS		=	-Wall -Werror -Wextra -g -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ -I libs/libxml/ `pkg-config --cflags gtk+-3.0` -fsanitize=address
+OPTI		=	
 DEBUG		=	-g
 MLXF		=	-framework OpenGL -framework AppKit -lxml2 `pkg-config --libs gtk+-3.0`
 WHITE		=	\033[7;49;39m

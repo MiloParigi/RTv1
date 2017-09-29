@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 22:16:34 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/25 21:37:06 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			create_type(char *type, t_rt *e)
 	return (0);
 }
 
-static void free_word(char **tab)
+static void	free_word(char **tab)
 {
 	int i;
 

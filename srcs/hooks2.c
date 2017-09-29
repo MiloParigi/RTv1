@@ -76,10 +76,21 @@ void			onepress(int keycode, t_rt *e)
 	e->scene.filters = (keycode == KEY_5) ? 4 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_6) ? 5 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_7) ? 6 : e->scene.filters;
+	// printf("onpress(%d)in\n", e->scene.selected);
+	
+	if (e->scene.selected != -1) {
+		if ((keycode == 81) || (keycode == 75))
+			e->scene.obj[e->scene.selected].r += (keycode == 81) ? 10 : -10;
+		if (e->scene.obj[e->scene.selected].r == 0 )
+			e->scene.obj[e->scene.selected].r = 5;
+
+	}
 	if (keycode == LSHIFT)
 		AMBIENT_LIGHT += ((int)AMBIENT_LIGHT == 1) ? -1 : 0.05;
-	RES += (keycode == PAGE_UP && RES < 200) ? 200 : 0;
+	RES += (keycode == PAGE_UP && RES < 200) ? 1 : 0;
 	RES -= (keycode == PAGE_DOWN && RES > 1) ? 1 : 0;
+	if (RES < 1)
+		RES = 1; 
 	if (keycode == PAGE_UP || keycode == PAGE_DOWN)
 	{
 		RES_BUFF = RES;
@@ -88,6 +99,7 @@ void			onepress(int keycode, t_rt *e)
 	if (keycode == 50)
 		exportimg(e);
 	gtk_hook(keycode, e);
+	// printf("onpress(%d)out\n", e->scene.selected);
 }
 
 void			move(t_rt *e, t_vec3 *vec, int speed)

@@ -19,13 +19,12 @@ int				nbrs_keys(t_rt *e)
 
 static	void	key(t_rt *e)
 {
-	// printf("(%d, %d)\n", e->keys.key_n, e->keys.key_o);
 	if (nbrs_keys(e) > 0)
 	{
 		if (e->scene.selected == -1)
-			move_cam(e, 10);
+			move_cam(e, 20);
 		else
-			move_obj(e, 10);
+			move_obj(e, 20);
 		frame(e);
 	}
 }
