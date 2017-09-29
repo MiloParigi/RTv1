@@ -50,6 +50,7 @@ void			init_rt(t_rt *e)
 	RES_BUFF = RES;
 	ALIASING = 1;
 	e->scene.nbr_obj = 0;
+	e->scene.nbr_complex = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
 	e->scene.ambient = 0.2;

@@ -302,6 +302,7 @@ typedef struct		s_obj
 	int				plimit_type;
 	int				plimit_valid;
 	struct s_obj	*plimit;
+	int				complex;
 }					t_obj;
 
 typedef struct		s_calc
@@ -328,6 +329,7 @@ typedef struct		s_scene
 	float			ambient;
 	int				nbr_light;
 	int				nbr_obj;
+	int				nbr_complex;
 	char			nbr_tot;
 	int				id;
 	int				supersampling;

@@ -64,6 +64,7 @@ int				create_obj(int type, t_rt *e)
 	e->COBJ.vector = vec_new3(0, 0, 0);
 	e->COBJ.plimit_active = 0;
 	e->COBJ.plimit = NULL;
+	e->COBJ.complex = 0;
 	e->scene.nbr_obj++;
 	return (type);
 }
