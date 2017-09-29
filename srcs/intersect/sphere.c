@@ -37,10 +37,28 @@ float	get_res_of_quadratic2(t_calc *op, char *select)
 	return (DIST_MAX);
 }
 
+static float	get_res_of_quadratic2(t_calc *op, char *select)
+{
+	op->disc = op->b * op->b - 4 * op->a * op->c;
+	if (op->disc < 0)
+		return (DIST_MAX);
+	if (op->disc == 0)
+		return (-op->b / (2 * op->a));
+	op->disc = sqrt(op->disc);
+	op->t0 = (-op->b + op->disc) / (2 * op->a);
+	op->t1 = (-op->b - op->disc) / (2 * op->a);
+	if (ft_strcmp(select, "lowdist") == 0)
+		return ((op->t0 > op->t1) ? op->t1 : op->t0);
+	if (ft_strcmp(select, "highdist") == 0)
+		return ((op->t0 > op->t1) ? op->t0 : op->t1);
+	return (DIST_MAX);
+}
+
 
 
 float	intersect_sphere(t_ray ray, t_obj *sphere)
 {
+	float		plimit_dist;
 	float		sphere_lowdist;
 	float		sphere_highdist;
 	t_vec3		x;

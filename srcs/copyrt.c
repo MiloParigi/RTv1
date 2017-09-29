@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 23:14:17 by jribeiro          #+#    #+#             */
+/*   Created: 2017/08/22 23:14:17 by mparigi           #+#    #+#             */
 /*   Updated: 2017/09/27 13:13:13 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -64,6 +64,7 @@ t_scene				copy_scene(t_scene scene)
 	i = -1;
 	while (++i < scene.nbr_obj)
 		copy.obj[i] = copy_objs(scene.obj[i]);
+	}
 	copy.skybox = scene.skybox;
 	copy.last = scene.last;
 	copy.nbr_light = scene.nbr_light;

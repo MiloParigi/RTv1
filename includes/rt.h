@@ -196,7 +196,7 @@ typedef struct		s_color
 	float			b;
 	float			g;
 	float			r;
-	float 			a;
+	float			a;
 }					t_color;
 
 typedef struct		s_light
@@ -290,8 +290,8 @@ typedef struct		s_file
 	char			*path;
 	int				haut;
 	int				larg;
-	int 			fdp;
-	int 			reso;
+	int				fdp;
+	int				reso;
 	int				reso_buff;
 	int				aliasing;
 }					t_file;
@@ -342,9 +342,9 @@ typedef struct		s_scene
 	int				nbr_light;
 	int				nbr_obj;
 	char			nbr_tot;
-	int 			id;
+	int				id;
 	int				supersampling;
-	int 			filters;
+	int				filters;
 	int				selected;
 }					t_scene;
 
@@ -357,35 +357,35 @@ typedef struct		s_mthread
 	t_color			*colors;
 }					t_mthread;
 
-// typedef struct		s_gtk_input
-// {
-// 	gint			max_size;
-// 	gint			max_char;
-// 	gchar			*placeholder;
-// 	gchar   		*deflaut_value;
-// }					t_gtk_input;
+typedef struct		s_gtk_input
+{
+	gint			max_size;
+	gint			max_char;
+	gchar			*placeholder;
+	gchar			*deflaut_value;
+}					t_gtk_input;
 
-// typedef struct		s_gtk_win
-// {
-// 	GtkWidget 		*window;
-// 	GtkWidget		*layout;
-// }					t_gtk_win;
+typedef struct		s_gtk_win
+{
+	GtkWidget		*window;
+	GtkWidget		*layout;
+}					t_gtk_win;
 
-// typedef struct		s_gtk_settings
-// {
-// 	int 			width;
-// 	int 			height;
-// 	int 			res;
-// 	GtkWidget 		*anti_aliasing;
-// }					t_gtk_settings;
+typedef struct		s_gtk_settings
+{
+	int				width;
+	int				height;
+	int				res;
+	GtkWidget		*anti_aliasing;
+}					t_gtk_settings;
 
-// typedef struct		s_gtk
-// {
-// 	t_gtk_win		menu;
-// 	t_gtk_win		settings;
-// 	t_gtk_settings	values;
-// 	int				started;
-// }					t_gtk;
+typedef struct		s_gtk
+{
+	t_gtk_win		menu;
+	t_gtk_win		settings;
+	t_gtk_settings	values;
+	int				started;
+}					t_gtk;
 
 typedef struct		s_rt
 {
@@ -404,7 +404,7 @@ int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
 void 				create_complex(t_rt *e);
 void				create_limits(t_rt *e, char **args);
-float    		    limit_dist(t_obj *obj, t_ray ray, float bdist, float maxdist);
+float    		limit_dist(t_obj *obj, t_ray ray, float bdist, float maxdist);
 int					set_skybox(t_rt *e, char *path);
 int					set_obj(t_rt *e, char **a);
 int					set_light(t_rt *e, char **a);
@@ -476,7 +476,6 @@ t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
-
 t_color				copy_color(t_color color);
 t_color				color_mult(t_color color, float taux);
 float				get_length(t_vec3 v);
@@ -520,12 +519,26 @@ int					parse_filename(t_rt *e, char *filename);
 void 				ft_start_rt(t_rt *e);
 void				init_rt(t_rt *e);
 
+void		ft_init_values(t_rt *e);
+gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 // void 				ft_gtk_start_launcher(t_rt *e);
 // void 				ft_gtk_start_settings(t_rt *e);
 // void 				ft_settings(t_rt *e);
 // void 				ft_gtk_launcher(t_rt *e);
 
+GtkWidget 			*new_window(gint w, gint h, gchar *name);
+GtkWidget			*new_input(t_gtk_input *data);
+GtkWidget			*new_txt(gchar *str);
+GtkWidget			*new_btn(int x, int y, char *name);
+void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+void				ft_add_w(GtkEntry *entry, t_rt *e);
+void				ft_add_h(GtkEntry *entry, t_rt *e);
+void				ft_add_res(GtkEntry *entry, t_rt *e);
+void				ft_add_anti(GObject *sw, GParamSpec *ps, t_rt *e);
+void				ft_add_antialiasing(t_rt *e);
+void				ft_add_resolution(t_rt *e);
+void				ft_add_win_size(t_rt *e);
 // GtkWidget 			*new_window(gint w, gint h, gchar *name);
 // GtkWidget			*new_input(t_gtk_input *data);
 // GtkWidget			*new_txt(gchar *str);
@@ -540,7 +553,6 @@ t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
-
-float Get2DPerlinNoiseValue(float x, float y, float res);
+float       Get2DPerlinNoiseValue(float x, float y, float res);
 t_color				get_text_color(int x, int y, t_texture tex);
 #endif

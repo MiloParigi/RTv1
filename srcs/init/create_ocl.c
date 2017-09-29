@@ -26,8 +26,8 @@ t_matiere		create_matiere(void)
 {
 	t_matiere	mat;
 
-	mat.diff = 0.2;
-	mat.spec = 0.10;
+	mat.diff = 0.4;
+	mat.spec = 0.6;
 	mat.reflect = 0;
 	mat.refract = 0;
 	mat.reflex = 0;
