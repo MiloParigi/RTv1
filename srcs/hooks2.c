@@ -76,14 +76,11 @@ void			onepress(int keycode, t_rt *e)
 	e->scene.filters = (keycode == KEY_5) ? 4 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_6) ? 5 : e->scene.filters;
 	e->scene.filters = (keycode == KEY_7) ? 6 : e->scene.filters;
-	// printf("onpress(%d)in\n", e->scene.selected);
-	
 	if (e->scene.selected != -1) {
 		if ((keycode == 81) || (keycode == 75))
 			e->scene.obj[e->scene.selected].r += (keycode == 81) ? 10 : -10;
 		if (e->scene.obj[e->scene.selected].r == 0 )
 			e->scene.obj[e->scene.selected].r = 5;
-
 	}
 	if (keycode == LSHIFT)
 		AMBIENT_LIGHT += ((int)AMBIENT_LIGHT == 1) ? -1 : 0.05;
@@ -99,7 +96,6 @@ void			onepress(int keycode, t_rt *e)
 	if (keycode == 50)
 		exportimg(e);
 	gtk_hook(keycode, e);
-	// printf("onpress(%d)out\n", e->scene.selected);
 }
 
 void			move(t_rt *e, t_vec3 *vec, int speed)
@@ -139,6 +135,8 @@ void			move_obj(t_rt *e, int speed)
 {
 	if (e->keys.key_w || e->keys.key_s || e->keys.key_a || e->keys.key_d)
 		move(e, &e->scene.obj[e->scene.selected].pos, speed);
+	if (ISLIMIT == 1)
+		e->scene.obj[SELECTED].plimit->pos = e->scene.obj[e->scene.selected].pos;
 	e->scene.obj[e->scene.selected].pos.y +=
 		(e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
 	e->scene.obj[e->scene.selected].pos.y -=

@@ -67,7 +67,7 @@ void	auto_res(int keycode, t_rt *e)
 	
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
 	{
-		average_res = calcul_res(e, 125000);
+		average_res = calcul_res(e, 1250000);
 		if (average_res > RES)
 			RES = average_res;
 	}
@@ -90,6 +90,9 @@ int				keypress(int keycode, void *param)
 	e->keys.key_left = (keycode == KEY_LEFT) ? 1 : e->keys.key_left;
 	e->keys.key_down = (keycode == KEY_DOWN) ? 1 : e->keys.key_down;
 	e->keys.key_right = (keycode == KEY_RIGHT) ? 1 : e->keys.key_right;
+	// if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_move_keys(e) >= 1)
+	// 	if (RES < 5)
+	// 		RES = 5;
 	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ? 1 : e->keys.key_plus;
 	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ? 1 : e->keys.key_minus;
 	e->keys.key_n = (keycode == KEY_N) ? 1 : e->keys.key_n;

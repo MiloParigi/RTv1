@@ -17,7 +17,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
-
+	// t_vec2		uv;
 	i = 0;
 	intensity = 0;
 	while (i < e->scene.nbr_light)
@@ -63,7 +63,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	color = (t_color){0, 0, 0, 0};
 	e->scene.id = -1;
 	if ((min_dist = get_min_dist(e, ray)) == -1)
-		return ((!e->scene.skybox.is_init) ? (t_color){0, 0, 0, 0} : skybox(e, ray));
+		return (skybox(e, ray));
 	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
 	if (e->scene.id != -1)
 	{
@@ -78,6 +78,8 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 		else if (e->scene.obj[e->scene.id].mat.refract)
 			color = get_refracted_color(e, point_of_impact, 
 			get_color(e, e->scene.obj[e->scene.id], point_of_impact), 3);
+		else if (e->scene.obj[e->scene.id].mat.checker.l > 0)
+			color = get_checker_col(e->scene.obj[e->scene.id].mat.checker, point_of_impact);
 		else
 			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 	}
@@ -90,7 +92,6 @@ t_color				raytrace(int x, int y, t_rt *e)
 	t_color color;
 	t_ray	ray;
 
-	// printf("alia = %d\n", ALIASING);
 	ray = ray_init(e, x * RES / ALIASING, y * RES / ALIASING);
 	color = get_pxl_color(e, ray);
 	 return (color);
