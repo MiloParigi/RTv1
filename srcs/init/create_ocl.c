@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_ocl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/26 16:15:35 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/09/29 09:08:37 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int				create_obj(int type, t_rt *e)
 
 	i = e->scene.nbr_obj;
 	e->COBJ.is_init = 1;
+	e->COBJ.is_disp = 0;
 	e->COBJ.type = type;
 	e->COBJ.color = c_color(0, 0, 0);
 	e->COBJ.pos = vec_new3(0, 0, 0);
+	e->COBJ.last_pos = (t_vec2){0, 0};
 	e->COBJ.dir = vec_new3(0, 0, 0);
 	e->COBJ.k = tan(10 * DEG2RAD / 2);
 	e->COBJ.r = 0;

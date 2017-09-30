@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <mhalit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 05:21:15 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/20 22:29:22 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/29 12:01:04 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,22 @@ void	frame(t_rt *e)
 			++y;
 		}
 		i2 = 0;
+		//TEST
+		int		inc = -1;
+		while (++inc < e->scene.nbr_obj)
+		{
+			if (th_e[i]->scene.obj[inc].is_disp && (!e->scene.obj[inc].is_disp || e->scene.obj[inc].last_pos.x < th_e[i]->scene.obj[inc].last_pos.x))
+			{
+					e->scene.obj[inc].is_disp = 1;
+					e->scene.obj[inc].last_pos = th_e[i]->scene.obj[inc].last_pos;
+			}
+		}
+		//TEST
 		++i;
 	}
 	filters(e);
 	free(th_e);
 	mlx_put_image_to_window(INIT, WIN, IMG, 0, 0);
+	//disp_name(e, 0x00FFFFFF);
 	disp_cam(e, 0x00FFFFFF);
 }

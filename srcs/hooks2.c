@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:58:43 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/22 02:52:56 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/29 07:10:45 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			move(t_rt *e, t_vec3 *vec, int speed)
 {
 	t_ray	dir;
 	t_vec3	rx;
-
+	
 	dir = ray_init(e, LARGEUR / 2, HAUTEUR / 2);
 	rx = vec_norme3(prod_vec3_matrx4(dir.dir, roty_matrx4(-90)));
 	if ((e->keys.key_w && !e->keys.key_s) || (e->keys.key_s && !e->keys.key_w))
@@ -129,6 +129,10 @@ void			move_cam(t_rt *e, int speed)
 	e->scene.cam.dir.x -= (e->keys.key_up && !e->keys.key_down) ? 1 : 0;
 	e->scene.cam.dir.y += (e->keys.key_right && !e->keys.key_left) ? 1 : 0;
 	e->scene.cam.dir.y -= (e->keys.key_left && !e->keys.key_right) ? 1 : 0;
+	e->scene.cam.dir.x = (e->scene.cam.dir.x  > 360) ? 0 : e->scene.cam.dir.x;
+	e->scene.cam.dir.x = (e->scene.cam.dir.x  < 0) ? 360 : e->scene.cam.dir.x;
+	e->scene.cam.dir.y = (e->scene.cam.dir.y  > 360) ? 0 : e->scene.cam.dir.y;
+	e->scene.cam.dir.y = (e->scene.cam.dir.y  < 0) ? 360 : e->scene.cam.dir.y;
 }
 
 void			move_obj(t_rt *e, int speed)

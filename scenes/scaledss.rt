@@ -1,0 +1,63 @@
+camera:
+    pos: 5435 0 -10000
+    dir: 0 0 0
+    fov: 45
+    skybox: texs/4kstars.xpm
+
+light:
+	pos: 10870 1000 0
+	intensity: 1
+
+*Sun
+sphere:
+    pos: 0 0 0
+    radius: 6957
+    texture: texs/2k_sun.xpm
+
+*Jupiter
+sphere:
+    pos: 7657 0 0 
+    radius: 699
+    texture: texs/jupiter.xpm
+
+*Saturn
+sphere:
+    pos: 8939 0 0
+    radius: 582
+    texture: texs/saturn.xpm
+
+*Uranus
+sphere:
+    pos: 9776 0 0
+    radius: 254
+    texture: texs/uranus.xpm
+
+*Neptune
+sphere:
+    pos: 10227 0 0
+    radius: 246
+    texture: texs/neptune.xpm
+
+*Earth
+sphere:
+    pos: 10588 0 0
+    radius: 64
+    texture: texs/earth.xpm
+
+*Venus
+sphere:
+    pos: 10714 0 0
+    radius: 61
+    texture: texs/venus.xpm
+
+*Mars
+sphere:
+    pos: 10810 0 0
+    radius: 34
+    texture: texs/mars.xpm
+
+*Mercury
+sphere:
+    pos: 10869 0 0
+    radius: 24
+    texture: texs/mercury.xpm

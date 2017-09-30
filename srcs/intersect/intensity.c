@@ -6,11 +6,11 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:36:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/23 19:56:29 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/29 10:18:43 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define SIZE_LP 15 //The greater the value, the smaller the light point will be
+#define SIZE_LP 100 //The greater the value, the smaller the light point will be
 
 #include "rt.h"
 
@@ -46,9 +46,9 @@ float		spec_intensity(t_obj obj, t_ray light, t_vec3 norm)
 	float		intensity;
 	t_vec3		refl;
 
-	refl = vec_sub3(light.dir, vec_scale3(norm, 2 * (vec_dot3(light.dir, norm))));
 	if (obj.mat.spec == 0)
 		return (0);
+	refl = vec_sub3(light.dir, vec_scale3(norm, 2 * (vec_dot3(light.dir, norm))));
 	intensity = vec_dot3(vec_scale3(light.dir, -1), refl);
 	return ((intensity < 0) ? 0 : pow(intensity, SIZE_LP) * obj.mat.spec);
 }

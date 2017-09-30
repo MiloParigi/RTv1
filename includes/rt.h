@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/26 16:09:13 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/09/29 09:31:21 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,9 +301,11 @@ typedef struct		s_file
 typedef struct		s_obj
 {
 	char			is_init;
+	char			is_disp;
 	int				type;
 	t_color			color;
 	t_vec3			pos;
+	t_vec2			last_pos;
 	t_vec3			dir;
 	float			k;
 	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
@@ -434,6 +436,7 @@ void				fl_motionblur(t_rt *e);
 void				disp_cam(t_rt *e, int color);
 void				disp_mtrx4(t_mtrx4 matrix, char *name);
 void				disp_vec(t_vec3 vec, char *name);
+void				disp_name(t_rt *e, int color);
 void				display_args(void);
 
 //Matrix
@@ -504,10 +507,16 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
+<<<<<<< HEAD
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
 float				get_res_of_quadratic2(t_calc *op);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter, t_ray rayon);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter, t_ray rayon);
+=======
+float				get_res_of_quadratic(t_calc *op);
+t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+>>>>>>> a23bfc6a93ca0d606acc8bea655d2d753e618681
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
@@ -558,4 +567,7 @@ int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
 float       Get2DPerlinNoiseValue(float x, float y, float res);
 t_color				get_text_color(int x, int y, t_texture tex);
+
+void    disp_last_pos(t_rt *e);
+
 #endif

@@ -6,12 +6,31 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 21:26:40 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/03 16:04:22 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/09/29 09:26:20 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 #include <stdio.h> //!!!!!!!!!!!!!!!
+
+void	disp_name(t_rt *e, int color)
+{
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	while (++i < e->scene.nbr_obj)
+	{
+		if (e->scene.obj[i].is_disp)
+		{
+			tmp = ft_itoa(e->scene.obj[i].type);
+			mlx_string_put(INIT, WIN, e->scene.obj[i].last_pos.x * RES, 
+				e->scene.obj[i].last_pos.y * RES, color, tmp);
+			e->scene.obj[i].is_disp = 0;
+		}
+	}
+	free(tmp);
+}
 
 void	disp_cam(t_rt *e, int color)
 {
