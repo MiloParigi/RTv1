@@ -41,7 +41,6 @@ static void		create_dick(t_obj obj, t_rt *e, int i)
 
 static void		create_mickey(t_obj obj, t_rt *e, int i)
 {
-	printf("(%d)\n", e->scene.nbr_complex);
 	e->scene.nbr_complex++;
 
 	i += create_obj(SPHERE, e);
@@ -68,13 +67,8 @@ void			create_complex(t_rt *e)
 	int i;
 
 	i = 0;
-	printf("MICKEY      = (%d)\n", MICKEY);
-	printf("DICK        = (%d)\n\n", DICK);
 	while (i < e->scene.nbr_obj)
 	{
-		printf("i       = (%d)\n", i);
-		printf("nbr_obj = (%d)\n", e->scene.nbr_obj);
-		printf("type    = (%d)\n\n",  e->COBJ.type);
 		if (e->COBJ.type == MICKEY)
 			create_mickey(e->COBJ, e, i);
 		if (e->COBJ.type == DICK)

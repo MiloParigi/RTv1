@@ -57,7 +57,6 @@
 # define LIGHT 21
 # define CAMERA 22
 
-
 # define KEY_A 0
 # define KEY_S 1
 # define KEY_D 2
@@ -151,11 +150,11 @@
 # define HAUTEUR e->file.haut
 # define LARGEUR e->file.larg
 # define SFILE e->file.path
-# define CAMRAY e->cam.ray
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CLIGHT scene.lights[i]
 // # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
+# define CTHREAD th_e[i]->thread.colors[++i2]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
 # define SELECTED e->scene.selected
@@ -163,6 +162,7 @@
 # define AMBIENT_LIGHT e->scene.ambient
 # define DIFF_LIGHT e->scene.ambient
 # define SPEC_LIGHT e->scene.ambient
+# define CCAM e->scene.cam
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
@@ -298,6 +298,12 @@ typedef struct		s_file
 	int				aliasing;
 }					t_file;
 
+typedef struct		s_norme
+{
+	int 			x;
+	int 			y;
+}					t_norme;
+
 typedef struct		s_obj
 {
 	char			is_init;
@@ -308,9 +314,7 @@ typedef struct		s_obj
 	t_vec2			last_pos;
 	t_vec3			dir;
 	float			k;
-	t_vec3			vector; //For Plane, Cylinder, Cone and Sphere
-	t_vec3			maxp; //For Cylinder and Cone
-	t_vec3			minp; //For Cone
+	t_vec3			vector;
 	int				r;
 	float			t;
 	t_vec3			normal;
@@ -424,6 +428,7 @@ int					parse_args(char **argv, int argc, t_rt *e);
 int					parse_obj(t_rt *e, int fd);
 void				store_type_or_data(char *line, t_rt *e);
 void				frame(t_rt *e);
+void				dname(t_rt *e, t_rt	**th_e, int i);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
 void				fl_sepia_apply(t_rt *e);
 void				fl_black_and_white(t_rt *e);
@@ -436,8 +441,8 @@ void				fl_motionblur(t_rt *e);
 
 //Debug
 void				disp_cam(t_rt *e, int color);
-void				disp_mtrx4(t_mtrx4 matrix, char *name);
-void				disp_vec(t_vec3 vec, char *name);
+// void				disp_mtrx4(t_mtrx4 matrix, char *name);
+// void				disp_vec(t_vec3 vec, char *name);
 void				disp_name(t_rt *e, int color);
 void				display_args(void);
 
