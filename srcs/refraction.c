@@ -63,7 +63,7 @@ t_color			get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int count
 		base_color = ft_map_color(base_color, final_color, taux_temp);
 		e->scene.id = a;
 		if (e->scene.obj[a].mat.reflex)
-			return (get_reflected_color(e, newpoi, base_color, counter, ray));
+			return (get_reflected_color(e, newpoi, base_color, counter));
 		if (e->scene.obj[a].mat.refract)
 			return (get_refracted_color(e, newpoi, base_color, counter, ray));
 		return (base_color);

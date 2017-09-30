@@ -91,7 +91,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 		{
 			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
 			e->scene.id = a;
-			color = ft_map_color(color,get_reflected_color(e, point_of_impact, color, NR_ITER, ray),e->scene.obj[a].mat.reflex);
+			color = ft_map_color(color,get_reflected_color(e, point_of_impact, color, NR_ITER),e->scene.obj[a].mat.reflex);
 			e->scene.id = a;
 			if (e->scene.obj[e->scene.id].mat.refract)
 				return ft_map_color(color,

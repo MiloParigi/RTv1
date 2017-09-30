@@ -23,6 +23,8 @@ sphere:
 	radius: 40
 	color: 0 255 255
 	sin: 1
+	reflection: 0.7
+	refraction: 0.5
 *Sphere Red
 sphere:
 	pos: -220 20 -40

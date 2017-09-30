@@ -23,7 +23,7 @@ void			display_args(void)
 	exit(42);
 }
 
-void		key_init(t_rt *e)
+void			key_init(t_rt *e)
 {
 	e->keys.key_up = 0;
 	e->keys.key_down = 0;
@@ -68,7 +68,7 @@ void			init_rt(t_rt *e)
 
 void			ft_start_rt(t_rt *e)
 {
-	e->gtk.started = 1;	
+	e->gtk.started = 1;
 	if (!HAUTEUR || !LARGEUR)
 		exit(0);
 	WIN = mlx_new_window(INIT, LARGEUR, HAUTEUR, "RT");
@@ -96,9 +96,6 @@ int				main(int argc, char **argv)
 		ft_start_rt(e);
 	}
 	else
-	{
-		//display_args();
 		ft_gtk_start_launcher(e);
-	}
 	return (0);
 }

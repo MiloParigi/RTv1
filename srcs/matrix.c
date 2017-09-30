@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/20 23:16:57 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/20 23:24:47 by mparigi          ###   ########.fr       */
+/*   Created: 2017/09/30 18:30:48 by mhalit            #+#    #+#             */
+/*   Updated: 2017/09/30 18:30:49 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float	p(float x)
+float		p(float x)
 {
 	return (pow(x, 2));
 }
@@ -24,7 +24,8 @@ void		matrix_init(t_rt *e)
 	t_mtrx4		roty;
 	t_mtrx4		rotz;
 
-	transl = transl_matrx4(e->scene.cam.pos.x, e->scene.cam.pos.y, e->scene.cam.pos.z);
+	transl = transl_matrx4(e->scene.cam.pos.x, e->scene.cam.pos.y,
+	e->scene.cam.pos.z);
 	rotx = rotx_matrx4(e->scene.cam.dir.x);
 	roty = roty_matrx4(e->scene.cam.dir.y);
 	rotz = rotz_matrx4(e->scene.cam.dir.z);
