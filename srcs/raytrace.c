@@ -100,7 +100,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 				NR_ITER = 3;
 				return ft_map_color(color,
 				get_refracted_color(e, point_of_impact, 
-				get_color(e, e->scene.obj[e->scene.id], point_of_impact), NR_ITER, ray), 0.2);
+				get_color(e, e->scene.obj[e->scene.id], point_of_impact), ray), 0.2);
 			}
 		}
 		else if (e->scene.obj[e->scene.id].mat.refract)
@@ -109,7 +109,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 				e->scene.id = n.a;
 				NR_ITER = 3;
 				color = get_refracted_color(e, point_of_impact, 
-			color, NR_ITER, ray);
+			color, ray);
 			}
 		else if (e->scene.obj[e->scene.id].mat.checker.l > 0)
 			color = get_checker_col(e->scene.obj[e->scene.id].mat.checker, point_of_impact);

@@ -24,8 +24,7 @@ t_color			add_refref_colors(t_rt *e, t_norme n, int counter)
 	n.base_color = ft_map_color(n.base_color, final_color, taux_temp);
 	e->scene.id = n.a;
 	if (e->scene.obj[n.a].mat.refract)
-		return (get_refracted_color(e, point_of_impact, n.base_color,
-		counter, n.ray));
+		return (get_refracted_color(e, point_of_impact, n.base_color, n.ray));
 	else if (e->scene.obj[n.a].mat.reflex)
 		return (get_reflected_color(e, point_of_impact, n.base_color, counter));
 	return (n.base_color);

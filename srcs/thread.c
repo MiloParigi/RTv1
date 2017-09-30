@@ -107,14 +107,14 @@ void	        *drawline(void *arg)
 
 t_rt            **launch_thread(t_rt *e)
 {
-    int			i;
+	int			i;
 	pthread_t	th[NB_THREADS];
-    t_rt		**th_e;
+	t_rt		**th_e;
 
-    if (!(th_e = (t_rt **)malloc(NB_THREADS * sizeof(t_rt *))))
-        return (NULL);
-	i = 0;
-	while (i < NB_THREADS)
+	if (!(th_e = (t_rt **)malloc(NB_THREADS * sizeof(t_rt *))))
+		return (NULL);
+	i = -1;
+	while (++i < NB_THREADS)
 	{
 		th_e[i] = copy_rt(e);
 		th_e[i]->thread.h = HAUTEUR * ALIASING;
@@ -132,7 +132,6 @@ t_rt            **launch_thread(t_rt *e)
 			ft_putstr("anti-aliasing != (0 || 1)");
 			exit(42);
 		}
-		++i;
 	}
 	i = -1;
 	while (++i < NB_THREADS)
