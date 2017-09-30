@@ -507,16 +507,10 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
-<<<<<<< HEAD
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
 float				get_res_of_quadratic2(t_calc *op);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter, t_ray rayon);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter, t_ray rayon);
-=======
-float				get_res_of_quadratic(t_calc *op);
-t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
-t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
->>>>>>> a23bfc6a93ca0d606acc8bea655d2d753e618681
 // XML
 int					xsd_read_error();
 int					doChecks(xmlDocPtr doc);
