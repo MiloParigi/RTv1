@@ -20,12 +20,6 @@ t_vec3		cylinder_norm(t_obj cyl, t_vec3 poi)
 	float		dot;
 
 	tmp = vec_sub3(poi, cyl.pos);
-	if (cyl.mat.sin == 1)
-	{
-		tmp.x = sin(tmp.x);
-		tmp.y = sin(tmp.y);
-		tmp.z = sin(tmp.z);
-	}
 	dot = vec_dot3(tmp, cyl.vector);
 	project = vec_scale3(cyl.vector, dot);
 	normal = vec_sub3(tmp, project);

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/24 16:26:32 by tfaure            #+#    #+#             */
-/*   Updated: 2017/09/25 23:54:16 by mparigi          ###   ########.fr       */
+/*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
+/*   Updated: 2017/09/30 23:07:55 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float		dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
+float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
 {
 	float		intensity;
 	float		dot;
@@ -30,7 +29,7 @@ float		dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
 	return ((intensity < 0) ? 0 : pow(intensity, 500) * 2);
 }
 
-t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
+t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
@@ -39,7 +38,8 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	intensity = 0;
 	while (i < e->scene.nbr_light)
 	{
-		intensity += dazzling_light(e, e->CLIGHT, vec_norme3(vec_sub3(poi, e->scene.cam.pos)));
+		intensity += dazzling_light(e, e->CLIGHT,
+		vec_norme3(vec_sub3(poi, e->scene.cam.pos)));
 		intensity += intensity_obj(e, poi, obj, e->CLIGHT);
 		i++;
 	}
@@ -50,7 +50,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	return ((t_color){0, 0, 0, 0});
 }
 
-float			get_min_dist(t_rt *e, t_ray ray)
+float				get_min_dist(t_rt *e, t_ray ray)
 {
 	float		min_dist;
 	float		dist;
@@ -72,12 +72,48 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	return ((min_dist < DIST_MAX) ? min_dist : -1);
 }
 
-static t_color	get_pxl_color(t_rt *e, t_ray ray)
-{	
+static t_color		gpc_norme(t_rt *e, t_norme n, t_ray ray, t_vec3 poi)
+{
+	t_color color;
+
+	if (CMAT.reflex)
+	{
+		color = get_color(e, e->scene.obj[e->scene.id], poi);
+		e->scene.id = n.a;
+		NR_ITER = 3;
+		color = ft_map_color(color, get_reflected_color(e,
+		poi, color, NR_ITER), e->scene.obj[n.a].mat.reflex);
+		e->scene.id = n.a;
+		if (CMAT.refract)
+		{
+			NR_ITER = 3;
+			return (ft_map_color(color,
+			get_refracted_color(e, poi,
+			get_color(e, e->scene.obj[e->scene.id],
+			poi), ray), 0.2));
+		}
+	}
+	else if (CMAT.refract)
+	{
+		color = get_color(e, e->scene.obj[e->scene.id], poi);
+		e->scene.id = n.a;
+		NR_ITER = 3;
+		color = get_refracted_color(e, poi,
+		color, ray);
+	}
+	else if (CMAT.checker.l > 0)
+		color = get_checker_col(CMAT.checker, poi);
+	else
+		color = get_color(e, e->scene.obj[e->scene.id], poi);
+	return (color);
+}
+
+static t_color		get_pxl_color(t_rt *e, t_ray ray)
+{
 	t_norme		n;
-	t_vec3		point_of_impact;
-	t_color		color; 
-	
+	t_vec3		poi;
+	t_color		color;
+
 	n.a = 0;
 	n.ray = ray;
 	color = (t_color){0, 0, 0, 0};
@@ -85,37 +121,9 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	if ((n.min_dist = get_min_dist(e, ray)) == -1)
 		return (skybox(e, ray));
 	n.a = e->scene.id;
-	point_of_impact = vec_add3(ray.pos, vec_scale3(ray.dir, n.min_dist));
+	poi = vec_add3(ray.pos, vec_scale3(ray.dir, n.min_dist));
 	if (e->scene.id != -1)
-	{
-		if (e->scene.obj[e->scene.id].mat.reflex)
-		{
-			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
-			e->scene.id = n.a;
-			NR_ITER = 3;
-			color = ft_map_color(color, get_reflected_color(e, point_of_impact, color, NR_ITER), e->scene.obj[n.a].mat.reflex);
-			e->scene.id = n.a;
-			if (e->scene.obj[e->scene.id].mat.refract)
-			{
-				NR_ITER = 3;
-				return ft_map_color(color,
-				get_refracted_color(e, point_of_impact, 
-				get_color(e, e->scene.obj[e->scene.id], point_of_impact), ray), 0.2);
-			}
-		}
-		else if (e->scene.obj[e->scene.id].mat.refract)
-			{
-				color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
-				e->scene.id = n.a;
-				NR_ITER = 3;
-				color = get_refracted_color(e, point_of_impact, 
-			color, ray);
-			}
-		else if (e->scene.obj[e->scene.id].mat.checker.l > 0)
-			color = get_checker_col(e->scene.obj[e->scene.id].mat.checker, point_of_impact);
-		else
-			color = get_color(e, e->scene.obj[e->scene.id], point_of_impact);
-	}
+		return (gpc_norme(e, n, ray, poi));
 	return (color);
 }
 

@@ -152,6 +152,7 @@
 # define SFILE e->file.path
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
+# define CMAT e->scene.obj[e->scene.id].mat
 # define CLIGHT scene.lights[i]
 // # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
 # define CTHREAD th_e[i]->thread.colors[++i2]
@@ -312,6 +313,7 @@ typedef struct		s_norme
 	t_color			final_color;
 	t_vec3			newpoi;
 	t_vec3			point_of_impact;
+	t_color			color;
 }					t_norme;
 
 typedef struct		s_obj

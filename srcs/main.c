@@ -53,7 +53,7 @@ void			init_rt(t_rt *e)
 	e->scene.nbr_complex = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
-	e->scene.ambient = 0.05;
+	e->scene.ambient = 0.2;
 	e->scene.skybox.is_init = 0;
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
