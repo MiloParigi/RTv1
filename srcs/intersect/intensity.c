@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#define SIZE_LP 100 //The greater the value, the smaller the light point will be
-
 #include "rt.h"
 
 float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
@@ -31,7 +29,7 @@ float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
 	return (intensity);
 }
 
-float		diff_intensity(t_obj obj, t_ray light, t_vec3 norm)
+float			diff_intensity(t_obj obj, t_ray light, t_vec3 norm)
 {
 	float		intensity;
 
@@ -41,14 +39,15 @@ float		diff_intensity(t_obj obj, t_ray light, t_vec3 norm)
 	return ((intensity < 0) ? 0 : intensity);
 }
 
-float		spec_intensity(t_obj obj, t_ray light, t_vec3 norm)
+float			spec_intensity(t_obj obj, t_ray light, t_vec3 norm)
 {
 	float		intensity;
 	t_vec3		refl;
 
 	if (obj.mat.spec == 0)
 		return (0);
-	refl = vec_sub3(light.dir, vec_scale3(norm, 2 * (vec_dot3(light.dir, norm))));
+	refl = vec_sub3(light.dir, vec_scale3(norm, 2 *
+	(vec_dot3(light.dir, norm))));
 	intensity = vec_dot3(vec_scale3(light.dir, -1), refl);
 	return ((intensity < 0) ? 0 : pow(intensity, SIZE_LP) * obj.mat.spec);
 }

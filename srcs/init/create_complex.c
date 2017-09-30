@@ -14,47 +14,44 @@
 
 static void		create_dick(t_obj obj, t_rt *e, int i)
 {
-	e->scene.nbr_complex++;		
+	float j;
+
+	j = 1;
+	e->scene.nbr_complex++;
 	i += create_obj(SPHERE, e);
 	SOBJ.pos = vec_new3(obj.pos.x - (obj.r * 1.5), obj.pos.y, obj.pos.z);
 	SOBJ.r = obj.r * 1.5;
 	SOBJ.color = obj.color;
 	SOBJ.id = e->scene.nbr_complex;
-	
 	i += create_obj(SPHERE, e);
 	SOBJ.pos = vec_new3(obj.pos.x + (obj.r * 1.5), obj.pos.y, obj.pos.z);
 	SOBJ.r = obj.r * 1.5;
 	SOBJ.color = obj.color;
 	SOBJ.id = e->scene.nbr_complex;
-
-	float j = 1;
 	while (j < 4)
 	{
 		i += create_obj(SPHERE, e);
-		SOBJ.pos = vec_new3(obj.pos.x , obj.pos.y - obj.r * 1.5 * j, obj.pos.z);
+		SOBJ.pos = vec_new3(obj.pos.x, obj.pos.y - obj.r * 1.5 * j, obj.pos.z);
 		SOBJ.r = obj.r * 1.5;
 		SOBJ.color = obj.color;
 		SOBJ.id = e->scene.nbr_complex;
-		j+= 0.50;
+		j += 0.50;
 	}
 }
 
 static void		create_mickey(t_obj obj, t_rt *e, int i)
 {
 	e->scene.nbr_complex++;
-
 	i += create_obj(SPHERE, e);
 	SOBJ.pos = obj.pos;
 	SOBJ.r = obj.r;
 	SOBJ.color = obj.color;
 	SOBJ.id = e->scene.nbr_complex;
-
 	i += create_obj(SPHERE, e);
 	SOBJ.pos = vec_new3(obj.pos.x + obj.r, obj.pos.y + obj.r, obj.pos.z);
 	SOBJ.r = obj.r / 2;
 	SOBJ.color = obj.color;
 	SOBJ.id = e->scene.nbr_complex;
-	
 	i += create_obj(SPHERE, e);
 	SOBJ.pos = vec_new3(obj.pos.x - obj.r, obj.pos.y + obj.r, obj.pos.z);
 	SOBJ.r = obj.r / 2;

@@ -25,7 +25,7 @@ SRC			=	ft_double.c \
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -I includes/
-OPTI		=	-O3
+OPTI		=	
 DEBUG		=	-g
 
 WHITE		=	\033[7;49;39m

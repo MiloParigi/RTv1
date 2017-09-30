@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-t_vec3	plane_norm(t_obj obj)
+t_vec3			plane_norm(t_obj obj)
 {
 	return (obj.vector);
 }

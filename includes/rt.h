@@ -178,6 +178,7 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
+# define SIZE_LP 100 //The greater the value, the smaller the light point will be
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define ISTRUE(x) (x > 0 ? 1 : 0)
@@ -571,7 +572,7 @@ t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
-float       Get2DPerlinNoiseValue(float x, float y, float res);
+// float       Get2DPerlinNoiseValue(float x, float y, float res);
 t_color				get_text_color(int x, int y, t_texture tex);
 
 void    disp_last_pos(t_rt *e);

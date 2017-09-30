@@ -44,8 +44,10 @@ int				camera_create(t_rt *e)
 	e->scene.cam.dir = vec_new3(0, 0, 0);
 	e->scene.cam.fov = 45;
 	e->scene.cam.ctw = id_matrx4();
-	e->scene.cam.ratio_x = (LARGEUR > HAUTEUR) ? (float)LARGEUR / (float)HAUTEUR : 1;
-	e->scene.cam.ratio_y = (HAUTEUR > LARGEUR) ? (float)HAUTEUR / (float)LARGEUR : 1;
+	e->scene.cam.ratio_x = (LARGEUR > HAUTEUR) ?
+	(float)LARGEUR / (float)HAUTEUR : 1;
+	e->scene.cam.ratio_y = (HAUTEUR > LARGEUR) ?
+	(float)HAUTEUR / (float)LARGEUR : 1;
 	e->scene.cam.reso = 300;
 	return (CAMERA);
 }
