@@ -63,6 +63,7 @@ void			init_rt(t_rt *e)
 	SFILE = NULL;
 	e->gtk.started = 0;
 	e->frame = 0;
+	e->scene.max_iter = 3;
 	key_init(e);
 }
 

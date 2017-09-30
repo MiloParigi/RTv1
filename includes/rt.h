@@ -166,7 +166,7 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER 3
+# define NR_ITER e->scene.max_iter
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)
 # define RES_H (HAUTEUR / RES)
@@ -309,6 +309,9 @@ typedef struct		s_norme
 	float			taux_temp;
 	int				counter;
 	t_color			base_color;
+	t_color			final_color;
+	t_vec3			newpoi;
+	t_vec3			point_of_impact;
 }					t_norme;
 
 typedef struct		s_obj
@@ -364,6 +367,7 @@ typedef struct		s_scene
 	int				supersampling;
 	int				filters;
 	int				selected;
+	int				max_iter;
 }					t_scene;
 
 typedef struct		s_mthread
@@ -527,7 +531,7 @@ float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
 float				get_res_of_quadratic2(t_calc *op);
-t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, int counter, t_ray rayon);
+t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
 int					xsd_read_error();
