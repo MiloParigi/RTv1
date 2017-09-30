@@ -31,6 +31,8 @@ SRC			=	color.c \
 				debug.c \
 				hooks.c \
 				hooks2.c \
+				hooks3.c \
+				hooks4.c \
 				reflexion.c \
 				refraction.c \
 				intersect/limits.c \

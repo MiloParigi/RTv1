@@ -47,8 +47,6 @@ t_obj				copy_objs(t_obj obj)
 	copy.dir = obj.dir;
 	copy.k = obj.k;
 	copy.vector = obj.vector;
-	copy.maxp = obj.maxp;
-	copy.minp = obj.minp;
 	copy.r = obj.r;
 	copy.t = obj.t;
 	copy.vector = obj.vector;

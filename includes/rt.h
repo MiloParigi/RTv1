@@ -459,7 +459,11 @@ int					keypress(int keycode, void *param);
 int					keyrelease(int keycode, void *param);
 int					select_obj(int button, int x, int y, void *param);
 void				onepress(int keycode, t_rt *e);
-
+void				auto_res(int keycode, t_rt *e);
+void				filters_press(int keycode , t_rt *e);
+void				key(t_rt *e);
+void				exportimg(t_rt *e);
+int					nbrs_keys(t_rt *e);
 //Move
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
@@ -557,6 +561,7 @@ GtkWidget			*new_input(t_gtk_input *data);
 GtkWidget			*new_txt(gchar *str);
 GtkWidget			*new_btn(int x, int y, char *name);
 void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+void				gtk_hook(int keycode, t_rt *e);
 
 //Perturbation (checker, tole etc..)
 t_color				get_checker_col(t_checker check, t_vec3 pt);

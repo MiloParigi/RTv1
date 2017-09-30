@@ -46,10 +46,6 @@ int		set_obj(t_rt *e, char **a)
 		i++;
 	if (i == 4 && !ft_strcmp("pos:", a[0]))
 		SOBJ.pos = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
-	else if (i == 4 && !ft_strcmp("minp:", a[0]))
-		SOBJ.minp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
-	else if (i == 4 && !ft_strcmp("maxp:", a[0]))
-		SOBJ.maxp = vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3]));
 	else if (i == 4 && !ft_strcmp("vector:", a[0]))
 		SOBJ.vector = vec_norme3(vec_new3(ft_atof(a[1]), ft_atof(a[2]), ft_atof(a[3])));
 	else if (i == 4 && !ft_strcmp("normal:", a[0]))

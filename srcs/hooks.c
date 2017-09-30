@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/30 11:42:24 by mhalit            #+#    #+#             */
+/*   Updated: 2017/09/30 11:42:25 by mhalit           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 int				nbrs_keys(t_rt *e)
 {
-	return (	e->keys.key_w +
+	return (e->keys.key_w +
 				e->keys.key_a +
 				e->keys.key_s +
 				e->keys.key_d +
@@ -11,13 +23,12 @@ int				nbrs_keys(t_rt *e)
 				e->keys.key_down +
 				e->keys.key_right +
 				e->keys.key_plus +
-				e->keys.key_minus + 
+				e->keys.key_minus +
 				e->keys.key_n +
-				e->keys.key_o
-				);
+				e->keys.key_o);
 }
 
-static	void	key(t_rt *e)
+void			key(t_rt *e)
 {
 	if (nbrs_keys(e) > 0)
 	{
@@ -29,59 +40,13 @@ static	void	key(t_rt *e)
 	}
 }
 
-int				ft_close(void *param)
-{
-	param = NULL;
-	exit(42);
-	return (0);
-}
-
-int				no_event(void *param)
-{
-	t_rt	*e;
-
-	e = (t_rt *)param;
-	key(e);
-	return (OK);
-}
-
-
-int calcul_res(t_rt *e, int limit)
-{
-	int res;
-	int air;
-
-	air = LARGEUR * HAUTEUR;
-	res = 1;
-	if (ALIASING == 2)
-		limit /= 2;
-	while ((air / res) > limit)
-		res++;
-	
-	return (res);
-}
-
-void	auto_res(int keycode, t_rt *e)
-{
-	int		average_res;
-	
-	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
-	{
-		average_res = calcul_res(e, 1250000);
-		if (average_res > RES)
-			RES = average_res;
-	}
-}
-
 int				keypress(int keycode, void *param)
 {
 	t_rt	*e;
+
 	e = (t_rt *)param;
-
-
 	if (keycode == KEY_ESC)
 		exit(42);
-
 	e->keys.key_w = (keycode == KEY_W) ? 1 : e->keys.key_w;
 	e->keys.key_a = (keycode == KEY_A) ? 1 : e->keys.key_a;
 	e->keys.key_s = (keycode == KEY_S) ? 1 : e->keys.key_s;
@@ -90,11 +55,10 @@ int				keypress(int keycode, void *param)
 	e->keys.key_left = (keycode == KEY_LEFT) ? 1 : e->keys.key_left;
 	e->keys.key_down = (keycode == KEY_DOWN) ? 1 : e->keys.key_down;
 	e->keys.key_right = (keycode == KEY_RIGHT) ? 1 : e->keys.key_right;
-	// if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_move_keys(e) >= 1)
-	// 	if (RES < 5)
-	// 		RES = 5;
-	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ? 1 : e->keys.key_plus;
-	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ? 1 : e->keys.key_minus;
+	e->keys.key_plus = (keycode == KEY_PLUS ||
+	keycode == 24) ? 1 : e->keys.key_plus;
+	e->keys.key_minus = (keycode == KEY_MINUS ||
+	keycode == 27) ? 1 : e->keys.key_minus;
 	e->keys.key_n = (keycode == KEY_N) ? 1 : e->keys.key_n;
 	e->keys.key_o = (keycode == KEY_O) ? 1 : e->keys.key_o;
 	onepress(keycode, e);
@@ -116,8 +80,10 @@ int				keyrelease(int keycode, void *param)
 	e->keys.key_left = (keycode == KEY_LEFT) ? 0 : e->keys.key_left;
 	e->keys.key_down = (keycode == KEY_DOWN) ? 0 : e->keys.key_down;
 	e->keys.key_right = (keycode == KEY_RIGHT) ? 0 : e->keys.key_right;
-	e->keys.key_plus = (keycode == KEY_PLUS || keycode == 24) ? 0 : e->keys.key_plus;
-	e->keys.key_minus = (keycode == KEY_MINUS || keycode == 27) ? 0 : e->keys.key_minus;
+	e->keys.key_plus = (keycode == KEY_PLUS ||
+	keycode == 24) ? 0 : e->keys.key_plus;
+	e->keys.key_minus = (keycode == KEY_MINUS ||
+	keycode == 27) ? 0 : e->keys.key_minus;
 	e->keys.key_n = (keycode == KEY_N) ? 0 : e->keys.key_n;
 	e->keys.key_o = (keycode == KEY_O) ? 0 : e->keys.key_o;
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) == 0)

@@ -36,8 +36,6 @@ void			create_limits(t_rt *e, char **args, int tot)
 	if (SOBJ.plimit[i].r > 2)
 		return ;
 	SOBJ.plimit[i].vector = vec_norme3(vec_new3(ft_atoi(args[2]),ft_atoi(args[3]), ft_atoi(args[4])));
-	SOBJ.plimit[i].maxp = vec_new3(0, 0, 0);
-	SOBJ.plimit[i].minp = vec_new3(0, 0, 0);
 	SOBJ.plimit[i].t = -1;
 	SOBJ.plimit[i].normal = vec_norme3(vec_new3(ft_atoi(args[2]),ft_atoi(args[3]), ft_atoi(args[4])));
 	SOBJ.plimit[i].plimit = NULL;
