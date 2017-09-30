@@ -540,6 +540,7 @@ void				matrix_init(t_rt *e);
 
 //GTK
 int					parse_filename(t_rt *e, char *filename);
+int         		parse_norme(int *fd, t_rt *e);
 void 				ft_start_rt(t_rt *e);
 void				init_rt(t_rt *e);
 

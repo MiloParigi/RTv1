@@ -56,20 +56,6 @@ void		store_type_or_data(char *line, t_rt *e)
 	free_word(tab);
 }
 
-static int	is_file(char *path)
-{
-	int		fd;
-	int		size;
-
-	if (!path)
-		return (-1);
-	size = ft_strlen(path) - ft_strlen(EXTENSION);
-	if (!ft_strcmp(EXTENSION, path + size))
-		if ((fd = open(path, O_RDONLY)) != -1)
-			return (fd);
-	return (-1);
-}
-
 int			parse_obj(t_rt *e, int fd)
 {
 	char	*line;
@@ -84,21 +70,6 @@ int			parse_obj(t_rt *e, int fd)
 	if (e->scene.nbr_obj >= MAXOBJ || e->scene.nbr_light >= MAXLIGHT)
 		return (0);
 	return (1);
-}
-
-int			parse_filename(t_rt *e, char *filename)
-{
-	int		fd;
-	int 	tmp;
-
-	SFILE = ft_strdup(filename);
-	if ((fd = is_file(SFILE)) > -1)
-		if ((tmp = parse_obj(e, fd)))
-		{
-			create_complex(e);
-			return (1);
-		}
-	return (0);
 }
 
 int			parse_args(char **argv, int argc, t_rt *e)
@@ -124,11 +95,5 @@ int			parse_args(char **argv, int argc, t_rt *e)
 			return (0);
 		i += 2;
 	}
-	if ((fd = is_file(SFILE)) > -1)
-		if (parse_obj(e, fd))
-		{
-			create_complex(e);
-			return (1);
-		}
-	return (0);
+	return (parse_norme(&fd, e));
 }

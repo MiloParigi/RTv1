@@ -20,6 +20,7 @@ SRC			=	color.c \
 				frame.c \
 				main.c \
 				parser.c \
+				parser2.c \
 				ray.c \
 				raytrace.c \
 				set_ocl.c \
