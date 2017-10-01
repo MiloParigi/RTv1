@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:58:42 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 11:58:48 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/02 00:17:27 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ void			show_settings(t_rt *e)
 {
 	mlx_destroy_window(INIT, WIN);
 	ft_gtk_start_settings(e);
+}
+
+void				cam_mode(t_rt *e)
+{
+	t_vec3	tmp;
+
+	CCAM.is_circular = (CCAM.is_circular) ? 0 : 1;
+	tmp = CCAM.pos;
+	CCAM.pos = CCAM.tmp_pos;
+	CCAM.tmp_pos = tmp;
+	tmp = CCAM.rot;
+	CCAM.rot = CCAM.tmp_rot;
+	CCAM.tmp_rot = tmp;
 }
 
 void			gtk_hook(int keycode, t_rt *e)

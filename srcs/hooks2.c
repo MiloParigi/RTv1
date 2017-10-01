@@ -6,21 +6,11 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:58:43 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 00:07:59 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:14:38 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-//DEBUG FUNCT
-void	disp_vec3(t_vec3 vec, char *name)
-{
-	ft_putstr("Vector ");
-	if (name != NULL)
-		ft_putstr(name);
-	printf("X = %f & Y = %f & Z = %f\n", vec.x, vec.y, vec.z);
-}
-//DEBUG FUNCT
 
 void			filters_press(int keycode, t_rt *e)
 {
@@ -67,7 +57,8 @@ void			move(t_rt *e, t_vec3 *vec, int speed)
 	t_vec3	rx;
 
 	dir = ray_init(e, LARGEUR / 2, HAUTEUR / 2);
-	rx = vec_norme3(prod_vec3_matrx4(vec_new3(dir.dir.x, 0, dir.dir.z), roty_matrx4(-90)));
+	rx = vec_norme3(prod_vec3_matrx4(
+		vec_new3(dir.dir.x, 0, dir.dir.z), roty_matrx4(-90)));
 	if ((e->keys.key_w && !e->keys.key_s) || (e->keys.key_s && !e->keys.key_w))
 	{
 		vec->x += (e->keys.key_w) ? dir.dir.x * speed : dir.dir.x * -speed;
