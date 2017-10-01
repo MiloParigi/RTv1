@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 18:30:48 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 21:31:40 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:22:59 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void		matrix_init(t_rt *e)
 	CCAM.ctw = prod_matrx4(CCAM.ctw, rotz_matrx4(CCAM.rot.z));
 	CCAM.ctw = prod_matrx4(CCAM.ctw, roty_matrx4(CCAM.rot.y));
 	CCAM.ctw = prod_matrx4(CCAM.ctw, rotx_matrx4(CCAM.rot.x));
-	CCAM.ctw = (!CCAM.is_circular) ? prod_matrx4(transl, CCAM.ctw) : prod_matrx4(CCAM.ctw, transl);
+	CCAM.ctw = (!CCAM.is_circular) ? prod_matrx4(transl, CCAM.ctw) :
+				prod_matrx4(CCAM.ctw, transl);
 }
 
 t_ray		ray_init(t_rt *e, int x, int y)

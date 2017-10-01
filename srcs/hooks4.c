@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:58:42 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 00:17:27 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:22:29 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			show_settings(t_rt *e)
 	ft_gtk_start_settings(e);
 }
 
-void				cam_mode(t_rt *e)
+void			cam_mode(t_rt *e)
 {
 	t_vec3	tmp;
 

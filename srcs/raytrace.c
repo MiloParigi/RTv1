@@ -6,28 +6,11 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 22:51:18 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:22:04 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
-{
-	float		intensity;
-	float		dot;
-	t_vec3		refl;
-
-	light.ray.dir = vec_sub3(light.ray.pos, CCAM.pos);
-	if (obj_in_shadow(e, CCAM.pos, &light))
-		return (0);
-	light.ray.dir = vec_norme3(light.ray.dir);
-	if ((dot = vec_dot3(light.ray.dir, cam_dir)) < EPSILON)
-		return (0);
-	refl = vec_sub3(light.ray.dir, vec_scale3(cam_dir, 2 * dot));
-	intensity = vec_dot3(vec_scale3(light.ray.dir, -1), refl);
-	return ((intensity < 0) ? 0 : pow(intensity, 500) * 2);
-}
 
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {

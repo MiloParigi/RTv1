@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:26:51 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 21:39:19 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:23:25 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int				set_camera_xml(t_rt *e, xmlNodePtr cam_node)
 	if ((child = has_child(cam_node, "pos")))
 	{
 		CCAM.pos = get_vec_from_node(child);
-		CCAM.tmp_pos = CCAM.pos;		
+		CCAM.tmp_pos = CCAM.pos;
 	}
 	if ((child = has_child(cam_node, "dir")))
 	{

@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 22:48:19 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:24:24 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -525,6 +525,7 @@ float				intersect_cone(t_ray ray, t_obj cone);
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light);
 float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
 float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
+float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
