@@ -51,8 +51,7 @@ SRC			=	color.c \
 				gtk/gtk_launcher.c \
 				gtk/gtk_settings.c \
 				gtk/gtk_new.c \
-				checker.c \
-				perlin.c
+				checker.c
 				# xml/xml_parser.c \
 				# xml/xml_errors.c \
 				# xml/xml_checks.c \

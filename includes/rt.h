@@ -587,7 +587,6 @@ t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
-// float       Get2DPerlinNoiseValue(float x, float y, float res);
 t_color				get_text_color(int x, int y, t_texture tex);
 
 void    disp_last_pos(t_rt *e);
