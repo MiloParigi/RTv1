@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/29 09:31:21 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 16:09:39 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-# include "parser.h"
-# include "tree.h"
-# include "xmlIO.h"
-# include "xinclude.h"
-# include "valid.h"
-# include "xmlschemas.h"
-# include "xmlstring.h"
-# include "xmlreader.h"
+# include <libxml/parser.h>
+# include <libxml/tree.h>
+# include <libxml/xmlIO.h>
+# include <libxml/xinclude.h>
+# include <libxml/valid.h>
+# include <libxml/xmlschemas.h>
+# include <libxml/xmlstring.h>
+# include <libxml/xmlreader.h>
 
 # include <gtk/gtk.h>
 
@@ -43,7 +43,8 @@
 # define HEIGHT 500
 # define WIDTH 500
 # define EPSILON 1e-7
-# define EXTENSION ".rt"
+# define EXTENSION ".xml"
+// # define EXTENSION ".rt"
 # define ERR -1
 # define END 0
 # define OK 1
@@ -538,10 +539,26 @@ float				get_res_of_quadratic2(t_calc *op);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 // XML
+xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
-int					doChecks(xmlDocPtr doc);
-void				xml_read_error();
+int					do_checks(xmlDocPtr doc);
+void				xml_read_error(void);
+int					dtd_read_error(xmlDtdPtr dtd);
 xmlDocPtr			getdoc(char *docname);
+void				xml_alloc_error(void);
+void				xml_read_error(void);
+int					parse_args(char **argv, int argc, t_rt *e);
+void				get_nodes_by_name(xmlNodePtr cur, char *node_name, t_list **lst);
+t_list				*get_object_nodes(xmlDocPtr doc);
+xmlNodePtr			get_lights(xmlDocPtr doc);
+t_vec3				get_vec_from_node(xmlNodePtr node);
+int					create_objs(t_rt *e, t_list *lst);
+int					set_camera_xml(t_rt *e, xmlNodePtr cam_node);
+int					set_lights(t_list *lst, t_rt *e);
+t_color				parse_color(xmlNodePtr node);
+t_checker			parse_checker(xmlNodePtr node);
+int					parse_texture(t_obj *obj, xmlNodePtr node, t_rt *e);
+int					parse_negatives(t_obj *obj, xmlNodePtr node);
 
 //Matrix
 void				matrix_init(t_rt *e);
