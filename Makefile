@@ -6,7 +6,7 @@
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
-#    Updated: 2017/10/01 21:08:31 by mparigi          ###   ########.fr        #
+#    Updated: 2017/10/02 00:13:22 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ LIB_GTK_H	=	`pkg-config --cflags gtk+-3.0`
 DEBUG		=	-g
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address $(DEBUG) -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ $(LIBXML_H) $(LIB_GTK_H)
+CFLAGS		=	-Wall -Werror -Wextra $(DEBUG) -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ $(LIBXML_H) $(LIB_GTK_H)
 OPTI		=	-O3
 MLXF		=	-framework OpenGL -framework AppKit -lxml2
 WHITE		=	\033[7;49;39m
