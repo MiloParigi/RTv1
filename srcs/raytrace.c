@@ -87,10 +87,8 @@ static t_color		gpc_norme(t_rt *e, t_norme n, t_ray ray, t_vec3 poi)
 		if (CMAT.refract)
 		{
 			NR_ITER = 3;
-			return (ft_map_color(color,
-			get_refracted_color(e, poi,
-			get_color(e, e->scene.obj[e->scene.id],
-			poi), ray), 0.2));
+			return (ft_map_color(color, get_refracted_color(e, poi,
+			get_color(e, e->scene.obj[e->scene.id], poi), ray), 0.2));
 		}
 	}
 	else if (CMAT.refract)
@@ -98,8 +96,7 @@ static t_color		gpc_norme(t_rt *e, t_norme n, t_ray ray, t_vec3 poi)
 		color = get_color(e, e->scene.obj[e->scene.id], poi);
 		e->scene.id = n.a;
 		NR_ITER = 3;
-		color = get_refracted_color(e, poi,
-		color, ray);
+		color = get_refracted_color(e, poi, color, ray);
 	}
 	else if (CMAT.checker.l > 0)
 		color = get_checker_col(CMAT.checker, poi);
