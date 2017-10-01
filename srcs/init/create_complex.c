@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_complex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:17:01 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/23 18:26:07 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 17:36:06 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,39 @@ static void		create_mickey(t_obj obj, t_rt *e, int i)
 	SOBJ.id = e->scene.nbr_complex;
 }
 
+void			get_new_obj_list(t_rt *e)
+{
+	int i;
+	int len;
+	t_obj *new_list;
+
+	i = 0;
+	len = 0;
+	while (i < e->scene.nbr_obj)
+	{
+		if (e->COBJ.type == MICKEY)
+			len += 3;
+		if (e->COBJ.type == DICK)
+			len += 8;
+		else
+			len += 1;
+			i++;
+	}
+	if (!(new_list = (t_obj *)malloc(sizeof(t_obj) * len)))
+		exit(-42);
+	i = -1;
+	while (++i < e->scene.nbr_obj)
+		new_list[i] = e->scene.obj[i];
+	free(e->scene.obj);
+	e->scene.obj = new_list;
+}
+
 void			create_complex(t_rt *e)
 {
 	int i;
 
 	i = 0;
+	get_new_obj_list(e);
 	while (i < e->scene.nbr_obj)
 	{
 		if (e->COBJ.type == MICKEY)

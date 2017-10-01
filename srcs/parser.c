@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:28:28 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/25 21:37:06 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 16:21:24 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,4 @@ int			parse_obj(t_rt *e, int fd)
 	if (e->scene.nbr_obj >= MAXOBJ || e->scene.nbr_light >= MAXLIGHT)
 		return (0);
 	return (1);
-}
-
-int			parse_args(char **argv, int argc, t_rt *e)
-{
-	int		i;
-	int		fd;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (!ft_strcmp("--help", argv[i]))
-		{
-			display_args();
-			return (0);
-		}
-		else if (!ft_strcmp("-w", argv[i]))
-			i + 1 < argc ? LARGEUR = ft_atoi(argv[i + 1]) : 0;
-		else if (!ft_strcmp("-h", argv[i]))
-			i + 1 < argc ? HAUTEUR = ft_atoi(argv[i + 1]) : 0;
-		else if (!ft_strcmp("-s", argv[i]))
-			i + 1 < argc ? SFILE = ft_strdup(argv[i + 1]) : 0;
-		else
-			return (0);
-		i += 2;
-	}
-	return (parse_norme(&fd, e));
 }
