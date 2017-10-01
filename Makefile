@@ -28,6 +28,7 @@ SRC			=	color.c \
 				filters2.c \
 				copyrt.c \
 				thread.c \
+				thread2.c \
 				matrix.c \
 				debug.c \
 				hooks.c \

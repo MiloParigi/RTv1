@@ -154,6 +154,7 @@
 # define COBJ scene.obj[i]
 # define CMAT e->scene.obj[e->scene.id].mat
 # define CLIGHT scene.lights[i]
+# define THREAD th_e[i]->thread
 // # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
 # define CTHREAD th_e[i]->thread.colors[++i2]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
@@ -495,7 +496,8 @@ t_scene				copy_scene(t_scene scene);
 t_rt				*copy_rt(t_rt *e);
 void				*drawline(void *arg);
 t_rt				**launch_thread(t_rt *env);
-//OLD
+t_color				fl_cartoon(t_color color);
+float				cartoon_color(float color);
 
 
 //Beta option
