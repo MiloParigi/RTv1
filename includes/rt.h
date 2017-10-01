@@ -432,16 +432,10 @@ void 				create_complex(t_rt *e);
 void				create_limits(t_rt *e, char **args, int tot);
 float    		    limit_dist(t_obj obj, t_ray ray, float bdist, float maxdist);
 int					set_skybox(t_rt *e, char *path);
-int					set_obj(t_rt *e, char **a);
-int					set_light(t_rt *e, char **a);
-int					set_camera(t_rt *e, char **a);
-int					set_mat(t_rt *e, char **a);
-int					set_last(t_rt *e, char **params);
 
 t_color				c_color(float r, float g, float b);
 int					parse_args(char **argv, int argc, t_rt *e);
-int					parse_obj(t_rt *e, int fd);
-void				store_type_or_data(char *line, t_rt *e);
+int					parse_doc(t_rt *e);
 void				frame(t_rt *e);
 void				dname(t_rt *e, t_rt	**th_e, int i);
 void				mlx_pixel(int x, int y, t_rt *e, int color);
@@ -456,8 +450,6 @@ void				fl_motionblur(t_rt *e);
 
 //Debug
 void				disp_cam(t_rt *e, int color);
-// void				disp_mtrx4(t_mtrx4 matrix, char *name);
-// void				disp_vec(t_vec3 vec, char *name);
 void				disp_name(t_rt *e, int color);
 void				display_args(void);
 

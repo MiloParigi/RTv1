@@ -19,11 +19,8 @@ SRC			=	color.c \
 				init/create_complex.c \
 				frame.c \
 				main.c \
-				parser.c \
-				parser2.c \
 				ray.c \
 				raytrace.c \
-				set_ocl.c \
 				filters.c \
 				filters2.c \
 				copyrt.c \

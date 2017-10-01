@@ -61,9 +61,9 @@ static void		create_mickey(t_obj obj, t_rt *e, int i)
 
 void			get_new_obj_list(t_rt *e)
 {
-	int i;
-	int len;
-	t_obj *new_list;
+	int			i;
+	int			len;
+	t_obj		*new_list;
 
 	i = 0;
 	len = 0;
@@ -75,7 +75,7 @@ void			get_new_obj_list(t_rt *e)
 			len += 8;
 		else
 			len += 1;
-			i++;
+		i++;
 	}
 	if (!(new_list = (t_obj *)malloc(sizeof(t_obj) * len)))
 		exit(-42);
