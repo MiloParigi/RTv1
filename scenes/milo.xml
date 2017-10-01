@@ -3,8 +3,8 @@
 <scene>
 
 	<camera fov="45">
-		<pos x="0" y="0" z="-100"/>
-		<dir x="90" y="0" z="0"/>
+		<pos x="0" y="0" z="-400"/>
+		<dir x="0" y="0" z="0"/>
 	</camera>
 
 	<lights>

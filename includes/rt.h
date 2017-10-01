@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 16:09:39 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/01 22:48:19 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@
 # define CMAT e->scene.obj[e->scene.id].mat
 # define CLIGHT scene.lights[i]
 # define THREAD th_e[i]->thread
-// # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
 # define CTHREAD th_e[i]->thread.colors[++i2]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
@@ -217,12 +216,15 @@ typedef struct		s_camera
 {
 	int				fov;
 	t_vec3			pos;
-	t_vec3			dir;
-	float			ratio_x;
-	float			ratio_y;
+	t_vec3			rot;
 	t_mtrx4			ctw;
 	float			reso;
 	float			aspect;
+	float			ratio_x;
+	float			ratio_y;
+	char			is_circular;
+	t_vec3			tmp_pos;
+	t_vec3			tmp_rot;
 }					t_camera;
 
 typedef struct		s_mlx
@@ -285,6 +287,8 @@ typedef struct	s_keys
 	char			key_a;
 	char			key_s;
 	char			key_d;
+	char			key_q;
+	char			key_e;
 	char			key_n;
 	char			key_o;
 	char			key_plus;
@@ -471,6 +475,8 @@ void				filters_press(int keycode , t_rt *e);
 void				key(t_rt *e);
 void				exportimg(t_rt *e);
 int					nbrs_keys(t_rt *e);
+void				cam_mode(t_rt *e);
+
 //Move
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
@@ -530,6 +536,7 @@ float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
 float				get_res_of_quadratic2(t_calc *op);
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+
 // XML
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
@@ -561,8 +568,8 @@ int         		parse_norme(int *fd, t_rt *e);
 void 				ft_start_rt(t_rt *e);
 void				init_rt(t_rt *e);
 
-void		ft_init_values(t_rt *e);
-gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+void				ft_init_values(t_rt *e);
+gboolean			hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 void 				ft_gtk_start_launcher(t_rt *e);
 void 				ft_gtk_start_settings(t_rt *e);

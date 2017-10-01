@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 23:07:55 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/01 22:51:18 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
 	float		dot;
 	t_vec3		refl;
 
-	light.ray.dir = vec_sub3(light.ray.pos, e->scene.cam.pos);
-	if (obj_in_shadow(e, e->scene.cam.pos, &light))
+	light.ray.dir = vec_sub3(light.ray.pos, CCAM.pos);
+	if (obj_in_shadow(e, CCAM.pos, &light))
 		return (0);
 	light.ray.dir = vec_norme3(light.ray.dir);
 	if ((dot = vec_dot3(light.ray.dir, cam_dir)) < EPSILON)
@@ -39,7 +39,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	while (i < e->scene.nbr_light)
 	{
 		intensity += dazzling_light(e, e->CLIGHT,
-		vec_norme3(vec_sub3(poi, e->scene.cam.pos)));
+		vec_norme3(vec_sub3(poi, CCAM.pos)));
 		intensity += intensity_obj(e, poi, obj, e->CLIGHT);
 		i++;
 	}

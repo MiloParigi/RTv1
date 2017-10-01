@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:42:24 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 11:42:25 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/01 22:59:54 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int				nbrs_keys(t_rt *e)
 				e->keys.key_a +
 				e->keys.key_s +
 				e->keys.key_d +
+				e->keys.key_q +
+				e->keys.key_e +
 				e->keys.key_up +
 				e->keys.key_left +
 				e->keys.key_down +
@@ -51,6 +53,8 @@ int				keypress(int keycode, void *param)
 	e->keys.key_a = (keycode == KEY_A) ? 1 : e->keys.key_a;
 	e->keys.key_s = (keycode == KEY_S) ? 1 : e->keys.key_s;
 	e->keys.key_d = (keycode == KEY_D) ? 1 : e->keys.key_d;
+	e->keys.key_q = (keycode == KEY_Q) ? 1 : e->keys.key_q;
+	e->keys.key_e = (keycode == KEY_E) ? 1 : e->keys.key_e;
 	e->keys.key_up = (keycode == KEY_UP) ? 1 : e->keys.key_up;
 	e->keys.key_left = (keycode == KEY_LEFT) ? 1 : e->keys.key_left;
 	e->keys.key_down = (keycode == KEY_DOWN) ? 1 : e->keys.key_down;
@@ -76,6 +80,8 @@ int				keyrelease(int keycode, void *param)
 	e->keys.key_a = (keycode == KEY_A) ? 0 : e->keys.key_a;
 	e->keys.key_s = (keycode == KEY_S) ? 0 : e->keys.key_s;
 	e->keys.key_d = (keycode == KEY_D) ? 0 : e->keys.key_d;
+	e->keys.key_q = (keycode == KEY_Q) ? 0 : e->keys.key_q;
+	e->keys.key_e = (keycode == KEY_E) ? 0 : e->keys.key_e;
 	e->keys.key_up = (keycode == KEY_UP) ? 0 : e->keys.key_up;
 	e->keys.key_left = (keycode == KEY_LEFT) ? 0 : e->keys.key_left;
 	e->keys.key_down = (keycode == KEY_DOWN) ? 0 : e->keys.key_down;
@@ -107,8 +113,8 @@ int				select_obj(int button, int x, int y, void *param)
 		e->scene.selected = e->scene.id;
 	}
 	e->scene.selected = (button == 2) ? -1 : e->scene.selected;
-	e->scene.cam.fov -= (button == SCROLLUP) ? 2 : 0;
-	e->scene.cam.fov += (button == SCROLLDOWN) ? 2 : 0;
+	CCAM.fov -= (button == SCROLLUP) ? 2 : 0;
+	CCAM.fov += (button == SCROLLDOWN) ? 2 : 0;
 	frame(e);
 	return (button);
 }

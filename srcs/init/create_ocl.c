@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 02:51:19 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/29 09:08:37 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 21:39:19 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,18 @@ t_matiere		create_matiere(void)
 
 int				camera_create(t_rt *e)
 {
-	e->scene.cam.pos = vec_new3(0, 0, -500);
-	e->scene.cam.dir = vec_new3(0, 0, 0);
-	e->scene.cam.fov = 45;
-	e->scene.cam.ctw = id_matrx4();
-	e->scene.cam.ratio_x = (LARGEUR > HAUTEUR) ?
+	CCAM.pos = vec_new3(0, 0, -500);
+	CCAM.rot = vec_new3(0, 0, 0);
+	CCAM.tmp_pos = CCAM.pos;
+	CCAM.tmp_rot = CCAM.rot;
+	CCAM.fov = 45;
+	CCAM.ctw = id_matrx4();
+	CCAM.ratio_x = (LARGEUR > HAUTEUR) ?
 	(float)LARGEUR / (float)HAUTEUR : 1;
-	e->scene.cam.ratio_y = (HAUTEUR > LARGEUR) ?
+	CCAM.ratio_y = (HAUTEUR > LARGEUR) ?
 	(float)HAUTEUR / (float)LARGEUR : 1;
-	e->scene.cam.reso = 300;
+	CCAM.reso = 300;
+	CCAM.is_circular = 0;
 	return (CAMERA);
 }
 

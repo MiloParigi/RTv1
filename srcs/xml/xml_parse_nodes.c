@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xml_parse_nodes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:26:51 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 15:46:56 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/01 21:39:19 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,16 @@ int				set_camera_xml(t_rt *e, xmlNodePtr cam_node)
 
 	camera_create(e);
 	if ((child = has_child(cam_node, "pos")))
-		e->scene.cam.pos = get_vec_from_node(child);
+	{
+		CCAM.pos = get_vec_from_node(child);
+		CCAM.tmp_pos = CCAM.pos;		
+	}
 	if ((child = has_child(cam_node, "dir")))
-		e->scene.cam.dir = get_vec_from_node(child);
+	{
+		CCAM.rot = get_vec_from_node(child);
+		CCAM.tmp_rot = CCAM.rot;
+	}
 	if ((val = xmlGetProp(cam_node, BAD_CAST"fov")))
-		e->scene.cam.fov = ft_atoi((char*)val);
+		CCAM.fov = ft_atoi((char*)val);
 	return (1);
 }
