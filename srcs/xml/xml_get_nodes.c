@@ -20,7 +20,6 @@ void			get_nodes_by_name(xmlNodePtr cur, char *node_name, t_list **lst)
 	{
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)node_name)))
 		{
-			printf("added node : %s\n", cur->name);
 			new = ft_lstnew((void *)cur, sizeof(*cur));
 			ft_lstpush(lst, new);
 		}

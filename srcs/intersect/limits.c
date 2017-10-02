@@ -86,16 +86,16 @@ float			limit_dist(t_obj obj, t_ray ray, float obj_l, float obj_h)
 	plimit_dist = DIST_MAX;
 	if (obj.plimit_active == 1 && obj_l != DIST_MAX)
 	{
-		while (++i < obj.nbr_limit && obj.type > 0)
+		while (++i < obj.nbr_limit - 1 && obj.plimit->type > 0)
 		{
-			dist = intersect_obj(ray, obj.plimit[i]);
+			dist = intersect_plane(ray, obj.plimit[i]);
 			if (dist < plimit_dist)
 			{
 				plimit_dist = (dist < 0) ? plimit_dist : dist;
 				j = i;
 			}
 		}
-		plimit_dist = intersect_plane(ray, obj.plimit[j]);
+		//plimit_dist = intersect_plane(ray, obj.plimit[j]);
 		return (limit_norme(vec_dot3(ray.dir, object_norm(obj.plimit[j],
 		vec_add3(ray.pos, vec_scale3(ray.dir, plimit_dist)))),
 		obj_l, obj_h, plimit_dist));

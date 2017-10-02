@@ -66,7 +66,7 @@ int				parse_negatives(t_obj *obj, xmlNodePtr node)
 
 	i = 0;
 	lst = get_negatives(node);
-	(*obj).nbr_limit = ft_lstlen(lst);
+	(*obj).nbr_limit = ft_lstlen(lst) + 1;
 	if ((*obj).nbr_limit > 0)
 		(*obj).plimit = (t_obj *)malloc(sizeof(t_obj) * (*obj).nbr_limit);
 	while (lst)

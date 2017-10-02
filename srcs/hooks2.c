@@ -119,8 +119,7 @@ void			move_obj(t_rt *e, int speed)
 			{
 				move(e, &e->scene.obj[i].pos, speed);
 				if (ISLIMIT == 1)
-					e->scene.obj[i].plimit->pos =
-					e->scene.obj[e->scene.selected].pos;
+					move(e, &e->scene.obj[i].plimit->pos, speed);
 			}
 			i++;
 		}
