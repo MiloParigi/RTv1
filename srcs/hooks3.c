@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:34:21 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 11:34:32 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/01 19:43:10 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			auto_res(int keycode, t_rt *e)
 
 	if (keycode != PAGE_UP && keycode != PAGE_DOWN && nbrs_keys(e) >= 1)
 	{
-		average_res = calcul_res(e, 1250000);
+		average_res = calcul_res(e, 125000);
 		if (average_res > RES)
 			RES = average_res;
 	}

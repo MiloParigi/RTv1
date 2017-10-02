@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:58:43 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/29 07:10:45 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 00:14:38 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void			onepress(int keycode, t_rt *e)
 		RES_BUFF = RES;
 		frame(e);
 	}
+	if (keycode == KEY_C)
+		cam_mode(e);
 	if (keycode == 50)
 		exportimg(e);
 	gtk_hook(keycode, e);
@@ -55,11 +57,11 @@ void			move(t_rt *e, t_vec3 *vec, int speed)
 	t_vec3	rx;
 
 	dir = ray_init(e, LARGEUR / 2, HAUTEUR / 2);
-	rx = vec_norme3(prod_vec3_matrx4(dir.dir, roty_matrx4(-90)));
+	rx = vec_norme3(prod_vec3_matrx4(
+		vec_new3(dir.dir.x, 0, dir.dir.z), roty_matrx4(-90)));
 	if ((e->keys.key_w && !e->keys.key_s) || (e->keys.key_s && !e->keys.key_w))
 	{
-		vec->x += (e->keys.key_w) ?
-		dir.dir.x * speed : dir.dir.x * -speed;
+		vec->x += (e->keys.key_w) ? dir.dir.x * speed : dir.dir.x * -speed;
 		vec->y += (e->keys.key_w) ? dir.dir.y * speed : dir.dir.y * -speed;
 		vec->z += (e->keys.key_w) ? dir.dir.z * speed : dir.dir.z * -speed;
 	}
@@ -69,22 +71,37 @@ void			move(t_rt *e, t_vec3 *vec, int speed)
 		vec->y += (e->keys.key_a) ? rx.y * speed : rx.y * -speed;
 		vec->z += (e->keys.key_a) ? rx.z * speed : rx.z * -speed;
 	}
+	vec->y += (e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
+	vec->y -= (e->keys.key_minus && !e->keys.key_plus) ? 10 : 0;
 }
 
 void			move_cam(t_rt *e, int speed)
 {
-	if (e->keys.key_w || e->keys.key_s || e->keys.key_a || e->keys.key_d)
-		move(e, &e->scene.cam.pos, speed);
-	e->scene.cam.pos.y += (e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
-	e->scene.cam.pos.y -= (e->keys.key_minus && !e->keys.key_plus) ? 10 : 0;
-	e->scene.cam.dir.x += (e->keys.key_down && !e->keys.key_up) ? 1 : 0;
-	e->scene.cam.dir.x -= (e->keys.key_up && !e->keys.key_down) ? 1 : 0;
-	e->scene.cam.dir.y += (e->keys.key_right && !e->keys.key_left) ? 1 : 0;
-	e->scene.cam.dir.y -= (e->keys.key_left && !e->keys.key_right) ? 1 : 0;
-	e->scene.cam.dir.x = (e->scene.cam.dir.x > 360) ? 0 : e->scene.cam.dir.x;
-	e->scene.cam.dir.x = (e->scene.cam.dir.x < 0) ? 360 : e->scene.cam.dir.x;
-	e->scene.cam.dir.y = (e->scene.cam.dir.y > 360) ? 0 : e->scene.cam.dir.y;
-	e->scene.cam.dir.y = (e->scene.cam.dir.y < 0) ? 360 : e->scene.cam.dir.y;
+	CCAM.rot.x += (e->keys.key_down && !e->keys.key_up) ? 1 : 0;
+	CCAM.rot.x -= (e->keys.key_up && !e->keys.key_down) ? 1 : 0;
+	CCAM.rot.y += (e->keys.key_right && !e->keys.key_left) ? 1 : 0;
+	CCAM.rot.y -= (e->keys.key_left && !e->keys.key_right) ? 1 : 0;
+	CCAM.rot.z += (e->keys.key_q && !e->keys.key_e) ? 1 : 0;
+	CCAM.rot.z -= (e->keys.key_e && !e->keys.key_q) ? 1 : 0;
+	CCAM.rot.x = (CCAM.rot.x > 360) ? 0 : CCAM.rot.x;
+	CCAM.rot.x = (CCAM.rot.x < 0) ? 360 : CCAM.rot.x;
+	CCAM.rot.y = (CCAM.rot.y > 360) ? 0 : CCAM.rot.y;
+	CCAM.rot.y = (CCAM.rot.y < 0) ? 360 : CCAM.rot.y;
+	CCAM.rot.z = (CCAM.rot.z > 360) ? 0 : CCAM.rot.z;
+	CCAM.rot.z = (CCAM.rot.z < 0) ? 360 : CCAM.rot.z;
+	if (!CCAM.is_circular && (e->keys.key_w || e->keys.key_s
+	|| e->keys.key_a || e->keys.key_d || e->keys.key_plus || e->keys.key_minus))
+		move(e, &CCAM.pos, speed);
+	if (CCAM.is_circular && (e->keys.key_w || e->keys.key_s
+	|| e->keys.key_a || e->keys.key_d || e->keys.key_plus || e->keys.key_minus))
+	{
+		CCAM.pos.x += (e->keys.key_d && !e->keys.key_a) ? 10 : 0;
+		CCAM.pos.x -= (e->keys.key_a && !e->keys.key_d) ? 10 : 0;
+		CCAM.pos.z += (e->keys.key_w && !e->keys.key_s) ? 10 : 0;
+		CCAM.pos.z -= (e->keys.key_s && !e->keys.key_w) ? 10 : 0;
+		CCAM.pos.y += (e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
+		CCAM.pos.y -= (e->keys.key_minus && !e->keys.key_plus) ? 10 : 0;
+	}
 }
 
 void			move_obj(t_rt *e, int speed)
@@ -93,7 +110,8 @@ void			move_obj(t_rt *e, int speed)
 
 	i = 0;
 	if (e->keys.key_w || e->keys.key_s || e->keys.key_a ||
-	e->keys.key_d || e->keys.key_minus || e->keys.key_plus)
+	e->keys.key_d || e->keys.key_minus || e->keys.key_plus
+	|| e->keys.key_plus || e->keys.key_minus)
 	{
 		while (i < e->scene.nbr_obj)
 		{
@@ -103,10 +121,6 @@ void			move_obj(t_rt *e, int speed)
 				if (ISLIMIT == 1)
 					e->scene.obj[i].plimit->pos =
 					e->scene.obj[e->scene.selected].pos;
-				e->scene.obj[i].pos.y +=
-				(e->keys.key_plus && !e->keys.key_minus) ? 10 : 0;
-				e->scene.obj[i].pos.y -=
-				(e->keys.key_minus && !e->keys.key_plus) ? 10 : 0;
 			}
 			i++;
 		}

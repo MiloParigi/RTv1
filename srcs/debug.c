@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 21:26:40 by mparigi           #+#    #+#             */
-/*   Updated: 2017/09/29 09:26:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 19:33:26 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	disp_cam(t_rt *e, int color)
 	mlx_string_put(INIT, WIN, 50, 10, color, (tmp = ft_itoa(CCAM.fov)));
 	free(tmp);
 	mlx_string_put(INIT, WIN, 10, 30, color, "Rotation X");
-	mlx_string_put(INIT, WIN, 150, 30, color, (tmp = ft_itoa(CCAM.dir.x)));
+	mlx_string_put(INIT, WIN, 150, 30, color, (tmp = ft_itoa(CCAM.rot.x)));
 	free(tmp);
 	mlx_string_put(INIT, WIN, 10, 50, color, "Rotation Y");
-	mlx_string_put(INIT, WIN, 150, 50, color, (tmp = ft_itoa(CCAM.dir.y)));
+	mlx_string_put(INIT, WIN, 150, 50, color, (tmp = ft_itoa(CCAM.rot.y)));
 	free(tmp);
 	mlx_string_put(INIT, WIN, 10, 70, color, "Rotation Z");
-	mlx_string_put(INIT, WIN, 150, 70, color, (tmp = ft_itoa(CCAM.dir.z)));
+	mlx_string_put(INIT, WIN, 150, 70, color, (tmp = ft_itoa(CCAM.rot.z)));
 	free(tmp);
 	mlx_string_put(INIT, WIN, 10, 90, color, "Position X");
 	mlx_string_put(INIT, WIN, 150, 90, color, (tmp = ft_itoa(CCAM.pos.x)));

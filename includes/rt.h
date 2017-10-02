@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
 /*   Updated: 2017/10/01 19:17:43 by ocojeda-         ###   ########.fr       */
@@ -156,7 +156,6 @@
 # define CMAT e->scene.obj[e->scene.id].mat
 # define CLIGHT scene.lights[i]
 # define THREAD th_e[i]->thread
-// # define CLIM e->scene.obj[e->scene.nbr_obj - 1].nbr_lim
 # define CTHREAD th_e[i]->thread.colors[++i2]
 # define SOBJ e->scene.obj[e->scene.nbr_obj - 1]
 # define SLIGHT e->scene.lights[e->scene.nbr_light - 1]
@@ -232,12 +231,15 @@ typedef struct		s_camera
 {
 	int				fov;
 	t_vec3			pos;
-	t_vec3			dir;
-	float			ratio_x;
-	float			ratio_y;
+	t_vec3			rot;
 	t_mtrx4			ctw;
 	float			reso;
 	float			aspect;
+	float			ratio_x;
+	float			ratio_y;
+	char			is_circular;
+	t_vec3			tmp_pos;
+	t_vec3			tmp_rot;
 }					t_camera;
 
 typedef struct		s_mlx
@@ -300,6 +302,8 @@ typedef struct	s_keys
 	char			key_a;
 	char			key_s;
 	char			key_d;
+	char			key_q;
+	char			key_e;
 	char			key_n;
 	char			key_o;
 	char			key_plus;
@@ -488,6 +492,8 @@ void				filters_press(int keycode , t_rt *e);
 void				key(t_rt *e);
 void				exportimg(t_rt *e);
 int					nbrs_keys(t_rt *e);
+void				cam_mode(t_rt *e);
+
 //Move
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
@@ -536,6 +542,7 @@ float				intersect_cone(t_ray ray, t_obj cone);
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light);
 float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
 float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
+float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
@@ -544,16 +551,11 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
-// <<<<<<< HEAD
-// float				get_res_of_quadratic2(t_calc *op);
-// t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
-// t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
-// =======
 t_color				recursive_refref(t_rt *e, t_color base_color, t_reflect ref);
 float				get_res_of_quadratic2(t_calc *op);
+
 t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
-// >>>>>>> ea33dc26078767e8f55b0a2e06deddd66dd6e583
 // XML
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
@@ -585,8 +587,8 @@ int         		parse_norme(int *fd, t_rt *e);
 void 				ft_start_rt(t_rt *e);
 void				init_rt(t_rt *e);
 
-void		ft_init_values(t_rt *e);
-gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+void				ft_init_values(t_rt *e);
+gboolean			hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 void 				ft_gtk_start_launcher(t_rt *e);
 void 				ft_gtk_start_settings(t_rt *e);

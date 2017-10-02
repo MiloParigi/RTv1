@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 23:07:55 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/02 00:22:04 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
+t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
@@ -21,6 +21,8 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	intensity = 0;
 	while (i < e->scene.nbr_light)
 	{
+		intensity += dazzling_light(e, e->CLIGHT,
+		vec_norme3(vec_sub3(poi, CCAM.pos)));
 		intensity += intensity_obj(e, poi, obj, e->CLIGHT);
 		i++;
 	}

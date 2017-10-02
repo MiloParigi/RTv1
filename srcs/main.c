@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/29 12:05:17 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/01 21:53:35 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void			key_init(t_rt *e)
 	e->keys.key_a = 0;
 	e->keys.key_s = 0;
 	e->keys.key_d = 0;
+	e->keys.key_q = 0;
+	e->keys.key_e = 0;
 	e->keys.key_n = 0;
 	e->keys.key_o = 0;
 	e->keys.key_plus = 0;
@@ -46,7 +48,7 @@ void			init_rt(t_rt *e)
 	e->mlx.init = mlx_init();
 	LARGEUR = 1024;
 	HAUTEUR = 768;
-	RES = calcul_res(e, 500000);
+	RES = calcul_res(e, 400000);
 	RES_BUFF = RES;
 	ALIASING = 1;
 	e->scene.nbr_obj = 0;
