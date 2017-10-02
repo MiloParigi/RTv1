@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 17:38:17 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 17:38:19 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/02 17:46:13 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ float		intersect_cylinder(t_ray ray, t_obj obj)
 	op.a = vec_dot3(ray.dir, ray.dir) - p(dotdv);
 	op.b = 2 * (vec_dot3(ray.dir, x) - dotdv * dotxv);
 	op.c = vec_dot3(x, x) - p(dotxv) - p(obj.r);
-	op.eq = get_res_of_quadratic2(&op);
+	op.eq = get_res_of_quadratic(&op);
 	if (op.eq == op.t0)
 		return (limit_dist(obj, ray, op.eq, op.t1));
 	else

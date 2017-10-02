@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 20:18:47 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/09/22 02:15:07 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 17:46:14 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ float			intersect_cone(t_ray ray, t_obj cone)
 	op.a = vec_dot3(ray.dir, ray.dir) - (1 + p(cone.k)) * p(dotdv);
 	op.b = 2 * (vec_dot3(ray.dir, x) - (1 + p(cone.k)) * dotdv * dotxv);
 	op.c = vec_dot3(x, x) - (1 + p(cone.k)) * p(dotxv);
-	op.eq = get_res_of_quadratic2(&op);
+	op.eq = get_res_of_quadratic(&op);
 	if (op.eq == op.t0)
 		return (limit_dist(cone, ray, op.eq, op.t1));
 	else
