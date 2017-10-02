@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 17:13:39 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 16:13:59 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/02 12:53:58 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ unsigned int	ft_lstlen(t_list *lst)
 
 	len = 0;
 	if (!lst)
-		return (-1);
+		return (0);
 	while (lst)
 	{
 		len++;
