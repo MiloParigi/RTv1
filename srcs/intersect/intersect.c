@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 17:45:44 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 18:53:37 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,30 @@ float			intersect_obj(t_ray ray, t_obj obj)
 	return (DIST_MAX);
 }
 
+t_vec3			color_norm(t_obj obj, t_vec3 poi, t_vec3 light)
+{
+	t_vec3	norm;
+
+	norm = object_norm(obj, poi);
+	if (obj.type == PLANE && vec_dot3(norm, light) < 0) //Later, if obj.nbr_t == 1
+		norm = vec_scale3(norm, -1);
+	return (norm);
+}	
+
 t_vec3			object_norm(t_obj obj, t_vec3 poi)
 {
+	t_vec3	norm;
+
+	norm = vec_new3(0, 0, 0);
 	if (obj.type == CYLINDER)
-		return (vec_norme3(cylinder_norm(obj, poi)));
-	if (obj.type == SPHERE)
-		return (vec_norme3(sphere_norm(obj, poi)));
-	if (obj.type == PLANE)
-		return (vec_norme3(plane_norm(obj)));
-	if (obj.type == CONE)
-		return (vec_norme3(cone_norm(obj, poi)));
-	return (vec_new3(0, 0, 0));
+		norm = vec_norme3(cylinder_norm(obj, poi));
+	else if (obj.type == SPHERE)
+		norm = vec_norme3(sphere_norm(obj, poi));
+	else if (obj.type == PLANE)
+		norm = vec_norme3(plane_norm(obj));
+	else if (obj.type == CONE)
+		norm = vec_norme3(cone_norm(obj, poi));
+	return (norm);
 }
 
 float			get_res_of_quadratic(t_calc *op)
@@ -66,7 +79,8 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 	light->ray.dir = vec_norme3(light->ray.dir);
 	ray = c_ray(vec_add3(poi, light->ray.dir), light->ray.dir);
 	dist = get_min_dist(e, ray);
-	if (dist > 0 && dist < dist_to_light)
+	if (dist > 0 && dist < dist_to_light && 
+		!e->scene.obj[e->scene.id].mat.refract)
 		return (1);
 	else
 		return (0);

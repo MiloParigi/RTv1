@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 17:49:54 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 17:50:16 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 19:32:45 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 # define WIDTH 500
 # define EPSILON 1e-7
 # define EXTENSION ".xml"
-// # define EXTENSION ".rt"
 # define ERR -1
 # define END 0
 # define OK 1
@@ -181,7 +180,7 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define SIZE_LP 100 //The greater the value, the smaller the light point will be
+# define SIZE_LP 50 //The greater the value, the smaller the light point will be
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define ISTRUE(x) (x > 0 ? 1 : 0)
@@ -352,6 +351,7 @@ typedef struct		s_obj
 	t_vec3			vector;
 	int				r;
 	float			t;
+	int				nbr_t;
 	t_vec3			normal;
 	t_matiere		mat;
 	int				plimit_active;
@@ -499,8 +499,9 @@ void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
 //Normal
-t_vec3				cone_norm(t_obj obj, t_vec3 poi);
+t_vec3				color_norm(t_obj obj, t_vec3 poi, t_vec3 light);
 t_vec3				object_norm(t_obj obj, t_vec3 poi);
+t_vec3				cone_norm(t_obj obj, t_vec3 poi);
 t_vec3				plane_norm(t_obj obj);
 t_vec3				sphere_norm(t_obj obj, t_vec3 poi);
 t_vec3				cylinder_norm(t_obj obj, t_vec3 poi);

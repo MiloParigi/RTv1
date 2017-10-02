@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:36:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 00:23:16 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 18:37:54 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
 
 	intensity = 0;
 	light.ray.dir = vec_norme3(vec_sub3(light.ray.pos, poi));
-	norm = object_norm(obj, poi);
+	norm = color_norm(obj, poi, light.ray.dir);
 	intensity += AMBIENT_LIGHT;
 	if (!obj_in_shadow(e, poi, &light))
 	{

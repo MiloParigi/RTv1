@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 00:22:04 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 18:02:14 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		return (color_text(obj, poi, intensity));
 	else if (intensity != 0)
 		return (color_mult(obj.color, intensity));
-	return ((t_color){0, 0, 0, 0});
+	return (color_mult((t_color){0, 0, 0, 0}, intensity));
 }
 
 float			get_min_dist(t_rt *e, t_ray ray)
@@ -72,7 +72,7 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	ref.ray = c_ray(ray.pos, ray.dir);
 	ref.total_distance = 0;
 	ref.min_dist = 0;
-		if (e->scene.id != -1)
+	if (e->scene.id != -1)
 	{
 		if (e->scene.obj[e->scene.id].mat.reflex)
 		{
