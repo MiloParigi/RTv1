@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 16:09:39 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/01 19:17:43 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,8 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER e->scene.max_iter
+# define NR_ITER 3
+
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)
 # define RES_H (HAUTEUR / RES)
@@ -204,6 +205,20 @@ typedef struct		s_color
 	float			r;
 	float			a;
 }					t_color;
+
+typedef struct		s_reflect
+{
+	t_ray			ray;
+	t_ray			new_ray;
+	t_vec3			poi;
+	t_color			color;
+	float			total_distance;
+	int				counter;
+	float			min_dist;
+	int				tmp_id;
+	float			dist_rate;
+	int				a;
+}					t_reflect;
 
 typedef struct		s_light
 {
@@ -310,6 +325,8 @@ typedef struct		s_norme
 	float			min_dist;
 	t_ray			ray;
 	float			taux_temp;
+	t_color			temp_color1;
+	float			distance_rate;
 	int				counter;
 	t_color			base_color;
 	t_color			final_color;
@@ -527,9 +544,16 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
+// <<<<<<< HEAD
+// float				get_res_of_quadratic2(t_calc *op);
+// t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
+// t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+// =======
+t_color				recursive_refref(t_rt *e, t_color base_color, t_reflect ref);
 float				get_res_of_quadratic2(t_calc *op);
-t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
-t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
+t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
+t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
+// >>>>>>> ea33dc26078767e8f55b0a2e06deddd66dd6e583
 // XML
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
@@ -599,5 +623,4 @@ void				key_init(t_rt *e);
 t_color				get_text_color(int x, int y, t_texture tex);
 
 void    disp_last_pos(t_rt *e);
-
 #endif
