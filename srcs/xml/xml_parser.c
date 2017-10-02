@@ -46,12 +46,15 @@ int				parse_doc2(t_rt *e, char *path)
 {
 	xmlDocPtr	doc;
 	t_list		*lst;
+	xmlNodePtr	skybox;
 
 	xmlKeepBlanksDefault(0);
 	if (!(doc = getdoc(path)))
 		return (0);
 	if (!do_checks(doc))
 		return (0);
+	if ((skybox = has_child(xmlDocGetRootElement(doc), "skybox")))
+		parse_skybox(e, skybox);
 	lst = get_object_nodes(doc);
 	create_objs(e, lst);
 	ft_lstfree(&lst);
@@ -62,6 +65,7 @@ int				parse_doc2(t_rt *e, char *path)
 	set_lights(lst, e);
 	return (1);
 }
+
 
 int				parse_doc(t_rt *e)
 {

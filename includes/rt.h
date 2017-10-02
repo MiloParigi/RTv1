@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 17:46:15 by mparigi          ###   ########.fr       */
+/*   Created: 2017/10/02 17:49:54 by mparigi           #+#    #+#             */
+/*   Updated: 2017/10/02 17:50:16 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER e->scene.max_iter
+# define NR_ITER 3
+
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)
 # define RES_H (HAUTEUR / RES)
@@ -203,6 +204,20 @@ typedef struct		s_color
 	float			r;
 	float			a;
 }					t_color;
+
+typedef struct		s_reflect
+{
+	t_ray			ray;
+	t_ray			new_ray;
+	t_vec3			poi;
+	t_color			color;
+	float			total_distance;
+	int				counter;
+	float			min_dist;
+	int				tmp_id;
+	float			dist_rate;
+	int				a;
+}					t_reflect;
 
 typedef struct		s_light
 {
@@ -314,6 +329,8 @@ typedef struct		s_norme
 	float			min_dist;
 	t_ray			ray;
 	float			taux_temp;
+	t_color			temp_color1;
+	float			distance_rate;
 	int				counter;
 	t_color			base_color;
 	t_color			final_color;
@@ -534,10 +551,11 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
+t_color				recursive_refref(t_rt *e, t_color base_color, t_reflect ref);
 float				get_res_of_quadratic(t_calc *op);
-t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_ray rayon);
-t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, int counter);
 
+t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
+t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
 // XML
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
@@ -559,7 +577,7 @@ t_color				parse_color(xmlNodePtr node);
 t_checker			parse_checker(xmlNodePtr node);
 int					parse_texture(t_obj *obj, xmlNodePtr node, t_rt *e);
 int					parse_negatives(t_obj *obj, xmlNodePtr node);
-
+void				parse_skybox(t_rt*e, xmlNodePtr node);
 //Matrix
 void				matrix_init(t_rt *e);
 
@@ -607,5 +625,4 @@ void				key_init(t_rt *e);
 t_color				get_text_color(int x, int y, t_texture tex);
 
 void    disp_last_pos(t_rt *e);
-
 #endif
