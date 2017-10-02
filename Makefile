@@ -53,6 +53,7 @@ SRC			=	color.c \
 				xml/xml_parser.c \
 				xml/xml_errors.c \
 				xml/xml_checks.c \
+				xml/xml_skibox.c \
 				xml/xml_parse_nodes.c \
 				xml/xml_parse_light.c \
 				xml/xml_parse_obj.c \

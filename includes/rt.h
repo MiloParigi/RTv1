@@ -577,7 +577,7 @@ t_color				parse_color(xmlNodePtr node);
 t_checker			parse_checker(xmlNodePtr node);
 int					parse_texture(t_obj *obj, xmlNodePtr node, t_rt *e);
 int					parse_negatives(t_obj *obj, xmlNodePtr node);
-
+void				parse_skybox(t_rt*e, xmlNodePtr node);
 //Matrix
 void				matrix_init(t_rt *e);
 
