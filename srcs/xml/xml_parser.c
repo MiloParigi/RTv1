@@ -69,7 +69,6 @@ int				parse_doc2(t_rt *e, char *path)
 	return (1);
 }
 
-
 int				parse_doc(t_rt *e)
 {
 	int fd;

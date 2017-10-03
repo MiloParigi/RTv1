@@ -52,6 +52,7 @@ t_list			*get_object_nodes(xmlDocPtr doc)
 		return (NULL);
 	lst = NULL;
 	lst2 = NULL;
+	temp = NULL;
 	get_nodes_by_name(xmlDocGetRootElement(doc), "objects", &lst);
 	temp = ((xmlNodePtr)lst->content)->children;
 	while (temp)
