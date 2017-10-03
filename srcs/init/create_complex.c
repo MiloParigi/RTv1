@@ -28,7 +28,7 @@ static void		create_dick(t_obj obj, t_rt *e, int i)
 	SOBJ.r = obj.r * 1.5;
 	SOBJ.color = obj.color;
 	SOBJ.id = e->scene.nbr_complex;
-	while (j < 4)
+	while (j < 7)
 	{
 		i += create_obj(SPHERE, e);
 		SOBJ.pos = vec_new3(obj.pos.x, obj.pos.y - obj.r * 1.5 * j, obj.pos.z);
@@ -72,7 +72,7 @@ void			get_new_obj_list(t_rt *e)
 		if (e->COBJ.type == MICKEY)
 			len += 3;
 		if (e->COBJ.type == DICK)
-			len += 8;
+			len += 15;
 		else
 			len += 1;
 		i++;

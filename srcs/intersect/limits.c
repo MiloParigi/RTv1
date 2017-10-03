@@ -86,7 +86,7 @@ float			limit_dist(t_obj obj, t_ray ray, float obj_l, float obj_h)
 	plimit_dist = DIST_MAX;
 	if (obj.plimit_active == 1 && obj_l != DIST_MAX)
 	{
-		while (++i < obj.nbr_limit - 1 && obj.plimit->type > 0)
+		while (++i < obj.nbr_limit && obj.plimit->type > 0)
 		{
 			dist = intersect_plane(ray, obj.plimit[i]);
 			if (dist < plimit_dist)

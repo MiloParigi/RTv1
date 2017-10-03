@@ -25,28 +25,28 @@ t_color			ft_average(t_color c1, t_color c2, t_color c3, t_color c4)
 void			*drawlinex2(void *arg)
 {
 	t_rt		*e;
-	int			y;
-	int			x;
+	t_vec2		xy;
 	int			i;
 
 	e = (t_rt *)arg;
-	e->thread.colors =
-	malloc((e->thread.h * e->thread.w + 1) * sizeof(t_color));
-	y = e->thread.y;
+	if (!(e->thread.colors = malloc((e->thread.h * e->thread.w + 1)
+	* sizeof(t_color))))
+		exit(42);
+	xy.y = e->thread.y;
 	i = -1;
-	while (y < e->thread.max_y)
+	while (xy.y < e->thread.max_y)
 	{
-		x = 0;
-		while (x < e->thread.w)
+		xy.y = 0;
+		while (xy.y < e->thread.w)
 		{
-			e->thread.colors[++i] = ft_average(raytrace(x, y, e),
-			raytrace(x + 1, y, e), raytrace(x, y + 1, e),
-			raytrace(x + 1, y + 1, e));
+			e->thread.colors[++i] = ft_average(raytrace(xy.y, xy.y, e),
+			raytrace(xy.y + 1, xy.y, e), raytrace(xy.y, xy.y + 1, e),
+			raytrace(xy.y + 1, xy.y + 1, e));
 			if (e->scene.filters == 5)
 				e->thread.colors[i] = fl_cartoon(e->thread.colors[i]);
-			x += ALIASING;
+			xy.y += ALIASING;
 		}
-		y += ALIASING;
+		xy.y += ALIASING;
 	}
 	return (NULL);
 }
@@ -59,8 +59,9 @@ void			*drawline(void *arg)
 	int			i;
 
 	e = (t_rt *)arg;
-	e->thread.colors =
-	malloc((e->thread.h * e->thread.w + 1) * sizeof(t_color));
+	if (!(e->thread.colors =
+	malloc((e->thread.h * e->thread.w + 1) * sizeof(t_color))))
+		exit(42);
 	y = e->thread.y;
 	i = 0;
 	while (y < e->thread.max_y)

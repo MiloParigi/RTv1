@@ -54,7 +54,8 @@ void		ft_gtk_start_launcher(t_rt *e)
 	e->gtk.menu.window = new_window(300, 200, "RT");
 	e->gtk.menu.layout = gtk_layout_new(NULL, NULL);
 	gtk_container_add(GTK_CONTAINER(e->gtk.menu.window), e->gtk.menu.layout);
-	g_signal_connect(G_OBJECT(e->gtk.menu.window), "delete-event", G_CALLBACK( exit_gtk ), NULL);
+	g_signal_connect(G_OBJECT(e->gtk.menu.window), "delete-event",
+	G_CALLBACK(exit_gtk), NULL);
 	ft_init_values(e);
 	ft_gtk_launcher(e);
 	gtk_widget_show_all(e->gtk.menu.window);

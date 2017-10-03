@@ -47,7 +47,9 @@ int				set_lights(t_list *lst, t_rt *e)
 	if (!lst)
 		return (1);
 	e->scene.nbr_light = ft_lstlen(lst);
-	e->scene.lights = (t_light *)malloc(sizeof(t_light) * e->scene.nbr_light);
+	if (!(e->scene.lights = (t_light *)malloc(sizeof(t_light) *
+	e->scene.nbr_light)))
+		exit(42);
 	if (!e->scene.lights)
 		exit(ERR);
 	while (lst)

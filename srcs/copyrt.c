@@ -66,10 +66,13 @@ t_scene				copy_scene(t_scene scene)
 	int				i;
 
 	i = -1;
-	copy.lights = (t_light *)malloc(scene.nbr_light * sizeof(t_light));
+	if (!(copy.lights = (t_light *)malloc(scene.nbr_light *
+	sizeof(t_light))))
+		exit(42);
 	while (++i < scene.nbr_light)
 		copy.lights[i] = copy_light(scene.lights[i]);
-	copy.obj = (t_obj *)malloc(scene.nbr_obj * sizeof(t_obj));
+	if (!(copy.obj = (t_obj *)malloc(scene.nbr_obj * sizeof(t_obj))))
+		exit(42);
 	i = -1;
 	while (++i < scene.nbr_obj)
 		copy.obj[i] = copy_objs(scene.obj[i]);

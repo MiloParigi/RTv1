@@ -45,7 +45,8 @@ void			new_rt(void)
 {
 	t_rt	*e;
 
-	e = (t_rt *)malloc(sizeof(t_rt));
+	if (!(e = (t_rt *)malloc(sizeof(t_rt))))
+		exit(42);
 	init_rt(e);
 	ft_gtk_start_launcher(e);
 }

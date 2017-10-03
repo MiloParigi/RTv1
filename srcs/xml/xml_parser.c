@@ -74,6 +74,8 @@ int				parse_doc(t_rt *e)
 {
 	int fd;
 
+	if (HAUTEUR > 5000 || LARGEUR > 5000)
+		exit(42);
 	if ((fd = is_file(SFILE)) > -1)
 		if (parse_doc2(e, SFILE) > 0)
 		{
