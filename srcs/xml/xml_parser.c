@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 11:35:38 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 17:56:49 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 14:30:19 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ xmlNodePtr		has_child(xmlNodePtr a_node, char *attr)
 	xmlChar		*cast;
 	xmlNodePtr	cur;
 
+	cur = NULL;
 	cur = a_node->children;
 	cast = (xmlChar *)attr;
 	while (cur)
@@ -59,7 +60,10 @@ int				parse_doc2(t_rt *e, char *path)
 	create_objs(e, lst);
 	ft_lstfree(&lst);
 	get_nodes_by_name(xmlDocGetRootElement(doc), "camera", &lst);
-	set_camera_xml(e, (xmlNodePtr)(lst->content));
+	if (!lst)
+		camera_create(e);
+	else
+		set_camera_xml(e, (xmlNodePtr)(lst->content));
 	ft_lstfree(&lst);
 	get_nodes_by_name(xmlDocGetRootElement(doc), "light", &lst);
 	set_lights(lst, e);

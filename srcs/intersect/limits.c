@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 09:02:55 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 16:58:33 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 18:36:15 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ float			limit_dist(t_obj obj, t_ray ray, float obj_l, float obj_h)
 		}
 		plimit_dist = intersect_plane(ray, &obj.plimit[j]);
 		return (limit_norme(vec_dot3(ray.dir, object_norm(obj.plimit[j],
-		vec_add3(ray.pos, vec_scale3(ray.dir, plimit_dist)))),
-		obj_l, obj_h, plimit_dist));
+			vec_add3(ray.pos, vec_scale3(ray.dir, plimit_dist)))),
+			obj_l, obj_h, plimit_dist));
 	}
 	return (obj_l);
 }

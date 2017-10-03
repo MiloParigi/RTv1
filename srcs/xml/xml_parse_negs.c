@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:34:39 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 17:42:39 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/02 16:41:22 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list			*get_negatives(xmlNodePtr node)
 	while (tmp)
 	{
 		if (!xmlStrcmp(tmp->name, BAD_CAST"negatif"))
-			ft_lstpush(&lst, ft_lstnew(tmp, sizeof(tmp)));
+			ft_lstpush(&lst, ft_lstnew(tmp, sizeof(*tmp)));
 		tmp = tmp->next;
 	}
 	return (lst);
@@ -66,7 +66,7 @@ int				parse_negatives(t_obj *obj, xmlNodePtr node)
 
 	i = 0;
 	lst = get_negatives(node);
-	(*obj).nbr_limit = ft_lstlen(lst) + 1;
+	(*obj).nbr_limit = ft_lstlen(lst);
 	if ((*obj).nbr_limit > 0)
 		(*obj).plimit = (t_obj *)malloc(sizeof(t_obj) * (*obj).nbr_limit);
 	while (lst)

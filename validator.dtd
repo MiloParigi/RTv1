@@ -1,6 +1,6 @@
 <!--SCENE DESCRIPTION-->
 
-<!ELEMENT scene (camera | lights | objects | skybox)+>
+<!ELEMENT scene (camera | lights | objects | skybox)*>
 <!ELEMENT skybox EMPTY>
 <!ATTLIST skybox
         src CDATA #REQUIRED>

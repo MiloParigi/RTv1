@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/03 15:39:51 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 18:24:17 by mparigi          ###   ########.fr       */
+/*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
+/*   Updated: 2017/10/03 18:55:54 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CMAT e->scene.obj[e->scene.id].mat
+# define CID e->scene.obj[e->scene.id]
 # define CLIGHT scene.lights[i]
 # define THREAD th_e[i]->thread
 # define CTHREAD th_e[i]->thread.colors[++i2]
@@ -167,7 +168,7 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER 3
+# define NR_ITER 300
 
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)

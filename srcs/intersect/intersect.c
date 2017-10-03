@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 17:21:15 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 18:51:51 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ float			get_res_of_quadratic(t_calc *op, t_obj *obj)
 	op->disc = sqrt(op->disc);
 	op->t0 = (-op->b + op->disc) / (2 * op->a);
 	op->t1 = (-op->b - op->disc) / (2 * op->a);
+	if (op->t0 <= 0 || op->t1 <= 0)
+		obj->nbr_t = 1;
 	if ((op->t0 < op->t1 || op->t1 < EPSILON) && op->t0 > EPSILON)
 		return (op->t0);
 	else if ((op->t1 < op->t0 || op->t0 < EPSILON) && op->t1 > EPSILON)

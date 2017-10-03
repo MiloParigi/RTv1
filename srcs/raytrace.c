@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/03 15:38:52 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 18:25:21 by mparigi          ###   ########.fr       */
+/*   Created: 2017/10/03 15:17:47 by mhalit            #+#    #+#             */
+/*   Updated: 2017/10/03 18:57:02 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	int			i;
 
 	i = 0;
-	intensity = 0;
+	intensity = (!e->scene.nbr_light) ? AMBIENT_LIGHT : 0;
 	while (i < e->scene.nbr_light)
 	{
 		intensity += dazzling_light(e, e->CLIGHT,
@@ -96,18 +96,17 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	ref.min_dist = 0;
 	if (e->scene.id != -1)
 	{
-		if (e->scene.obj[e->scene.id].mat.reflex)
+		if (CMAT.reflex)
 			return (ret_reflected_pixel(e, ref, ray, ref.min_dist));
-		if (e->scene.obj[e->scene.id].mat.refract)
+		if (CMAT.refract)
 		{
-			ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
+			ref.color = get_color(e, CID, ref.poi);
 			e->scene.id = ref.tmp_id;
 			return (get_refracted_color(e, ref.poi, ref.color, ref));
 		}
-		if (e->scene.obj[e->scene.id].mat.checker.l > 0)
-			return (get_checker_col(e->scene.obj[e->scene.id].mat.checker,
-					ref.poi));
-			return (get_color(e, e->scene.obj[e->scene.id], ref.poi));
+		if (CMAT.checker.l > 0)
+			return (get_checker_col(CMAT.checker, ref.poi));
+		return (get_color(e, CID, ref.poi));
 	}
 	return (ref.color);
 }
