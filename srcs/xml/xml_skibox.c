@@ -15,8 +15,8 @@
 void	parse_skybox(t_rt *e, xmlNodePtr node)
 {
 	if ((e->scene.skybox.ptr = mlx_xpm_file_to_image(INIT,
-		(char*)xmlGetProp(node, BAD_CAST"src"), &e->scene.skybox.width,
-		&e->scene.skybox.height)))
+	(char*)xmlGetProp(node, BAD_CAST"src"), &e->scene.skybox.width,
+	&e->scene.skybox.height)))
 	{
 		if (!(e->scene.skybox.data = mlx_get_data_addr(e->scene.skybox.ptr,
 			&e->scene.skybox.bpp, &e->scene.skybox.sizl,
