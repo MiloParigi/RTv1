@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:00:38 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 17:13:00 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 17:30:38 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ray			get_refracted_ray(t_rt *e, t_ray rayon, t_vec3 poi)
 	t_ray		ray;
 
 	ray.pos = poi;
-	normale = color_norm(e->scene.obj[e->scene.id], poi, rayon.dir);
+	normale = color_norm(e->scene.obj[e->scene.id], poi, vec_sub3(CCAM.pos, poi));
 	source = rayon.dir;
 	ray.dir = vec_scale3(vec_mul3(source, normale),
 	e->scene.obj[e->scene.id].mat.refract);

@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 15:38:52 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 16:46:20 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 18:25:21 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		i++;
 	}
 	if (intensity != 0 && obj.mat.tex.is_init == 1)
-		return (color_text(obj, poi, intensity));
+		return (color_text(e, obj, poi, intensity));
 	else if (intensity != 0)
-		return (color_mult(obj.color, intensity));
-	return (color_mult((t_color){0, 0, 0, 0}, intensity));
+		return (color_mult(obj.color, intensity, 1));
+	return ((t_color){0, 0, 0, 0});
 }
 
 float			get_min_dist(t_rt *e, t_ray ray)

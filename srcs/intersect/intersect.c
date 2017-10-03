@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 16:59:00 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 17:21:15 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ float			intersect_obj(t_ray ray, t_obj *obj)
 	return (DIST_MAX);
 }
 
-t_vec3			color_norm(t_obj obj, t_vec3 poi, t_vec3 light)
+t_vec3			color_norm(t_obj obj, t_vec3 poi, t_vec3 cam)
 {
 	t_vec3	norm;
 
 	norm = object_norm(obj, poi);
-	if (obj.nbr_t == 1 && vec_dot3(norm, light) < 0)
+	if (obj.nbr_t == 1 && vec_dot3(norm, cam) < 0)
 		norm = vec_scale3(norm, -1);
 	return (norm);
 }

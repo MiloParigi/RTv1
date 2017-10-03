@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 15:39:51 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 16:49:11 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 18:24:17 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -514,10 +514,10 @@ t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
 t_color				copy_color(t_color color);
-t_color				color_mult(t_color color, float taux);
+t_color				color_mult(t_color color, float taux, float limit);
 float				get_length(t_vec3 v);
 unsigned int		ret_colors(t_color color);
-t_color				color_text(t_obj obj, t_vec3 poi, float taux);
+t_color				color_text(t_rt *e, t_obj obj, t_vec3 poi, float taux);
 t_color				skybox(t_rt *e, t_ray ray);
 
 float				intersect_obj(t_ray ray, t_obj *obj);
@@ -529,8 +529,8 @@ float				intersect_cone(t_ray ray, t_obj *cone);
 
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj,
 		t_light light);
-float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
-float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
+float				diff_intensity(t_obj obj, float dot);
+float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm, float dot);
 float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);

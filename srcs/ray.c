@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 18:56:25 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 18:56:27 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/03 18:25:56 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,20 @@ t_color			skybox(t_rt *e, t_ray ray)
 	float		u;
 	float		v;
 	t_vec3		norm;
+	int			i;
+	float		intensity;
 
+	i = 0;
+	intensity = 0;
 	if (!(e->scene.skybox.is_init))
-		return ((t_color){0, 0, 0, 0});
+	{
+		while (i < e->scene.nbr_light)
+		{
+			intensity += dazzling_light(e, e->CLIGHT, vec_norme3(ray.dir));
+			i++;
+		}
+		return (color_mult((t_color){0, 0, 0, 0}, intensity, 0));
+	}
 	norm = vec_norme3(ray.dir);
 	u = atan2(norm.x, norm.z) / (2 * M_PI) + 0.5;
 	v = norm.y * 0.5 + 0.5;

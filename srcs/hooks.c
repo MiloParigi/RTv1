@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:42:24 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 11:30:16 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:04:45 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void			key(t_rt *e)
 	if (nbrs_keys(e) > 0)
 	{
 		if (e->scene.selected == -1)
-			move_cam(e, 20);
+			move_cam(e, 10);
 		else
-			move_obj(e, 20);
+			move_obj(e, 10);
 		frame(e);
 	}
 }
