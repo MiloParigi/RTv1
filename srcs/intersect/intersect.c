@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:33:09 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 15:48:48 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 	t_ray	ray;
 	float	dist;
 	float	dist_to_light;
+	float	transp;
 
+	transp = 0;
 	light->ray.dir = vec_sub3(light->ray.pos, poi);
 	dist_to_light = get_length(light->ray.dir);
 	light->ray.dir = vec_norme3(light->ray.dir);
@@ -84,7 +86,10 @@ float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 	if (dist < dist_to_light && !e->scene.obj[e->scene.id].mat.refract)
 		return (0);
 	if (dist < dist_to_light && e->scene.obj[e->scene.id].mat.refract)
+	{	
+		poi = vec_scale3(ray.dir, dist);
 		return (e->scene.obj[e->scene.id].mat.refract);
+	}
 	else
 		return (1);
 }

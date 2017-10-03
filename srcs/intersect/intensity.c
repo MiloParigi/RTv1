@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:36:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:34:41 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 15:45:42 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,35 @@ float			dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir)
 	float		intensity;
 	float		dot;
 	t_vec3		refl;
-	float		opac;
+	float		transp;
 
 	light.ray.dir = vec_sub3(light.ray.pos, CCAM.pos);
-	if (!(opac = obj_isnt_in_shadow(e, CCAM.pos, &light)))
+	if (!(transp = obj_isnt_in_shadow(e, CCAM.pos, &light)))
 		return (0);
 	light.ray.dir = vec_norme3(light.ray.dir);
 	if ((dot = vec_dot3(light.ray.dir, cam_dir)) < EPSILON)
 		return (0);
 	refl = vec_sub3(light.ray.dir, vec_scale3(cam_dir, 2 * dot));
 	intensity = vec_dot3(vec_scale3(light.ray.dir, -1), refl);
-	return ((intensity < 0) ? 0 : pow(intensity, 500) * 2 * opac);
+	return ((intensity < 0) ? 0 : pow(intensity, 500) * 2 * transp);
 }
 
 float			intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
 {
 	float	intensity;
 	t_vec3	norm;
-	float	opac;
+	float	transp;
 
 	intensity = 0;
-	opac = 0;
+	transp = 0;
 	light.ray.dir = vec_norme3(vec_sub3(light.ray.pos, poi));
 	norm = color_norm(obj, poi, light.ray.dir);
-	if ((opac = obj_isnt_in_shadow(e, poi, &light)))
+	if ((transp = obj_isnt_in_shadow(e, poi, &light)))
 	{
 		intensity += diff_intensity(obj, light.ray, norm);
 		intensity += spec_intensity(obj, light.ray, norm);
 	}
-	return (intensity * opac + AMBIENT_LIGHT);
+	return (intensity * transp + AMBIENT_LIGHT);
 }
 
 float			diff_intensity(t_obj obj, t_ray light, t_vec3 norm)
