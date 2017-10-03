@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 22:49:45 by ldenblyd          #+#    #+#             */
-/*   Updated: 2017/10/03 12:59:51 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 13:11:48 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 	return (FALSE);
 }
 
-void		exit_gtk()
+void		exit_gtk(void)
 {
 	gtk_main_quit();
 }

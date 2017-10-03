@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 19:17:43 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/10/02 18:37:07 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER 3
+# define NR_ITER 5
 
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)

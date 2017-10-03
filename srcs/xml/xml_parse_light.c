@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:32:55 by agfernan          #+#    #+#             */
-/*   Updated: 2017/09/30 23:33:27 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 15:14:07 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int				set_lights(t_list *lst, t_rt *e)
 	int i;
 
 	i = 0;
+	if (!lst)
+		return (1);
 	e->scene.nbr_light = ft_lstlen(lst);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * e->scene.nbr_light);
 	if (!e->scene.lights)
