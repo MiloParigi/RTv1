@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 11:42:24 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 22:59:54 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 11:30:16 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ int				select_obj(int button, int x, int y, void *param)
 	if (button == 1)
 	{
 		ray = ray_init(e, x, y);
-		get_min_dist(e, ray);
-		e->scene.selected = e->scene.id;
+		if (get_min_dist(e, ray) > 0)
+			e->scene.selected = e->scene.id;
+		else
+			e->scene.selected = -1;
 	}
 	e->scene.selected = (button == 2) ? -1 : e->scene.selected;
 	CCAM.fov -= (button == SCROLLUP) ? 2 : 0;
