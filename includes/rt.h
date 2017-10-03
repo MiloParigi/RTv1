@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 19:17:43 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/10/03 13:15:37 by mhalit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 # define WIDTH 500
 # define EPSILON 1e-7
 # define EXTENSION ".xml"
-// # define EXTENSION ".rt"
 # define ERR -1
 # define END 0
 # define OK 1
@@ -181,7 +180,7 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define SIZE_LP 100 //The greater the value, the smaller the light point will be
+# define SIZE_LP 100
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define ISTRUE(x) (x > 0 ? 1 : 0)
@@ -286,11 +285,11 @@ typedef struct		s_matiere
 	char			*coeff;
 	char			opacite;
 	int				sin;
-	int 			perlin;
+	int				perlin;
 	t_texture		texture;
 }					t_matiere;
 
-typedef struct	s_keys
+typedef struct		s_keys
 {
 	char			key_up;
 	char			key_down;
@@ -323,8 +322,8 @@ typedef struct		s_file
 
 typedef struct		s_norme
 {
-	int 			x;
-	int 			y;
+	int				x;
+	int				y;
 	int				a;
 	float			min_dist;
 	t_ray			ray;
@@ -397,7 +396,7 @@ typedef struct		s_scene
 
 typedef struct		s_mthread
 {
-	float 			y;
+	float			y;
 	float			max_y;
 	float			h;
 	float			w;
@@ -449,9 +448,10 @@ t_matiere			create_matiere(void);
 int					camera_create(t_rt *e);
 int					create_obj(int type, t_rt *e);
 int					create_light(t_rt *e);
-void 				create_complex(t_rt *e);
+void				create_complex(t_rt *e);
 void				create_limits(t_rt *e, char **args, int tot);
-float    		    limit_dist(t_obj obj, t_ray ray, float bdist, float maxdist);
+float				limit_dist(t_obj obj, t_ray ray, float bdist,
+		float maxdist);
 int					set_skybox(t_rt *e, char *path);
 
 t_color				c_color(float r, float g, float b);
@@ -469,18 +469,11 @@ void				fl_anaglyph(t_rt *e);
 void				fl_stereoscopie(t_rt *e);
 void				fl_motionblur(t_rt *e);
 
-//Debug
 void				disp_cam(t_rt *e, int color);
 void				disp_name(t_rt *e, int color);
 void				display_args(void);
-
-//Matrix
 void				matrix_init(t_rt *e);
-
-//Maths
 float				p(float x);
-
-//Hook
 int					no_event(void *param);
 int					ft_close(void *param);
 int					keypress(int keycode, void *param);
@@ -488,24 +481,21 @@ int					keyrelease(int keycode, void *param);
 int					select_obj(int button, int x, int y, void *param);
 void				onepress(int keycode, t_rt *e);
 void				auto_res(int keycode, t_rt *e);
-void				filters_press(int keycode , t_rt *e);
+void				filters_press(int keycode, t_rt *e);
 void				key(t_rt *e);
 void				exportimg(t_rt *e);
 int					nbrs_keys(t_rt *e);
 void				cam_mode(t_rt *e);
 
-//Move
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
-//Normal
 t_vec3				cone_norm(t_obj obj, t_vec3 poi);
 t_vec3				object_norm(t_obj obj, t_vec3 poi);
 t_vec3				plane_norm(t_obj obj);
 t_vec3				sphere_norm(t_obj obj, t_vec3 poi);
 t_vec3				cylinder_norm(t_obj obj, t_vec3 poi);
 
-//Multithreading
 t_light				copy_light(t_light light);
 t_obj				copy_objs(t_obj obj);
 t_scene				copy_scene(t_scene scene);
@@ -514,11 +504,7 @@ void				*drawline(void *arg);
 t_rt				**launch_thread(t_rt *env);
 t_color				fl_cartoon(t_color color);
 float				cartoon_color(float color);
-
-
-//Beta option
-
-void 				pixel_to_image(int x, int y, t_rt *e, int color);
+void				pixel_to_image(int x, int y, t_rt *e, int color);
 
 t_ray				c_ray(t_vec3 i, t_vec3 j);
 t_ray				ray_init(t_rt *e, int x, int y);
@@ -539,24 +525,28 @@ float				intersect_plane(t_ray ray, t_obj plane);
 float				intersect_cylinder(t_ray ray, t_obj cyl);
 float				intersect_cone(t_ray ray, t_obj cone);
 
-float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light);
+float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj,
+		t_light light);
 float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
 float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
 float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
-t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
+t_color				diff_color(t_scene *scene, t_obj obj,
+		t_ray ray, t_vec3 norm);
 
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
-t_color				recursive_refref(t_rt *e, t_color base_color, t_reflect ref);
+t_color				recursive_refref(t_rt *e, t_color base_color,
+		t_reflect ref);
 float				get_res_of_quadratic2(t_calc *op);
 
-t_color				get_refracted_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
-t_color				get_reflected_color(t_rt *e, t_vec3 poi, t_color base_color, t_reflect ref);
-// XML
+t_color				get_refracted_color(t_rt *e, t_vec3 poi,
+		t_color base_color, t_reflect ref);
+t_color				get_reflected_color(t_rt *e, t_vec3 poi,
+		t_color base_color, t_reflect ref);
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
 int					do_checks(xmlDocPtr doc);
@@ -566,7 +556,8 @@ xmlDocPtr			getdoc(char *docname);
 void				xml_alloc_error(void);
 void				xml_read_error(void);
 int					parse_args(char **argv, int argc, t_rt *e);
-void				get_nodes_by_name(xmlNodePtr cur, char *node_name, t_list **lst);
+void				get_nodes_by_name(xmlNodePtr cur, char *node_name,
+		t_list **lst);
 t_list				*get_object_nodes(xmlDocPtr doc);
 xmlNodePtr			get_lights(xmlDocPtr doc);
 t_vec3				get_vec_from_node(xmlNodePtr node);
@@ -578,28 +569,27 @@ t_checker			parse_checker(xmlNodePtr node);
 int					parse_texture(t_obj *obj, xmlNodePtr node, t_rt *e);
 int					parse_negatives(t_obj *obj, xmlNodePtr node);
 void				parse_skybox(t_rt*e, xmlNodePtr node);
-//Matrix
 void				matrix_init(t_rt *e);
 
-//GTK
 int					parse_filename(t_rt *e, char *filename);
-int         		parse_norme(int *fd, t_rt *e);
-void 				ft_start_rt(t_rt *e);
+int					parse_norme(int *fd, t_rt *e);
+void				ft_start_rt(t_rt *e);
 void				init_rt(t_rt *e);
 
 void				ft_init_values(t_rt *e);
-gboolean			hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+gboolean			hook(GtkWidget *widget, GdkEventKey *event,
+		gpointer user_data);
 
-void 				ft_gtk_start_launcher(t_rt *e);
-void 				ft_gtk_start_settings(t_rt *e);
-void 				ft_settings(t_rt *e);
-void 				ft_gtk_launcher(t_rt *e);
+void				ft_gtk_start_launcher(t_rt *e);
+void				ft_gtk_start_settings(t_rt *e);
+void				ft_settings(t_rt *e);
+void				ft_gtk_launcher(t_rt *e);
 
-GtkWidget 			*new_window(gint w, gint h, gchar *name);
+GtkWidget			*new_window(gint w, gint h, gchar *name);
 GtkWidget			*new_input(t_gtk_input *data);
 GtkWidget			*new_txt(gchar *str);
 GtkWidget			*new_btn(int x, int y, char *name);
-void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+void				ft_gtk_link_css(GtkWidget *window, gchar *css);
 void				ft_add_w(GtkEntry *entry, t_rt *e);
 void				ft_add_h(GtkEntry *entry, t_rt *e);
 void				ft_add_res(GtkEntry *entry, t_rt *e);
@@ -607,22 +597,18 @@ void				ft_add_anti(GObject *sw, GParamSpec *ps, t_rt *e);
 void				ft_add_antialiasing(t_rt *e);
 void				ft_add_resolution(t_rt *e);
 void				ft_add_win_size(t_rt *e);
-GtkWidget 			*new_window(gint w, gint h, gchar *name);
+GtkWidget			*new_window(gint w, gint h, gchar *name);
 GtkWidget			*new_input(t_gtk_input *data);
 GtkWidget			*new_txt(gchar *str);
 GtkWidget			*new_btn(int x, int y, char *name);
-void 				ft_gtk_link_css(GtkWidget *window, gchar *css);
+void				ft_gtk_link_css(GtkWidget *window, gchar *css);
 void				gtk_hook(int keycode, t_rt *e);
-
-//Perturbation (checker, tole etc..)
 t_color				get_checker_col(t_checker check, t_vec3 pt);
 
-//Texture
 t_vec2				get_uv_obj(t_obj obj, t_vec3 poi, t_vec3 norm);
 int					calcul_res(t_rt *e, int limit);
 int					key_hook(int keycode, t_rt *e);
 void				key_init(t_rt *e);
 t_color				get_text_color(int x, int y, t_texture tex);
-
-void    disp_last_pos(t_rt *e);
+void				disp_last_pos(t_rt *e);
 #endif
