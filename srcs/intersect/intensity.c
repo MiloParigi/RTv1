@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:36:08 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 18:09:59 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 18:29:36 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ float		intensity_obj(t_rt *e, t_vec3 poi, t_obj obj, t_light light)
 	transp = 0;
 	light.ray.dir = vec_norme3(vec_sub3(light.ray.pos, poi));
 	norm = color_norm(obj, poi, vec_sub3(CCAM.pos, poi));
-	if ((dot = vec_dot3(light.ray.dir, norm)) > 0 
+	if ((dot = vec_dot3(light.ray.dir, norm)) > 0
 		&& (transp = obj_isnt_in_shadow(e, poi, &light)))
 	{
 		intensity += diff_intensity(obj, dot);
