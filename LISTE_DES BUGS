@@ -8,5 +8,4 @@ bug:
 
 segfault:
 - no cam in parser
-- no object in parser
 - 2x element negatif

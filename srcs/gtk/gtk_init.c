@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   gtk_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldenblyd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 22:49:45 by ldenblyd          #+#    #+#             */
-/*   Updated: 2017/08/29 05:05:52 by ldenblyd         ###   ########.fr       */
+/*   Updated: 2017/10/03 12:59:51 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ gboolean	hook(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 	if (event->keyval == 65307)
 		exit(42);
 	return (FALSE);
+}
+
+void		exit_gtk()
+{
+	gtk_main_quit();
 }
 
 void		ft_gtk_start_settings(t_rt *e)
@@ -49,6 +54,7 @@ void		ft_gtk_start_launcher(t_rt *e)
 	e->gtk.menu.window = new_window(300, 200, "RT");
 	e->gtk.menu.layout = gtk_layout_new(NULL, NULL);
 	gtk_container_add(GTK_CONTAINER(e->gtk.menu.window), e->gtk.menu.layout);
+	g_signal_connect(G_OBJECT(e->gtk.menu.window), "delete-event", G_CALLBACK( exit_gtk ), NULL);
 	ft_init_values(e);
 	ft_gtk_launcher(e);
 	gtk_widget_show_all(e->gtk.menu.window);
