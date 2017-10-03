@@ -108,7 +108,7 @@ int				create_objs(t_rt *e, t_list *lst)
 
 	i = 0;
 	e->scene.nbr_obj = ft_lstlen(lst);
-	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * e->scene.nbr_obj);
+	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * e->scene.nbr_obj * 30);
 	if (!e->scene.obj)
 		exit(ERR);
 	while (lst)
