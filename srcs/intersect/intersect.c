@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:48:48 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 15:56:04 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,21 @@ float			intersect_obj(t_ray ray, t_obj obj)
 	return (DIST_MAX);
 }
 
+/*
+** Later, if t == 1, t being the nbr of intersection.
+** This will check if we are inside or outside of the object
+** If we are inside, we send back -norm
+*/
+
 t_vec3			color_norm(t_obj obj, t_vec3 poi, t_vec3 light)
 {
 	t_vec3	norm;
 
 	norm = object_norm(obj, poi);
-	if (obj.type == PLANE && vec_dot3(norm, light) < 0) //Later, if obj.nbr_t == 1
+	if (obj.type == PLANE && vec_dot3(norm, light) < 0)
 		norm = vec_scale3(norm, -1);
 	return (norm);
-}	
+}
 
 t_vec3			object_norm(t_obj obj, t_vec3 poi)
 {
@@ -86,7 +92,7 @@ float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 	if (dist < dist_to_light && !e->scene.obj[e->scene.id].mat.refract)
 		return (0);
 	if (dist < dist_to_light && e->scene.obj[e->scene.id].mat.refract)
-	{	
+	{
 		poi = vec_scale3(ray.dir, dist);
 		return (e->scene.obj[e->scene.id].mat.refract);
 	}
