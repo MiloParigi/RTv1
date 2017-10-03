@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 18:02:14 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/02 19:43:05 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
-	// t_vec2		uv;
+
 	i = 0;
 	intensity = 0;
 	while (i < e->scene.nbr_light)

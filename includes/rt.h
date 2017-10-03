@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 17:49:54 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 19:32:45 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 15:32:46 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -550,7 +550,7 @@ t_color				diff_color(t_scene *scene, t_obj obj, t_ray ray, t_vec3 norm);
 
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
-int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
+float				obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
 t_color				recursive_refref(t_rt *e, t_color base_color, t_reflect ref);
 float				get_res_of_quadratic(t_calc *op);

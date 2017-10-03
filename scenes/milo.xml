@@ -29,7 +29,11 @@
 			<pos x="50" y="0" z="0"/>
 			<color r="255" g="0" b="0"/>
 		</sphere>
-		<sphere radius="100" refraction="0.2">
+		<sphere radius="150" refraction="0.5">
+			<pos x="0" y="0" z="0"/>
+			<color r="255" g="0" b="255"/>
+		</sphere>
+		<sphere radius="100" refraction="0.4">
 			<pos x="0" y="0" z="0"/>
 			<color r="0" g="255" b="255"/>
 		</sphere>

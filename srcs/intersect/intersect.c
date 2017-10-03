@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/02 18:53:37 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 15:33:09 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ float			get_res_of_quadratic(t_calc *op)
 	return (DIST_MAX);
 }
 
-int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
+float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 {
 	t_ray	ray;
 	float	dist;
@@ -79,9 +79,12 @@ int				obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 	light->ray.dir = vec_norme3(light->ray.dir);
 	ray = c_ray(vec_add3(poi, light->ray.dir), light->ray.dir);
 	dist = get_min_dist(e, ray);
-	if (dist > 0 && dist < dist_to_light && 
-		!e->scene.obj[e->scene.id].mat.refract)
+	if (dist <= 0)
 		return (1);
-	else
+	if (dist < dist_to_light && !e->scene.obj[e->scene.id].mat.refract)
 		return (0);
+	if (dist < dist_to_light && e->scene.obj[e->scene.id].mat.refract)
+		return (e->scene.obj[e->scene.id].mat.refract);
+	else
+		return (1);
 }
