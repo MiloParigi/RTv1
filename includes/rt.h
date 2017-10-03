@@ -167,7 +167,7 @@
 # define MAXOBJ 50
 # define MAXLIGHT 21
 # define MAXLIM 10
-# define NR_ITER 3
+# define NR_ITER 300
 
 # define WSS (LARGEUR * SS)
 # define HSS (HAUTEUR * SS)

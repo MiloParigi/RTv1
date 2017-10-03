@@ -17,6 +17,7 @@ xmlNodePtr		has_child(xmlNodePtr a_node, char *attr)
 	xmlChar		*cast;
 	xmlNodePtr	cur;
 
+	cur = NULL;
 	cur = a_node->children;
 	cast = (xmlChar *)attr;
 	while (cur)
