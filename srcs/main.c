@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 21:53:35 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 17:01:32 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			init_rt(t_rt *e)
 	e->scene.nbr_complex = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
-	e->scene.ambient = 0.2;
+	e->scene.ambient = 0.1;
 	e->scene.skybox.is_init = 0;
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
 	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);

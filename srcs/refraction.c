@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refraction.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:00:38 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 14:55:53 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:13:00 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ray			get_refracted_ray(t_rt *e, t_ray rayon, t_vec3 poi)
 	t_ray		ray;
 
 	ray.pos = poi;
-	normale = object_norm(e->scene.obj[e->scene.id], poi);
+	normale = color_norm(e->scene.obj[e->scene.id], poi, rayon.dir);
 	source = rayon.dir;
 	ray.dir = vec_scale3(vec_mul3(source, normale),
 	e->scene.obj[e->scene.id].mat.refract);
@@ -75,8 +75,6 @@ t_reflect ref)
 		ref.ray = c_ray(poi, ref.new_ray.dir);
 		if (e->scene.obj[n.a].mat.refract)
 		{
-			if (e->scene.obj[n.a].mat.refract == 1)
-				return (get_refracted_color(e, n.newpoi, base_color, ref));
 			n.distance_rate *= e->scene.obj[n.a].mat.refract;
 			n.temp_color1 = get_refracted_color(e, n.newpoi, base_color, ref);
 			return (ft_map_color(base_color, n.temp_color1, n.distance_rate));

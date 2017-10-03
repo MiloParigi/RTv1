@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 15:39:51 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:40:57 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 16:49:11 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -520,13 +520,12 @@ unsigned int		ret_colors(t_color color);
 t_color				color_text(t_obj obj, t_vec3 poi, float taux);
 t_color				skybox(t_rt *e, t_ray ray);
 
-float				intersect_obj(t_ray ray, t_obj obj);
-float				intersect_sphere(t_ray ray, t_obj sphere);
-t_color				ft_map_color(t_color color1, t_color color2, float taux1);
+float				intersect_obj(t_ray ray, t_obj *obj);
+float				intersect_sphere(t_ray ray, t_obj *sphere);
+float				intersect_plane(t_ray ray, t_obj *plane);
+float				intersect_cylinder(t_ray ray, t_obj *cyl);
+float				intersect_cone(t_ray ray, t_obj *cone);
 
-float				intersect_plane(t_ray ray, t_obj plane);
-float				intersect_cylinder(t_ray ray, t_obj cyl);
-float				intersect_cone(t_ray ray, t_obj cone);
 
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj,
 		t_light light);
@@ -538,18 +537,19 @@ t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj,
 		t_ray ray, t_vec3 norm);
 
+t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
 float				obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
-float				get_res_of_quadratic(t_calc *op);
+float				get_res_of_quadratic(t_calc *op, t_obj *obj);
 t_color				recursive_refref(t_rt *e, t_color base_color,
 		t_reflect ref);
-
 t_color				get_refracted_color(t_rt *e, t_vec3 poi,
 		t_color base_color, t_reflect ref);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi,
 		t_color base_color, t_reflect ref);
+
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
 int					do_checks(xmlDocPtr doc);

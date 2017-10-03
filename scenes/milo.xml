@@ -17,7 +17,7 @@
 	</lights>
 
 	<objects>
-		<sphere radius="20">
+		<!--<sphere radius="20">
 			<pos x="-50" y="0" z="0"/>
 			<color r="255" g="0" b="0"/>
 		</sphere>
@@ -28,13 +28,13 @@
 		<sphere radius="20">
 			<pos x="50" y="0" z="0"/>
 			<color r="255" g="0" b="0"/>
-		</sphere>
-		<sphere radius="150" refraction="0.5">
-			<pos x="0" y="0" z="0"/>
+		</sphere>-->
+		<sphere radius="100" refraction="1">
+			<pos x="25" y="0" z="0"/>
 			<color r="255" g="0" b="255"/>
 		</sphere>
-		<sphere radius="100" refraction="0.4">
-			<pos x="0" y="0" z="0"/>
+		<sphere radius="100">
+			<pos x="-25" y="0" z="0"/>
 			<color r="0" g="255" b="255"/>
 		</sphere>
 		<plane>

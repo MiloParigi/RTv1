@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 20:18:47 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/10/02 17:46:14 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 16:48:39 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ t_vec3			cone_norm(t_obj cone, t_vec3 poi)
 	return (vec_norme3(normal));
 }
 
-float			intersect_cone(t_ray ray, t_obj cone)
+float			intersect_cone(t_ray ray, t_obj *cone)
 {
 	t_calc		op;
 	t_vec3		x;
 	float		dotdv;
 	float		dotxv;
 
-	x = vec_sub3(ray.pos, cone.pos);
-	dotdv = vec_dot3(ray.dir, cone.vector);
-	dotxv = vec_dot3(x, cone.vector);
-	op.a = vec_dot3(ray.dir, ray.dir) - (1 + p(cone.k)) * p(dotdv);
-	op.b = 2 * (vec_dot3(ray.dir, x) - (1 + p(cone.k)) * dotdv * dotxv);
-	op.c = vec_dot3(x, x) - (1 + p(cone.k)) * p(dotxv);
-	op.eq = get_res_of_quadratic(&op);
+	x = vec_sub3(ray.pos, cone->pos);
+	dotdv = vec_dot3(ray.dir, cone->vector);
+	dotxv = vec_dot3(x, cone->vector);
+	op.a = vec_dot3(ray.dir, ray.dir) - (1 + p(cone->k)) * p(dotdv);
+	op.b = 2 * (vec_dot3(ray.dir, x) - (1 + p(cone->k)) * dotdv * dotxv);
+	op.c = vec_dot3(x, x) - (1 + p(cone->k)) * p(dotxv);
+	op.eq = get_res_of_quadratic(&op, cone);
 	if (op.eq == op.t0)
-		return (limit_dist(cone, ray, op.eq, op.t1));
+		return (limit_dist(*cone, ray, op.eq, op.t1));
 	else
-		return (limit_dist(cone, ray, op.eq, op.t0));
+		return (limit_dist(*cone, ray, op.eq, op.t0));
 }

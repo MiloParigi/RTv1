@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 15:38:52 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:39:24 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 16:46:20 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
-		dist = intersect_obj(ray, e->COBJ);
+		dist = intersect_obj(ray, &e->COBJ);
 		if (dist < min_dist)
 		{
 			min_dist = (dist < 0) ? min_dist : dist;

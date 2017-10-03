@@ -6,37 +6,31 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 15:56:04 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/03 16:59:00 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-float			intersect_obj(t_ray ray, t_obj obj)
+float			intersect_obj(t_ray ray, t_obj *obj)
 {
-	if (obj.type == CYLINDER)
+	if (obj->type == CYLINDER)
 		return (intersect_cylinder(ray, obj));
-	else if (obj.type == SPHERE)
+	else if (obj->type == SPHERE)
 		return (intersect_sphere(ray, obj));
-	else if (obj.type == PLANE)
+	else if (obj->type == PLANE)
 		return (intersect_plane(ray, obj));
-	else if (obj.type == CONE)
+	else if (obj->type == CONE)
 		return (intersect_cone(ray, obj));
 	return (DIST_MAX);
 }
-
-/*
-** Later, if t == 1, t being the nbr of intersection.
-** This will check if we are inside or outside of the object
-** If we are inside, we send back -norm
-*/
 
 t_vec3			color_norm(t_obj obj, t_vec3 poi, t_vec3 light)
 {
 	t_vec3	norm;
 
 	norm = object_norm(obj, poi);
-	if (obj.type == PLANE && vec_dot3(norm, light) < 0)
+	if (obj.nbr_t == 1 && vec_dot3(norm, light) < 0)
 		norm = vec_scale3(norm, -1);
 	return (norm);
 }
@@ -57,11 +51,12 @@ t_vec3			object_norm(t_obj obj, t_vec3 poi)
 	return (norm);
 }
 
-float			get_res_of_quadratic(t_calc *op)
+float			get_res_of_quadratic(t_calc *op, t_obj *obj)
 {
 	op->disc = op->b * op->b - 4 * op->a * op->c;
 	if (op->disc < 0)
 		return (DIST_MAX);
+	obj->nbr_t = (op->disc == 0) ? 1 : 2;
 	if (op->disc == 0)
 		return (-op->b / (2 * op->a));
 	op->disc = sqrt(op->disc);
