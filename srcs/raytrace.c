@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 23:07:54 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 19:43:05 by mparigi          ###   ########.fr       */
+/*   Created: 2017/10/03 15:38:52 by mparigi           #+#    #+#             */
+/*   Updated: 2017/10/03 15:39:24 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi)
+t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 {
 	float		intensity;
 	int			i;
@@ -55,19 +55,41 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	return ((min_dist < DIST_MAX) ? min_dist : -1);
 }
 
+t_color			ret_reflected_pixel(t_rt *e, t_reflect ref, t_ray ray,
+		float min_dist)
+{
+	t_color		temp_color;
+
+	ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
+	e->scene.id = ref.tmp_id;
+	ref.color = ft_map_color(ref.color,
+	get_reflected_color(e, ref.poi, ref.color, ref),
+		e->scene.obj[ref.tmp_id].mat.reflex);
+	e->scene.id = ref.tmp_id;
+	if (e->scene.obj[e->scene.id].mat.refract)
+	{
+		ref.counter = NR_ITER;
+		ref.ray = c_ray(ray.pos, ray.dir);
+		ref.total_distance = 0;
+		ref.poi = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
+		ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
+		e->scene.id = ref.tmp_id;
+		temp_color = copy_color(ref.color);
+		return (ft_map_color(temp_color, get_refracted_color(e, ref.poi,
+			ref.color, ref), 1 - e->scene.obj[e->scene.id].mat.refract));
+	}
+	return (ref.color);
+}
+
 static t_color	get_pxl_color(t_rt *e, t_ray ray)
 {
-	float		min_dist;
 	t_reflect	ref;
-	t_color		temp_color;
-	
-	ref.tmp_id = 0;
-	ref.color = (t_color){0, 0, 0, 0};
+
 	e->scene.id = -1;
-	if ((min_dist = get_min_dist(e, ray)) == -1)
+	if ((ref.min_dist = get_min_dist(e, ray)) == -1)
 		return (skybox(e, ray));
 	ref.tmp_id = e->scene.id;
-	ref.poi = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
+	ref.poi = vec_add3(ray.pos, vec_scale3(ray.dir, ref.min_dist));
 	ref.counter = NR_ITER;
 	ref.ray = c_ray(ray.pos, ray.dir);
 	ref.total_distance = 0;
@@ -75,46 +97,27 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	if (e->scene.id != -1)
 	{
 		if (e->scene.obj[e->scene.id].mat.reflex)
+			return (ret_reflected_pixel(e, ref, ray, ref.min_dist));
+		if (e->scene.obj[e->scene.id].mat.refract)
 		{
 			ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
 			e->scene.id = ref.tmp_id;
-			ref.color = ft_map_color(ref.color, 
-			get_reflected_color(e, ref.poi, ref.color, ref),
-			e->scene.obj[ref.tmp_id].mat.reflex);
-			e->scene.id = ref.tmp_id;
-			if (e->scene.obj[e->scene.id].mat.refract)
-			{
-				ref.counter = NR_ITER;
-				ref.ray = c_ray(ray.pos, ray.dir);
-				ref.total_distance = 0;
-				ref.poi = vec_add3(ray.pos, vec_scale3(ray.dir, min_dist));
-				ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
-				e->scene.id = ref.tmp_id;
-				temp_color = copy_color(ref.color);
-				return ft_map_color(temp_color,
-				get_refracted_color(e, ref.poi, ref.color, ref), 1-e->scene.obj[e->scene.id].mat.refract);
-			}
+			return (get_refracted_color(e, ref.poi, ref.color, ref));
 		}
-		else if (e->scene.obj[e->scene.id].mat.refract)
-			{
-				ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
-				e->scene.id = ref.tmp_id;
-				ref.color = get_refracted_color(e, ref.poi, ref.color, ref);
-			}
-		else if (e->scene.obj[e->scene.id].mat.checker.l > 0)
-			ref.color = get_checker_col(e->scene.obj[e->scene.id].mat.checker, ref.poi);
-		else
-			ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
+		if (e->scene.obj[e->scene.id].mat.checker.l > 0)
+			return (get_checker_col(e->scene.obj[e->scene.id].mat.checker,
+					ref.poi));
+			return (get_color(e, e->scene.obj[e->scene.id], ref.poi));
 	}
 	return (ref.color);
 }
 
-t_color				raytrace(int x, int y, t_rt *e)
+t_color			raytrace(int x, int y, t_rt *e)
 {
-	t_color color;
-	t_ray	ray;
+	t_color		color;
+	t_ray		ray;
 
 	ray = ray_init(e, x * RES / ALIASING, y * RES / ALIASING);
 	color = get_pxl_color(e, ray);
-	 return (color);
+	return (color);
 }

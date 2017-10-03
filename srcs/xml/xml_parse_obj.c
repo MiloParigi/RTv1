@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:28:31 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/01 13:30:39 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/02 12:54:47 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int				create_objs(t_rt *e, t_list *lst)
 
 	i = 0;
 	e->scene.nbr_obj = ft_lstlen(lst);
+	if (!e->scene.nbr_obj)
+		return (0);
 	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * e->scene.nbr_obj);
 	if (!e->scene.obj)
 		exit(ERR);

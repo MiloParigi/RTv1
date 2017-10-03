@@ -95,7 +95,7 @@ float			limit_dist(t_obj obj, t_ray ray, float obj_l, float obj_h)
 				j = i;
 			}
 		}
-		//plimit_dist = intersect_plane(ray, obj.plimit[j]);
+		plimit_dist = intersect_plane(ray, obj.plimit[j]);
 		return (limit_norme(vec_dot3(ray.dir, object_norm(obj.plimit[j],
 		vec_add3(ray.pos, vec_scale3(ray.dir, plimit_dist)))),
 		obj_l, obj_h, plimit_dist));
