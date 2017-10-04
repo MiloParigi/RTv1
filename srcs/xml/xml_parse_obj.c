@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:28:31 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/04 15:45:34 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:39:56 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				set_attrs(t_obj *obj, xmlNodePtr node)
 		(*obj).mat.spec = ft_atof((char *)val);
 	if ((val = xmlGetProp(node, BAD_CAST"sin")))
 		(*obj).mat.sin = ft_atoi((char *)val) ? 1 : 0;
+	set_good_values(obj);
 	return (1);
 }
 
