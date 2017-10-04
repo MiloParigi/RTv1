@@ -181,7 +181,7 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define SIZE_LP 50 //The greater the value, the smaller the light point will be
+# define SIZE_LP 50
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define ISTRUE(x) (x > 0 ? 1 : 0)
@@ -492,7 +492,6 @@ void				cam_mode(t_rt *e);
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
-//Normal
 t_vec3				color_norm(t_obj obj, t_vec3 poi, t_vec3 light);
 t_vec3				object_norm(t_obj obj, t_vec3 poi);
 t_vec3				cone_norm(t_obj obj, t_vec3 poi);
@@ -527,11 +526,11 @@ float				intersect_plane(t_ray ray, t_obj *plane);
 float				intersect_cylinder(t_ray ray, t_obj *cyl);
 float				intersect_cone(t_ray ray, t_obj *cone);
 
-
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj,
 		t_light light);
 float				diff_intensity(t_obj obj, float dot);
-float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm, float dot);
+float				spec_intensity(t_obj obj, t_ray light,
+	t_vec3 norm, float dot);
 float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
