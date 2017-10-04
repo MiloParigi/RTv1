@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 10:45:22 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 10:45:24 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/04 17:19:05 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static double	zero_dot(intmax_t nbr)
 	return ((double)nbr / (double)diviser);
 }
 
-double			ft_atof(const char *str)
+float			ft_atof(const char *str)
 {
 	double		res;
 	intmax_t	after_comma;

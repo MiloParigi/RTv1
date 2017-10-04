@@ -96,11 +96,10 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	ref.counter = NR_ITER;
 	ref.ray = c_ray(ray.pos, ray.dir);
 	ref.total_distance = 0;
-	ref.min_dist = 0;
 	if (e->scene.id != -1)
 	{
 		if (CMAT.reflex)
-			return (ret_reflected_pixel(e, ref, ray, ref.min_dist));
+			return (ret_reflected_pixel(e, ref, ray, 0));
 		if (CMAT.refract)
 		{
 			ref.color = get_color(e, CID, ref.poi);
