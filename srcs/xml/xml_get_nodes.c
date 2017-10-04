@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 16:45:45 by agfernan          #+#    #+#             */
-/*   Updated: 2017/09/30 22:29:25 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 15:49:02 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_list			*get_object_nodes(xmlDocPtr doc)
 	lst2 = NULL;
 	temp = NULL;
 	get_nodes_by_name(xmlDocGetRootElement(doc), "objects", &lst);
+	if (!lst)
+		return (NULL);
 	temp = ((xmlNodePtr)lst->content)->children;
 	while (temp)
 	{
