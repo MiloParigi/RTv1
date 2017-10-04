@@ -64,14 +64,15 @@ int				parse_negatives(t_obj *obj, xmlNodePtr node)
 	int			i;
 	t_list		*lst;
 
-	i = 0;
+	i = -1;
 	lst = get_negatives(node);
 	(*obj).nbr_limit = ft_lstlen(lst);
-	if ((*obj).nbr_limit > 0)
-		(*obj).plimit = (t_obj *)malloc(sizeof(t_obj) * (*obj).nbr_limit);
+	if (!((*obj).plimit = (t_obj *)malloc(sizeof(t_obj) *
+	(*obj).nbr_limit)))
+		exit(42);
 	while (lst)
 	{
-		init_plimit(&((*obj).plimit[i]), (*obj).color, node);
+		init_plimit(&((*obj).plimit[++i]), (*obj).color, node);
 		ch = has_child((xmlNodePtr)lst->content, "pos");
 		(*obj).plimit[i].pos = (!ch) ? (*obj).pos : get_vec_from_node(ch);
 		if ((ch = has_child((xmlNodePtr)lst->content, "dir")))
@@ -79,7 +80,6 @@ int				parse_negatives(t_obj *obj, xmlNodePtr node)
 			(*obj).plimit[i].normal = get_vec_neg(ch);
 			(*obj).plimit[i].vector = get_vec_neg(ch);
 		}
-		i++;
 		lst = lst->next;
 	}
 	(*obj).plimit_active = 1;

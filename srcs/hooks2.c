@@ -107,7 +107,9 @@ void			move_cam(t_rt *e, int speed)
 void			move_obj(t_rt *e, int speed)
 {
 	int i;
+	int j;
 
+	j = -1;
 	i = 0;
 	if (e->keys.key_w || e->keys.key_s || e->keys.key_a ||
 	e->keys.key_d || e->keys.key_minus || e->keys.key_plus
@@ -119,7 +121,10 @@ void			move_obj(t_rt *e, int speed)
 			{
 				move(e, &e->scene.obj[i].pos, speed);
 				if (ISLIMIT == 1)
-					move(e, &e->scene.obj[i].plimit->pos, speed);
+				{
+					while (++j < e->scene.obj[i].nbr_limit)
+						move(e, &e->scene.obj[i].plimit[j].pos, speed);
+				}
 			}
 			i++;
 		}

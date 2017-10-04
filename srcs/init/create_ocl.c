@@ -77,7 +77,8 @@ int				create_obj(int type, t_rt *e)
 	e->COBJ.id = e->scene.nbr_obj;
 	e->COBJ.plimit_valid = 0;
 	e->COBJ.nbr_limit = 0;
-	e->COBJ.plimit = (t_obj *)malloc(sizeof(t_obj) * MAXLIM + 1);
+	if (!(e->COBJ.plimit = (t_obj *)malloc(sizeof(t_obj) * MAXLIM)))
+		exit(42);
 	ft_bzero((void *)e->COBJ.plimit, 1);
 	e->scene.nbr_obj++;
 	return (type);

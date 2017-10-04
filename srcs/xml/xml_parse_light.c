@@ -6,11 +6,23 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:32:55 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/03 15:14:07 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 15:18:14 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void			parse_ambient(t_rt *e, xmlNodePtr node)
+{
+	xmlChar	*val;
+
+	if (node && (val = xmlGetProp(node, BAD_CAST"ambient")))
+	{
+		AMBIENT_LIGHT = ft_atof((char*)val);
+		AMBIENT_LIGHT = (AMBIENT_LIGHT > 1) ? 1.00 : AMBIENT_LIGHT;
+		AMBIENT_LIGHT = (AMBIENT_LIGHT < 0) ? 0 : AMBIENT_LIGHT;
+	}
+}
 
 int				parse_light_node(t_light *light, xmlNodePtr node)
 {
@@ -47,7 +59,9 @@ int				set_lights(t_list *lst, t_rt *e)
 	if (!lst)
 		return (1);
 	e->scene.nbr_light = ft_lstlen(lst);
-	e->scene.lights = (t_light *)malloc(sizeof(t_light) * e->scene.nbr_light);
+	if (!(e->scene.lights = (t_light *)malloc(sizeof(t_light) *
+	e->scene.nbr_light)))
+		exit(42);
 	if (!e->scene.lights)
 		exit(ERR);
 	while (lst)

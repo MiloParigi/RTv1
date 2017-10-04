@@ -57,8 +57,10 @@ void			init_rt(t_rt *e)
 	e->scene.nbr_tot = 0;
 	e->scene.ambient = 0.1;
 	e->scene.skybox.is_init = 0;
-	e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ);
-	e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT);
+	if (!(e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ)))
+		exit(42);
+	if (!(e->scene.lights = (t_light *)malloc(sizeof(t_light) * MAXLIGHT)))
+		exit(5);
 	e->scene.supersampling = 1;
 	e->scene.filters = 0;
 	e->scene.selected = -1;
@@ -90,7 +92,8 @@ int				main(int argc, char **argv)
 {
 	t_rt	*e;
 
-	e = (t_rt *)malloc(sizeof(t_rt));
+	if (!(e = (t_rt *)malloc(sizeof(t_rt))))
+		return (0);
 	init_rt(e);
 	if (argc > 2)
 	{
