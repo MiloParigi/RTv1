@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 11:35:38 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/03 14:30:19 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 14:38:56 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,25 @@ int				parse_doc2(t_rt *e, char *path)
 	xmlDocPtr	doc;
 	t_list		*lst;
 	xmlNodePtr	skybox;
+	xmlNodePtr	root;
 
 	xmlKeepBlanksDefault(0);
-	if (!(doc = getdoc(path)))
+	if (!(doc = getdoc(path)) || !do_checks(doc))
 		return (0);
-	if (!do_checks(doc))
-		return (0);
-	if ((skybox = has_child(xmlDocGetRootElement(doc), "skybox")))
+	root = xmlDocGetRootElement(doc);
+	parse_ambient(e,root);
+	if ((skybox = has_child(root, "skybox")))
 		parse_skybox(e, skybox);
 	lst = get_object_nodes(doc);
 	create_objs(e, lst);
 	ft_lstfree(&lst);
-	get_nodes_by_name(xmlDocGetRootElement(doc), "camera", &lst);
+	get_nodes_by_name(root, "camera", &lst);
 	if (!lst)
 		camera_create(e);
 	else
 		set_camera_xml(e, (xmlNodePtr)(lst->content));
 	ft_lstfree(&lst);
-	get_nodes_by_name(xmlDocGetRootElement(doc), "light", &lst);
+	get_nodes_by_name(root, "light", &lst);
 	set_lights(lst, e);
 	return (1);
 }

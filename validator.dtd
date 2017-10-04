@@ -1,6 +1,8 @@
 <!--SCENE DESCRIPTION-->
 
 <!ELEMENT scene (camera | lights | objects | skybox)*>
+<!ATTLIST scene
+        ambient CDATA #IMPLIED>
 <!ELEMENT skybox EMPTY>
 <!ATTLIST skybox
         src CDATA #REQUIRED>
