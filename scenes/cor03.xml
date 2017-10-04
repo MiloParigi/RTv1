@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<scene ambient="0.2">
+	<camera fov="45">
+		<pos x="-150" y="100" z="-400"/>
+		<dir x="0" y="20" z="0"/>
+	</camera>
+
+    <lights>
+        <light>
+            <pos x="-200" y="300" z="-100"/>
+        </light>
+    </lights>
+
+	<objects>
+		<plane>
+			<pos x="0" y="-20" z="0"/>
+			<normal x="0" y="1" z="0"/>
+			<color r="255" g="255" b="255"/>
+		</plane>
+
+		<plane>
+			<pos x="0" y="0" z="100"/>
+			<normal x="0" y="0" z="1"/>
+			<color r="106" g="90" b="205"/>
+		</plane>
+
+        <sphere radius="40" reflection="1">
+			<pos x="60" y="20" z="-40"/>
+			<color r="0" g="255" b="0"/>
+		</sphere>
+		<sphere radius="40" reflection="1">
+			<pos x="140" y="20" z="-40"/>
+			<color r="0" g="255" b="0"/>
+		</sphere>
+        <sphere radius="40" reflection="1">
+			<pos x="100" y="20" z="-100"/>
+			<color r="0" g="255" b="0"/>
+		</sphere>
+         <sphere radius="40" reflection="1">
+			<pos x="100" y="80" z="-60"/>
+			<color r="0" g="255" b="0"/>
+		</sphere>
+	</objects>
+</scene>

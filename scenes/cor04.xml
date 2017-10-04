@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<scene ambient="0.5">
+	<camera fov="60">
+		<pos x="-50" y="0" z="180"/>
+		<dir x="0" y="180" z="0"/>
+	</camera>
+
+    <skybox src="texs/4kstars.xpm"/>
+
+    <lights>
+        <light>
+            <pos x="-150" y="150" z="150"/>
+        </light>
+    </lights>
+
+	<objects>
+        <plane reflection="0.5">
+			<pos x="-200" y="0" z="0"/>
+			<normal x="1" y="0" z="0"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+		<plane reflection="0.5">
+			<pos x="200" y="0" z="0"/>
+			<normal x="1" y="0" z="0"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+		<plane reflection="0.5">
+			<pos x="0" y="-20" z="0"/>
+			<normal x="0" y="1" z="0"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+		<plane reflection="0.5">
+			<pos x="0" y="200" z="0"/>
+			<normal x="0" y="1" z="0"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+        <plane reflection="0.5">
+			<pos x="0" y="0" z="-200"/>
+			<normal x="0" y="0" z="1"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+		<plane reflection="0.5">
+			<pos x="0" y="0" z="200"/>
+			<normal x="0" y="0" z="1"/>
+            <color r="200" g="200" b="200"/>
+		</plane>
+
+        <sphere radius="20">
+			<pos x="-80" y="0" z="0"/>
+			<color r="0" g="255" b="0"/>
+		</sphere>
+         <sphere radius="20">
+			<pos x="-120" y="0" z="0"/>
+			<color r="255" g="0" b="255"/>
+		</sphere>
+        <sphere radius="20">
+			<pos x="-100" y="0" z="40"/>
+			<color r="0" g="255" b="255"/>
+		</sphere>
+         <sphere radius="20">
+			<pos x="-100" y="30" z="20"/>
+			<color r="0" g="0" b="255"/>
+		</sphere>
+	</objects>
+</scene>
