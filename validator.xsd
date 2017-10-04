@@ -192,6 +192,8 @@
 			<xsd:attribute type="xsd:float" name="sin"/>
 			<xsd:attribute type="xsd:float" name="specular"/>
 			<xsd:attribute type="xsd:float" name="diffuse"/>
+			<xsd:attribute type="xsd:float" name="reflection"/>
+			<xsd:attribute type="xsd:float" name="refraction"/>
 		</xsd:complexType>
 	</xsd:element>
 
