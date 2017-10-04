@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldenblyd <ldenblyd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 22:26:17 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/29 08:56:56 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/04 16:48:28 by ldenblyd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void			*drawlinex2(void *arg)
 	i = -1;
 	while (xy.y < e->thread.max_y)
 	{
-		xy.y = 0;
-		while (xy.y < e->thread.w)
+		xy.x = 0;
+		while (xy.x < e->thread.w)
 		{
-			e->thread.colors[++i] = ft_average(raytrace(xy.y, xy.y, e),
-			raytrace(xy.y + 1, xy.y, e), raytrace(xy.y, xy.y + 1, e),
-			raytrace(xy.y + 1, xy.y + 1, e));
+			e->thread.colors[++i] = ft_average(raytrace(xy.x, xy.y, e),
+			raytrace(xy.x + 1, xy.y, e), raytrace(xy.x, xy.y + 1, e),
+			raytrace(xy.x + 1, xy.y + 1, e));
 			if (e->scene.filters == 5)
 				e->thread.colors[i] = fl_cartoon(e->thread.colors[i]);
-			xy.y += ALIASING;
+			xy.x += ALIASING;
 		}
 		xy.y += ALIASING;
 	}
