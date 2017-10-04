@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 07:03:06 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 19:19:17 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:30:20 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float			find_min_dist_for_refref(t_rt *e, int *a, t_ray ray)
 	{
 		if (i != e->scene.id)
 		{
-			dist = intersect_obj(ray, e->COBJ);
+			dist = intersect_obj(ray, &e->COBJ);
 			if (dist < min_dist)
 			{
 				min_dist = dist;
@@ -92,7 +92,8 @@ t_color base_color, t_reflect ref)
 	if (ref.counter == 0)
 		return (base_color);
 	ref.counter--;
-	ref.new_ray = c_ray(poi, object_norm(e->scene.obj[e->scene.id], poi));
+	ref.new_ray = c_ray(poi, color_norm(e->scene.obj[e->scene.id],
+						poi, vec_sub3(CCAM.pos, poi)));
 	temp_rate = e->scene.obj[e->scene.id].mat.reflex;
 	ref.min_dist = find_min_dist_for_refref(e, &a, ref.new_ray);
 	ref.total_distance = ref.total_distance + ref.min_dist;

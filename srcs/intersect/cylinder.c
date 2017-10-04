@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 17:38:17 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 17:38:19 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/03 16:54:38 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,22 @@ t_vec3		cylinder_norm(t_obj cyl, t_vec3 poi)
 	return (vec_norme3(normal));
 }
 
-float		vec_dot2(t_vec3 u, t_vec3 v, t_vec3 axis)
-{
-	if (axis.x)
-		return (u.y * v.y + u.z * v.z);
-	else if (axis.y)
-		return (u.x * v.x + u.z * v.z);
-	return (u.x * v.x + u.y * v.y);
-}
-
-float		intersect_cylinder(t_ray ray, t_obj obj)
+float		intersect_cylinder(t_ray ray, t_obj *cyl)
 {
 	t_calc	op;
 	float	dotdv;
 	float	dotxv;
 	t_vec3	x;
 
-	x = vec_sub3(ray.pos, obj.pos);
-	dotdv = vec_dot3(ray.dir, obj.vector);
-	dotxv = vec_dot3(x, obj.vector);
+	x = vec_sub3(ray.pos, cyl->pos);
+	dotdv = vec_dot3(ray.dir, cyl->vector);
+	dotxv = vec_dot3(x, cyl->vector);
 	op.a = vec_dot3(ray.dir, ray.dir) - p(dotdv);
 	op.b = 2 * (vec_dot3(ray.dir, x) - dotdv * dotxv);
-	op.c = vec_dot3(x, x) - p(dotxv) - p(obj.r);
-	op.eq = get_res_of_quadratic2(&op);
+	op.c = vec_dot3(x, x) - p(dotxv) - p(cyl->r);
+	op.eq = get_res_of_quadratic(&op, cyl);
 	if (op.eq == op.t0)
-		return (limit_dist(obj, ray, op.eq, op.t1));
+		return (limit_dist(*cyl, ray, op.eq, op.t1));
 	else
-		return (limit_dist(obj, ray, op.eq, op.t0));
+		return (limit_dist(*cyl, ray, op.eq, op.t0));
 }

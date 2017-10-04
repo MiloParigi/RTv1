@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 00:09:53 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 15:11:26 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:37:04 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			init_rt(t_rt *e)
 	e->scene.nbr_complex = 0;
 	e->scene.nbr_light = 0;
 	e->scene.nbr_tot = 0;
-	e->scene.ambient = 0.05;
+	e->scene.ambient = 0.1;
 	e->scene.skybox.is_init = 0;
 	if (!(e->scene.obj = (t_obj *)malloc(sizeof(t_obj) * MAXOBJ)))
 		exit(42);

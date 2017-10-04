@@ -1,0 +1,11 @@
+TODO
+    Comptez le nombre d'intersection pour inverser ou non la normale (Fait pour le plan)
+        -Implique de modifier intersect_obj pour envoyer un ptr sur obj
+    
+    Pas de lumiere de l'autre cote d'un obj sauf si il est transparent
+
+    Rework entier de l'intensité lumineuse pour le passer en rgb
+        -Si obj transparent, modifier le taux de lumiere
+
+DONE
+    Si obj transparent, afficher lumiere (modif de obj_in_shadow si obj transparent)
