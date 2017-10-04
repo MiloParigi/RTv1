@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 18:55:54 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:39:39 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -562,6 +562,7 @@ void				xml_read_error(void);
 int					parse_args(char **argv, int argc, t_rt *e);
 void				get_nodes_by_name(xmlNodePtr cur, char *node_name,
 		t_list **lst);
+void				parse_ambient(t_rt *e, xmlNodePtr node);
 t_list				*get_object_nodes(xmlDocPtr doc);
 xmlNodePtr			get_lights(xmlDocPtr doc);
 t_vec3				get_vec_from_node(xmlNodePtr node);
