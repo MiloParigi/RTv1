@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xml_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 11:35:38 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/04 14:38:56 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:34:22 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				parse_doc2(t_rt *e, char *path)
 	if (!(doc = getdoc(path)) || !do_checks(doc))
 		return (0);
 	root = xmlDocGetRootElement(doc);
-	parse_ambient(e,root);
+	parse_ambient(e, root);
 	if ((skybox = has_child(root, "skybox")))
 		parse_skybox(e, skybox);
 	lst = get_object_nodes(doc);
