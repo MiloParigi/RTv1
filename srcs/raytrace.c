@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 15:17:47 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 16:11:52 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:57:02 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 	int			i;
 
 	i = 0;
-	intensity = 0;
+	intensity = (!e->scene.nbr_light) ? AMBIENT_LIGHT : 0;
 	while (i < e->scene.nbr_light)
 	{
 		intensity += dazzling_light(e, e->CLIGHT,
@@ -27,9 +27,9 @@ t_color			get_color(t_rt *e, t_obj obj, t_vec3 poi)
 		i++;
 	}
 	if (intensity != 0 && obj.mat.tex.is_init == 1)
-		return (color_text(obj, poi, intensity));
+		return (color_text(e, obj, poi, intensity));
 	else if (intensity != 0)
-		return (color_mult(obj.color, intensity));
+		return (color_mult(obj.color, intensity, 1));
 	return ((t_color){0, 0, 0, 0});
 }
 
@@ -44,7 +44,7 @@ float			get_min_dist(t_rt *e, t_ray ray)
 	min_dist = DIST_MAX;
 	while (i < e->scene.nbr_obj)
 	{
-		dist = intersect_obj(ray, e->COBJ);
+		dist = intersect_obj(ray, &e->COBJ);
 		if (dist < min_dist)
 		{
 			min_dist = (dist < 0) ? min_dist : dist;
@@ -92,20 +92,21 @@ static t_color	get_pxl_color(t_rt *e, t_ray ray)
 	ref.poi = vec_add3(ray.pos, vec_scale3(ray.dir, ref.min_dist));
 	ref.counter = NR_ITER;
 	ref.ray = c_ray(ray.pos, ray.dir);
+	ref.total_distance = 0;
+	ref.min_dist = 0;
 	if (e->scene.id != -1)
 	{
-		if (e->scene.obj[e->scene.id].mat.reflex)
+		if (CMAT.reflex)
 			return (ret_reflected_pixel(e, ref, ray, ref.min_dist));
-		if (e->scene.obj[e->scene.id].mat.refract)
+		if (CMAT.refract)
 		{
-			ref.color = get_color(e, e->scene.obj[e->scene.id], ref.poi);
+			ref.color = get_color(e, CID, ref.poi);
 			e->scene.id = ref.tmp_id;
 			return (get_refracted_color(e, ref.poi, ref.color, ref));
 		}
-		if (e->scene.obj[e->scene.id].mat.checker.l > 0)
-			return (get_checker_col(e->scene.obj[e->scene.id].mat.checker,
-					ref.poi));
-			return (get_color(e, e->scene.obj[e->scene.id], ref.poi));
+		if (CMAT.checker.l > 0)
+			return (get_checker_col(CMAT.checker, ref.poi));
+		return (get_color(e, CID, ref.poi));
 	}
 	return (ref.color);
 }

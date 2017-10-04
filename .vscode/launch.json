@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/rt",
             // "args": ["-s", "scenes/07_objets_compose.xml"],
             // "args": ["-s", "scenes/02_objets_limites.xml"],
-            "args": ["-s", "scenes/test/multi_negs.xml"],
+            "args": ["-s", "scenes/milo.xml"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

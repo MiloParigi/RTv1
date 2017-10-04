@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 12:28:36 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/03 16:12:46 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:55:54 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@
 # define COLOR scene.obj[i].color
 # define COBJ scene.obj[i]
 # define CMAT e->scene.obj[e->scene.id].mat
+# define CID e->scene.obj[e->scene.id]
 # define CLIGHT scene.lights[i]
 # define THREAD th_e[i]->thread
 # define CTHREAD th_e[i]->thread.colors[++i2]
@@ -180,7 +181,7 @@
 # define KEY_ESC 53
 # define DIST_MAX 20000
 # define DIST_MIN -80000
-# define SIZE_LP 100
+# define SIZE_LP 50 //The greater the value, the smaller the light point will be
 # define FT_MIN(x, y) ((x < y) ? x : y)
 # define FT_MAX(x, y) ((x > y) ? x : y)
 # define ISTRUE(x) (x > 0 ? 1 : 0)
@@ -351,6 +352,7 @@ typedef struct		s_obj
 	t_vec3			vector;
 	int				r;
 	float			t;
+	int				nbr_t;
 	t_vec3			normal;
 	t_matiere		mat;
 	int				plimit_active;
@@ -490,8 +492,10 @@ void				cam_mode(t_rt *e);
 void				move_cam(t_rt *e, int speed);
 void				move_obj(t_rt *e, int speed);
 
-t_vec3				cone_norm(t_obj obj, t_vec3 poi);
+//Normal
+t_vec3				color_norm(t_obj obj, t_vec3 poi, t_vec3 light);
 t_vec3				object_norm(t_obj obj, t_vec3 poi);
+t_vec3				cone_norm(t_obj obj, t_vec3 poi);
 t_vec3				plane_norm(t_obj obj);
 t_vec3				sphere_norm(t_obj obj, t_vec3 poi);
 t_vec3				cylinder_norm(t_obj obj, t_vec3 poi);
@@ -511,42 +515,42 @@ t_ray				ray_init(t_rt *e, int x, int y);
 
 t_color				raytrace(int x, int y, t_rt *e);
 t_color				copy_color(t_color color);
-t_color				color_mult(t_color color, float taux);
+t_color				color_mult(t_color color, float taux, float limit);
 float				get_length(t_vec3 v);
 unsigned int		ret_colors(t_color color);
-t_color				color_text(t_obj obj, t_vec3 poi, float taux);
+t_color				color_text(t_rt *e, t_obj obj, t_vec3 poi, float taux);
 t_color				skybox(t_rt *e, t_ray ray);
 
-float				intersect_obj(t_ray ray, t_obj obj);
-float				intersect_sphere(t_ray ray, t_obj sphere);
-t_color				ft_map_color(t_color color1, t_color color2, float taux1);
+float				intersect_obj(t_ray ray, t_obj *obj);
+float				intersect_sphere(t_ray ray, t_obj *sphere);
+float				intersect_plane(t_ray ray, t_obj *plane);
+float				intersect_cylinder(t_ray ray, t_obj *cyl);
+float				intersect_cone(t_ray ray, t_obj *cone);
 
-float				intersect_plane(t_ray ray, t_obj plane);
-float				intersect_cylinder(t_ray ray, t_obj cyl);
-float				intersect_cone(t_ray ray, t_obj cone);
 
 float				intensity_obj(t_rt *e, t_vec3 poi, t_obj obj,
 		t_light light);
-float				diff_intensity(t_obj obj, t_ray light, t_vec3 norm);
-float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm);
+float				diff_intensity(t_obj obj, float dot);
+float				spec_intensity(t_obj obj, t_ray light, t_vec3 norm, float dot);
 float				dazzling_light(t_rt *e, t_light light, t_vec3 cam_dir);
 
 t_color				amb_color(t_scene *scene, t_obj obj);
 t_color				diff_color(t_scene *scene, t_obj obj,
 		t_ray ray, t_vec3 norm);
 
+t_color				ft_map_color(t_color color1, t_color color2, float taux1);
 t_color				get_color(t_rt *e, t_obj obj, t_vec3 poi);
 float				get_min_dist(t_rt *e, t_ray ray);
-int					obj_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
+float				obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light);
 float				find_min_dist_for_refref(t_rt *e, int *a, t_ray ray);
+float				get_res_of_quadratic(t_calc *op, t_obj *obj);
 t_color				recursive_refref(t_rt *e, t_color base_color,
 		t_reflect ref);
-float				get_res_of_quadratic2(t_calc *op);
-
 t_color				get_refracted_color(t_rt *e, t_vec3 poi,
 		t_color base_color, t_reflect ref);
 t_color				get_reflected_color(t_rt *e, t_vec3 poi,
 		t_color base_color, t_reflect ref);
+
 xmlNodePtr			has_child(xmlNodePtr a_node, char *attr);
 int					xsd_read_error();
 int					do_checks(xmlDocPtr doc);

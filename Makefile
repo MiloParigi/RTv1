@@ -6,7 +6,7 @@
 #    By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/23 19:29:24 by mparigi           #+#    #+#              #
-#    Updated: 2017/10/02 00:13:22 by mparigi          ###   ########.fr        #
+#    Updated: 2017/10/02 23:38:50 by mparigi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ LIBXML		=	`xml2-config --libs`
 LIBXML_H	=	`xml2-config --cflags`
 LIB_GTK		=	`pkg-config --libs gtk+-3.0`
 LIB_GTK_H	=	`pkg-config --cflags gtk+-3.0`
-DEBUG		=	-g -fsanitize=address
+DEBUG		=	-g #-fsanitize=address
 OBJ			=	$(addprefix $(OBJDIR),$(SRC:.c=.o))
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra $(DEBUG) -I includes/ -I libs/libft/includes/ -I libs/libvec/includes/ $(LIBXML_H) $(LIB_GTK_H)

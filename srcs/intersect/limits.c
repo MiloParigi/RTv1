@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   limits.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 09:02:55 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/02 17:20:35 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/03 18:36:15 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ float			limit_dist(t_obj obj, t_ray ray, float obj_l, float obj_h)
 	{
 		while (++i < obj.nbr_limit && obj.plimit->type > 0)
 		{
-			dist = intersect_plane(ray, obj.plimit[i]);
+			dist = intersect_plane(ray, &obj.plimit[i]);
 			if (dist < plimit_dist)
 			{
 				plimit_dist = (dist < 0) ? plimit_dist : dist;
 				j = i;
 			}
 		}
-		plimit_dist = intersect_plane(ray, obj.plimit[j]);
+		plimit_dist = intersect_plane(ray, &obj.plimit[j]);
 		return (limit_norme(vec_dot3(ray.dir, object_norm(obj.plimit[j],
 			vec_add3(ray.pos, vec_scale3(ray.dir, plimit_dist)))),
 			obj_l, obj_h, plimit_dist));
