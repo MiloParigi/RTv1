@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 23:28:31 by agfernan          #+#    #+#             */
-/*   Updated: 2017/10/02 12:54:47 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 15:45:34 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int				create_objs(t_rt *e, t_list *lst)
 	int i;
 
 	i = 0;
+	if (!lst)
+		return (-1);
 	e->scene.nbr_obj = ft_lstlen(lst);
 	if (!e->scene.nbr_obj)
 		return (0);
