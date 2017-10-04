@@ -66,27 +66,27 @@
         src CDATA #REQUIRED
         zoom CDATA #IMPLIED>
 <!ELEMENT objects (plane | cone | cylindre | sphere | mickey | dick)+>
-<!ELEMENT plane ((pos|vector|normal|(color | texture)+| negatif?)+)>
+<!ELEMENT plane ((pos|vector|normal|(color | texture | checker)+| negatif?)+)>
 <!ATTLIST plane
         reflection CDATA #IMPLIED
         refraction CDATA #IMPLIED
         sin CDATA #IMPLIED
         texture CDATA #IMPLIED>
-<!ELEMENT cone ((pos | vector | (color | texture))+, negatif*)>
+<!ELEMENT cone ((pos | vector | (color | texture | checker) | negatif?)+)>
 <!ATTLIST cone
         angle CDATA #REQUIRED
         reflection CDATA #IMPLIED
         refraction CDATA #IMPLIED
         texture CDATA #IMPLIED
         sin CDATA #IMPLIED>
-<!ELEMENT cylindre ((pos | vector | (color | texture))+, negatif*)>
+<!ELEMENT cylindre ((pos | vector | (color | texture | checker) | negatif?)+)>
 <!ATTLIST cylindre
         radius CDATA #REQUIRED
         reflection CDATA #IMPLIED
         refraction CDATA #IMPLIED
         texture CDATA #IMPLIED
         sin CDATA #IMPLIED>
-<!ELEMENT sphere ((pos | (color | texture)+)+, negatif*)>
+<!ELEMENT sphere ((pos | (color | texture | checker)+ |  negatif?)+)>
 <!ATTLIST sphere
         radius CDATA #REQUIRED
         reflection CDATA #IMPLIED
