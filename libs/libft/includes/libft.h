@@ -6,7 +6,7 @@
 /*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 10:45:40 by mhalit            #+#    #+#             */
-/*   Updated: 2017/10/01 16:19:01 by agfernan         ###   ########.fr       */
+/*   Updated: 2017/10/04 17:20:10 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ void				*semalloc(size_t size);
 void				err_found(char *str);
 void				free_splited_str(char **str);
 int					len_of_tab(char **tab);
-double				ft_atof(const char *str);
+float				ft_atof(const char *str);
 
 #endif
