@@ -6,7 +6,7 @@
 /*   By: mparigi <mparigi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 05:07:11 by mparigi           #+#    #+#             */
-/*   Updated: 2017/10/03 20:18:54 by mparigi          ###   ########.fr       */
+/*   Updated: 2017/10/04 15:45:52 by mparigi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,63 +71,29 @@ float			get_res_of_quadratic(t_calc *op, t_obj *obj)
 	return (DIST_MAX);
 }
 
-// Old working
-
 float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
 {
 	t_ray	ray;
 	float	dist;
 	float	dist_to_light;
-	float	transp;
+	float	opac;
+	int		i;
 
-	transp = 0;
+	i = -1;
+	opac = 1;
 	light->ray.dir = vec_sub3(light->ray.pos, poi);
 	dist_to_light = get_length(light->ray.dir);
 	light->ray.dir = vec_norme3(light->ray.dir);
 	ray = c_ray(vec_add3(poi, light->ray.dir), light->ray.dir);
-	dist = get_min_dist(e, ray);
-	if (dist <= 0)
-		return (1);
-	if (dist < dist_to_light && !e->scene.obj[e->scene.id].mat.refract)
-		return (0);
-	if (dist < dist_to_light && e->scene.obj[e->scene.id].mat.refract)
-		return (e->scene.obj[e->scene.id].mat.refract);
-	else
-		return (1);
+	while (++i < e->scene.nbr_obj)
+	{
+		dist = intersect_obj(ray, &e->COBJ);
+		if (dist > 0 && dist < dist_to_light)
+		{
+			if (!e->COBJ.mat.refract)
+				return (0);
+			opac *= e->COBJ.mat.refract;
+		}
+	}
+	return (opac);
 }
-
-/*
-** New not working
-** 
-** float			obj_isnt_in_shadow(t_rt *e, t_vec3 poi, t_light *light)
-** {
-** 	t_ray	ray;
-** 	float	dist;
-** 	float	dist_to_light;
-** 	float	transp;
-** 
-** 	transp = 0;
-** 	while (1)
-** 	{
-** 		light->ray.dir = vec_sub3(light->ray.pos, poi);
-** 		if ((dist_to_light = get_length(light->ray.dir)) < 1) // ?
-** 			return (1);
-** 		light->ray.dir = vec_norme3(light->ray.dir);
-** 		ray = c_ray(vec_add3(poi, light->ray.dir), light->ray.dir);
-** 		dist = get_min_dist(e, ray);
-** 		if (dist <= 0)
-** 			return (1 - transp);
-** 		else if (dist < dist_to_light && !e->scene.obj[e->scene.id].mat.refract)
-** 			return (0);
-** 		else if (dist < dist_to_light && e->scene.obj[e->scene.id].mat.refract)
-** 		{
-** 			poi = vec_scale3(ray.dir, dist);
-** 			transp = (transp) ? (1 - e->scene.obj[e->scene.id].mat.refract) : transp * (1 - e->scene.obj[e->scene.id].mat.refract);
-** 			if (transp >= 1)
-** 				return (0);
-** 		}
-** 		else
-** 			return (1 - transp);
-** 	}
-** }
-*/
