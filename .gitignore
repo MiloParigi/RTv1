@@ -2,7 +2,7 @@
 *.a
 rt
 ./.vscode/
-
+.gitignore
 .DS_Store
 .DS_Store?
 ._*
@@ -10,3 +10,4 @@ rt
 .Trashes
 ehthumbs.db
 Thumbs.db
+srcs/test.c
