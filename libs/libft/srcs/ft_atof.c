@@ -17,6 +17,7 @@ static double	zero_dot(intmax_t nbr)
 	int				digits;
 	int				diviser;
 	intmax_t		tmpnbr;
+
 	digits = 0;
 	diviser = 10;
 	tmpnbr = nbr;
