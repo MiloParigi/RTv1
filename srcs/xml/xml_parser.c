@@ -54,7 +54,7 @@ int				parse_doc2(t_rt *e, char *path)
 	if (!(doc = getdoc(path)) || !do_checks(doc))
 		return (0);
 	root = xmlDocGetRootElement(doc);
-	parse_ambient(e,root);
+	parse_ambient(e, root);
 	if ((skybox = has_child(root, "skybox")))
 		parse_skybox(e, skybox);
 	lst = get_object_nodes(doc);
