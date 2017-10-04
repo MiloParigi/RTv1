@@ -3,52 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhalit <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: agfernan <agfernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 10:45:22 by mhalit            #+#    #+#             */
-/*   Updated: 2017/09/30 10:45:24 by mhalit           ###   ########.fr       */
+/*   Updated: 2017/10/04 16:55:36 by agfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static double	zero_dot(intmax_t nbr)
+double	ft_atof(const char *str)
 {
-	int				digits;
-	int				diviser;
-	intmax_t		tmpnbr;
+	double	res;
+	double	res2;
+	char	*c;
+	int		len;
 
-	digits = 0;
-	diviser = 10;
-	tmpnbr = nbr;
-	while (tmpnbr > 0)
-	{
-		tmpnbr /= 10;
-		digits++;
-	}
-	while (digits-- > 1)
-		diviser *= 10;
-	return ((double)nbr / (double)diviser);
-}
-
-double			ft_atof(const char *str)
-{
-	double		res;
-	intmax_t	after_comma;
-	int			i;
-	int			neg;
-
-	neg = 0;
-	res = (double)ft_atoi(str);
-	if (res == 0 && str[0] == '-')
-		neg = 1;
-	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	if (str[i++] == '.')
-	{
-		after_comma = ft_atoi(str + i);
-		res += (res >= 0) ? zero_dot(after_comma) : -zero_dot(after_comma);
-	}
-	return (neg) ? -res : res;
+	c = (char *)str;
+	res = (double)ft_atoi(c);
+	while (*c && *c != '.')
+		c++;
+	if (*c == '.')
+		c++;
+	res2 = (double)ft_atoi(c);
+	len = ft_strlen(c);
+	while (len--)
+		res2 /= 10;
+	return (res + ((res > 0) ? res2 : -res2));
 }
